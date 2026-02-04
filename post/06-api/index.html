@@ -970,7 +970,17 @@ API就是别人写好的东西，我们不需要自己编写，直接使用即�
 </h4><ul>
 <li>Calendar代表了系统当前时间的日历对象，可以单独修改、获取事件中的年月日</li>
 <li>Calendar是一个抽象类，不能直接创建对象，需要通过一个静态方法获取到子类对象
-![[image/06-10.png]]</li>
+<img src="/hugo-blog/post/06-api/image/06-10.png"
+	width="1609"
+	height="1013"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="158"
+		data-flex-basis="381px"
+	
+></li>
 </ul>
 <h5 id="getsetadd方法">get/set/add方法
 </h5><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>	Calandar c <span style="color:#f92672">=</span> Calandar.<span style="color:#a6e22e">getInstance</span>();
@@ -1060,10 +1070,30 @@ API就是别人写好的东西，我们不需要自己编写，直接使用即�
 </span></span><span style="display:flex;"><span>	Integer i2 <span style="color:#f92672">=</span> 20;
 </span></span><span style="display:flex;"><span>	Integer i3 <span style="color:#f92672">=</span> i1 <span style="color:#f92672">+</span> i2;<span style="color:#75715e">//底层：先拆箱 -&gt; 计算 -&gt; 再装箱赋值给i3</span>
 </span></span></code></pre></div><h5 id="integer成员方法">Integer成员方法
-</h5><p>![[06-11.png]]</p>
+</h5><p><img src="/hugo-blog/post/06-api/image/06-11.png"
+	width="2042"
+	height="590"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="346"
+		data-flex-basis="830px"
+	
+></p>
 <hr>
 <h2 id="arrays">Arrays
-</h2><p>![[06-12.png]]</p>
+</h2><p><img src="/hugo-blog/post/06-api/image/06-12.png"
+	width="2158"
+	height="905"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="238"
+		data-flex-basis="572px"
+	
+></p>
 <h5 id="arraysbinarysearch">Arrays.binarySearch()
 </h5><ul>
 <li>查找的元素存在，就返回真实的索引</li>
@@ -1126,12 +1156,12 @@ API就是别人写好的东西，我们不需要自己编写，直接使用即�
 <li>{ } 对应方法体</li>
 <li>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>  Integer<span style="color:#f92672">[]</span> a <span style="color:#f92672">=</span>  {2,7,5,4,5,6,7,8,9,31};  
+</span></span><span style="display:flex;"><span>  Arrays.<span style="color:#a6e22e">sort</span>(a,(Integer o1, Integer o2) <span style="color:#f92672">-&gt;</span> {  
+</span></span><span style="display:flex;"><span>  	<span style="color:#66d9ef">return</span> o1<span style="color:#f92672">-</span>o2;  
+</span></span><span style="display:flex;"><span>  }  
+</span></span><span style="display:flex;"><span>  );
 </span></span></code></pre></div></li>
 </ul>
-<p>Arrays.sort(a,(Integer o1, Integer o2) -&gt; {<br>
-return o1-o2;<br>
-}<br>
-);</p>
 <pre tabindex="0"><code>&gt;[!NOTE]
 &gt;lambda 表达式可以用来简化匿名内部类的书写（不是所有）
 &gt;lambda 表达式只能简化函数式接口的匿名内部类写法
