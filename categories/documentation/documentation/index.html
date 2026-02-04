@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="">
-<title>搜索</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="关于如何使用 Stack 主题的文章">
+<title>文档</title>
 
-<link rel='canonical' href='http://Creat7.github.io/hugo-blog/page/search_/'>
+<link rel='canonical' href='http://Creat7.github.io/hugo-blog/categories/documentation/documentation/'>
 
-<link rel="stylesheet" href="/hugo-blog/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="搜索">
-<meta property='og:description' content="">
-<meta property='og:url' content='http://Creat7.github.io/hugo-blog/page/search_/'>
+<link rel="stylesheet" href="/hugo-blog/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="文档">
+<meta property='og:description' content="关于如何使用 Stack 主题的文章">
+<meta property='og:url' content='http://Creat7.github.io/hugo-blog/categories/documentation/documentation/'>
 <meta property='og:site_name' content='我的个人博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Page' />
-<meta name="twitter:title" content="搜索">
-<meta name="twitter:description" content=""><link rel="alternate" type="application/json" href="http://Creat7.github.io/hugo-blog/page/search_/index.json">
+<meta property='og:type' content='article'><meta property='article:section' content='Categories' />
+<meta name="twitter:title" content="文档">
+<meta name="twitter:description" content="关于如何使用 Stack 主题的文章">
     <link rel="shortcut icon" href="/img/favicon.ico" />
-<link rel="preload" href="/hugo-blog/page/search_/index.json" as="fetch" crossorigin="anonymous">
+
     </head>
-    <body class="template-search">
+    <body class="
+    article-page
+    ">
     <script>
         (function() {
             const colorSchemeKey = 'StackColorScheme';
@@ -130,7 +132,7 @@
         </li>
         
         
-        <li  class='current' >
+        <li >
             <a href='/hugo-blog/page/search_/' >
                 
                 
@@ -196,35 +198,108 @@
     </ol>
 </aside>
 
-            <main class="main full-width">
-<form action="/hugo-blog/page/search_/" class="search-form"data-json="/hugo-blog/page/search_/index.json">
-    <p>
-        <label></label>
-        <input name="keyword" placeholder="" />
-    </p>
+    
 
-    <button title="">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/hugo-blog/categories/documentation/documentation/">文档</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            关于如何使用 Stack 主题的文章
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="10" cy="10" r="7" />
-  <line x1="21" y1="21" x2="15" y2="15" />
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
 </svg>
 
 
 
-    </button>
-</form>
+                <time class="article-time--reading">
+                    
+                </time>
+            </div>
+        
+    </footer>
+    
 
-<div class="search-result">
-    <h3 class="search-result--title section-title"></h3>
-    <div class="search-result--list article-list--compact"></div>
+    
 </div>
 
-<script>
-    window.searchResultTitleTemplate = ""
-</script><script type="text/javascript" src="/hugo-blog/ts/search.js" defer></script>
+</header>
 
-<footer class="site-footer">
+    
+
+    <section class="article-content">
+    
+    
+    
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
     <section class="copyright">
         &copy; 
         
@@ -237,6 +312,37 @@
     </section>
 </footer>
 
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/hugo-blog\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+    
 
             </main>
         </div>
