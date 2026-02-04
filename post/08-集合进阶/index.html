@@ -6,10 +6,10 @@
 
 <link rel='canonical' href='http://Creat7.github.io/hugo-blog/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/'>
 
-<link rel="stylesheet" href="/hugo-blog/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="08-集合进阶">
+<link rel="stylesheet" href="/hugo-blog/scss/style.min.8489fc0386b2f42708b436364917e64b71ba2826e72d53816baff79c965eb83e.css"><meta property='og:title' content="08-集合进阶">
 <meta property='og:description' content=" imageNameKey: &ldquo;08&rdquo; Collection 接口（单列集合根接口） ├─ List 接口（有序、可重复） │ ├─ ArrayList（实现类）：动态数组，查询快、增删慢 │ ├─ LinkedList（实现类）：双向链表，增删快、查询慢 │ └─ Vector（实现类）：动态数组，线程安全、性能差 └─ Set 接口（无序、不可重复） ├─ HashSet（实现类）：哈希表，无序去重 ├─ TreeSet（实现类）：红黑树，排序去重 └─ LinkedHashSet（实现类）：哈希表+链表，有序去重 flowchart TD A[Collection&lt;br/&gt;（单列集合根接口）] --&gt; B[List&lt;br/&gt;（有序、可重复）] A --&gt; C[Set&lt;br/&gt;（无序、不可重复）] B --&gt; B1[ArrayList&lt;br/&gt;（动态数组）] B --&gt; B2[LinkedList&lt;br/&gt;（双向链表）] B --&gt; B3[Vector&lt;br/&gt;（线程安全数组）] C --&gt; C1[HashSet&lt;br/&gt;（哈希表）] C --&gt; C2[TreeSet&lt;br/&gt;（红黑树）] C1 --&gt; C3[LinkedHashSet&lt;br/&gt;（哈希表+链表）] %% 样式优化（可选） A:::root B:::subInterface C:::subInterface B1:::impl B2:::impl B3:::impl C1:::impl C2:::impl C3:::impl classDef root fill:#f9f,stroke:#333,stroke-width:2px classDef subInterface fill:#9ff,stroke:#333,stroke-width:2px classDef impl fill:#ff9,stroke:#333,stroke-width:1px Collection ">
 <meta property='og:url' content='http://Creat7.github.io/hugo-blog/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/'>
-<meta property='og:site_name' content='我的个人博客'>
+<meta property='og:site_name' content='Creat7'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-02-03T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-02-03T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="08-集合进阶">
 <meta name="twitter:description" content=" imageNameKey: &ldquo;08&rdquo; Collection 接口（单列集合根接口） ├─ List 接口（有序、可重复） │ ├─ ArrayList（实现类）：动态数组，查询快、增删慢 │ ├─ LinkedList（实现类）：双向链表，增删快、查询慢 │ └─ Vector（实现类）：动态数组，线程安全、性能差 └─ Set 接口（无序、不可重复） ├─ HashSet（实现类）：哈希表，无序去重 ├─ TreeSet（实现类）：红黑树，排序去重 └─ LinkedHashSet（实现类）：哈希表+链表，有序去重 flowchart TD A[Collection&lt;br/&gt;（单列集合根接口）] --&gt; B[List&lt;br/&gt;（有序、可重复）] A --&gt; C[Set&lt;br/&gt;（无序、不可重复）] B --&gt; B1[ArrayList&lt;br/&gt;（动态数组）] B --&gt; B2[LinkedList&lt;br/&gt;（双向链表）] B --&gt; B3[Vector&lt;br/&gt;（线程安全数组）] C --&gt; C1[HashSet&lt;br/&gt;（哈希表）] C --&gt; C2[TreeSet&lt;br/&gt;（红黑树）] C1 --&gt; C3[LinkedHashSet&lt;br/&gt;（哈希表+链表）] %% 样式优化（可选） A:::root B:::subInterface C:::subInterface B1:::impl B2:::impl B3:::impl C1:::impl C2:::impl C3:::impl classDef root fill:#f9f,stroke:#333,stroke-width:2px classDef subInterface fill:#9ff,stroke:#333,stroke-width:2px classDef impl fill:#ff9,stroke:#333,stroke-width:1px Collection ">
@@ -66,8 +66,8 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/hugo-blog/">我的个人博客</a></h1>
-            <h2 class="site-description">技术爱好者 / 极简主义者</h2>
+            <h1 class="site-name"><a href="/hugo-blog/">Creat7</a></h1>
+            <h2 class="site-description">欢迎来到我的网站，此博客由【Hugo &#43; Stack】来进行搭建，主要分享个人生活和学习笔记</h2>
         </div>
     </header><ol class="menu" id="main-menu">
         
@@ -1041,7 +1041,7 @@ private Object[] grow() {
     <section class="copyright">
         &copy; 
         
-        2026 我的个人博客
+        2026 Creat7
     </section>
     
     <section class="powerby">
@@ -1103,6 +1103,15 @@ private Object[] grow() {
 
         document.head.appendChild(customFont);
     }());
+</script>
+<script src="https://npm.elemecdn.com/nprogress@0.2.0/nprogress.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://npm.elemecdn.com/nprogress@0.2.0/nprogress.css" crossorigin="anonymous" />
+<script>
+    NProgress.start();
+    document.addEventListener("readystatechange", () => {
+        if (document.readyState === "interactive") NProgress.inc(0.8);
+        if (document.readyState === "complete") NProgress.done();
+    });
 </script>
 
     </body>

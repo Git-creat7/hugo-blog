@@ -6,10 +6,10 @@
 
 <link rel='canonical' href='http://Creat7.github.io/hugo-blog/post/06-api/'>
 
-<link rel="stylesheet" href="/hugo-blog/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="06-API">
+<link rel="stylesheet" href="/hugo-blog/scss/style.min.8489fc0386b2f42708b436364917e64b71ba2826e72d53816baff79c965eb83e.css"><meta property='og:title' content="06-API">
 <meta property='og:description' content="API 应用程序编程接口\nAPI就是别人写好的东西，我们不需要自己编写，直接使用即可 例如： Random r = new Random();\nScanner sc = new Scanner();\nJava API：JDK中提供的各种功能的Java类 System public static void exit(int status) 终止当前运行的Java虚拟机 public static long currentTimeMillis() 返回当前系统的时间（毫秒） public static void arraycopy(数据源数组,起始索引,目的地数组,起始索引,拷贝个数) 数组拷贝 （地址值）\n">
 <meta property='og:url' content='http://Creat7.github.io/hugo-blog/post/06-api/'>
-<meta property='og:site_name' content='我的个人博客'>
+<meta property='og:site_name' content='Creat7'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-02-03T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-02-03T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="06-API">
 <meta name="twitter:description" content="API 应用程序编程接口\nAPI就是别人写好的东西，我们不需要自己编写，直接使用即可 例如： Random r = new Random();\nScanner sc = new Scanner();\nJava API：JDK中提供的各种功能的Java类 System public static void exit(int status) 终止当前运行的Java虚拟机 public static long currentTimeMillis() 返回当前系统的时间（毫秒） public static void arraycopy(数据源数组,起始索引,目的地数组,起始索引,拷贝个数) 数组拷贝 （地址值）\n">
@@ -66,8 +66,8 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/hugo-blog/">我的个人博客</a></h1>
-            <h2 class="site-description">技术爱好者 / 极简主义者</h2>
+            <h1 class="site-name"><a href="/hugo-blog/">Creat7</a></h1>
+            <h2 class="site-description">欢迎来到我的网站，此博客由【Hugo &#43; Stack】来进行搭建，主要分享个人生活和学习笔记</h2>
         </div>
     </header><ol class="menu" id="main-menu">
         
@@ -1215,7 +1215,7 @@ Arrays.sort(a,(Integer o1, Integer o2) -&gt; {
     <section class="copyright">
         &copy; 
         
-        2026 我的个人博客
+        2026 Creat7
     </section>
     
     <section class="powerby">
@@ -1269,6 +1269,15 @@ Arrays.sort(a,(Integer o1, Integer o2) -&gt; {
 
         document.head.appendChild(customFont);
     }());
+</script>
+<script src="https://npm.elemecdn.com/nprogress@0.2.0/nprogress.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://npm.elemecdn.com/nprogress@0.2.0/nprogress.css" crossorigin="anonymous" />
+<script>
+    NProgress.start();
+    document.addEventListener("readystatechange", () => {
+        if (document.readyState === "interactive") NProgress.inc(0.8);
+        if (document.readyState === "complete") NProgress.done();
+    });
 </script>
 
     </body>
