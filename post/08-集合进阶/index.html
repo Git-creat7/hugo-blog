@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://git-creat7.github.io/hugo-blog/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/'>
 
-<link rel="stylesheet" href="/hugo-blog/scss/style.min.8489fc0386b2f42708b436364917e64b71ba2826e72d53816baff79c965eb83e.css"><meta property='og:title' content="08-集合进阶">
+<link rel="stylesheet" href="/hugo-blog/scss/style.min.2e1c740368b15582e0e2077bbfd9abfbf78dd3f409b11ad41dceb5ecc1f082d2.css"><meta property='og:title' content="08-集合进阶">
 <meta property='og:description' content="Collection 接口（单列集合根接口） ├─ List 接口（有序、可重复） │ ├─ ArrayList（实现类）：动态数组，查询快、增删慢 │ ├─ LinkedList（实现类）：双向链表，增删快、查询慢 │ └─ Vector（实现类）：动态数组，线程安全、性能差 └─ Set 接口（无序、不可重复） ├─ HashSet（实现类）：哈希表，无序去重 ├─ TreeSet（实现类）：红黑树，排序去重 └─ LinkedHashSet（实现类）：哈希表+链表，有序去重 flowchart TD A[Collection&lt;br/&gt;（单列集合根接口）] --&gt; B[List&lt;br/&gt;（有序、可重复）] A --&gt; C[Set&lt;br/&gt;（无序、不可重复）] B --&gt; B1[ArrayList&lt;br/&gt;（动态数组）] B --&gt; B2[LinkedList&lt;br/&gt;（双向链表）] B --&gt; B3[Vector&lt;br/&gt;（线程安全数组）] C --&gt; C1[HashSet&lt;br/&gt;（哈希表）] C --&gt; C2[TreeSet&lt;br/&gt;（红黑树）] C1 --&gt; C3[LinkedHashSet&lt;br/&gt;（哈希表+链表）] %% 样式优化（可选） A:::root B:::subInterface C:::subInterface B1:::impl B2:::impl B3:::impl C1:::impl C2:::impl C3:::impl classDef root fill:#f9f,stroke:#333,stroke-width:2px classDef subInterface fill:#9ff,stroke:#333,stroke-width:2px classDef impl fill:#ff9,stroke:#333,stroke-width:1px Collection ">
 <meta property='og:url' content='https://git-creat7.github.io/hugo-blog/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/'>
 <meta property='og:site_name' content='Creat7'>
@@ -14,6 +14,25 @@
 <meta name="twitter:title" content="08-集合进阶">
 <meta name="twitter:description" content="Collection 接口（单列集合根接口） ├─ List 接口（有序、可重复） │ ├─ ArrayList（实现类）：动态数组，查询快、增删慢 │ ├─ LinkedList（实现类）：双向链表，增删快、查询慢 │ └─ Vector（实现类）：动态数组，线程安全、性能差 └─ Set 接口（无序、不可重复） ├─ HashSet（实现类）：哈希表，无序去重 ├─ TreeSet（实现类）：红黑树，排序去重 └─ LinkedHashSet（实现类）：哈希表+链表，有序去重 flowchart TD A[Collection&lt;br/&gt;（单列集合根接口）] --&gt; B[List&lt;br/&gt;（有序、可重复）] A --&gt; C[Set&lt;br/&gt;（无序、不可重复）] B --&gt; B1[ArrayList&lt;br/&gt;（动态数组）] B --&gt; B2[LinkedList&lt;br/&gt;（双向链表）] B --&gt; B3[Vector&lt;br/&gt;（线程安全数组）] C --&gt; C1[HashSet&lt;br/&gt;（哈希表）] C --&gt; C2[TreeSet&lt;br/&gt;（红黑树）] C1 --&gt; C3[LinkedHashSet&lt;br/&gt;（哈希表+链表）] %% 样式优化（可选） A:::root B:::subInterface C:::subInterface B1:::impl B2:::impl B3:::impl C1:::impl C2:::impl C3:::impl classDef root fill:#f9f,stroke:#333,stroke-width:2px classDef subInterface fill:#9ff,stroke:#333,stroke-width:2px classDef impl fill:#ff9,stroke:#333,stroke-width:1px Collection ">
     <link rel="shortcut icon" href="/img/favicon.ico" />
+<style>
+    :root {
+         
+        --sys-font-family: "HarmonyOS_Sans_SC_Medium", Georgia, -apple-system, 'Nimbus Roman No9 L', 'PingFang SC', 'Hiragino Sans GB', 'Noto Serif SC', 'Microsoft Yahei', 'WenQuanYi Micro Hei', 'ST Heiti', sans-serif;
+        --code-font-family: "JetBrainsMono Regular", Menlo, Monaco, Consolas, "Courier New";
+        --article-font-family: "HarmonyOS_Sans_SC_Medium", var(--base-font-family);
+    }
+</style>
+
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://img.shimoko.com/fonts/font.css";
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+        document.head.appendChild(customFont);
+    }());
+</script>
+
 
     </head>
     <body class="
@@ -41,8 +60,9 @@
         }
     })();
 </script>
-<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
-    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Ukenn2112/UkennWeb@3.0/index/web.js"></script>
+        <div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
         <span class="hamburger-box">
             <span class="hamburger-inner"></span>
         </span>
@@ -52,7 +72,7 @@
         
             <figure class="site-avatar">
                 <a href="/hugo-blog/">
-                    <img src="/hugo-blog/img/avatar.jpg" 
+                    <img src="/hugo-blog/img/avatar_wechat.jpg" 
                         width="120"
                         height="120"
                         class="site-logo"
@@ -190,7 +210,7 @@
 
 
 
-                        <span></span>
+                        <span>暗色模式</span>
                     </li>
                 
             </ol>
@@ -215,7 +235,7 @@
 
 
         </div>
-        <h2 class="widget-title section-title"></h2>
+        <h2 class="widget-title section-title">目录</h2>
         
         <div class="widget--toc">
             <nav class="toc-nav" id="TableOfContents">
@@ -339,7 +359,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published" datetime='2026-02-03T00:00:00Z'>Tuesday, February 3, 2026</time>
+                <time class="article-time--published" datetime='2026-02-03T00:00:00Z'>2026年2月3日星期二</time>
             </div>
         
 
@@ -354,7 +374,7 @@
 
 
                 <time class="article-time--reading">
-                    
+                    阅读时长: 9 分钟
                 </time>
             </div>
         
@@ -372,7 +392,7 @@
             <summary>
                 <div class="article-toc-title">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
-                    <span></span>
+                    <span>目录</span>
                 </div>
             </summary>
             <nav class="toc-nav">
@@ -1047,19 +1067,64 @@ contains方法在底层依赖equals方法</p>
 
     
 
-    <footer class="site-footer">
-    <section class="copyright">
-        &copy; 
-        
-        2026 Creat7
-    </section>
-    
-    <section class="powerby">
-         <br />
-        
-    </section>
-</footer>
+    <section class="count_info" style="text-align: center; line-height: 2;">
+    <div>
+        <span>本博客已稳定运行</span>
+        <b id="ds">0</b> <span>天</span>
+        <b id="hs">0</b> <span>小时</span>
+        <b id="ms">0</b> <span>分钟</span>
+    </div>
 
+    <div>
+        
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+        <span>共发表</span> 
+        <b>12</b> 
+        <span>篇文章 · 总计</span> 
+        <b>22.17k</b> 
+        <span>字</span>
+    </div>
+
+    <div id="busuanzi_container_site_pv" style="display: none;">
+        <span>本站总访问量</span>
+        <b id="busuanzi_value_site_pv"></b>
+        <span>次</span>
+    </div>
+</section>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
     
 

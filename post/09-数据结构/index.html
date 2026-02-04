@@ -1,19 +1,38 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" imageNameKey: &ldquo;09&rdquo; 栈Stack 后进先出，先进后出 压栈/进栈：数据进入栈模型的过程 弹栈/出栈：数据离开栈模型的过程 队列Queue 先进先出，后进后出 入队列：数据从后端进入队列模型的过程 出队列：数据从前端离开队列模型的过程 数组 ==查询速度快==：查询数据通过地址值和索引定位，查询任意数据耗时相同（元素在内存中是连续存储的） ==删除效率低==：要将原始数据删除，同时后面每个数据前移 ==添加效率低==：添加位置后的每个数据后移，再添加元素 链表 链表中的结点是独立的对象，在内存中是不连续的，每个节点包含数据值和下一个结点的地址 链表==查询慢==，无论查询哪个数据都从头开始找。 链表的==增删快==（对比数组） 树 [父节点地址值，值，左子节点地址值，右子节点地址值] 度：每一个节点的 子节点 数量 树高：树的总层数 10 &lt;-- 根节点 / \\ 5 15 &lt;-- 第二层 / \\ \\ 3 7 20 &lt;-- 第三层 / 6 &lt;-- 第四层 二叉树的遍历方式 前序遍历 从根节点开始，按照当前节点，左子节点，右子节点的顺序遍历 中序遍历 从最左边的子节点开始，然后按照左子节点，当前节点，右子节点的顺序遍历 后序遍历 从最右边的子节点开始，然后按照左子节点，右子节点，当前节点的顺序遍历 层序遍历 从根节点开始一层一层遍历 二叉查找树 每一个节点上最多有两个子节点 任意节点左子树上的值都小于当前节点 任意节点右子树上的值都大于当前节点 添加节点 小的存左边，大的存右边，一样的不存 弊端 左子树全部为空，从形式上看，更像一个==单链表== 插入速度没有影响 查询速度明显降低 解决弊端：平衡二叉树 平衡二叉树也叫\u00a0平衡二叉搜索树（Self-balancing binary search tree），又被称为 AVL 树，可以保证\u00a0查询效率较高。它是解决\u00a0二叉排序\u00a0可能出现的查询问题。\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="栈Stack 后进先出，先进后出 压栈/进栈：数据进入栈模型的过程 弹栈/出栈：数据离开栈模型的过程 队列Queue 先进先出，后进后出 入队列：数据从后端进入队列模型的过程 出队列：数据从前端离开队列模型的过程 数组 ==查询速度快==：查询数据通过地址值和索引定位，查询任意数据耗时相同（元素在内存中是连续存储的） ==删除效率低==：要将原始数据删除，同时后面每个数据前移 ==添加效率低==：添加位置后的每个数据后移，再添加元素 链表 链表中的结点是独立的对象，在内存中是不连续的，每个节点包含数据值和下一个结点的地址 链表==查询慢==，无论查询哪个数据都从头开始找。 链表的==增删快==（对比数组） 树 [父节点地址值，值，左子节点地址值，右子节点地址值] 度：每一个节点的 子节点 数量 树高：树的总层数 10 &lt;-- 根节点 / \\ 5 15 &lt;-- 第二层 / \\ \\ 3 7 20 &lt;-- 第三层 / 6 &lt;-- 第四层 二叉树的遍历方式 前序遍历 从根节点开始，按照当前节点，左子节点，右子节点的顺序遍历 中序遍历 从最左边的子节点开始，然后按照左子节点，当前节点，右子节点的顺序遍历 后序遍历 从最右边的子节点开始，然后按照左子节点，右子节点，当前节点的顺序遍历 层序遍历 从根节点开始一层一层遍历 二叉查找树 每一个节点上最多有两个子节点 任意节点左子树上的值都小于当前节点 任意节点右子树上的值都大于当前节点 添加节点 小的存左边，大的存右边，一样的不存 弊端 左子树全部为空，从形式上看，更像一个==单链表== 插入速度没有影响 查询速度明显降低 解决弊端：平衡二叉树 平衡二叉树也叫\u00a0平衡二叉搜索树（Self-balancing binary search tree），又被称为 AVL 树，可以保证\u00a0查询效率较高。它是解决\u00a0二叉排序\u00a0可能出现的查询问题。\n">
 <title>09-数据结构</title>
 
 <link rel='canonical' href='https://git-creat7.github.io/hugo-blog/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/'>
 
-<link rel="stylesheet" href="/hugo-blog/scss/style.min.8489fc0386b2f42708b436364917e64b71ba2826e72d53816baff79c965eb83e.css"><meta property='og:title' content="09-数据结构">
-<meta property='og:description' content=" imageNameKey: &ldquo;09&rdquo; 栈Stack 后进先出，先进后出 压栈/进栈：数据进入栈模型的过程 弹栈/出栈：数据离开栈模型的过程 队列Queue 先进先出，后进后出 入队列：数据从后端进入队列模型的过程 出队列：数据从前端离开队列模型的过程 数组 ==查询速度快==：查询数据通过地址值和索引定位，查询任意数据耗时相同（元素在内存中是连续存储的） ==删除效率低==：要将原始数据删除，同时后面每个数据前移 ==添加效率低==：添加位置后的每个数据后移，再添加元素 链表 链表中的结点是独立的对象，在内存中是不连续的，每个节点包含数据值和下一个结点的地址 链表==查询慢==，无论查询哪个数据都从头开始找。 链表的==增删快==（对比数组） 树 [父节点地址值，值，左子节点地址值，右子节点地址值] 度：每一个节点的 子节点 数量 树高：树的总层数 10 &lt;-- 根节点 / \\ 5 15 &lt;-- 第二层 / \\ \\ 3 7 20 &lt;-- 第三层 / 6 &lt;-- 第四层 二叉树的遍历方式 前序遍历 从根节点开始，按照当前节点，左子节点，右子节点的顺序遍历 中序遍历 从最左边的子节点开始，然后按照左子节点，当前节点，右子节点的顺序遍历 后序遍历 从最右边的子节点开始，然后按照左子节点，右子节点，当前节点的顺序遍历 层序遍历 从根节点开始一层一层遍历 二叉查找树 每一个节点上最多有两个子节点 任意节点左子树上的值都小于当前节点 任意节点右子树上的值都大于当前节点 添加节点 小的存左边，大的存右边，一样的不存 弊端 左子树全部为空，从形式上看，更像一个==单链表== 插入速度没有影响 查询速度明显降低 解决弊端：平衡二叉树 平衡二叉树也叫\u00a0平衡二叉搜索树（Self-balancing binary search tree），又被称为 AVL 树，可以保证\u00a0查询效率较高。它是解决\u00a0二叉排序\u00a0可能出现的查询问题。\n">
+<link rel="stylesheet" href="/hugo-blog/scss/style.min.2e1c740368b15582e0e2077bbfd9abfbf78dd3f409b11ad41dceb5ecc1f082d2.css"><meta property='og:title' content="09-数据结构">
+<meta property='og:description' content="栈Stack 后进先出，先进后出 压栈/进栈：数据进入栈模型的过程 弹栈/出栈：数据离开栈模型的过程 队列Queue 先进先出，后进后出 入队列：数据从后端进入队列模型的过程 出队列：数据从前端离开队列模型的过程 数组 ==查询速度快==：查询数据通过地址值和索引定位，查询任意数据耗时相同（元素在内存中是连续存储的） ==删除效率低==：要将原始数据删除，同时后面每个数据前移 ==添加效率低==：添加位置后的每个数据后移，再添加元素 链表 链表中的结点是独立的对象，在内存中是不连续的，每个节点包含数据值和下一个结点的地址 链表==查询慢==，无论查询哪个数据都从头开始找。 链表的==增删快==（对比数组） 树 [父节点地址值，值，左子节点地址值，右子节点地址值] 度：每一个节点的 子节点 数量 树高：树的总层数 10 &lt;-- 根节点 / \\ 5 15 &lt;-- 第二层 / \\ \\ 3 7 20 &lt;-- 第三层 / 6 &lt;-- 第四层 二叉树的遍历方式 前序遍历 从根节点开始，按照当前节点，左子节点，右子节点的顺序遍历 中序遍历 从最左边的子节点开始，然后按照左子节点，当前节点，右子节点的顺序遍历 后序遍历 从最右边的子节点开始，然后按照左子节点，右子节点，当前节点的顺序遍历 层序遍历 从根节点开始一层一层遍历 二叉查找树 每一个节点上最多有两个子节点 任意节点左子树上的值都小于当前节点 任意节点右子树上的值都大于当前节点 添加节点 小的存左边，大的存右边，一样的不存 弊端 左子树全部为空，从形式上看，更像一个==单链表== 插入速度没有影响 查询速度明显降低 解决弊端：平衡二叉树 平衡二叉树也叫\u00a0平衡二叉搜索树（Self-balancing binary search tree），又被称为 AVL 树，可以保证\u00a0查询效率较高。它是解决\u00a0二叉排序\u00a0可能出现的查询问题。\n">
 <meta property='og:url' content='https://git-creat7.github.io/hugo-blog/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/'>
 <meta property='og:site_name' content='Creat7'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-02-03T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-02-03T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="09-数据结构">
-<meta name="twitter:description" content=" imageNameKey: &ldquo;09&rdquo; 栈Stack 后进先出，先进后出 压栈/进栈：数据进入栈模型的过程 弹栈/出栈：数据离开栈模型的过程 队列Queue 先进先出，后进后出 入队列：数据从后端进入队列模型的过程 出队列：数据从前端离开队列模型的过程 数组 ==查询速度快==：查询数据通过地址值和索引定位，查询任意数据耗时相同（元素在内存中是连续存储的） ==删除效率低==：要将原始数据删除，同时后面每个数据前移 ==添加效率低==：添加位置后的每个数据后移，再添加元素 链表 链表中的结点是独立的对象，在内存中是不连续的，每个节点包含数据值和下一个结点的地址 链表==查询慢==，无论查询哪个数据都从头开始找。 链表的==增删快==（对比数组） 树 [父节点地址值，值，左子节点地址值，右子节点地址值] 度：每一个节点的 子节点 数量 树高：树的总层数 10 &lt;-- 根节点 / \\ 5 15 &lt;-- 第二层 / \\ \\ 3 7 20 &lt;-- 第三层 / 6 &lt;-- 第四层 二叉树的遍历方式 前序遍历 从根节点开始，按照当前节点，左子节点，右子节点的顺序遍历 中序遍历 从最左边的子节点开始，然后按照左子节点，当前节点，右子节点的顺序遍历 后序遍历 从最右边的子节点开始，然后按照左子节点，右子节点，当前节点的顺序遍历 层序遍历 从根节点开始一层一层遍历 二叉查找树 每一个节点上最多有两个子节点 任意节点左子树上的值都小于当前节点 任意节点右子树上的值都大于当前节点 添加节点 小的存左边，大的存右边，一样的不存 弊端 左子树全部为空，从形式上看，更像一个==单链表== 插入速度没有影响 查询速度明显降低 解决弊端：平衡二叉树 平衡二叉树也叫\u00a0平衡二叉搜索树（Self-balancing binary search tree），又被称为 AVL 树，可以保证\u00a0查询效率较高。它是解决\u00a0二叉排序\u00a0可能出现的查询问题。\n">
+<meta name="twitter:description" content="栈Stack 后进先出，先进后出 压栈/进栈：数据进入栈模型的过程 弹栈/出栈：数据离开栈模型的过程 队列Queue 先进先出，后进后出 入队列：数据从后端进入队列模型的过程 出队列：数据从前端离开队列模型的过程 数组 ==查询速度快==：查询数据通过地址值和索引定位，查询任意数据耗时相同（元素在内存中是连续存储的） ==删除效率低==：要将原始数据删除，同时后面每个数据前移 ==添加效率低==：添加位置后的每个数据后移，再添加元素 链表 链表中的结点是独立的对象，在内存中是不连续的，每个节点包含数据值和下一个结点的地址 链表==查询慢==，无论查询哪个数据都从头开始找。 链表的==增删快==（对比数组） 树 [父节点地址值，值，左子节点地址值，右子节点地址值] 度：每一个节点的 子节点 数量 树高：树的总层数 10 &lt;-- 根节点 / \\ 5 15 &lt;-- 第二层 / \\ \\ 3 7 20 &lt;-- 第三层 / 6 &lt;-- 第四层 二叉树的遍历方式 前序遍历 从根节点开始，按照当前节点，左子节点，右子节点的顺序遍历 中序遍历 从最左边的子节点开始，然后按照左子节点，当前节点，右子节点的顺序遍历 后序遍历 从最右边的子节点开始，然后按照左子节点，右子节点，当前节点的顺序遍历 层序遍历 从根节点开始一层一层遍历 二叉查找树 每一个节点上最多有两个子节点 任意节点左子树上的值都小于当前节点 任意节点右子树上的值都大于当前节点 添加节点 小的存左边，大的存右边，一样的不存 弊端 左子树全部为空，从形式上看，更像一个==单链表== 插入速度没有影响 查询速度明显降低 解决弊端：平衡二叉树 平衡二叉树也叫\u00a0平衡二叉搜索树（Self-balancing binary search tree），又被称为 AVL 树，可以保证\u00a0查询效率较高。它是解决\u00a0二叉排序\u00a0可能出现的查询问题。\n">
     <link rel="shortcut icon" href="/img/favicon.ico" />
+<style>
+    :root {
+         
+        --sys-font-family: "HarmonyOS_Sans_SC_Medium", Georgia, -apple-system, 'Nimbus Roman No9 L', 'PingFang SC', 'Hiragino Sans GB', 'Noto Serif SC', 'Microsoft Yahei', 'WenQuanYi Micro Hei', 'ST Heiti', sans-serif;
+        --code-font-family: "JetBrainsMono Regular", Menlo, Monaco, Consolas, "Courier New";
+        --article-font-family: "HarmonyOS_Sans_SC_Medium", var(--base-font-family);
+    }
+</style>
+
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://img.shimoko.com/fonts/font.css";
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+        document.head.appendChild(customFont);
+    }());
+</script>
+
 
     </head>
     <body class="
@@ -41,8 +60,9 @@
         }
     })();
 </script>
-<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
-    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Ukenn2112/UkennWeb@3.0/index/web.js"></script>
+        <div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
         <span class="hamburger-box">
             <span class="hamburger-inner"></span>
         </span>
@@ -52,7 +72,7 @@
         
             <figure class="site-avatar">
                 <a href="/hugo-blog/">
-                    <img src="/hugo-blog/img/avatar.jpg" 
+                    <img src="/hugo-blog/img/avatar_wechat.jpg" 
                         width="120"
                         height="120"
                         class="site-logo"
@@ -190,7 +210,7 @@
 
 
 
-                        <span></span>
+                        <span>暗色模式</span>
                     </li>
                 
             </ol>
@@ -215,17 +235,12 @@
 
 
         </div>
-        <h2 class="widget-title section-title"></h2>
+        <h2 class="widget-title section-title">目录</h2>
         
         <div class="widget--toc">
             <nav class="toc-nav" id="TableOfContents">
                 
   <ul>
-    <li>
-      <ul>
-        <li><a href="#imagenamekey-09">imageNameKey: &ldquo;09&rdquo;</a></li>
-      </ul>
-    </li>
     <li><a href="#栈stack">栈Stack</a></li>
     <li><a href="#队列queue">队列Queue</a></li>
     <li><a href="#数组">数组</a></li>
@@ -288,6 +303,24 @@
 
     <div class="article-details">
     
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/hugo-blog/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="background-color: hsl(92, 60%, 84%); color: hsl(92, 60%, 15%);">
+                数据结构
+            </a>
+        
+            
+            
+            
+            <a href="/hugo-blog/categories/%E7%BA%A2%E9%BB%91%E6%A0%91/" style="background-color: hsl(14, 60%, 84%); color: hsl(14, 60%, 15%);">
+                红黑树
+            </a>
+        
+    </header>
+    
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
@@ -313,7 +346,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published" datetime='2026-02-03T00:00:00Z'>Tuesday, February 3, 2026</time>
+                <time class="article-time--published" datetime='2026-02-03T00:00:00Z'>2026年2月3日星期二</time>
             </div>
         
 
@@ -328,7 +361,7 @@
 
 
                 <time class="article-time--reading">
-                    
+                    阅读时长: 3 分钟
                 </time>
             </div>
         
@@ -346,17 +379,12 @@
             <summary>
                 <div class="article-toc-title">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
-                    <span></span>
+                    <span>目录</span>
                 </div>
             </summary>
             <nav class="toc-nav">
                 
   <ul>
-    <li>
-      <ul>
-        <li><a href="#imagenamekey-09">imageNameKey: &ldquo;09&rdquo;</a></li>
-      </ul>
-    </li>
     <li><a href="#栈stack">栈Stack</a></li>
     <li><a href="#队列queue">队列Queue</a></li>
     <li><a href="#数组">数组</a></li>
@@ -412,9 +440,7 @@
     <section class="article-content">
     
     
-    <hr>
-<h2 id="imagenamekey-09">imageNameKey: &ldquo;09&rdquo;
-</h2><h1 id="栈stack">栈Stack
+    <h1 id="栈stack">栈Stack
 </h1><ul>
 <li><strong>后进先出，先进后出</strong></li>
 <li>压栈/进栈：数据进入栈模型的过程</li>
@@ -736,19 +762,64 @@
 
     
 
-    <footer class="site-footer">
-    <section class="copyright">
-        &copy; 
-        
-        2026 Creat7
-    </section>
-    
-    <section class="powerby">
-         <br />
-        
-    </section>
-</footer>
+    <section class="count_info" style="text-align: center; line-height: 2;">
+    <div>
+        <span>本博客已稳定运行</span>
+        <b id="ds">0</b> <span>天</span>
+        <b id="hs">0</b> <span>小时</span>
+        <b id="ms">0</b> <span>分钟</span>
+    </div>
 
+    <div>
+        
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+        <span>共发表</span> 
+        <b>12</b> 
+        <span>篇文章 · 总计</span> 
+        <b>22.17k</b> 
+        <span>字</span>
+    </div>
+
+    <div id="busuanzi_container_site_pv" style="display: none;">
+        <span>本站总访问量</span>
+        <b id="busuanzi_value_site_pv"></b>
+        <span>次</span>
+    </div>
+</section>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
     
 
