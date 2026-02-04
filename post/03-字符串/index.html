@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="字符串 String 字符串在内存中存储的是地址\n创建String对象的两种方式 １．直接赋值 String name = &quot;MyString&quot;\n2.使用new关键字构造\n//空参构造 String s1 = new String(); // 空 //传递一个字符串，根据传递的字符串内容再创建一个新的字符串对象 String s2 = new String(&#34;abc&#34;); //abc //*传递一个字符数组，根据一个字符数组的内容，创建一个新的字符串 char[] ch = {&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;}; String s3 = new String(ch);\t//abcd //*传递一个字节数组，根据一个字节数组的内容，创建一个新的字符串 byte[] bytes = {97,98,99,100}; //传递ASCII码 String s4 = new String(bytes); //abcd 字符串的比较 \u200b\t先了解&quot;==&ldquo;比较的是什么，在基本数据类型中&rdquo;==&ldquo;比较的是具体的数据值，但是在引用数据类型中，&quot;==&ldquo;比的是地址值，所以在字符串的比较中不能用 &ldquo;==&quot;。\n">
+<title>03-字符串</title>
+
+<link rel='canonical' href='http://localhost:1313/post/03-%E5%AD%97%E7%AC%A6%E4%B8%B2/'>
+
+<link rel="stylesheet" href="/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="03-字符串">
+<meta property='og:description' content="字符串 String 字符串在内存中存储的是地址\n创建String对象的两种方式 １．直接赋值 String name = &quot;MyString&quot;\n2.使用new关键字构造\n//空参构造 String s1 = new String(); // 空 //传递一个字符串，根据传递的字符串内容再创建一个新的字符串对象 String s2 = new String(&#34;abc&#34;); //abc //*传递一个字符数组，根据一个字符数组的内容，创建一个新的字符串 char[] ch = {&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;}; String s3 = new String(ch);\t//abcd //*传递一个字节数组，根据一个字节数组的内容，创建一个新的字符串 byte[] bytes = {97,98,99,100}; //传递ASCII码 String s4 = new String(bytes); //abcd 字符串的比较 \u200b\t先了解&quot;==&ldquo;比较的是什么，在基本数据类型中&rdquo;==&ldquo;比较的是具体的数据值，但是在引用数据类型中，&quot;==&ldquo;比的是地址值，所以在字符串的比较中不能用 &ldquo;==&quot;。\n">
+<meta property='og:url' content='http://localhost:1313/post/03-%E5%AD%97%E7%AC%A6%E4%B8%B2/'>
+<meta property='og:site_name' content='我的个人博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-02-03T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-02-03T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="03-字符串">
+<meta name="twitter:description" content="字符串 String 字符串在内存中存储的是地址\n创建String对象的两种方式 １．直接赋值 String name = &quot;MyString&quot;\n2.使用new关键字构造\n//空参构造 String s1 = new String(); // 空 //传递一个字符串，根据传递的字符串内容再创建一个新的字符串对象 String s2 = new String(&#34;abc&#34;); //abc //*传递一个字符数组，根据一个字符数组的内容，创建一个新的字符串 char[] ch = {&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;}; String s3 = new String(ch);\t//abcd //*传递一个字节数组，根据一个字节数组的内容，创建一个新的字符串 byte[] bytes = {97,98,99,100}; //传递ASCII码 String s4 = new String(bytes); //abcd 字符串的比较 \u200b\t先了解&quot;==&ldquo;比较的是什么，在基本数据类型中&rdquo;==&ldquo;比较的是具体的数据值，但是在引用数据类型中，&quot;==&ldquo;比的是地址值，所以在字符串的比较中不能用 &ldquo;==&quot;。\n">
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            <figure class="site-avatar">
+                <a href="/">
+                    <img src="/img/avatar.jpg" 
+                        width="120"
+                        height="120"
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+                    <span class="emoji">🍥</span>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">我的个人博客</a></h1>
+            <h2 class="site-description">技术爱好者 / 极简主义者</h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>首页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/archives_/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/about_/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/search_/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/links_/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span></span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title"></h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ul>
+    <li><a href="#字符串">字符串</a>
+      <ul>
+        <li><a href="#string">String</a>
+          <ul>
+            <li><a href="#创建string对象的两种方式">创建String对象的两种方式</a></li>
+            <li><a href="#字符串的比较">字符串的比较</a>
+              <ul>
+                <li><a href="#equals-与-equalsignorecase">equals 与 equalsIgnoreCase</a></li>
+              </ul>
+            </li>
+            <li><a href="#遍历字符串">遍历字符串</a></li>
+            <li><a href="#替换字符串">替换字符串</a></li>
+          </ul>
+        </li>
+        <li><a href="#stringbulider">StringBulider</a>
+          <ul>
+            <li><a href="#stringbuilder-常用方法">StringBuilder 常用方法</a></li>
+          </ul>
+        </li>
+        <li><a href="#stringjoiner">StringJoiner</a>
+          <ul>
+            <li><a href="#stringjoiner--的构造方法">StringJoiner  的构造方法</a></li>
+            <li><a href="#stringjoiner-的成员方法">StringJoiner 的成员方法</a></li>
+          </ul>
+        </li>
+        <li><a href="#字符串原理">字符串原理</a></li>
+        <li><a href="#补充内容">补充内容</a></li>
+      </ul>
+    </li>
+  </ul>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/03-%E5%AD%97%E7%AC%A6%E4%B8%B2/">03-字符串</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2026-02-03T00:00:00Z'>Tuesday, February 3, 2026</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span></span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ul>
+    <li><a href="#字符串">字符串</a>
+      <ul>
+        <li><a href="#string">String</a>
+          <ul>
+            <li><a href="#创建string对象的两种方式">创建String对象的两种方式</a></li>
+            <li><a href="#字符串的比较">字符串的比较</a>
+              <ul>
+                <li><a href="#equals-与-equalsignorecase">equals 与 equalsIgnoreCase</a></li>
+              </ul>
+            </li>
+            <li><a href="#遍历字符串">遍历字符串</a></li>
+            <li><a href="#替换字符串">替换字符串</a></li>
+          </ul>
+        </li>
+        <li><a href="#stringbulider">StringBulider</a>
+          <ul>
+            <li><a href="#stringbuilder-常用方法">StringBuilder 常用方法</a></li>
+          </ul>
+        </li>
+        <li><a href="#stringjoiner">StringJoiner</a>
+          <ul>
+            <li><a href="#stringjoiner--的构造方法">StringJoiner  的构造方法</a></li>
+            <li><a href="#stringjoiner-的成员方法">StringJoiner 的成员方法</a></li>
+          </ul>
+        </li>
+        <li><a href="#字符串原理">字符串原理</a></li>
+        <li><a href="#补充内容">补充内容</a></li>
+      </ul>
+    </li>
+  </ul>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <h1 id="字符串">字符串
+</h1><h2 id="string">String
+</h2><p><strong>字符串在内存中存储的是地址</strong></p>
+<h3 id="创建string对象的两种方式">创建String对象的两种方式
+</h3><p>１．直接赋值
+<code>String name = &quot;MyString&quot;</code><br>
+2.使用new关键字构造</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>	<span style="color:#75715e">//空参构造</span>
+</span></span><span style="display:flex;"><span>	String s1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> String(); 		<span style="color:#75715e">// 空</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//传递一个字符串，根据传递的字符串内容再创建一个新的字符串对象</span>
+</span></span><span style="display:flex;"><span>	String s2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> String(<span style="color:#e6db74">&#34;abc&#34;</span>); 	<span style="color:#75715e">//abc</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//*传递一个字符数组，根据一个字符数组的内容，创建一个新的字符串</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">char</span><span style="color:#f92672">[]</span> ch <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;a&#39;</span>,<span style="color:#e6db74">&#39;b&#39;</span>,<span style="color:#e6db74">&#39;c&#39;</span>,<span style="color:#e6db74">&#39;d&#39;</span>};
+</span></span><span style="display:flex;"><span>	String s3 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> String(ch);		<span style="color:#75715e">//abcd</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//*传递一个字节数组，根据一个字节数组的内容，创建一个新的字符串</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> bytes <span style="color:#f92672">=</span> {97,98,99,100}; <span style="color:#75715e">//传递ASCII码</span>
+</span></span><span style="display:flex;"><span>	String s4 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> String(bytes);  <span style="color:#75715e">//abcd</span>
+</span></span><span style="display:flex;"><span>	
+</span></span></code></pre></div><hr>
+<h3 id="字符串的比较">字符串的比较
+</h3><p>​	先了解&quot;==&ldquo;比较的是什么，在<del>基本数据类型</del>中&rdquo;==&ldquo;比较的是具体的<strong>数据值</strong>，但是在<del>引用数据类型</del>中，&quot;==&ldquo;比的是<strong>地址值</strong>，所以在字符串的比较中不能用 &ldquo;==&quot;。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>	String s1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;abc&#34;</span>;
+</span></span><span style="display:flex;"><span>	String s2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;abc&#34;</span>;
+</span></span><span style="display:flex;"><span>	sout(s1 <span style="color:#f92672">==</span> s2);  <span style="color:#75715e">// true</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	String s1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> String(<span style="color:#e6db74">&#34;abc&#34;</span>);<span style="color:#75715e">//记录堆里面的地址值</span>
+</span></span><span style="display:flex;"><span>	String s2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;abc&#34;</span>;			  <span style="color:#75715e">//记录串池中的地址值</span>
+</span></span><span style="display:flex;"><span>	sout(s1 <span style="color:#f92672">==</span> s2); <span style="color:#75715e">// false</span>
+</span></span></code></pre></div><h4 id="equals-与-equalsignorecase">equals 与 equalsIgnoreCase
+</h4><ul>
+<li>
+<p>boolean equals 方法：<strong>完全一样结果才是true</strong></p>
+</li>
+<li>
+<p>boolean equalsIgnoreCase方法：<strong>忽略大小写的比较</strong><br>
+<u>（忽略大小写只能是英文状态下的）</u><br>
+<code>	boolean bool = s1.equals(s2)</code></p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>		Scanner sc <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Scanner(System.<span style="color:#a6e22e">in</span>);
+</span></span><span style="display:flex;"><span>		String str1 <span style="color:#f92672">=</span> sc.<span style="color:#a6e22e">next</span>(); <span style="color:#75715e">//abc</span>
+</span></span><span style="display:flex;"><span>		String str2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;abc&#34;</span>;	<span style="color:#75715e">//赋值</span>
+</span></span><span style="display:flex;"><span>		Souy(str1 <span style="color:#f92672">==</span> str2) <span style="color:#75715e">//false</span>
+</span></span></code></pre></div><blockquote>
+<p>[!NOTE]</p>
+<p>两者不一样，键盘录入得到的字符串其实是new出来的，两者的地址值不一样，因此一定要用equals比较字符串</p>
+</blockquote>
+<hr>
+<h3 id="遍历字符串">遍历字符串
+</h3><ul>
+<li>
+<p><code>public charAt(int index)</code>   根据索引返回字符</p>
+</li>
+<li>
+<p><code>public int length()</code> 	   返回此字符串的长度</p>
+</li>
+<li>
+<p><code>String substring(int beginindex, int endlindex)</code>  截取字符串</p>
+</li>
+</ul>
+<blockquote>
+<p>[!NOTE]
+包头不包尾，包左不包右 ，对原字符拆没影响
+重构：<code>String substring (int beginindex)</code>  截取到末尾</p>
+</blockquote>
+<hr>
+<h3 id="替换字符串">替换字符串
+</h3><ul>
+<li><code>String replace(旧值，新值)</code> 替换</li>
+</ul>
+<h2 id="stringbulider">StringBulider
+</h2><ul>
+<li><strong>提高字符串的操作效率</strong></li>
+</ul>
+<h3 id="stringbuilder-常用方法">StringBuilder 常用方法
+</h3><ul>
+<li><code>public StringBulider()</code>
+创建一个空白可变的字符串对象，不含有任何内容</li>
+</ul>
+<blockquote>
+<p>[!NOTE]
+<em>StringBuilder 是 Java 已经写好的类</em>
+<em>Java在底层对他做了一些特殊处理</em>
+<em>打印对象不是<strong>地址值</strong>而是<strong>属性值</strong></em></p>
+</blockquote>
+<hr>
+<ul>
+<li>
+<p><code>public StringBuilder append(任意类型)</code>
+添加数据，返回对象本身</p>
+</li>
+<li>
+<p><code>public StringBuilder reverse()</code>
+反转容器中的内容</p>
+</li>
+<li>
+<p><code>public int length()</code>
+返回长度（字符出现的个数）</p>
+</li>
+<li>
+<p><code>public String toString()</code>
+通过toString()就可以实现把 StringBuilder 转化为 String</p>
+</li>
+</ul>
+<p><del><strong>以下是对于StringBuilder 和 toString的演示</strong></del></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>		<span style="color:#75715e">// 此时并不是字符串</span>
+</span></span><span style="display:flex;"><span>    	StringBuilder sb <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> StringBuilder(<span style="color:#e6db74">&#34;abc&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        sb.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;111&#34;</span>);
+</span></span><span style="display:flex;"><span>        sb.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;222&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//再将 StringBuilder 变回字符串</span>
+</span></span><span style="display:flex;"><span>        String str <span style="color:#f92672">=</span> sb.<span style="color:#a6e22e">toString</span>();
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(str);
+</span></span></code></pre></div><blockquote>
+<p>[!TIP]
+<strong>补充</strong> 链式编程：当我们在调用一个方法的时候，不需要用变量接收他的结果，可以继续调用其他方法。</p>
+<p>例如：<code>int len getString().substring(1).replace(&quot;A&quot;,&quot;Q&quot;).length()</code></p>
+</blockquote>
+<hr>
+<h2 id="stringjoiner">StringJoiner
+</h2><ul>
+<li>StringJoiner 跟 StringBuilder 一样，也可以看成是一个容器，创建之后里边的内容是可变的。</li>
+<li>作用：提高字符串的操作效率，而且代码编写特别简介，但是目前市场很少有人用</li>
+<li><strong>JDK8才出现</strong></li>
+</ul>
+<h3 id="stringjoiner--的构造方法">StringJoiner  的构造方法
+</h3><ul>
+<li><code>public StringJoiner(间隔符号)</code>  创建一个StringJoiner对象,指定拼接时的<strong>间隔符号</strong></li>
+<li><code>public StringJoiner(间隔符号,开始符号,结束符号)</code> 创建一个StringJoiner对象，指定拼接时的<strong>间隔符号,开始符号,结束符号</strong></li>
+</ul>
+<h3 id="stringjoiner-的成员方法">StringJoiner 的成员方法
+</h3><ul>
+<li><code>public StringJoiner add(添加的内容)</code> 添加数据，并返回数据本身</li>
+<li><code>public int length()</code> 返回长度（字符出现的个数）</li>
+<li><code>public String toString()</code> 返回一个字符串（该字符串就是拼接之后的效果）</li>
+</ul>
+<hr>
+<h2 id="字符串原理">字符串原理
+</h2><p>1.字符串存储的原理
+- 直接赋值会复用字符串常量池中的
+- new 出来的不会复用，而是开辟一个新的空间</p>
+<p>2.==号比较的到底是什么？
+- 基本数据类型 <strong>比较数据值</strong>
+- 引用数据类型 <strong>比较地址值</strong></p>
+<p>3.字符串拼接的底层原理</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test2</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {
+</span></span><span style="display:flex;"><span>             String ss <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;abc&#34;</span>; <span style="color:#75715e">// 记录串池中的地址值</span>
+</span></span><span style="display:flex;"><span>            String s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;a&#34;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;b&#34;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;c&#34;</span>; <span style="color:#75715e">//拼接时没有变量,会复用串池中的字符串</span>
+</span></span><span style="display:flex;"><span>           
+</span></span><span style="display:flex;"><span>            System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(s); <span style="color:#75715e">//abc</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><blockquote>
+<p>[!NOTE]
+拼接的时候没有变量，都是字符串
+触发字符串的优化机制
+在编译的时候就已经是最终结果了。</p>
+<p>在编译的时候，就会将&quot;a&rdquo;+&ldquo;b&rdquo;+&ldquo;c&rdquo; 拼接为 &ldquo;abc&rdquo;&hellip;</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test2</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {
+</span></span><span style="display:flex;"><span>        String s1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;a&#34;</span>;
+</span></span><span style="display:flex;"><span>        String s2 <span style="color:#f92672">=</span> s1 <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;b&#34;</span>; 
+</span></span><span style="display:flex;"><span>        String s3 <span style="color:#f92672">=</span> s2 <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;c&#34;</span>;
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(s3);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><blockquote>
+<p>[!NOTE]
+相当于先创建了一个new StringBuilder 对象
+做完一系列操作后在使用 toString 转化为字符串
+new StringBuilder().append(s1).qppend(&ldquo;b&rdquo;).toString();</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test2</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {
+</span></span><span style="display:flex;"><span>            String s1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;a&#34;</span>;
+</span></span><span style="display:flex;"><span>            String s2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;b&#34;</span>; 
+</span></span><span style="display:flex;"><span>            String s3 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;c&#34;</span>;
+</span></span><span style="display:flex;"><span>            String s4 <span style="color:#f92672">=</span> s1 <span style="color:#f92672">+</span> s2 <span style="color:#f92672">+</span> s3 ; <span style="color:#75715e">//创建了四个SB对象</span>
+</span></span><span style="display:flex;"><span>            System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(s3);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><blockquote>
+<p>[!NOTE]
+JDK8 之前：每次以上的字符串相加都会创建两个SB对象
+JDK8 及之后，编译器会对连续的字符串拼接操作进行优化，通过一个StringBuilder完成所有拼接，并预先计算和分配合适的容量，从而减少对象创建和数组扩容的开销。</p>
+</blockquote>
+<p><strong>总结：</strong></p>
+<ul>
+<li>
+<p><strong>如果没有变量参与，都是字符串直接相加，编译之后就是拼接的结果，会复用字符串池</strong></p>
+</li>
+<li>
+<p><strong>如果有变量参与，每一行拼接的代码，都会在内存中创建新的字符串，浪费内存</strong></p>
+</li>
+</ul>
+<p>4.StringBuilder 提高效率原理图</p>
+<ul>
+<li>所有要拼接的内容都会往StringBuilder中放，不会创建很多无用空间，节约内存</li>
+</ul>
+<p>5.StringBuilder 源码分析</p>
+<ul>
+<li>默认创建一个长度为16的字节数组</li>
+<li>添加的内容长度小于16，直接存</li>
+<li>添加的内容大于16 会扩容（原来的容量*2+2）</li>
+<li>如果扩容后还不够，以实际长度为准</li>
+</ul>
+<hr>
+<h2 id="补充内容">补充内容
+</h2><p><code>startsWith(&quot;String&quot;) 或 startsWith(&quot;String&quot;,begin,end)</code>检测字符串（范围）开头</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 我的个人博客
+    </section>
+    
+    <section class="powerby">
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+    
+
+            </main>
+        </div>
+        <script type="text/javascript" src="/ts/main.3a2f8771ee6776b511b1cb3b11fa8a352f78fa85b96dce4c70ca982d1062d069.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

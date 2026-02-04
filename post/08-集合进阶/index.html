@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" imageNameKey: &ldquo;08&rdquo; Collection 接口（单列集合根接口） ├─ List 接口（有序、可重复） │ ├─ ArrayList（实现类）：动态数组，查询快、增删慢 │ ├─ LinkedList（实现类）：双向链表，增删快、查询慢 │ └─ Vector（实现类）：动态数组，线程安全、性能差 └─ Set 接口（无序、不可重复） ├─ HashSet（实现类）：哈希表，无序去重 ├─ TreeSet（实现类）：红黑树，排序去重 └─ LinkedHashSet（实现类）：哈希表+链表，有序去重 flowchart TD A[Collection&lt;br/&gt;（单列集合根接口）] --&gt; B[List&lt;br/&gt;（有序、可重复）] A --&gt; C[Set&lt;br/&gt;（无序、不可重复）] B --&gt; B1[ArrayList&lt;br/&gt;（动态数组）] B --&gt; B2[LinkedList&lt;br/&gt;（双向链表）] B --&gt; B3[Vector&lt;br/&gt;（线程安全数组）] C --&gt; C1[HashSet&lt;br/&gt;（哈希表）] C --&gt; C2[TreeSet&lt;br/&gt;（红黑树）] C1 --&gt; C3[LinkedHashSet&lt;br/&gt;（哈希表+链表）] %% 样式优化（可选） A:::root B:::subInterface C:::subInterface B1:::impl B2:::impl B3:::impl C1:::impl C2:::impl C3:::impl classDef root fill:#f9f,stroke:#333,stroke-width:2px classDef subInterface fill:#9ff,stroke:#333,stroke-width:2px classDef impl fill:#ff9,stroke:#333,stroke-width:1px Collection ">
+<title>08-集合进阶</title>
+
+<link rel='canonical' href='http://localhost:1313/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/'>
+
+<link rel="stylesheet" href="/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="08-集合进阶">
+<meta property='og:description' content=" imageNameKey: &ldquo;08&rdquo; Collection 接口（单列集合根接口） ├─ List 接口（有序、可重复） │ ├─ ArrayList（实现类）：动态数组，查询快、增删慢 │ ├─ LinkedList（实现类）：双向链表，增删快、查询慢 │ └─ Vector（实现类）：动态数组，线程安全、性能差 └─ Set 接口（无序、不可重复） ├─ HashSet（实现类）：哈希表，无序去重 ├─ TreeSet（实现类）：红黑树，排序去重 └─ LinkedHashSet（实现类）：哈希表+链表，有序去重 flowchart TD A[Collection&lt;br/&gt;（单列集合根接口）] --&gt; B[List&lt;br/&gt;（有序、可重复）] A --&gt; C[Set&lt;br/&gt;（无序、不可重复）] B --&gt; B1[ArrayList&lt;br/&gt;（动态数组）] B --&gt; B2[LinkedList&lt;br/&gt;（双向链表）] B --&gt; B3[Vector&lt;br/&gt;（线程安全数组）] C --&gt; C1[HashSet&lt;br/&gt;（哈希表）] C --&gt; C2[TreeSet&lt;br/&gt;（红黑树）] C1 --&gt; C3[LinkedHashSet&lt;br/&gt;（哈希表+链表）] %% 样式优化（可选） A:::root B:::subInterface C:::subInterface B1:::impl B2:::impl B3:::impl C1:::impl C2:::impl C3:::impl classDef root fill:#f9f,stroke:#333,stroke-width:2px classDef subInterface fill:#9ff,stroke:#333,stroke-width:2px classDef impl fill:#ff9,stroke:#333,stroke-width:1px Collection ">
+<meta property='og:url' content='http://localhost:1313/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/'>
+<meta property='og:site_name' content='我的个人博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-02-03T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-02-03T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="08-集合进阶">
+<meta name="twitter:description" content=" imageNameKey: &ldquo;08&rdquo; Collection 接口（单列集合根接口） ├─ List 接口（有序、可重复） │ ├─ ArrayList（实现类）：动态数组，查询快、增删慢 │ ├─ LinkedList（实现类）：双向链表，增删快、查询慢 │ └─ Vector（实现类）：动态数组，线程安全、性能差 └─ Set 接口（无序、不可重复） ├─ HashSet（实现类）：哈希表，无序去重 ├─ TreeSet（实现类）：红黑树，排序去重 └─ LinkedHashSet（实现类）：哈希表+链表，有序去重 flowchart TD A[Collection&lt;br/&gt;（单列集合根接口）] --&gt; B[List&lt;br/&gt;（有序、可重复）] A --&gt; C[Set&lt;br/&gt;（无序、不可重复）] B --&gt; B1[ArrayList&lt;br/&gt;（动态数组）] B --&gt; B2[LinkedList&lt;br/&gt;（双向链表）] B --&gt; B3[Vector&lt;br/&gt;（线程安全数组）] C --&gt; C1[HashSet&lt;br/&gt;（哈希表）] C --&gt; C2[TreeSet&lt;br/&gt;（红黑树）] C1 --&gt; C3[LinkedHashSet&lt;br/&gt;（哈希表+链表）] %% 样式优化（可选） A:::root B:::subInterface C:::subInterface B1:::impl B2:::impl B3:::impl C1:::impl C2:::impl C3:::impl classDef root fill:#f9f,stroke:#333,stroke-width:2px classDef subInterface fill:#9ff,stroke:#333,stroke-width:2px classDef impl fill:#ff9,stroke:#333,stroke-width:1px Collection ">
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            <figure class="site-avatar">
+                <a href="/">
+                    <img src="/img/avatar.jpg" 
+                        width="120"
+                        height="120"
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+                    <span class="emoji">🍥</span>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">我的个人博客</a></h1>
+            <h2 class="site-description">技术爱好者 / 极简主义者</h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>首页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/archives_/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/about_/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/search_/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/links_/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span></span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title"></h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#imagenamekey-08">imageNameKey: &ldquo;08&rdquo;</a></li>
+      </ul>
+    </li>
+    <li><a href="#collection-接口单列集合根接口">Collection 接口（单列集合根接口）</a></li>
+    <li><a href="#collection">Collection</a>
+      <ul>
+        <li><a href="#遍历">遍历</a>
+          <ul>
+            <li><a href="#迭代器遍历">迭代器遍历</a></li>
+            <li><a href="#增强for遍历">增强for遍历</a></li>
+            <li><a href="#lambda表达式遍历">lambda表达式遍历</a></li>
+          </ul>
+        </li>
+        <li><a href="#list">List</a>
+          <ul>
+            <li><a href="#addremove">add/remove</a></li>
+            <li><a href="#setget">set/get</a></li>
+            <li><a href="#遍历方式">遍历方式</a>
+              <ul>
+                <li><a href="#列表迭代器遍历">列表迭代器遍历</a>
+                  <ul>
+                    <li><a href="#列表迭代器方法">列表迭代器方法</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li><a href="#linkedlist集合">LinkedList集合</a></li>
+            <li><a href="#iterator迭代器">Iterator迭代器</a></li>
+          </ul>
+        </li>
+        <li><a href="#set">Set</a>
+          <ul>
+            <li><a href="#hashset-哈希表">HashSet 哈希表</a>
+              <ul>
+                <li><a href="#哈希值">哈希值</a></li>
+                <li><a href="#对象哈希值的特点">对象哈希值的特点</a></li>
+                <li><a href="#底层原理">底层原理</a></li>
+                <li><a href="#hashset的三个特点">HashSet的三个特点</a>
+                  <ul>
+                    <li><a href="#hashset为什么存和取的顺序不一样">HashSet为什么存和取的顺序不一样？</a></li>
+                    <li><a href="#hashset为什么没有索引">HashSet为什么没有索引？</a></li>
+                    <li><a href="#hashset是利用什么机制保证数据去重的">HashSet是利用什么机制保证数据去重的？</a></li>
+                  </ul>
+                </li>
+                <li><a href="#linkedhashset">LinkedHashSet</a></li>
+              </ul>
+            </li>
+            <li><a href="#treeset">TreeSet</a>
+              <ul>
+                <li><a href="#treeset默认的规则">TreeSet默认的规则</a></li>
+                <li><a href="#treeset的两种比较方式">TreeSet的两种比较方式</a>
+                  <ul>
+                    <li><a href="#方式一">方式一</a></li>
+                    <li><a href="#方式二">方式二</a></li>
+                    <li><a href="#使用规则">使用规则</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#泛型">泛型</a>
+      <ul>
+        <li><a href="#泛型类">泛型类</a></li>
+        <li><a href="#泛型方法">泛型方法</a></li>
+        <li><a href="#泛型接口">泛型接口</a>
+          <ul>
+            <li><a href="#实现类给出具体类型">实现类给出具体类型</a></li>
+            <li><a href="#实现类延续泛型创建对象时再确定">实现类延续泛型，创建对象时再确定</a></li>
+          </ul>
+        </li>
+        <li><a href="#泛型的继承和通配符">泛型的继承和通配符</a></li>
+      </ul>
+    </li>
+    <li><a href="#list与set的使用场景">List与Set的使用场景</a></li>
+    <li><a href="#map">Map</a></li>
+  </ul>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/">08-集合进阶</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2026-02-03T00:00:00Z'>Tuesday, February 3, 2026</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span></span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#imagenamekey-08">imageNameKey: &ldquo;08&rdquo;</a></li>
+      </ul>
+    </li>
+    <li><a href="#collection-接口单列集合根接口">Collection 接口（单列集合根接口）</a></li>
+    <li><a href="#collection">Collection</a>
+      <ul>
+        <li><a href="#遍历">遍历</a>
+          <ul>
+            <li><a href="#迭代器遍历">迭代器遍历</a></li>
+            <li><a href="#增强for遍历">增强for遍历</a></li>
+            <li><a href="#lambda表达式遍历">lambda表达式遍历</a></li>
+          </ul>
+        </li>
+        <li><a href="#list">List</a>
+          <ul>
+            <li><a href="#addremove">add/remove</a></li>
+            <li><a href="#setget">set/get</a></li>
+            <li><a href="#遍历方式">遍历方式</a>
+              <ul>
+                <li><a href="#列表迭代器遍历">列表迭代器遍历</a>
+                  <ul>
+                    <li><a href="#列表迭代器方法">列表迭代器方法</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li><a href="#linkedlist集合">LinkedList集合</a></li>
+            <li><a href="#iterator迭代器">Iterator迭代器</a></li>
+          </ul>
+        </li>
+        <li><a href="#set">Set</a>
+          <ul>
+            <li><a href="#hashset-哈希表">HashSet 哈希表</a>
+              <ul>
+                <li><a href="#哈希值">哈希值</a></li>
+                <li><a href="#对象哈希值的特点">对象哈希值的特点</a></li>
+                <li><a href="#底层原理">底层原理</a></li>
+                <li><a href="#hashset的三个特点">HashSet的三个特点</a>
+                  <ul>
+                    <li><a href="#hashset为什么存和取的顺序不一样">HashSet为什么存和取的顺序不一样？</a></li>
+                    <li><a href="#hashset为什么没有索引">HashSet为什么没有索引？</a></li>
+                    <li><a href="#hashset是利用什么机制保证数据去重的">HashSet是利用什么机制保证数据去重的？</a></li>
+                  </ul>
+                </li>
+                <li><a href="#linkedhashset">LinkedHashSet</a></li>
+              </ul>
+            </li>
+            <li><a href="#treeset">TreeSet</a>
+              <ul>
+                <li><a href="#treeset默认的规则">TreeSet默认的规则</a></li>
+                <li><a href="#treeset的两种比较方式">TreeSet的两种比较方式</a>
+                  <ul>
+                    <li><a href="#方式一">方式一</a></li>
+                    <li><a href="#方式二">方式二</a></li>
+                    <li><a href="#使用规则">使用规则</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#泛型">泛型</a>
+      <ul>
+        <li><a href="#泛型类">泛型类</a></li>
+        <li><a href="#泛型方法">泛型方法</a></li>
+        <li><a href="#泛型接口">泛型接口</a>
+          <ul>
+            <li><a href="#实现类给出具体类型">实现类给出具体类型</a></li>
+            <li><a href="#实现类延续泛型创建对象时再确定">实现类延续泛型，创建对象时再确定</a></li>
+          </ul>
+        </li>
+        <li><a href="#泛型的继承和通配符">泛型的继承和通配符</a></li>
+      </ul>
+    </li>
+    <li><a href="#list与set的使用场景">List与Set的使用场景</a></li>
+    <li><a href="#map">Map</a></li>
+  </ul>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <hr>
+<h2 id="imagenamekey-08">imageNameKey: &ldquo;08&rdquo;
+</h2><h1 id="collection-接口单列集合根接口">Collection 接口（单列集合根接口）
+</h1><pre tabindex="0"><code>	├─ List 接口（有序、可重复）
+	│  ├─ ArrayList（实现类）：动态数组，查询快、增删慢
+	│  ├─ LinkedList（实现类）：双向链表，增删快、查询慢
+	│  └─ Vector（实现类）：动态数组，线程安全、性能差
+	└─ Set 接口（无序、不可重复）
+	   ├─ HashSet（实现类）：哈希表，无序去重
+	   ├─ TreeSet（实现类）：红黑树，排序去重
+	   └─ LinkedHashSet（实现类）：哈希表+链表，有序去重
+</code></pre><pre class="mermaid">
+  flowchart TD
+    A[Collection&lt;br/&gt;（单列集合根接口）] --&gt; B[List&lt;br/&gt;（有序、可重复）]
+    A --&gt; C[Set&lt;br/&gt;（无序、不可重复）]
+    
+    B --&gt; B1[ArrayList&lt;br/&gt;（动态数组）]
+    B --&gt; B2[LinkedList&lt;br/&gt;（双向链表）]
+    B --&gt; B3[Vector&lt;br/&gt;（线程安全数组）]
+    
+    C --&gt; C1[HashSet&lt;br/&gt;（哈希表）]
+    C --&gt; C2[TreeSet&lt;br/&gt;（红黑树）]
+    C1 --&gt; C3[LinkedHashSet&lt;br/&gt;（哈希表+链表）]
+    
+    %% 样式优化（可选）
+    A:::root
+    B:::subInterface
+    C:::subInterface
+    B1:::impl
+    B2:::impl
+    B3:::impl
+    C1:::impl
+    C2:::impl
+    C3:::impl
+    classDef root fill:#f9f,stroke:#333,stroke-width:2px
+    classDef subInterface fill:#9ff,stroke:#333,stroke-width:2px
+    classDef impl fill:#ff9,stroke:#333,stroke-width:1px
+</pre>
+
+<h1 id="collection">Collection
+</h1><p><img src="/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-1.png"
+	width="1607"
+	height="670"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="239"
+		data-flex-basis="575px"
+	
+></p>
+<ul>
+<li>
+<p>Collection是单列集合的祖宗接口，它的功能是全部单列集合都可以继承使用的</p>
+</li>
+<li>
+<p>Collectio是一个接口，不能直接创建它的对象，只能创建实现类的对象</p>
+</li>
+</ul>
+<blockquote>
+<p>[!WARNING]
+contains方法在底层依赖equals方法</p>
+<p>如果是自定义对象，那么必须在JavaBean重写equals方法</p>
+</blockquote>
+<h2 id="遍历">遍历
+</h2><h3 id="迭代器遍历">迭代器遍历
+</h3><ul>
+<li>
+<p><code>Iterator&lt;E&gt; iterator()</code> 返回迭代器对象，默认指向当前集合的0索引</p>
+</li>
+<li>
+<p><code>boolean hasNext()</code> 判断当前位置是否有元素</p>
+</li>
+<li>
+<p><code>E next()</code> 获取当前位置元素，并将迭代器对象移向下一个位置</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>	Iterator<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> it <span style="color:#f92672">=</span> list.<span style="color:#a6e22e">iterator</span>();
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">while</span>(it.<span style="color:#a6e22e">hasNext</span>()){
+</span></span><span style="display:flex;"><span>		String str <span style="color:#f92672">=</span> it.<span style="color:#a6e22e">next</span>();
+</span></span><span style="display:flex;"><span>		System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(str);
+</span></span><span style="display:flex;"><span>	}
+</span></span></code></pre></div><blockquote>
+<p>[!NOTE]</p>
+<ul>
+<li>报错NoSuchElementException</li>
+<li>迭代器遍历完毕，指针不会复位（第二次遍历集合需重新获取iterator）</li>
+<li>迭代器遍历时，不能用集合的方法进行增加或者删除 ，只能用it.remove()</li>
+</ul>
+</blockquote>
+<h3 id="增强for遍历">增强for遍历
+</h3><ul>
+<li>底层就是一个迭代器</li>
+<li>修改增强for中的变量，不会改变集合中原本的数据</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>	Collection<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> coll <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span>(String s : coll){
+</span></span><span style="display:flex;"><span>		System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(s);
+</span></span><span style="display:flex;"><span>	}
+</span></span></code></pre></div><h3 id="lambda表达式遍历">lambda表达式遍历
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>	coll.<span style="color:#a6e22e">forEach</span>(s <span style="color:#f92672">-&gt;</span> System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(s));
+</span></span></code></pre></div><hr>
+<h2 id="list">List
+</h2><ul>
+<li>元素有序，可重复，有索引</li>
+</ul>
+<p><img src="/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-2.png"
+	width="1792"
+	height="482"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="371"
+		data-flex-basis="892px"
+	
+></p>
+<h3 id="addremove">add/remove
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>	List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> L <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>();  
+</span></span><span style="display:flex;"><span>	L.<span style="color:#a6e22e">add</span>(<span style="color:#e6db74">&#34;aaa&#34;</span>);  
+</span></span><span style="display:flex;"><span>	L.<span style="color:#a6e22e">add</span>(<span style="color:#e6db74">&#34;bbb&#34;</span>);  
+</span></span><span style="display:flex;"><span>	L.<span style="color:#a6e22e">add</span>(<span style="color:#e6db74">&#34;ccc&#34;</span>);  
+</span></span><span style="display:flex;"><span>	  
+</span></span><span style="display:flex;"><span>	L.<span style="color:#a6e22e">add</span>(1,<span style="color:#e6db74">&#34;ddd&#34;</span>);<span style="color:#75715e">//在指定位置插入元素，原位置以后的元素依次往后移</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//aaa ddd bbb ccc</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	String remove <span style="color:#f92672">=</span> L.<span style="color:#a6e22e">remove</span>(0);<span style="color:#75715e">//aaa</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">boolean</span> remove <span style="color:#f92672">=</span> L.<span style="color:#a6e22e">remove</span>(<span style="color:#e6db74">&#34;aaa&#34;</span>);<span style="color:#75715e">//true</span>
+</span></span></code></pre></div><blockquote>
+<p>[!NOTE]
+当List存储对象为Integer时，使用remove(1),会优先删除索引为1的元素
+由于 <code>int</code> 是基本数据类型，编译器会优先匹配参数类型最精确的方法</p>
+<p>解决方法：</p>
+<ul>
+<li>手动装箱<code>list.remove(Integer.valueOf(1));</code></li>
+<li>向上转型<code>list.remove((Object) 1);</code></li>
+</ul>
+</blockquote>
+<h3 id="setget">set/get
+</h3><ul>
+<li>
+<p><code>set(int index,E element)</code> 修改索引处的元素，返回修改前的元素</p>
+</li>
+<li>
+<p><code>get(int index)</code>返回索引上的元素</p>
+</li>
+</ul>
+<h3 id="遍历方式">遍历方式
+</h3><ul>
+<li>迭代器遍历</li>
+<li>增强for遍历</li>
+<li>lambda表达式遍历</li>
+<li>普通for循环遍历</li>
+<li>列表迭代器遍历</li>
+</ul>
+<h4 id="列表迭代器遍历">列表迭代器遍历
+</h4><ul>
+<li><code>ListIterator&lt;E&gt; extends Iterator&lt;E&gt;</code></li>
+</ul>
+<h5 id="列表迭代器方法">列表迭代器方法
+</h5><ul>
+<li>
+<p><code>add&lt;E e&gt;</code></p>
+</li>
+<li>
+<p><code>hasNext()</code></p>
+</li>
+<li>
+<p><code>next()</code></p>
+</li>
+<li>
+<p><code>remove()</code></p>
+</li>
+<li>
+<p><code>hasPrevious()</code>与<code>hasNext()</code>相反</p>
+</li>
+<li>
+<p><code>previous()</code>与<code>next()</code>相反</p>
+</li>
+<li>
+<p>在遍历的过程中可以添加元素</p>
+</li>
+<li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>  ListIterator<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> it <span style="color:#f92672">=</span> L.<span style="color:#a6e22e">listIterator</span>();  
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">while</span>(it.<span style="color:#a6e22e">hasNext</span>()){  
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span>(<span style="color:#e6db74">&#34;aaa&#34;</span>.<span style="color:#a6e22e">equals</span>(it.<span style="color:#a6e22e">next</span>())){  
+</span></span><span style="display:flex;"><span>      it.<span style="color:#a6e22e">add</span>(<span style="color:#e6db74">&#34;qqq&#34;</span>);  
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">//aaa qqq bbb ccc</span>
+</span></span></code></pre></div></li>
+</ul>
+<p>}</p>
+<pre tabindex="0"><code>![](image/08-3.png)
+
+### ArrayList底层原理
+- 底层是数组结构的
+- 利用空参创建的集合，在底层创建一个默认长度为0得分数组
+- 添加第一个元素，底层会创建一个新的==长度为10==的数组（elementData），初始化为null
+- 存满时，会扩容==1.5倍==（向下取整）
+- 如果一次添加多个元素，1.5倍放不下，则新创建数组的长度以实际为准。
+![](image/08-4.png)
+```Java
+public boolean add(E e) {  
+  modCount++;  
+  add(e, elementData, size);
+  return true;  
+}
+
+private void add(E e, Object[] elementData, int s) {  
+  if (s == elementData.length)  
+      elementData = grow();  
+  elementData[s] = e;  
+  size = s + 1;  
+}
+
+private Object[] grow() {  
+  return grow(size + 1);  
+}
+</code></pre><blockquote>
+<p>[!NOTE]</p>
+<ul>
+<li>对于<code>if (oldCapacity &gt; 0 || elementData != DEFAULTCAPACITY_EMPTY_ELEMENTDATA)</code></li>
+<li><code>oldCapacity &gt; 0</code> 负责处理<strong>已经长大的数组</strong>；</li>
+<li><code>elementData != DEFAULTCAPACITY_EMPTY_ELEMENTDATA</code> 负责处理<strong>被用户手动指定为 0 的数组</strong>。</li>
+<li>只有这两个条件都不满足（即：既是 0 又是默认空数组），才会触发“初始 10”的逻辑。</li>
+</ul>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#66d9ef">private</span> Object<span style="color:#f92672">[]</span> <span style="color:#a6e22e">grow</span>(<span style="color:#66d9ef">int</span> minCapacity) {  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> oldCapacity <span style="color:#f92672">=</span> elementData.<span style="color:#a6e22e">length</span>;  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (oldCapacity <span style="color:#f92672">&gt;</span> 0 <span style="color:#f92672">||</span> elementData <span style="color:#f92672">!=</span> DEFAULTCAPACITY_EMPTY_ELEMENTDATA) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> newCapacity <span style="color:#f92672">=</span> ArraysSupport.<span style="color:#a6e22e">newLength</span>(oldCapacity,  
+</span></span><span style="display:flex;"><span>	            minCapacity <span style="color:#f92672">-</span> oldCapacity, <span style="color:#75715e">/* minimum growth */</span>  
+</span></span><span style="display:flex;"><span>		        oldCapacity <span style="color:#f92672">&gt;&gt;</span> 1        <span style="color:#75715e">/*默认新增容量*/</span>);  
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> elementData <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">copyOf</span>(elementData, newCapacity);
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {  
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> elementData <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Object<span style="color:#f92672">[</span>Math.<span style="color:#a6e22e">max</span>(DEFAULT_CAPACITY, minCapacity)<span style="color:#f92672">]</span>;  
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">newLength</span>(<span style="color:#66d9ef">int</span> oldLength, <span style="color:#66d9ef">int</span> minGrowth, <span style="color:#66d9ef">int</span> prefGrowth) {  
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 由于内嵌原因未勾选前提条件</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// assert oldLength &gt;= 0    // assert minGrowth &gt; 0  </span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> prefLength <span style="color:#f92672">=</span> oldLength <span style="color:#f92672">+</span> Math.<span style="color:#a6e22e">max</span>(minGrowth, prefGrowth); <span style="color:#75715e">// 可能会溢出来 </span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (0 <span style="color:#f92672">&lt;</span> prefLength <span style="color:#f92672">&amp;&amp;</span> prefLength <span style="color:#f92672">&lt;=</span> SOFT_MAX_ARRAY_LENGTH) {  
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> prefLength;  
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {  
+</span></span><span style="display:flex;"><span>	        <span style="color:#75715e">// 用另一个方法冷处理代码</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> hugeLength(oldLength, minGrowth);  
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><pre class="mermaid">
+  graph TD
+    A[开始添加元素] --&gt; B[modCount自增]
+    B --&gt; C{所需容量超过数组长度?}
+    
+    %% 扩容分支
+    C -- 是 --&gt; D[调用grow方法]
+    D --&gt; E[计算新容量：旧容量1.5倍]
+    E --&gt; F{新容量满足最小需求?}
+    F -- 否 --&gt; G[新容量设为最小需求]
+    G --&gt; H[检查是否超JVM限制]
+    F -- 是 --&gt; H
+    H --&gt; I[迁移数据到新数组]
+    I --&gt; J[更新elementData引用]
+    
+    %% 插入分支
+    C -- 否 --&gt; K[元素放入数组对应位置]
+    J --&gt; K
+    K --&gt; L[size自增]
+    L --&gt; M[返回true]
+    M --&gt; N[结束]
+</pre>
+
+<h3 id="linkedlist集合">LinkedList集合
+</h3><ul>
+<li>底层数据结构是双链表，查询慢，增删快，但是如果操作的是首尾元素，速度也是极快
+<img src="/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-5.png"
+	width="2296"
+	height="255"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="900"
+		data-flex-basis="2160px"
+	
+></li>
+</ul>
+<p><img src="/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-6.png"
+	width="2481"
+	height="1079"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="229"
+		data-flex-basis="551px"
+	
+></p>
+<h3 id="iterator迭代器">Iterator迭代器
+</h3><p><img src="/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-7.png"
+	width="2537"
+	height="983"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="258"
+		data-flex-basis="619px"
+	
+></p>
+<ul>
+<li>
+<p><strong><code>modCount</code> (Modification Count)</strong>： 属于 <code>ArrayList</code> 对象。只要列表结构发生变化（<code>add</code>, <code>remove</code>, <code>clear</code> 等），这个计数器就会 <strong>+1</strong>。</p>
+</li>
+<li>
+<p><strong><code>expectedModCount</code></strong>： 属于 <code>Itr</code>（迭代器）对象内部。在创建迭代器的那一刻，它会把当时的 <code>modCount</code> “拍照”存下来：<code>expectedModCount = modCount</code></p>
+</li>
+</ul>
+<hr>
+<h2 id="set">Set
+</h2><ul>
+<li>添加的元素<span style="color: #dc3545;">无序，不重复，无索引</span></li>
+<li>Set接口中的方法基本上与Collection一致（remove方法只能根据对象删除，不能根据索引删）</li>
+</ul>
+<h3 id="hashset-哈希表">HashSet 哈希表
+</h3><ul>
+<li>JDK8之前：数组+链表</li>
+<li>JDK8之后：数组+链表+红黑树</li>
+</ul>
+<h4 id="哈希值">哈希值
+</h4><ul>
+<li><code>应该存入的位置 int index = (数组长度 - 1) &amp; 哈希值</code></li>
+<li>该方法定义在Object类中，所有对象都可以调用，默认使用地址值进行计算</li>
+<li>一般情况下，会重写hashCode方法，利用对象内部的属性值计算哈希值</li>
+</ul>
+<h4 id="对象哈希值的特点">对象哈希值的特点
+</h4><ul>
+<li>如果没有重写hashCode方法，不同对象计算出的哈希值是不同的</li>
+<li>如果已经重写hashCode方法，不同对象只要属性值相同，计算出的哈希值就是一样的</li>
+<li>在小部分情况下，不同属性值或者不同的地址值计算出来的哈希值也有可能一样（哈希冲突）</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>	System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;abc&#34;</span>.<span style="color:#a6e22e">hashCode</span>());  <span style="color:#75715e">//96354</span>
+</span></span><span style="display:flex;"><span>	System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;acD&#34;</span>.<span style="color:#a6e22e">hashCode</span>());  <span style="color:#75715e">//96354</span>
+</span></span></code></pre></div><h4 id="底层原理">底层原理
+</h4><ul>
+<li>先创建一个默认长度为16，默认 加载因子 为0.75的数组table</li>
+<li>加载因子：存入第 16 * 0.75 = 12 个元素时，会触发扩容</li>
+<li><strong>0.75</strong> 是在频繁扩容的开销与查询延迟之间找到的黄金平衡点。</li>
+<li>根据元素的哈希值跟数组长度计算出应存入的位置</li>
+<li><span style="color: #dc3545;">判断当前的位置是否为null</span></li>
+<li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">-&gt;</span> 存入
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">else</span>    <span style="color:#f92672">-&gt;</span> 调用equals方法比较属性值
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">true</span> <span style="color:#f92672">-&gt;</span> 不存
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">else</span>    <span style="color:#f92672">-&gt;</span> 存入数组<span style="color:#960050;background-color:#1e0010">，</span>形成链表 
+</span></span><span style="display:flex;"><span>  JDK8以前<span style="color:#960050;background-color:#1e0010">：</span>新元素存入数组<span style="color:#960050;background-color:#1e0010">，</span>老元素挂在新元素下面
+</span></span><span style="display:flex;"><span>  JDK8之后<span style="color:#960050;background-color:#1e0010">：</span>新元素直接挂在老元素下面
+</span></span></code></pre></div></li>
+</ul>
+<p><strong>JDK8以后，当链表长度超过8，而且数组长度大于等于64时，自动转换为红黑树</strong></p>
+<p><strong>如果集合中存储的是自定义对象，必须要重写hashCode () 和equals () 方法</strong>(默认比较用的是地址值)</p>
+<h4 id="hashset的三个特点">HashSet的三个特点
+</h4><h5 id="hashset为什么存和取的顺序不一样">HashSet为什么存和取的顺序不一样？
+</h5><ul>
+<li><code>HashSet</code> 存取顺序不一致，是因为它根据元素内容的 <strong>Hash 值</strong>经计算后直接存放在内部数组的随机位置，而非按时间先后排队；</li>
+<li>读取时则是按数组下标从头到尾扫描，所以输出顺序取决于<strong>元素在内存中的分布位置</strong>，而非<strong>输入顺序</strong></li>
+</ul>
+<h5 id="hashset为什么没有索引">HashSet为什么没有索引？
+</h5><ul>
+<li><code>HashSet</code> 没有索引是因为它采用<strong>哈希表</strong>结构，元素是根据内容计算出的哈希值“随机”散落在数组位置上的，中间存在大量空位且位置会随扩容改变，这种<strong>非连续、非固定</strong>的存储方式使得通过物理位置（索引）定位元素变得毫无意义</li>
+</ul>
+<h5 id="hashset是利用什么机制保证数据去重的">HashSet是利用什么机制保证数据去重的？
+</h5><ul>
+<li><code>HashSet</code> 通过 <strong><code>hashCode()</code></strong> 快速定位存储位置，若位置冲突再利用 <strong><code>equals()</code></strong> 进行内容“肉搏”比对，只有当两个方法都判定相同时，才会触发去重机制拒绝存入。</li>
+</ul>
+<hr>
+<h4 id="linkedhashset">LinkedHashSet
+</h4><ul>
+<li><span style="color: #dc3545;">有序</span>，不重复，无索引</li>
+<li>这里的有序指的是保证存储和去除的元素顺序一致</li>
+<li>原理：底层数据机构依然是哈希表，知识每个元素有额外多了一个==双链表==的机制记录存储的数据</li>
+<li>如果要求去重且存取有序，则选择LinkedHashSet</li>
+</ul>
+<h3 id="treeset">TreeSet
+</h3><ul>
+<li><span style="color: #dc3545;">可排序</span>，不重复，无索引</li>
+<li>可排序：按照元素的默认规则（由小到大）排序</li>
+<li>TreeSet集合底层是基于<span style="color: #dc3545;">红黑树的数据结构</span>实现排序的，增删改查性能都较好</li>
+</ul>
+<h4 id="treeset默认的规则">TreeSet默认的规则
+</h4><ul>
+<li>对于数值类型：<code>Integer</code>，<code>Double</code>，默认按照从小到大的顺序进行排序</li>
+<li>对于字符、字符串类型：按照字符在ASCII码表中的数字升序进行排序</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#a6e22e">@Override</span>  
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">compareTo</span>(Student o) {  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getAge</span>()<span style="color:#f92672">-</span>o.<span style="color:#a6e22e">getAge</span>();  
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">this</span>:表示当前要添加的元素
+</span></span><span style="display:flex;"><span>	o   :表示已经在红黑树存在的元素
+</span></span><span style="display:flex;"><span>返回值<span style="color:#960050;background-color:#1e0010">：</span>
+</span></span><span style="display:flex;"><span>	负数<span style="color:#960050;background-color:#1e0010">：</span>认为要添加的元素是小的<span style="color:#960050;background-color:#1e0010">，</span>存左边
+</span></span><span style="display:flex;"><span>	正数<span style="color:#960050;background-color:#1e0010">：</span>认为要添加的元素是大的<span style="color:#960050;background-color:#1e0010">，</span>存右边
+</span></span><span style="display:flex;"><span>	0<span style="color:#960050;background-color:#1e0010">：</span>要添加的元素已存在<span style="color:#960050;background-color:#1e0010">，</span>舍弃
+</span></span></code></pre></div><h4 id="treeset的两种比较方式">TreeSet的两种比较方式
+</h4><h5 id="方式一">方式一
+</h5><ul>
+<li>默认排序/自然排序：JavaBean类实现Comparable接口指定比较规则</li>
+</ul>
+<h5 id="方式二">方式二
+</h5><ul>
+<li>比较器排序：创建TreeSet对象的时候，传递比较器Comparator制定规则</li>
+</ul>
+<h5 id="使用规则">使用规则
+</h5><ul>
+<li>默认使用第一种，如果第一种不能满足当前需求，就使用第二种</li>
+</ul>
+<hr>
+<h1 id="泛型">泛型
+</h1><ul>
+<li>可以在编译阶段约束操作的数据类型，并进行检查</li>
+<li>格式：&lt;数据类型&gt;</li>
+<li>泛型只能支持引用数据类型</li>
+<li>==统一数据类型==，把运行时期的问题提前到了编译期间，避免了强制类型转化可能出现的异常</li>
+<li>==Java中的泛型是伪泛型==</li>
+</ul>
+<p><em><strong>注意！</strong></em></p>
+<ul>
+<li>泛型中不能写基本数据类型</li>
+<li>指定泛型的具体类型后，传递数据时，可以传入该类类型或者其<strong>子类类型</strong></li>
+<li>如果不写泛型，类型默认是Object</li>
+</ul>
+<h2 id="泛型类">泛型类
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyArrayList</span><span style="color:#f92672">&lt;</span>E<span style="color:#f92672">&gt;</span>{  
+</span></span><span style="display:flex;"><span>    Object<span style="color:#f92672">[]</span> obj <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Object<span style="color:#f92672">[</span>10<span style="color:#f92672">]</span>;  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> size;  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">add</span>(E e){  
+</span></span><span style="display:flex;"><span>        obj<span style="color:#f92672">[</span>size<span style="color:#f92672">++]</span> <span style="color:#f92672">=</span> e;  
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;  
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> E  <span style="color:#a6e22e">get</span>(<span style="color:#66d9ef">int</span> index){  
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> (E)obj<span style="color:#f92672">[</span>index<span style="color:#f92672">]</span>; <span style="color:#75715e">//存入ArrayList的数据都会变成Object</span>
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">toString</span>(){  
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> Arrays.<span style="color:#a6e22e">toString</span>(obj);  
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//此处的E可以理解为变量，但是不是用来记录数据的，是用来记录数据类型的,一般用：K、T、V、E</span>
+</span></span></code></pre></div><h2 id="泛型方法">泛型方法
+</h2><ul>
+<li>方法中形参不确定时
+<ul>
+<li>1.使用类名后面定义的泛型 -&gt; 所有方法都能用</li>
+<li>2.在方法申明上定义自己的泛型 -&gt; 只有本方法能用</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> boid <span style="color:#a6e22e">show</span>(T t){
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">|</span>此处的E可以理解为变量<span style="color:#960050;background-color:#1e0010">，</span>但是不是用来记录数据的<span style="color:#960050;background-color:#1e0010">，</span>是用来记录数据类型的,一般用<span style="color:#960050;background-color:#1e0010">：</span>K<span style="color:#960050;background-color:#1e0010">、</span>T<span style="color:#960050;background-color:#1e0010">、</span>V<span style="color:#960050;background-color:#1e0010">、</span>E<span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ListUtil</span>{  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">ListUtil</span>() {}  
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/*  
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    *   参数一：集合  
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    *   参数二：要添加的元素  
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    * */</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span><span style="color:#f92672">&lt;</span>E<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addAll</span>(ArrayList<span style="color:#f92672">&lt;</span>E<span style="color:#f92672">&gt;</span> list,E...<span style="color:#a6e22e">e</span>){  
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (E element : e) {  
+</span></span><span style="display:flex;"><span>            list.<span style="color:#a6e22e">add</span>(element);  
+</span></span><span style="display:flex;"><span>        }  
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h2 id="泛型接口">泛型接口
+</h2><h3 id="实现类给出具体类型">实现类给出具体类型
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyArrayList</span> <span style="color:#66d9ef">implements</span> List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="实现类延续泛型创建对象时再确定">实现类延续泛型，创建对象时再确定
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyArrayList</span><span style="color:#f92672">&lt;</span>E<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">implements</span> List<span style="color:#f92672">&lt;</span>E<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="泛型的继承和通配符">泛型的继承和通配符
+</h2><ul>
+<li>==泛型不具备继承性，但数据具备继承性==</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>	通配符
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">extends</span> E<span style="color:#f92672">&gt;</span> 表示可以传递E或者E所有的子类类型
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">super</span> E<span style="color:#f92672">&gt;</span> 表示可以传递E或者E所有的父类类型
+</span></span></code></pre></div><h1 id="list与set的使用场景">List与Set的使用场景
+</h1><ul>
+<li>
+<p>如果想要集合中的元素*<strong>可重复</strong>：</p>
+<ul>
+<li>用<strong>ArrayList</strong>集合，==基于数组的==（用的最多）</li>
+</ul>
+</li>
+<li>
+<p>如果想要集合中的元素<em><strong>可重复</strong></em>，而且当前的<span style="color: #dc3545;">增删操作明显多于查询</span>：</p>
+<ul>
+<li>用<strong>LinkedList</strong>集合，==基于链表的==</li>
+</ul>
+</li>
+<li>
+<p>如果想对集合中的<em><strong>元素去重</strong></em>：</p>
+<ul>
+<li>用<strong>HashSet</strong>，==基于哈希表的==（用的最多）</li>
+</ul>
+</li>
+<li>
+<p>如果相对集合的<em><strong>元素去重</strong></em>，而且<span style="color: #dc3545;">保证存取顺序</span></p>
+<ul>
+<li>用<strong>LinkedHashList</strong>集合，==基于哈希表和双链表，效率低于HashSet==</li>
+</ul>
+</li>
+</ul>
+<h1 id="map">Map
+</h1>
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 我的个人博客
+    </section>
+    
+    <section class="powerby">
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+    
+<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.12.2/+esm';
+    mermaid.initialize({
+        startOnLoad: true,
+        theme: 'neutral',
+    });
+</script>
+
+
+            </main>
+        </div>
+        <script type="text/javascript" src="/ts/main.3a2f8771ee6776b511b1cb3b11fa8a352f78fa85b96dce4c70ca982d1062d069.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

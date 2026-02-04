@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="插值查找 前提是数据有顺序 int[] list = {7,23,79,81,103,127,131,147}; int l = 0; int r = list.length - 1; int x = sc.nextInt(); int mid; while (l &lt;= r &amp;&amp; x &gt;= list[l] &amp;&amp; x &lt;= list[r]) { // 先乘后除 mid = l + (x - list[l]) * (r - l) / (list[r] - list[l]); if (x == list[mid]) { System.out.println(&#34;找到了，索引为：&#34; + mid); break; } else if (x &gt; list[mid]) { l = mid + 1; } else { r = mid - 1; } } 插值查找优点：对于均匀分布的数组，速度极快（时间复杂度接近 $O(\\log(\\log n))$）。 插值查找缺点：如果数据分布极不均匀（比如：{1, 2, 3, 100, 1000, 10000}），插值查找的性能可能还不如二分查找。 冒泡排序 相邻的数据两两比较 if(a[i] &gt; [j]) swap(a[i],a[j]) 选择排序 从0索引开始，拿着每一个索引上的元素跟后面的元素一一比较，小的放前面，大的放后面。 第一轮循环，确定确定了最小元素 插入排序 分为有序组和无序组 将无序组逐个插入有序组中 public class TestDemo { public static void main(String[] args) { int[] arr = {4,16,5,9,12,21,18, 32,23,37,26,45,34, 50,48,61,52,73,66}; int startIndex = -1; for (int i = 0; i &lt; arr.length; i++) { if(arr[i] &gt; arr[i+1]){ startIndex = i + 1; break; } } if(startIndex == -1){ return ; } for(int i = startIndex; i &lt; arr.length; i++){ int j = i; while(j &gt; 0 &amp;&amp; arr[j] &lt; arr[j-1]) {//寻找正确的位置 int temp = arr[j]; arr[j] = arr[j - 1]; arr[j - 1] = temp; j--; } } } } 递归 方法再次调用方法本身 递归一定要有出口，否则就会内存溢出 快速排序 第一轮：将0索引数字作为基准数，确定基准数在数组中的正确位置 // 快速排序主方法：递归分治 private static void quickSort(int[] a, int l, int r) { if(l &lt; r){ int mid_index = find(a,l,r); // 分区，返回基准值的正确索引 quickSort(a,l,mid_index-1); // 排序左子数组（小于基准） quickSort(a,mid_index+1,r); // 排序右子数组（大于基准） } } // 分区函数：选a[l]为基准，返回基准值的最终索引 private static int find(int[] a, int l, int r) { int pivot = a[l]; // 基准值（保存副本，避免被修改） int left = l + 1; // 左指针：从基准下一位开始找大于pivot的元素 int right = r; // 右指针：从右边界开始找小于pivot的元素 while (true) { // 右指针找小于基准值的元素（left&lt;=right 防止越界） while (left &lt;= right &amp;&amp; a[right] &gt;= pivot) { right--; } // 左指针找大于基准值的元素（left&lt;=right 防止越界） while (left &lt;= right &amp;&amp; a[left] &lt;= pivot) { left++; } // 左指针超过右指针，分区结束 if (left &gt; right) { break; } // 交换左右指针指向的元素（真正修改数组） int temp = a[left]; a[left] = a[right]; a[right] = temp; } // 把基准值放到正确位置（right是小于基准区域的最后一位） int temp = a[l]; a[l] = a[right]; a[right] = temp; return right; // 返回基准值的最终索引 } ">
+<title>07-基本算法</title>
+
+<link rel='canonical' href='http://localhost:1313/post/07-%E5%9F%BA%E6%9C%AC%E7%AE%97%E6%B3%95/'>
+
+<link rel="stylesheet" href="/scss/style.min.51098b80cc297c94c0f57786d4a04e7372774e5993b60facf53870128a79bf73.css"><meta property='og:title' content="07-基本算法">
+<meta property='og:description' content="插值查找 前提是数据有顺序 int[] list = {7,23,79,81,103,127,131,147}; int l = 0; int r = list.length - 1; int x = sc.nextInt(); int mid; while (l &lt;= r &amp;&amp; x &gt;= list[l] &amp;&amp; x &lt;= list[r]) { // 先乘后除 mid = l + (x - list[l]) * (r - l) / (list[r] - list[l]); if (x == list[mid]) { System.out.println(&#34;找到了，索引为：&#34; + mid); break; } else if (x &gt; list[mid]) { l = mid + 1; } else { r = mid - 1; } } 插值查找优点：对于均匀分布的数组，速度极快（时间复杂度接近 $O(\\log(\\log n))$）。 插值查找缺点：如果数据分布极不均匀（比如：{1, 2, 3, 100, 1000, 10000}），插值查找的性能可能还不如二分查找。 冒泡排序 相邻的数据两两比较 if(a[i] &gt; [j]) swap(a[i],a[j]) 选择排序 从0索引开始，拿着每一个索引上的元素跟后面的元素一一比较，小的放前面，大的放后面。 第一轮循环，确定确定了最小元素 插入排序 分为有序组和无序组 将无序组逐个插入有序组中 public class TestDemo { public static void main(String[] args) { int[] arr = {4,16,5,9,12,21,18, 32,23,37,26,45,34, 50,48,61,52,73,66}; int startIndex = -1; for (int i = 0; i &lt; arr.length; i++) { if(arr[i] &gt; arr[i+1]){ startIndex = i + 1; break; } } if(startIndex == -1){ return ; } for(int i = startIndex; i &lt; arr.length; i++){ int j = i; while(j &gt; 0 &amp;&amp; arr[j] &lt; arr[j-1]) {//寻找正确的位置 int temp = arr[j]; arr[j] = arr[j - 1]; arr[j - 1] = temp; j--; } } } } 递归 方法再次调用方法本身 递归一定要有出口，否则就会内存溢出 快速排序 第一轮：将0索引数字作为基准数，确定基准数在数组中的正确位置 // 快速排序主方法：递归分治 private static void quickSort(int[] a, int l, int r) { if(l &lt; r){ int mid_index = find(a,l,r); // 分区，返回基准值的正确索引 quickSort(a,l,mid_index-1); // 排序左子数组（小于基准） quickSort(a,mid_index+1,r); // 排序右子数组（大于基准） } } // 分区函数：选a[l]为基准，返回基准值的最终索引 private static int find(int[] a, int l, int r) { int pivot = a[l]; // 基准值（保存副本，避免被修改） int left = l + 1; // 左指针：从基准下一位开始找大于pivot的元素 int right = r; // 右指针：从右边界开始找小于pivot的元素 while (true) { // 右指针找小于基准值的元素（left&lt;=right 防止越界） while (left &lt;= right &amp;&amp; a[right] &gt;= pivot) { right--; } // 左指针找大于基准值的元素（left&lt;=right 防止越界） while (left &lt;= right &amp;&amp; a[left] &lt;= pivot) { left++; } // 左指针超过右指针，分区结束 if (left &gt; right) { break; } // 交换左右指针指向的元素（真正修改数组） int temp = a[left]; a[left] = a[right]; a[right] = temp; } // 把基准值放到正确位置（right是小于基准区域的最后一位） int temp = a[l]; a[l] = a[right]; a[right] = temp; return right; // 返回基准值的最终索引 } ">
+<meta property='og:url' content='http://localhost:1313/post/07-%E5%9F%BA%E6%9C%AC%E7%AE%97%E6%B3%95/'>
+<meta property='og:site_name' content='我的个人博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-02-03T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-02-03T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="07-基本算法">
+<meta name="twitter:description" content="插值查找 前提是数据有顺序 int[] list = {7,23,79,81,103,127,131,147}; int l = 0; int r = list.length - 1; int x = sc.nextInt(); int mid; while (l &lt;= r &amp;&amp; x &gt;= list[l] &amp;&amp; x &lt;= list[r]) { // 先乘后除 mid = l + (x - list[l]) * (r - l) / (list[r] - list[l]); if (x == list[mid]) { System.out.println(&#34;找到了，索引为：&#34; + mid); break; } else if (x &gt; list[mid]) { l = mid + 1; } else { r = mid - 1; } } 插值查找优点：对于均匀分布的数组，速度极快（时间复杂度接近 $O(\\log(\\log n))$）。 插值查找缺点：如果数据分布极不均匀（比如：{1, 2, 3, 100, 1000, 10000}），插值查找的性能可能还不如二分查找。 冒泡排序 相邻的数据两两比较 if(a[i] &gt; [j]) swap(a[i],a[j]) 选择排序 从0索引开始，拿着每一个索引上的元素跟后面的元素一一比较，小的放前面，大的放后面。 第一轮循环，确定确定了最小元素 插入排序 分为有序组和无序组 将无序组逐个插入有序组中 public class TestDemo { public static void main(String[] args) { int[] arr = {4,16,5,9,12,21,18, 32,23,37,26,45,34, 50,48,61,52,73,66}; int startIndex = -1; for (int i = 0; i &lt; arr.length; i++) { if(arr[i] &gt; arr[i+1]){ startIndex = i + 1; break; } } if(startIndex == -1){ return ; } for(int i = startIndex; i &lt; arr.length; i++){ int j = i; while(j &gt; 0 &amp;&amp; arr[j] &lt; arr[j-1]) {//寻找正确的位置 int temp = arr[j]; arr[j] = arr[j - 1]; arr[j - 1] = temp; j--; } } } } 递归 方法再次调用方法本身 递归一定要有出口，否则就会内存溢出 快速排序 第一轮：将0索引数字作为基准数，确定基准数在数组中的正确位置 // 快速排序主方法：递归分治 private static void quickSort(int[] a, int l, int r) { if(l &lt; r){ int mid_index = find(a,l,r); // 分区，返回基准值的正确索引 quickSort(a,l,mid_index-1); // 排序左子数组（小于基准） quickSort(a,mid_index+1,r); // 排序右子数组（大于基准） } } // 分区函数：选a[l]为基准，返回基准值的最终索引 private static int find(int[] a, int l, int r) { int pivot = a[l]; // 基准值（保存副本，避免被修改） int left = l + 1; // 左指针：从基准下一位开始找大于pivot的元素 int right = r; // 右指针：从右边界开始找小于pivot的元素 while (true) { // 右指针找小于基准值的元素（left&lt;=right 防止越界） while (left &lt;= right &amp;&amp; a[right] &gt;= pivot) { right--; } // 左指针找大于基准值的元素（left&lt;=right 防止越界） while (left &lt;= right &amp;&amp; a[left] &lt;= pivot) { left++; } // 左指针超过右指针，分区结束 if (left &gt; right) { break; } // 交换左右指针指向的元素（真正修改数组） int temp = a[left]; a[left] = a[right]; a[right] = temp; } // 把基准值放到正确位置（right是小于基准区域的最后一位） int temp = a[l]; a[l] = a[right]; a[right] = temp; return right; // 返回基准值的最终索引 } ">
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            <figure class="site-avatar">
+                <a href="/">
+                    <img src="/img/avatar.jpg" 
+                        width="120"
+                        height="120"
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+                    <span class="emoji">🍥</span>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">我的个人博客</a></h1>
+            <h2 class="site-description">技术爱好者 / 极简主义者</h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>首页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/archives_/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/about_/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/search_/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/links_/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span></span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title"></h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ul>
+    <li><a href="#插值查找">插值查找</a></li>
+    <li><a href="#冒泡排序">冒泡排序</a></li>
+    <li><a href="#选择排序">选择排序</a></li>
+    <li><a href="#插入排序">插入排序</a></li>
+    <li><a href="#递归">递归</a></li>
+    <li><a href="#快速排序">快速排序</a></li>
+  </ul>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/07-%E5%9F%BA%E6%9C%AC%E7%AE%97%E6%B3%95/">07-基本算法</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2026-02-03T00:00:00Z'>Tuesday, February 3, 2026</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span></span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ul>
+    <li><a href="#插值查找">插值查找</a></li>
+    <li><a href="#冒泡排序">冒泡排序</a></li>
+    <li><a href="#选择排序">选择排序</a></li>
+    <li><a href="#插入排序">插入排序</a></li>
+    <li><a href="#递归">递归</a></li>
+    <li><a href="#快速排序">快速排序</a></li>
+  </ul>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <h1 id="插值查找">插值查找
+</h1><ul>
+<li>前提是数据有顺序</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> list <span style="color:#f92672">=</span> {7,23,79,81,103,127,131,147};  
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span> l <span style="color:#f92672">=</span> 0;  
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span> r <span style="color:#f92672">=</span> list.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> 1;  
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> sc.<span style="color:#a6e22e">nextInt</span>();  
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span> mid;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">while</span> (l <span style="color:#f92672">&lt;=</span> r <span style="color:#f92672">&amp;&amp;</span> x <span style="color:#f92672">&gt;=</span> list<span style="color:#f92672">[</span>l<span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> x <span style="color:#f92672">&lt;=</span> list<span style="color:#f92672">[</span>r<span style="color:#f92672">]</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 先乘后除</span>
+</span></span><span style="display:flex;"><span>		mid <span style="color:#f92672">=</span> l <span style="color:#f92672">+</span> (x <span style="color:#f92672">-</span> list<span style="color:#f92672">[</span>l<span style="color:#f92672">]</span>) <span style="color:#f92672">*</span> (r <span style="color:#f92672">-</span> l) <span style="color:#f92672">/</span> (list<span style="color:#f92672">[</span>r<span style="color:#f92672">]</span> <span style="color:#f92672">-</span> list<span style="color:#f92672">[</span>l<span style="color:#f92672">]</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> (x <span style="color:#f92672">==</span> list<span style="color:#f92672">[</span>mid<span style="color:#f92672">]</span>) {
+</span></span><span style="display:flex;"><span>			System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;找到了，索引为：&#34;</span> <span style="color:#f92672">+</span> mid);
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>		} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (x <span style="color:#f92672">&gt;</span> list<span style="color:#f92672">[</span>mid<span style="color:#f92672">]</span>) {
+</span></span><span style="display:flex;"><span>			l <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> 1;
+</span></span><span style="display:flex;"><span>		} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>			r <span style="color:#f92672">=</span> mid <span style="color:#f92672">-</span> 1;
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span></code></pre></div><ul>
+<li><strong>插值查找优点</strong>：对于<strong>均匀分布</strong>的数组，速度极快（时间复杂度接近 $O(\log(\log n))$）。</li>
+<li><strong>插值查找缺点</strong>：如果数据分布<strong>极不均匀</strong>（比如：<code>{1, 2, 3, 100, 1000, 10000}</code>），插值查找的性能可能还不如二分查找。</li>
+</ul>
+<hr>
+<h1 id="冒泡排序">冒泡排序
+</h1><ul>
+<li>相邻的数据两两比较</li>
+<li><code>if(a[i] &gt; [j]) swap(a[i],a[j])</code></li>
+</ul>
+<h1 id="选择排序">选择排序
+</h1><ul>
+<li>从0索引开始，拿着每一个索引上的元素跟后面的元素一一比较，小的放前面，大的放后面。</li>
+<li>第一轮循环，确定确定了最小元素</li>
+</ul>
+<h1 id="插入排序">插入排序
+</h1><ul>
+<li>分为有序组和无序组</li>
+<li>将无序组逐个插入有序组中</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TestDemo</span> {  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {  
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> arr <span style="color:#f92672">=</span> {4,16,5,9,12,21,18,  
+</span></span><span style="display:flex;"><span>                32,23,37,26,45,34,  
+</span></span><span style="display:flex;"><span>                50,48,61,52,73,66};  
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> startIndex <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>1;  
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0; i <span style="color:#f92672">&lt;</span> arr.<span style="color:#a6e22e">length</span>; i<span style="color:#f92672">++</span>) {  
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(arr<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">&gt;</span> arr<span style="color:#f92672">[</span>i<span style="color:#f92672">+</span>1<span style="color:#f92672">]</span>){  
+</span></span><span style="display:flex;"><span>                startIndex <span style="color:#f92672">=</span> i <span style="color:#f92672">+</span> 1;  
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;  
+</span></span><span style="display:flex;"><span>            }  
+</span></span><span style="display:flex;"><span>        }  
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(startIndex <span style="color:#f92672">==</span> <span style="color:#f92672">-</span>1){  
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> ;  
+</span></span><span style="display:flex;"><span>        }  
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> startIndex; i <span style="color:#f92672">&lt;</span> arr.<span style="color:#a6e22e">length</span>; i<span style="color:#f92672">++</span>){  
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span>  j <span style="color:#f92672">=</span> i;  
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">while</span>(j <span style="color:#f92672">&gt;</span> 0 <span style="color:#f92672">&amp;&amp;</span> arr<span style="color:#f92672">[</span>j<span style="color:#f92672">]</span> <span style="color:#f92672">&lt;</span> arr<span style="color:#f92672">[</span>j<span style="color:#f92672">-</span>1<span style="color:#f92672">]</span>) {<span style="color:#75715e">//寻找正确的位置</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">int</span> temp <span style="color:#f92672">=</span> arr<span style="color:#f92672">[</span>j<span style="color:#f92672">]</span>;  
+</span></span><span style="display:flex;"><span>                arr<span style="color:#f92672">[</span>j<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> arr<span style="color:#f92672">[</span>j <span style="color:#f92672">-</span> 1<span style="color:#f92672">]</span>;  
+</span></span><span style="display:flex;"><span>                arr<span style="color:#f92672">[</span>j <span style="color:#f92672">-</span> 1<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> temp;  
+</span></span><span style="display:flex;"><span>                j<span style="color:#f92672">--</span>;  
+</span></span><span style="display:flex;"><span>            }  
+</span></span><span style="display:flex;"><span>        }  
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="递归">递归
+</h1><ul>
+<li>方法再次调用方法本身</li>
+<li><strong>递归一定要有出口，否则就会内存溢出</strong></li>
+</ul>
+<h1 id="快速排序">快速排序
+</h1><ul>
+<li>第一轮：将0索引数字作为基准数，确定基准数在数组中的正确位置</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#75715e">// 快速排序主方法：递归分治  </span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">quickSort</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> a, <span style="color:#66d9ef">int</span> l, <span style="color:#66d9ef">int</span> r) {  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(l <span style="color:#f92672">&lt;</span> r){  
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> mid_index <span style="color:#f92672">=</span> find(a,l,r); <span style="color:#75715e">// 分区，返回基准值的正确索引  </span>
+</span></span><span style="display:flex;"><span>        quickSort(a,l,mid_index<span style="color:#f92672">-</span>1); <span style="color:#75715e">// 排序左子数组（小于基准）  </span>
+</span></span><span style="display:flex;"><span>        quickSort(a,mid_index<span style="color:#f92672">+</span>1,r); <span style="color:#75715e">// 排序右子数组（大于基准）  </span>
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>}  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 分区函数：选a[l]为基准，返回基准值的最终索引  </span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">find</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> a, <span style="color:#66d9ef">int</span> l, <span style="color:#66d9ef">int</span> r) {  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> pivot <span style="color:#f92672">=</span> a<span style="color:#f92672">[</span>l<span style="color:#f92672">]</span>; <span style="color:#75715e">// 基准值（保存副本，避免被修改）  </span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> left <span style="color:#f92672">=</span> l <span style="color:#f92672">+</span> 1; <span style="color:#75715e">// 左指针：从基准下一位开始找大于pivot的元素  </span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> right <span style="color:#f92672">=</span> r;    <span style="color:#75715e">// 右指针：从右边界开始找小于pivot的元素  </span>
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (<span style="color:#66d9ef">true</span>) {  
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 右指针找小于基准值的元素（left&lt;=right 防止越界）  </span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (left <span style="color:#f92672">&lt;=</span> right <span style="color:#f92672">&amp;&amp;</span> a<span style="color:#f92672">[</span>right<span style="color:#f92672">]</span> <span style="color:#f92672">&gt;=</span> pivot) {  
+</span></span><span style="display:flex;"><span>            right<span style="color:#f92672">--</span>;  
+</span></span><span style="display:flex;"><span>        }  
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 左指针找大于基准值的元素（left&lt;=right 防止越界）  </span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (left <span style="color:#f92672">&lt;=</span> right <span style="color:#f92672">&amp;&amp;</span> a<span style="color:#f92672">[</span>left<span style="color:#f92672">]</span> <span style="color:#f92672">&lt;=</span> pivot) {  
+</span></span><span style="display:flex;"><span>            left<span style="color:#f92672">++</span>;  
+</span></span><span style="display:flex;"><span>        }  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 左指针超过右指针，分区结束  </span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (left <span style="color:#f92672">&gt;</span> right) {  
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>;  
+</span></span><span style="display:flex;"><span>        }  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 交换左右指针指向的元素（真正修改数组）  </span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> temp <span style="color:#f92672">=</span> a<span style="color:#f92672">[</span>left<span style="color:#f92672">]</span>;  
+</span></span><span style="display:flex;"><span>        a<span style="color:#f92672">[</span>left<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> a<span style="color:#f92672">[</span>right<span style="color:#f92672">]</span>;  
+</span></span><span style="display:flex;"><span>        a<span style="color:#f92672">[</span>right<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> temp;  
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 把基准值放到正确位置（right是小于基准区域的最后一位）  </span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> temp <span style="color:#f92672">=</span> a<span style="color:#f92672">[</span>l<span style="color:#f92672">]</span>;  
+</span></span><span style="display:flex;"><span>    a<span style="color:#f92672">[</span>l<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> a<span style="color:#f92672">[</span>right<span style="color:#f92672">]</span>;  
+</span></span><span style="display:flex;"><span>    a<span style="color:#f92672">[</span>right<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> temp;  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> right; <span style="color:#75715e">// 返回基准值的最终索引  </span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 我的个人博客
+    </section>
+    
+    <section class="powerby">
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+    
+
+            </main>
+        </div>
+        <script type="text/javascript" src="/ts/main.3a2f8771ee6776b511b1cb3b11fa8a352f78fa85b96dce4c70ca982d1062d069.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
