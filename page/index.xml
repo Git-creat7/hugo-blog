@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Pages on Creat7</title>
-        <link>/page/</link>
+        <link>https://git-creat7.github.io/hugo-blog/page/</link>
         <description>Recent content in Pages on Creat7</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>zh-cn</language><atom:link href="/page/index.xml" rel="self" type="application/rss+xml" /><item>
+        <language>zh-cn</language><atom:link href="https://git-creat7.github.io/hugo-blog/page/index.xml" rel="self" type="application/rss+xml" /><item>
             <title>关于</title>
-            <link>/page/about_/</link>
+            <link>https://git-creat7.github.io/hugo-blog/page/about_/</link>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-            <guid>/page/about_/</guid>
+            <guid>https://git-creat7.github.io/hugo-blog/page/about_/</guid>
             <description></description>
         </item><item>
             <title>归档</title>
-            <link>/page/archives_/</link>
+            <link>https://git-creat7.github.io/hugo-blog/page/archives_/</link>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-            <guid>/page/archives_/</guid>
+            <guid>https://git-creat7.github.io/hugo-blog/page/archives_/</guid>
             <description></description>
         </item><item>
             <title>链接</title>
-            <link>/page/links_/</link>
+            <link>https://git-creat7.github.io/hugo-blog/page/links_/</link>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-            <guid>/page/links_/</guid>
+            <guid>https://git-creat7.github.io/hugo-blog/page/links_/</guid>
             <description></description>
         </item><item>
             <title>搜索</title>
-            <link>/page/search_/</link>
+            <link>https://git-creat7.github.io/hugo-blog/page/search_/</link>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-            <guid>/page/search_/</guid>
+            <guid>https://git-creat7.github.io/hugo-blog/page/search_/</guid>
             <description></description>
         </item></channel>
 </rss>
