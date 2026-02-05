@@ -6,6 +6,12 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <lastBuildDate>Tue, 03 Feb 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://git-creat7.github.io/hugo-blog/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>List</title>
+            <link>https://git-creat7.github.io/hugo-blog/categories/list/</link>
+            <pubDate>Tue, 03 Feb 2026 00:00:00 +0000</pubDate>
+            <guid>https://git-creat7.github.io/hugo-blog/categories/list/</guid>
+            <description>&lt;img src=&#34;https://git-creat7.github.io/hugo-blog/&#34; alt=&#34;Featured image of post List&#34; /&gt;</description>
+        </item><item>
             <title>Map</title>
             <link>https://git-creat7.github.io/hugo-blog/categories/map/</link>
             <pubDate>Tue, 03 Feb 2026 00:00:00 +0000</pubDate>
@@ -46,12 +52,6 @@
             <link>https://git-creat7.github.io/hugo-blog/categories/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</link>
             <pubDate>Tue, 03 Feb 2026 00:00:00 +0000</pubDate>
             <guid>https://git-creat7.github.io/hugo-blog/categories/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</guid>
-            <description></description>
-        </item><item>
-            <title>数据结构</title>
-            <link>https://git-creat7.github.io/hugo-blog/categories/list/</link>
-            <pubDate>Tue, 03 Feb 2026 00:00:00 +0000</pubDate>
-            <guid>https://git-creat7.github.io/hugo-blog/categories/list/</guid>
             <description></description>
         </item><item>
             <title>数据结构</title>
