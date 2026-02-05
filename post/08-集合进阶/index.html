@@ -4,16 +4,16 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Collection 接口（单列集合根接口） ├─ List 接口（有序、可重复） │ ├─ ArrayList（实现类）：动态数组，查询快、增删慢 │ ├─ LinkedList（实现类）：双向链表，增删快、查询慢 │ └─ Vector（实现类）：动态数组，线程安全、性能差 └─ Set 接口（无序、不可重复） ├─ HashSet（实现类）：哈希表，无序去重 ├─ TreeSet（实现类）：红黑树，排序去重 └─ LinkedHashSet（实现类）：哈希表+链表，有序去重 flowchart TD A[Collection&lt;br/&gt;（单列集合根接口）] --&gt; B[List&lt;br/&gt;（有序、可重复）] A --&gt; C[Set&lt;br/&gt;（无序、不可重复）] B --&gt; B1[ArrayList&lt;br/&gt;（动态数组）] B --&gt; B2[LinkedList&lt;br/&gt;（双向链表）] B --&gt; B3[Vector&lt;br/&gt;（线程安全数组）] C --&gt; C1[HashSet&lt;br/&gt;（哈希表）] C --&gt; C2[TreeSet&lt;br/&gt;（红黑树）] C1 --&gt; C3[LinkedHashSet&lt;br/&gt;（哈希表+链表）] %% 样式优化（可选） A:::root B:::subInterface C:::subInterface B1:::impl B2:::impl B3:::impl C1:::impl C2:::impl C3:::impl classDef root fill:#f9f,stroke:#333,stroke-width:2px classDef subInterface fill:#9ff,stroke:#333,stroke-width:2px classDef impl fill:#ff9,stroke:#333,stroke-width:1px Collection ">
 <title>08-集合进阶</title>
 
-<link rel='canonical' href='https://git-creat7.github.io/hugo-blog/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/'>
+<link rel='canonical' href='/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/'>
 
-<link rel="stylesheet" href="/hugo-blog/scss/style.min.2e1c740368b15582e0e2077bbfd9abfbf78dd3f409b11ad41dceb5ecc1f082d2.css"><meta property='og:title' content="08-集合进阶">
+<link rel="stylesheet" href="/scss/style.min.4e448a7c5b46a29fe14068bef5f7092d7a849f4d045e7c2d44bf92a7bb6bac60.css"><meta property='og:title' content="08-集合进阶">
 <meta property='og:description' content="Collection 接口（单列集合根接口） ├─ List 接口（有序、可重复） │ ├─ ArrayList（实现类）：动态数组，查询快、增删慢 │ ├─ LinkedList（实现类）：双向链表，增删快、查询慢 │ └─ Vector（实现类）：动态数组，线程安全、性能差 └─ Set 接口（无序、不可重复） ├─ HashSet（实现类）：哈希表，无序去重 ├─ TreeSet（实现类）：红黑树，排序去重 └─ LinkedHashSet（实现类）：哈希表+链表，有序去重 flowchart TD A[Collection&lt;br/&gt;（单列集合根接口）] --&gt; B[List&lt;br/&gt;（有序、可重复）] A --&gt; C[Set&lt;br/&gt;（无序、不可重复）] B --&gt; B1[ArrayList&lt;br/&gt;（动态数组）] B --&gt; B2[LinkedList&lt;br/&gt;（双向链表）] B --&gt; B3[Vector&lt;br/&gt;（线程安全数组）] C --&gt; C1[HashSet&lt;br/&gt;（哈希表）] C --&gt; C2[TreeSet&lt;br/&gt;（红黑树）] C1 --&gt; C3[LinkedHashSet&lt;br/&gt;（哈希表+链表）] %% 样式优化（可选） A:::root B:::subInterface C:::subInterface B1:::impl B2:::impl B3:::impl C1:::impl C2:::impl C3:::impl classDef root fill:#f9f,stroke:#333,stroke-width:2px classDef subInterface fill:#9ff,stroke:#333,stroke-width:2px classDef impl fill:#ff9,stroke:#333,stroke-width:1px Collection ">
-<meta property='og:url' content='https://git-creat7.github.io/hugo-blog/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/'>
+<meta property='og:url' content='/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/'>
 <meta property='og:site_name' content='Creat7'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-02-03T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-02-03T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="08-集合进阶">
 <meta name="twitter:description" content="Collection 接口（单列集合根接口） ├─ List 接口（有序、可重复） │ ├─ ArrayList（实现类）：动态数组，查询快、增删慢 │ ├─ LinkedList（实现类）：双向链表，增删快、查询慢 │ └─ Vector（实现类）：动态数组，线程安全、性能差 └─ Set 接口（无序、不可重复） ├─ HashSet（实现类）：哈希表，无序去重 ├─ TreeSet（实现类）：红黑树，排序去重 └─ LinkedHashSet（实现类）：哈希表+链表，有序去重 flowchart TD A[Collection&lt;br/&gt;（单列集合根接口）] --&gt; B[List&lt;br/&gt;（有序、可重复）] A --&gt; C[Set&lt;br/&gt;（无序、不可重复）] B --&gt; B1[ArrayList&lt;br/&gt;（动态数组）] B --&gt; B2[LinkedList&lt;br/&gt;（双向链表）] B --&gt; B3[Vector&lt;br/&gt;（线程安全数组）] C --&gt; C1[HashSet&lt;br/&gt;（哈希表）] C --&gt; C2[TreeSet&lt;br/&gt;（红黑树）] C1 --&gt; C3[LinkedHashSet&lt;br/&gt;（哈希表+链表）] %% 样式优化（可选） A:::root B:::subInterface C:::subInterface B1:::impl B2:::impl B3:::impl C1:::impl C2:::impl C3:::impl classDef root fill:#f9f,stroke:#333,stroke-width:2px classDef subInterface fill:#9ff,stroke:#333,stroke-width:2px classDef impl fill:#ff9,stroke:#333,stroke-width:1px Collection ">
-    <link rel="shortcut icon" href="/hugo-blog/img/favicon.ico" />
+    <link rel="shortcut icon" href="/img/favicon.ico" />
 <style>
     :root {
          
@@ -71,8 +71,8 @@
     <header>
         
             <figure class="site-avatar">
-                <a href="/hugo-blog/">
-                    <img src="/hugo-blog/img/avatar_wechat.jpg" 
+                <a href="/">
+                    <img src="/img/avatar_wechat.jpg" 
                         width="120"
                         height="120"
                         class="site-logo"
@@ -86,7 +86,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/hugo-blog/">Creat7</a></h1>
+            <h1 class="site-name"><a href="/">Creat7</a></h1>
             <h2 class="site-description">欢迎来到我的网站，此博客由【Hugo &#43; Stack】来进行搭建，主要分享个人生活和学习笔记</h2>
         </div>
     </header><ol class="menu" id="main-menu">
@@ -94,7 +94,7 @@
         
         
         <li >
-            <a href='/hugo-blog/' >
+            <a href='/' >
                 
                 
                 
@@ -114,7 +114,7 @@
         
         
         <li >
-            <a href='/hugo-blog/page/archives_/' >
+            <a href='/page/archives_/' >
                 
                 
                 
@@ -134,7 +134,7 @@
         
         
         <li >
-            <a href='/hugo-blog/page/about_/' >
+            <a href='/page/about_/' >
                 
                 
                 
@@ -153,7 +153,7 @@
         
         
         <li >
-            <a href='/hugo-blog/page/search_/' >
+            <a href='/page/search_/' >
                 
                 
                 
@@ -172,7 +172,7 @@
         
         
         <li >
-            <a href='/hugo-blog/page/links_/' >
+            <a href='/page/links_/' >
                 
                 
                 
@@ -339,28 +339,28 @@
             
             
             
-            <a href="/hugo-blog/categories/%E9%9B%86%E5%90%88/" style="background-color: hsl(332, 60%, 84%); color: hsl(332, 60%, 15%);">
+            <a href="/categories/%E9%9B%86%E5%90%88/" style="background-color: hsl(332, 60%, 84%); color: hsl(332, 60%, 15%);">
                 集合
             </a>
         
             
             
             
-            <a href="/hugo-blog/categories/set/" style="background-color: hsl(283, 60%, 84%); color: hsl(283, 60%, 15%);">
+            <a href="/categories/set/" style="background-color: hsl(283, 60%, 84%); color: hsl(283, 60%, 15%);">
                 Set
             </a>
         
             
             
             
-            <a href="/hugo-blog/categories/map/" style="background-color: hsl(1, 60%, 84%); color: hsl(1, 60%, 15%);">
+            <a href="/categories/map/" style="background-color: hsl(1, 60%, 84%); color: hsl(1, 60%, 15%);">
                 Map
             </a>
         
             
             
             
-            <a href="/hugo-blog/categories/list/" style="background-color: hsl(233, 60%, 84%); color: hsl(233, 60%, 15%);">
+            <a href="/categories/list/" style="background-color: hsl(233, 60%, 84%); color: hsl(233, 60%, 15%);">
                 List
             </a>
         
@@ -369,7 +369,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/hugo-blog/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/">08-集合进阶</a>
+            <a href="/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/">08-集合进阶</a>
         </h2>
     
         
@@ -554,7 +554,7 @@
 </pre>
 
 <h1 id="collection">Collection
-</h1><p><img src="/hugo-blog/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-1.png"
+</h1><p><img src="/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-1.png"
 	width="1607"
 	height="670"
 	loading="lazy"
@@ -620,7 +620,7 @@ contains方法在底层依赖equals方法</p>
 </h2><ul>
 <li>元素有序，可重复，有索引</li>
 </ul>
-<p><img src="/hugo-blog/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-2.png"
+<p><img src="/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-2.png"
 	width="1792"
 	height="482"
 	loading="lazy"
@@ -706,7 +706,7 @@ contains方法在底层依赖equals方法</p>
 </span></span><span style="display:flex;"><span>  }
 </span></span></code></pre></div></li>
 </ul>
-<p><img src="/hugo-blog/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-3.png"
+<p><img src="/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-3.png"
 	width="1764"
 	height="1009"
 	loading="lazy"
@@ -725,7 +725,7 @@ contains方法在底层依赖equals方法</p>
 <li>存满时，会扩容==1.5倍==（向下取整）</li>
 <li>如果一次添加多个元素，1.5倍放不下，则新创建数组的长度以实际为准。</li>
 </ul>
-<p><img src="/hugo-blog/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-4.png"
+<p><img src="/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-4.png"
 	width="2520"
 	height="1005"
 	loading="lazy"
@@ -810,7 +810,7 @@ contains方法在底层依赖equals方法</p>
 <h3 id="linkedlist集合">LinkedList集合
 </h3><ul>
 <li>底层数据结构是双链表，查询慢，增删快，但是如果操作的是首尾元素，速度也是极快
-<img src="/hugo-blog/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-5.png"
+<img src="/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-5.png"
 	width="2296"
 	height="255"
 	loading="lazy"
@@ -822,7 +822,7 @@ contains方法在底层依赖equals方法</p>
 	
 ></li>
 </ul>
-<p><img src="/hugo-blog/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-6.png"
+<p><img src="/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-6.png"
 	width="2481"
 	height="1079"
 	loading="lazy"
@@ -834,7 +834,7 @@ contains方法在底层依赖equals方法</p>
 	
 ></p>
 <h3 id="iterator迭代器">Iterator迭代器
-</h3><p><img src="/hugo-blog/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-7.png"
+</h3><p><img src="/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-7.png"
 	width="2537"
 	height="983"
 	loading="lazy"
@@ -1193,7 +1193,7 @@ contains方法在底层依赖equals方法</p>
 
 
 <script type="module">
-    import gallery from '\/hugo-blog\/ts\/gallery.js';
+    import gallery from '\/ts\/gallery.js';
 
     const articleContent = document.querySelector('.article-content');
     const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
@@ -1229,7 +1229,7 @@ contains方法在底层依赖equals方法</p>
 
             </main>
         </div>
-        <script type="text/javascript" src="/hugo-blog/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+        <script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');
