@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='/post/05-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%BF%9B%E9%98%B6/'>
 
-<link rel="stylesheet" href="/scss/style.min.4e448a7c5b46a29fe14068bef5f7092d7a849f4d045e7c2d44bf92a7bb6bac60.css"><meta property='og:title' content="05-面向对象进阶">
+<link rel="stylesheet" href="/scss/style.min.0472d0ecd05520ce9cb3c0ce0bfe1444dfe0db2da01b4a7ddafe751ad49a34b8.css"><meta property='og:title' content="05-面向对象进阶">
 <meta property='og:description' content="static（静态） 静态变量 在JavaBean中，不加static只能供一个对象使用\n被 static 修饰的变量属于类，所有实例共享同一个变量值 在内存中只存在一份，当类被加载时初始化 通常用于表示所有对象共有的属性 public class Student { // 静态变量（类变量） public static String schoolName = &#34;阳光中学&#34;; // 实例变量 private String name; public Student(String name) { this.name = name; } public static void main(String[] args) { // 直接通过类名访问静态变量 System.out.println(Student.schoolName); // 输出：阳光中学 Student s1 = new Student(&#34;张三&#34;); Student s2 = new Student(&#34;李四&#34;); // 也可以通过实例访问（不推荐） System.out.println(s1.schoolName); // 输出：阳光中学 // 修改静态变量，所有实例都会受到影响 Student.schoolName = &#34;星光中学&#34;; System.out.println(s2.schoolName); // 输出：星光中学 } }\t[!NOTE] JDK8之前，静态区处于方法区里面。 JDK7之后，静态区处于堆空间之中。\n">
 <meta property='og:url' content='/post/05-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%BF%9B%E9%98%B6/'>
 <meta property='og:site_name' content='Creat7'>
