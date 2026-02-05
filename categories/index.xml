@@ -71,5 +71,11 @@
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>https://git-creat7.github.io/hugo-blog/categories/documentation/</guid>
             <description>&lt;img src=&#34;https://git-creat7.github.io/hugo-blog/&#34; alt=&#34;Featured image of post 文档&#34; /&gt;</description>
+        </item><item>
+            <title>正则表达式</title>
+            <link>https://git-creat7.github.io/hugo-blog/categories/regex/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>https://git-creat7.github.io/hugo-blog/categories/regex/</guid>
+            <description>&lt;img src=&#34;https://git-creat7.github.io/hugo-blog/&#34; alt=&#34;Featured image of post 正则表达式&#34; /&gt;</description>
         </item></channel>
 </rss>
