@@ -13,7 +13,7 @@
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-02-03T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-02-03T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="05-面向对象进阶">
 <meta name="twitter:description" content="static（静态） 静态变量 在JavaBean中，不加static只能供一个对象使用\n被 static 修饰的变量属于类，所有实例共享同一个变量值 在内存中只存在一份，当类被加载时初始化 通常用于表示所有对象共有的属性 public class Student { // 静态变量（类变量） public static String schoolName = &#34;阳光中学&#34;; // 实例变量 private String name; public Student(String name) { this.name = name; } public static void main(String[] args) { // 直接通过类名访问静态变量 System.out.println(Student.schoolName); // 输出：阳光中学 Student s1 = new Student(&#34;张三&#34;); Student s2 = new Student(&#34;李四&#34;); // 也可以通过实例访问（不推荐） System.out.println(s1.schoolName); // 输出：阳光中学 // 修改静态变量，所有实例都会受到影响 Student.schoolName = &#34;星光中学&#34;; System.out.println(s2.schoolName); // 输出：星光中学 } }\t[!NOTE] JDK8之前，静态区处于方法区里面。 JDK7之后，静态区处于堆空间之中。\n">
-    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="shortcut icon" href="/hugo-blog/img/favicon.ico" />
 <style>
     :root {
          
@@ -1290,60 +1290,94 @@ private static void method(){ }</li>
 
     
 
-    <section class="count_info" style="text-align: center; line-height: 2;">
-    <div>
-        <span>本博客已稳定运行</span>
-        <b id="ds">0</b> <span>天</span>
-        <b id="hs">0</b> <span>小时</span>
-        <b id="ms">0</b> <span>分钟</span>
-    </div>
+    <div class="busuanzi-stats-top" style="text-align: center; font-size: 0.9em; margin-bottom: 10px;">
+    今日访问 <span id="busuanzi_today_pv" style="color:var(--primary); font-weight:bold;">...</span> 次 | 
+    今日访客 <span id="busuanzi_today_uv" style="color:var(--primary); font-weight:bold;">...</span> 人 | 
+    本页阅读 <span id="busuanzi_page_pv" style="color:var(--primary); font-weight:bold;">...</span> 次
+</div>
 
-    <div>
-        
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-        <span>共发表</span> 
-        <b>10</b> 
-        <span>篇文章 · 总计</span> 
-        <b>22.17k</b> 
-        <span>字</span>
-    </div>
+<section class="count_info" style="text-align: center; line-height: 2;">
+  
+  <div>
+    <span>小站已萌萌哒运行了</span>
+    <b id="ds" style="color:var(--primary);">0</b> <span>天</span>
+    <b id="hs" style="color:var(--primary);">0</b> <span>时</span>
+    <b id="ms" style="color:var(--primary);">0</b> <span>分</span>
+  </div>
 
-    <div id="busuanzi_container_site_pv" style="display: none;">
-        <span>本站总访问量</span>
-        <b id="busuanzi_value_site_pv"></b>
-        <span>次</span>
-    </div>
+  
+  <div>
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    <span>已累计耕耘</span>
+    <b style="color:var(--primary);">10</b>
+    <span>篇博文 · 共</span>
+    <b style="color:var(--primary);">22.17k</b>
+    <span>个字</span>
+  </div>
+
+  
+  <div id="busuanzi_container_site_pv">
+    <span>总访问量</span>
+    <b id="busuanzi_site_pv" style="color:var(--primary);">...</b>
+    <span>次</span>
+  </div>
 </section>
 
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script>
+(function () {
+  
+  const startTime = new Date("2026-02-05T00:00:00").getTime();
+
+  function updateRuntime() {
+    const now = Date.now();
+    const diff = Math.floor((now - startTime) / 1000);
+
+    if (diff < 0) return; 
+
+    const d = document.getElementById("ds");
+    const h = document.getElementById("hs");
+    const m = document.getElementById("ms");
+
+    if (d) d.innerText = Math.floor(diff / 86400);
+    if (h) h.innerText = Math.floor((diff % 86400) / 3600);
+    if (m) m.innerText = Math.floor((diff % 3600) / 60);
+  }
+
+  updateRuntime();
+  setInterval(updateRuntime, 60000); 
+})();
+</script>
+
+<script src="//cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" defer></script>
 
     
 

@@ -14,7 +14,7 @@
 <meta property='og:type' content='website'><meta property='og:updated_time' content=' 2026-02-03T00:00:00&#43;00:00 '/>
 <meta name="twitter:title" content="Creat7">
 <meta name="twitter:description" content="欢迎来到我的网站，此博客由【Hugo + Stack】来进行搭建，主要分享个人生活和学习笔记"><link rel="alternate" type="application/rss&#43;xml" href="https://git-creat7.github.io/hugo-blog/index.xml"><link rel="alternate" type="application/json" href="https://git-creat7.github.io/hugo-blog/index.json">
-    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="shortcut icon" href="/hugo-blog/img/favicon.ico" />
 <style>
     :root {
          
@@ -676,60 +676,94 @@
     </a><a class="page-link "href="/hugo-blog/page/2/"aria-label="Next page">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
     </a>
-</nav><section class="count_info" style="text-align: center; line-height: 2;">
-    <div>
-        <span>本博客已稳定运行</span>
-        <b id="ds">0</b> <span>天</span>
-        <b id="hs">0</b> <span>小时</span>
-        <b id="ms">0</b> <span>分钟</span>
-    </div>
+</nav><div class="busuanzi-stats-top" style="text-align: center; font-size: 0.9em; margin-bottom: 10px;">
+    今日访问 <span id="busuanzi_today_pv" style="color:var(--primary); font-weight:bold;">...</span> 次 | 
+    今日访客 <span id="busuanzi_today_uv" style="color:var(--primary); font-weight:bold;">...</span> 人 | 
+    本页阅读 <span id="busuanzi_page_pv" style="color:var(--primary); font-weight:bold;">...</span> 次
+</div>
 
-    <div>
-        
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-        <span>共发表</span> 
-        <b>10</b> 
-        <span>篇文章 · 总计</span> 
-        <b>22.17k</b> 
-        <span>字</span>
-    </div>
+<section class="count_info" style="text-align: center; line-height: 2;">
+  
+  <div>
+    <span>小站已萌萌哒运行了</span>
+    <b id="ds" style="color:var(--primary);">0</b> <span>天</span>
+    <b id="hs" style="color:var(--primary);">0</b> <span>时</span>
+    <b id="ms" style="color:var(--primary);">0</b> <span>分</span>
+  </div>
 
-    <div id="busuanzi_container_site_pv" style="display: none;">
-        <span>本站总访问量</span>
-        <b id="busuanzi_value_site_pv"></b>
-        <span>次</span>
-    </div>
+  
+  <div>
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    <span>已累计耕耘</span>
+    <b style="color:var(--primary);">10</b>
+    <span>篇博文 · 共</span>
+    <b style="color:var(--primary);">22.17k</b>
+    <span>个字</span>
+  </div>
+
+  
+  <div id="busuanzi_container_site_pv">
+    <span>总访问量</span>
+    <b id="busuanzi_site_pv" style="color:var(--primary);">...</b>
+    <span>次</span>
+  </div>
 </section>
 
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script>
+(function () {
+  
+  const startTime = new Date("2026-02-05T00:00:00").getTime();
+
+  function updateRuntime() {
+    const now = Date.now();
+    const diff = Math.floor((now - startTime) / 1000);
+
+    if (diff < 0) return; 
+
+    const d = document.getElementById("ds");
+    const h = document.getElementById("hs");
+    const m = document.getElementById("ms");
+
+    if (d) d.innerText = Math.floor(diff / 86400);
+    if (h) h.innerText = Math.floor((diff % 86400) / 3600);
+    if (m) m.innerText = Math.floor((diff % 3600) / 60);
+  }
+
+  updateRuntime();
+  setInterval(updateRuntime, 60000); 
+})();
+</script>
+
+<script src="//cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" defer></script>
             </main>
         </div>
         <script type="text/javascript" src="/hugo-blog/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>

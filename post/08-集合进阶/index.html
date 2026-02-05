@@ -13,7 +13,7 @@
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-02-03T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-02-03T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="08-集合进阶">
 <meta name="twitter:description" content="Collection 接口（单列集合根接口） ├─ List 接口（有序、可重复） │ ├─ ArrayList（实现类）：动态数组，查询快、增删慢 │ ├─ LinkedList（实现类）：双向链表，增删快、查询慢 │ └─ Vector（实现类）：动态数组，线程安全、性能差 └─ Set 接口（无序、不可重复） ├─ HashSet（实现类）：哈希表，无序去重 ├─ TreeSet（实现类）：红黑树，排序去重 └─ LinkedHashSet（实现类）：哈希表+链表，有序去重 flowchart TD A[Collection&lt;br/&gt;（单列集合根接口）] --&gt; B[List&lt;br/&gt;（有序、可重复）] A --&gt; C[Set&lt;br/&gt;（无序、不可重复）] B --&gt; B1[ArrayList&lt;br/&gt;（动态数组）] B --&gt; B2[LinkedList&lt;br/&gt;（双向链表）] B --&gt; B3[Vector&lt;br/&gt;（线程安全数组）] C --&gt; C1[HashSet&lt;br/&gt;（哈希表）] C --&gt; C2[TreeSet&lt;br/&gt;（红黑树）] C1 --&gt; C3[LinkedHashSet&lt;br/&gt;（哈希表+链表）] %% 样式优化（可选） A:::root B:::subInterface C:::subInterface B1:::impl B2:::impl B3:::impl C1:::impl C2:::impl C3:::impl classDef root fill:#f9f,stroke:#333,stroke-width:2px classDef subInterface fill:#9ff,stroke:#333,stroke-width:2px classDef impl fill:#ff9,stroke:#333,stroke-width:1px Collection ">
-    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="shortcut icon" href="/hugo-blog/img/favicon.ico" />
 <style>
     :root {
          
@@ -1099,60 +1099,94 @@ contains方法在底层依赖equals方法</p>
 
     
 
-    <section class="count_info" style="text-align: center; line-height: 2;">
-    <div>
-        <span>本博客已稳定运行</span>
-        <b id="ds">0</b> <span>天</span>
-        <b id="hs">0</b> <span>小时</span>
-        <b id="ms">0</b> <span>分钟</span>
-    </div>
+    <div class="busuanzi-stats-top" style="text-align: center; font-size: 0.9em; margin-bottom: 10px;">
+    今日访问 <span id="busuanzi_today_pv" style="color:var(--primary); font-weight:bold;">...</span> 次 | 
+    今日访客 <span id="busuanzi_today_uv" style="color:var(--primary); font-weight:bold;">...</span> 人 | 
+    本页阅读 <span id="busuanzi_page_pv" style="color:var(--primary); font-weight:bold;">...</span> 次
+</div>
 
-    <div>
-        
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-        <span>共发表</span> 
-        <b>10</b> 
-        <span>篇文章 · 总计</span> 
-        <b>22.17k</b> 
-        <span>字</span>
-    </div>
+<section class="count_info" style="text-align: center; line-height: 2;">
+  
+  <div>
+    <span>小站已萌萌哒运行了</span>
+    <b id="ds" style="color:var(--primary);">0</b> <span>天</span>
+    <b id="hs" style="color:var(--primary);">0</b> <span>时</span>
+    <b id="ms" style="color:var(--primary);">0</b> <span>分</span>
+  </div>
 
-    <div id="busuanzi_container_site_pv" style="display: none;">
-        <span>本站总访问量</span>
-        <b id="busuanzi_value_site_pv"></b>
-        <span>次</span>
-    </div>
+  
+  <div>
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    <span>已累计耕耘</span>
+    <b style="color:var(--primary);">10</b>
+    <span>篇博文 · 共</span>
+    <b style="color:var(--primary);">22.17k</b>
+    <span>个字</span>
+  </div>
+
+  
+  <div id="busuanzi_container_site_pv">
+    <span>总访问量</span>
+    <b id="busuanzi_site_pv" style="color:var(--primary);">...</b>
+    <span>次</span>
+  </div>
 </section>
 
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script>
+(function () {
+  
+  const startTime = new Date("2026-02-05T00:00:00").getTime();
+
+  function updateRuntime() {
+    const now = Date.now();
+    const diff = Math.floor((now - startTime) / 1000);
+
+    if (diff < 0) return; 
+
+    const d = document.getElementById("ds");
+    const h = document.getElementById("hs");
+    const m = document.getElementById("ms");
+
+    if (d) d.innerText = Math.floor(diff / 86400);
+    if (h) h.innerText = Math.floor((diff % 86400) / 3600);
+    if (m) m.innerText = Math.floor((diff % 3600) / 60);
+  }
+
+  updateRuntime();
+  setInterval(updateRuntime, 60000); 
+})();
+</script>
+
+<script src="//cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" defer></script>
 
     
 

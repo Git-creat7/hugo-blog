@@ -13,7 +13,7 @@
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-02-03T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-02-03T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="09-数据结构">
 <meta name="twitter:description" content="栈Stack 后进先出，先进后出 压栈/进栈：数据进入栈模型的过程 弹栈/出栈：数据离开栈模型的过程 队列Queue 先进先出，后进后出 入队列：数据从后端进入队列模型的过程 出队列：数据从前端离开队列模型的过程 数组 ==查询速度快==：查询数据通过地址值和索引定位，查询任意数据耗时相同（元素在内存中是连续存储的） ==删除效率低==：要将原始数据删除，同时后面每个数据前移 ==添加效率低==：添加位置后的每个数据后移，再添加元素 链表 链表中的结点是独立的对象，在内存中是不连续的，每个节点包含数据值和下一个结点的地址 链表==查询慢==，无论查询哪个数据都从头开始找。 链表的==增删快==（对比数组） 树 [父节点地址值，值，左子节点地址值，右子节点地址值] 度：每一个节点的 子节点 数量 树高：树的总层数 10 &lt;-- 根节点 / \\ 5 15 &lt;-- 第二层 / \\ \\ 3 7 20 &lt;-- 第三层 / 6 &lt;-- 第四层 二叉树的遍历方式 前序遍历 从根节点开始，按照当前节点，左子节点，右子节点的顺序遍历 中序遍历 从最左边的子节点开始，然后按照左子节点，当前节点，右子节点的顺序遍历 后序遍历 从最右边的子节点开始，然后按照左子节点，右子节点，当前节点的顺序遍历 层序遍历 从根节点开始一层一层遍历 二叉查找树 每一个节点上最多有两个子节点 任意节点左子树上的值都小于当前节点 任意节点右子树上的值都大于当前节点 添加节点 小的存左边，大的存右边，一样的不存 弊端 左子树全部为空，从形式上看，更像一个==单链表== 插入速度没有影响 查询速度明显降低 解决弊端：平衡二叉树 平衡二叉树也叫\u00a0平衡二叉搜索树（Self-balancing binary search tree），又被称为 AVL 树，可以保证\u00a0查询效率较高。它是解决\u00a0二叉排序\u00a0可能出现的查询问题。\n">
-    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel="shortcut icon" href="/hugo-blog/img/favicon.ico" />
 <style>
     :root {
          
@@ -762,60 +762,94 @@
 
     
 
-    <section class="count_info" style="text-align: center; line-height: 2;">
-    <div>
-        <span>本博客已稳定运行</span>
-        <b id="ds">0</b> <span>天</span>
-        <b id="hs">0</b> <span>小时</span>
-        <b id="ms">0</b> <span>分钟</span>
-    </div>
+    <div class="busuanzi-stats-top" style="text-align: center; font-size: 0.9em; margin-bottom: 10px;">
+    今日访问 <span id="busuanzi_today_pv" style="color:var(--primary); font-weight:bold;">...</span> 次 | 
+    今日访客 <span id="busuanzi_today_uv" style="color:var(--primary); font-weight:bold;">...</span> 人 | 
+    本页阅读 <span id="busuanzi_page_pv" style="color:var(--primary); font-weight:bold;">...</span> 次
+</div>
 
-    <div>
-        
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-            
-        
-        <span>共发表</span> 
-        <b>10</b> 
-        <span>篇文章 · 总计</span> 
-        <b>22.17k</b> 
-        <span>字</span>
-    </div>
+<section class="count_info" style="text-align: center; line-height: 2;">
+  
+  <div>
+    <span>小站已萌萌哒运行了</span>
+    <b id="ds" style="color:var(--primary);">0</b> <span>天</span>
+    <b id="hs" style="color:var(--primary);">0</b> <span>时</span>
+    <b id="ms" style="color:var(--primary);">0</b> <span>分</span>
+  </div>
 
-    <div id="busuanzi_container_site_pv" style="display: none;">
-        <span>本站总访问量</span>
-        <b id="busuanzi_value_site_pv"></b>
-        <span>次</span>
-    </div>
+  
+  <div>
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    <span>已累计耕耘</span>
+    <b style="color:var(--primary);">10</b>
+    <span>篇博文 · 共</span>
+    <b style="color:var(--primary);">22.17k</b>
+    <span>个字</span>
+  </div>
+
+  
+  <div id="busuanzi_container_site_pv">
+    <span>总访问量</span>
+    <b id="busuanzi_site_pv" style="color:var(--primary);">...</b>
+    <span>次</span>
+  </div>
 </section>
 
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script>
+(function () {
+  
+  const startTime = new Date("2026-02-05T00:00:00").getTime();
+
+  function updateRuntime() {
+    const now = Date.now();
+    const diff = Math.floor((now - startTime) / 1000);
+
+    if (diff < 0) return; 
+
+    const d = document.getElementById("ds");
+    const h = document.getElementById("hs");
+    const m = document.getElementById("ms");
+
+    if (d) d.innerText = Math.floor(diff / 86400);
+    if (h) h.innerText = Math.floor((diff % 86400) / 3600);
+    if (m) m.innerText = Math.floor((diff % 3600) / 60);
+  }
+
+  updateRuntime();
+  setInterval(updateRuntime, 60000); 
+})();
+</script>
+
+<script src="//cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" defer></script>
 
     
 
