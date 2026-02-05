@@ -2,15 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://git-creat7.github.io/hugo-blog/</loc>
-    <lastmod>2026-02-04T18:59:39+08:00</lastmod>
-  </url><url>
-    <loc>https://git-creat7.github.io/hugo-blog/post/new/</loc>
-    <lastmod>2026-02-04T18:59:39+08:00</lastmod>
-  </url><url>
-    <loc>https://git-creat7.github.io/hugo-blog/post/</loc>
-    <lastmod>2026-02-04T18:59:39+08:00</lastmod>
-  </url><url>
     <loc>https://git-creat7.github.io/hugo-blog/post/00-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%8B%93%E5%B1%95/</loc>
     <lastmod>2026-02-03T00:00:00+00:00</lastmod>
   </url><url>
@@ -44,7 +35,10 @@
     <loc>https://git-creat7.github.io/hugo-blog/categories/</loc>
     <lastmod>2026-02-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://git-creat7.github.io/hugo-blog/post/readme/</loc>
+    <loc>https://git-creat7.github.io/hugo-blog/</loc>
+    <lastmod>2026-02-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://git-creat7.github.io/hugo-blog/post/</loc>
     <lastmod>2026-02-03T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://git-creat7.github.io/hugo-blog/categories/%E7%BA%A2%E9%BB%91%E6%A0%91/</loc>
