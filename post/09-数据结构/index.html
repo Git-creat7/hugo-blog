@@ -466,35 +466,35 @@
 </ul>
 <hr>
 <h1 id="树">树
-</h1><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
+</h1><div class="highlight"><div style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
 </span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="w">	 </span><span class="o">[</span><span class="n">父节点地址值</span><span class="err">，</span><span class="n">值</span><span class="err">，</span><span class="n">左子节点地址值</span><span class="err">，</span><span class="n">右子节点地址值</span><span class="o">]</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	 </span><span class="n">度</span><span class="err">：</span><span class="n">每一个节点的</span><span class="w"> </span><span class="n">子节点</span><span class="w"> </span><span class="n">数量</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	 </span><span class="n">树高</span><span class="err">：</span><span class="n">树的总层数</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	 
-</span></span></span><span class="line"><span class="cl"><span class="w">	 
-</span></span></span><span class="line"><span class="cl"><span class="w">	   </span><span class="n">10</span><span class="w">        </span><span class="o">&lt;--</span><span class="w"> </span><span class="n">根节点</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="o">/</span><span class="w">  </span><span class="err">\</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">5</span><span class="w">    </span><span class="n">15</span><span class="w">     </span><span class="o">&lt;--</span><span class="w"> </span><span class="n">第二层</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="o">/</span><span class="w"> </span><span class="err">\</span><span class="w">     </span><span class="err">\</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">3</span><span class="w">   </span><span class="n">7</span><span class="w">    </span><span class="n">20</span><span class="w">   </span><span class="o">&lt;--</span><span class="w"> </span><span class="n">第三层</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="o">/</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">6</span><span class="w">           </span><span class="o">&lt;--</span><span class="w"> </span><span class="n">第四层</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>	 <span style="color:#ff79c6">[</span>父节点地址值，值，左子节点地址值，右子节点地址值<span style="color:#ff79c6">]</span>
+</span></span><span style="display:flex;"><span>	 度：每一个节点的 子节点 数量
+</span></span><span style="display:flex;"><span>	 树高：树的总层数
+</span></span><span style="display:flex;"><span>	 
+</span></span><span style="display:flex;"><span>	 
+</span></span><span style="display:flex;"><span>	   10        <span style="color:#ff79c6">&lt;--</span> 根节点
+</span></span><span style="display:flex;"><span>       <span style="color:#ff79c6">/</span>  \
+</span></span><span style="display:flex;"><span>      5    15     <span style="color:#ff79c6">&lt;--</span> 第二层
+</span></span><span style="display:flex;"><span>     <span style="color:#ff79c6">/</span> \     \
+</span></span><span style="display:flex;"><span>    3   7    20   <span style="color:#ff79c6">&lt;--</span> 第三层
+</span></span><span style="display:flex;"><span>       <span style="color:#ff79c6">/</span>
+</span></span><span style="display:flex;"><span>      6           <span style="color:#ff79c6">&lt;--</span> 第四层
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="二叉树的遍历方式">二叉树的遍历方式
 </h2><h3 id="前序遍历">前序遍历
