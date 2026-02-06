@@ -1,69 +1,69 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Categories on Creat7</title>
-        <link>https://git-creat7.github.io/hugo-blog/categories/</link>
+        <link>https://creat.asia/categories/</link>
         <description>Recent content in Categories on Creat7</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Tue, 03 Feb 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://git-creat7.github.io/hugo-blog/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 03 Feb 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://creat.asia/categories/index.xml" rel="self" type="application/rss+xml" /><item>
             <title>List</title>
-            <link>https://git-creat7.github.io/hugo-blog/categories/list/</link>
+            <link>https://creat.asia/categories/list/</link>
             <pubDate>Tue, 03 Feb 2026 00:00:00 +0000</pubDate>
-            <guid>https://git-creat7.github.io/hugo-blog/categories/list/</guid>
-            <description>&lt;img src=&#34;https://git-creat7.github.io/hugo-blog/&#34; alt=&#34;Featured image of post List&#34; /&gt;</description>
+            <guid>https://creat.asia/categories/list/</guid>
+            <description>&lt;img src=&#34;https://creat.asia/&#34; alt=&#34;Featured image of post List&#34; /&gt;</description>
         </item><item>
             <title>Map</title>
-            <link>https://git-creat7.github.io/hugo-blog/categories/map/</link>
+            <link>https://creat.asia/categories/map/</link>
             <pubDate>Tue, 03 Feb 2026 00:00:00 +0000</pubDate>
-            <guid>https://git-creat7.github.io/hugo-blog/categories/map/</guid>
-            <description>&lt;img src=&#34;https://git-creat7.github.io/hugo-blog/&#34; alt=&#34;Featured image of post Map&#34; /&gt;</description>
+            <guid>https://creat.asia/categories/map/</guid>
+            <description>&lt;img src=&#34;https://creat.asia/&#34; alt=&#34;Featured image of post Map&#34; /&gt;</description>
         </item><item>
             <title>Set</title>
-            <link>https://git-creat7.github.io/hugo-blog/categories/set/</link>
+            <link>https://creat.asia/categories/set/</link>
             <pubDate>Tue, 03 Feb 2026 00:00:00 +0000</pubDate>
-            <guid>https://git-creat7.github.io/hugo-blog/categories/set/</guid>
-            <description>&lt;img src=&#34;https://git-creat7.github.io/hugo-blog/&#34; alt=&#34;Featured image of post Set&#34; /&gt;</description>
+            <guid>https://creat.asia/categories/set/</guid>
+            <description>&lt;img src=&#34;https://creat.asia/&#34; alt=&#34;Featured image of post Set&#34; /&gt;</description>
         </item><item>
             <title>二分</title>
-            <link>https://git-creat7.github.io/hugo-blog/categories/%E4%BA%8C%E5%88%86/</link>
+            <link>https://creat.asia/categories/%E4%BA%8C%E5%88%86/</link>
             <pubDate>Tue, 03 Feb 2026 00:00:00 +0000</pubDate>
-            <guid>https://git-creat7.github.io/hugo-blog/categories/%E4%BA%8C%E5%88%86/</guid>
-            <description>&lt;img src=&#34;https://git-creat7.github.io/hugo-blog/&#34; alt=&#34;Featured image of post 二分&#34; /&gt;</description>
+            <guid>https://creat.asia/categories/%E4%BA%8C%E5%88%86/</guid>
+            <description>&lt;img src=&#34;https://creat.asia/&#34; alt=&#34;Featured image of post 二分&#34; /&gt;</description>
         </item><item>
             <title>红黑树</title>
-            <link>https://git-creat7.github.io/hugo-blog/categories/%E7%BA%A2%E9%BB%91%E6%A0%91/</link>
+            <link>https://creat.asia/categories/%E7%BA%A2%E9%BB%91%E6%A0%91/</link>
             <pubDate>Tue, 03 Feb 2026 00:00:00 +0000</pubDate>
-            <guid>https://git-creat7.github.io/hugo-blog/categories/%E7%BA%A2%E9%BB%91%E6%A0%91/</guid>
+            <guid>https://creat.asia/categories/%E7%BA%A2%E9%BB%91%E6%A0%91/</guid>
             <description></description>
         </item><item>
             <title>集合</title>
-            <link>https://git-creat7.github.io/hugo-blog/categories/%E9%9B%86%E5%90%88/</link>
+            <link>https://creat.asia/categories/%E9%9B%86%E5%90%88/</link>
             <pubDate>Tue, 03 Feb 2026 00:00:00 +0000</pubDate>
-            <guid>https://git-creat7.github.io/hugo-blog/categories/%E9%9B%86%E5%90%88/</guid>
+            <guid>https://creat.asia/categories/%E9%9B%86%E5%90%88/</guid>
             <description></description>
         </item><item>
             <title>克隆</title>
-            <link>https://git-creat7.github.io/hugo-blog/categories/%E5%85%8B%E9%9A%86/</link>
+            <link>https://creat.asia/categories/%E5%85%8B%E9%9A%86/</link>
             <pubDate>Tue, 03 Feb 2026 00:00:00 +0000</pubDate>
-            <guid>https://git-creat7.github.io/hugo-blog/categories/%E5%85%8B%E9%9A%86/</guid>
+            <guid>https://creat.asia/categories/%E5%85%8B%E9%9A%86/</guid>
             <description></description>
         </item><item>
             <title>面向对象</title>
-            <link>https://git-creat7.github.io/hugo-blog/categories/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</link>
+            <link>https://creat.asia/categories/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</link>
             <pubDate>Tue, 03 Feb 2026 00:00:00 +0000</pubDate>
-            <guid>https://git-creat7.github.io/hugo-blog/categories/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</guid>
+            <guid>https://creat.asia/categories/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</guid>
             <description></description>
         </item><item>
             <title>数据结构</title>
-            <link>https://git-creat7.github.io/hugo-blog/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
+            <link>https://creat.asia/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
             <pubDate>Tue, 03 Feb 2026 00:00:00 +0000</pubDate>
-            <guid>https://git-creat7.github.io/hugo-blog/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</guid>
-            <description>&lt;img src=&#34;https://git-creat7.github.io/hugo-blog/&#34; alt=&#34;Featured image of post 数据结构&#34; /&gt;</description>
+            <guid>https://creat.asia/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</guid>
+            <description>&lt;img src=&#34;https://creat.asia/&#34; alt=&#34;Featured image of post 数据结构&#34; /&gt;</description>
         </item><item>
             <title>正则表达式</title>
-            <link>https://git-creat7.github.io/hugo-blog/categories/regex/</link>
+            <link>https://creat.asia/categories/regex/</link>
             <pubDate>Tue, 03 Feb 2026 00:00:00 +0000</pubDate>
-            <guid>https://git-creat7.github.io/hugo-blog/categories/regex/</guid>
-            <description>&lt;img src=&#34;https://git-creat7.github.io/hugo-blog/&#34; alt=&#34;Featured image of post 正则表达式&#34; /&gt;</description>
+            <guid>https://creat.asia/categories/regex/</guid>
+            <description>&lt;img src=&#34;https://creat.asia/&#34; alt=&#34;Featured image of post 正则表达式&#34; /&gt;</description>
         </item></channel>
 </rss>
