@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Collection 接口（单列集合根接口） ├─ List 接口（有序、可重复） │ ├─ ArrayList（实现类）：动态数组，查询快、增删慢 │ ├─ LinkedList（实现类）：双向链表，增删快、查询慢 │ └─ Vector（实现类）：动态数组，线程安全、性能差 └─ Set 接口（无序、不可重复） ├─ HashSet（实现类）：哈希表，无序去重 ├─ TreeSet（实现类）：红黑树，排序去重 └─ LinkedHashSet（实现类）：哈希表+链表，有序去重 flowchart TD A[Collection&lt;br/&gt;（单列集合根接口）] --&gt; B[List&lt;br/&gt;（有序、可重复）] A --&gt; C[Set&lt;br/&gt;（无序、不可重复）] B --&gt; B1[ArrayList&lt;br/&gt;（动态数组）] B --&gt; B2[LinkedList&lt;br/&gt;（双向链表）] B --&gt; B3[Vector&lt;br/&gt;（线程安全数组）] C --&gt; C1[HashSet&lt;br/&gt;（哈希表）] C --&gt; C2[TreeSet&lt;br/&gt;（红黑树）] C1 --&gt; C3[LinkedHashSet&lt;br/&gt;（哈希表+链表）] %% 样式优化（可选） A:::root B:::subInterface C:::subInterface B1:::impl B2:::impl B3:::impl C1:::impl C2:::impl C3:::impl classDef root fill:#f9f,stroke:#333,stroke-width:2px classDef subInterface fill:#9ff,stroke:#333,stroke-width:2px classDef impl fill:#ff9,stroke:#333,stroke-width:1px Collection ">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Collection 接口（单列集合根接口） ├─ List 接口（有序、可重复） │ ├─ ArrayList（实现类）：动态数组，查询快、增删慢 │ ├─ LinkedList（实现类）：双向链表，增删快、查询慢 │ └─ Vector（实现类）：动态数组，线程安全、性能差 └─ Set 接口（无序、不可重复） ├─ HashSet（实现类）：哈希表，无序去重 ├─ TreeSet（实现类）：红黑树，排序去重 └─ LinkedHashSet（实现类）：哈希表+链表，有序去重 flowchart TD A[Collection&lt;br/&gt;（单列集合根接口）] --&gt; B[List&lt;br/&gt;（有序、可重复）] A --&gt; C[Set&lt;br/&gt;（无序、不可重复）] B --&gt; B1[ArrayList&lt;br/&gt;（动态数组）] B --&gt; B2[LinkedList&lt;br/&gt;（双向链表）] B --&gt; B3[Vector&lt;br/&gt;（线程安全数组）] C --&gt; C1[HashSet&lt;br/&gt;（哈希表）] C --&gt; C2[TreeSet&lt;br/&gt;（红黑树）] C1 --&gt; C3[LinkedHashSet&lt;br/&gt;（哈希表+链表）] %% 样式优化 A:::root B:::subInterface C:::subInterface B1:::impl B2:::impl B3:::impl C1:::impl C2:::impl C3:::impl classDef root fill:#f9f,stroke:#333,stroke-width:2px classDef subInterface fill:#9ff,stroke:#333,stroke-width:2px classDef impl fill:#ff9,stroke:#333,stroke-width:1px Collection ">
 <title>08-集合进阶</title>
 
 <link rel='canonical' href='https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/'>
 
 <link rel="stylesheet" href="/scss/style.min.d051633e9ded8f77fc44eeb3f636bf80e48f5dc28505d1057f161559a18d4857.css"><meta property='og:title' content="08-集合进阶">
-<meta property='og:description' content="Collection 接口（单列集合根接口） ├─ List 接口（有序、可重复） │ ├─ ArrayList（实现类）：动态数组，查询快、增删慢 │ ├─ LinkedList（实现类）：双向链表，增删快、查询慢 │ └─ Vector（实现类）：动态数组，线程安全、性能差 └─ Set 接口（无序、不可重复） ├─ HashSet（实现类）：哈希表，无序去重 ├─ TreeSet（实现类）：红黑树，排序去重 └─ LinkedHashSet（实现类）：哈希表+链表，有序去重 flowchart TD A[Collection&lt;br/&gt;（单列集合根接口）] --&gt; B[List&lt;br/&gt;（有序、可重复）] A --&gt; C[Set&lt;br/&gt;（无序、不可重复）] B --&gt; B1[ArrayList&lt;br/&gt;（动态数组）] B --&gt; B2[LinkedList&lt;br/&gt;（双向链表）] B --&gt; B3[Vector&lt;br/&gt;（线程安全数组）] C --&gt; C1[HashSet&lt;br/&gt;（哈希表）] C --&gt; C2[TreeSet&lt;br/&gt;（红黑树）] C1 --&gt; C3[LinkedHashSet&lt;br/&gt;（哈希表+链表）] %% 样式优化（可选） A:::root B:::subInterface C:::subInterface B1:::impl B2:::impl B3:::impl C1:::impl C2:::impl C3:::impl classDef root fill:#f9f,stroke:#333,stroke-width:2px classDef subInterface fill:#9ff,stroke:#333,stroke-width:2px classDef impl fill:#ff9,stroke:#333,stroke-width:1px Collection ">
+<meta property='og:description' content="Collection 接口（单列集合根接口） ├─ List 接口（有序、可重复） │ ├─ ArrayList（实现类）：动态数组，查询快、增删慢 │ ├─ LinkedList（实现类）：双向链表，增删快、查询慢 │ └─ Vector（实现类）：动态数组，线程安全、性能差 └─ Set 接口（无序、不可重复） ├─ HashSet（实现类）：哈希表，无序去重 ├─ TreeSet（实现类）：红黑树，排序去重 └─ LinkedHashSet（实现类）：哈希表+链表，有序去重 flowchart TD A[Collection&lt;br/&gt;（单列集合根接口）] --&gt; B[List&lt;br/&gt;（有序、可重复）] A --&gt; C[Set&lt;br/&gt;（无序、不可重复）] B --&gt; B1[ArrayList&lt;br/&gt;（动态数组）] B --&gt; B2[LinkedList&lt;br/&gt;（双向链表）] B --&gt; B3[Vector&lt;br/&gt;（线程安全数组）] C --&gt; C1[HashSet&lt;br/&gt;（哈希表）] C --&gt; C2[TreeSet&lt;br/&gt;（红黑树）] C1 --&gt; C3[LinkedHashSet&lt;br/&gt;（哈希表+链表）] %% 样式优化 A:::root B:::subInterface C:::subInterface B1:::impl B2:::impl B3:::impl C1:::impl C2:::impl C3:::impl classDef root fill:#f9f,stroke:#333,stroke-width:2px classDef subInterface fill:#9ff,stroke:#333,stroke-width:2px classDef impl fill:#ff9,stroke:#333,stroke-width:1px Collection ">
 <meta property='og:url' content='https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/'>
 <meta property='og:site_name' content='Creat7'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-02-03T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-02-03T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="08-集合进阶">
-<meta name="twitter:description" content="Collection 接口（单列集合根接口） ├─ List 接口（有序、可重复） │ ├─ ArrayList（实现类）：动态数组，查询快、增删慢 │ ├─ LinkedList（实现类）：双向链表，增删快、查询慢 │ └─ Vector（实现类）：动态数组，线程安全、性能差 └─ Set 接口（无序、不可重复） ├─ HashSet（实现类）：哈希表，无序去重 ├─ TreeSet（实现类）：红黑树，排序去重 └─ LinkedHashSet（实现类）：哈希表+链表，有序去重 flowchart TD A[Collection&lt;br/&gt;（单列集合根接口）] --&gt; B[List&lt;br/&gt;（有序、可重复）] A --&gt; C[Set&lt;br/&gt;（无序、不可重复）] B --&gt; B1[ArrayList&lt;br/&gt;（动态数组）] B --&gt; B2[LinkedList&lt;br/&gt;（双向链表）] B --&gt; B3[Vector&lt;br/&gt;（线程安全数组）] C --&gt; C1[HashSet&lt;br/&gt;（哈希表）] C --&gt; C2[TreeSet&lt;br/&gt;（红黑树）] C1 --&gt; C3[LinkedHashSet&lt;br/&gt;（哈希表+链表）] %% 样式优化（可选） A:::root B:::subInterface C:::subInterface B1:::impl B2:::impl B3:::impl C1:::impl C2:::impl C3:::impl classDef root fill:#f9f,stroke:#333,stroke-width:2px classDef subInterface fill:#9ff,stroke:#333,stroke-width:2px classDef impl fill:#ff9,stroke:#333,stroke-width:1px Collection ">
+<meta name="twitter:description" content="Collection 接口（单列集合根接口） ├─ List 接口（有序、可重复） │ ├─ ArrayList（实现类）：动态数组，查询快、增删慢 │ ├─ LinkedList（实现类）：双向链表，增删快、查询慢 │ └─ Vector（实现类）：动态数组，线程安全、性能差 └─ Set 接口（无序、不可重复） ├─ HashSet（实现类）：哈希表，无序去重 ├─ TreeSet（实现类）：红黑树，排序去重 └─ LinkedHashSet（实现类）：哈希表+链表，有序去重 flowchart TD A[Collection&lt;br/&gt;（单列集合根接口）] --&gt; B[List&lt;br/&gt;（有序、可重复）] A --&gt; C[Set&lt;br/&gt;（无序、不可重复）] B --&gt; B1[ArrayList&lt;br/&gt;（动态数组）] B --&gt; B2[LinkedList&lt;br/&gt;（双向链表）] B --&gt; B3[Vector&lt;br/&gt;（线程安全数组）] C --&gt; C1[HashSet&lt;br/&gt;（哈希表）] C --&gt; C2[TreeSet&lt;br/&gt;（红黑树）] C1 --&gt; C3[LinkedHashSet&lt;br/&gt;（哈希表+链表）] %% 样式优化 A:::root B:::subInterface C:::subInterface B1:::impl B2:::impl B3:::impl C1:::impl C2:::impl C3:::impl classDef root fill:#f9f,stroke:#333,stroke-width:2px classDef subInterface fill:#9ff,stroke:#333,stroke-width:2px classDef impl fill:#ff9,stroke:#333,stroke-width:1px Collection ">
     <link rel="shortcut icon" href="/img/favicon.ico" />
 <style>
     :root {
@@ -283,9 +283,9 @@
                     <li><a href="#hashset是利用什么机制保证数据去重的">HashSet是利用什么机制保证数据去重的？</a></li>
                   </ul>
                 </li>
-                <li><a href="#linkedhashset">LinkedHashSet</a></li>
               </ul>
             </li>
+            <li><a href="#linkedhashset">LinkedHashSet</a></li>
             <li><a href="#treeset">TreeSet</a>
               <ul>
                 <li><a href="#treeset默认的规则">TreeSet默认的规则</a></li>
@@ -300,6 +300,7 @@
             </li>
           </ul>
         </li>
+        <li><a href="#list与set的使用场景">List与Set的使用场景</a></li>
       </ul>
     </li>
     <li><a href="#泛型">泛型</a>
@@ -315,8 +316,33 @@
         <li><a href="#泛型的继承和通配符">泛型的继承和通配符</a></li>
       </ul>
     </li>
-    <li><a href="#list与set的使用场景">List与Set的使用场景</a></li>
-    <li><a href="#map">Map</a></li>
+    <li><a href="#map">Map</a>
+      <ul>
+        <li><a href="#常见api">常见API</a></li>
+        <li><a href="#遍历-1">遍历</a>
+          <ul>
+            <li><a href="#通过键k找值v">通过键k找值v</a></li>
+            <li><a href="#键值对对象遍历">键值对对象遍历</a></li>
+            <li><a href="#lambda表达式遍历-1">lambda表达式遍历</a></li>
+          </ul>
+        </li>
+        <li><a href="#hashmap">HashMap</a>
+          <ul>
+            <li><a href="#样例">样例</a></li>
+          </ul>
+        </li>
+        <li><a href="#linkedhashmap">LinkedHashMap</a>
+          <ul>
+            <li><a href="#treemap">TreeMap</a>
+              <ul>
+                <li><a href="#代码两种书写排序规则">代码两种书写排序规则</a></li>
+              </ul>
+            </li>
+            <li><a href="#hashmap源码分析">HashMap源码分析</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
   </ul>
 
             </nav>
@@ -406,7 +432,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 9 分钟
+                    阅读时长: 12 分钟
                 </time>
             </div>
         
@@ -472,9 +498,9 @@
                     <li><a href="#hashset是利用什么机制保证数据去重的">HashSet是利用什么机制保证数据去重的？</a></li>
                   </ul>
                 </li>
-                <li><a href="#linkedhashset">LinkedHashSet</a></li>
               </ul>
             </li>
+            <li><a href="#linkedhashset">LinkedHashSet</a></li>
             <li><a href="#treeset">TreeSet</a>
               <ul>
                 <li><a href="#treeset默认的规则">TreeSet默认的规则</a></li>
@@ -489,6 +515,7 @@
             </li>
           </ul>
         </li>
+        <li><a href="#list与set的使用场景">List与Set的使用场景</a></li>
       </ul>
     </li>
     <li><a href="#泛型">泛型</a>
@@ -504,8 +531,33 @@
         <li><a href="#泛型的继承和通配符">泛型的继承和通配符</a></li>
       </ul>
     </li>
-    <li><a href="#list与set的使用场景">List与Set的使用场景</a></li>
-    <li><a href="#map">Map</a></li>
+    <li><a href="#map">Map</a>
+      <ul>
+        <li><a href="#常见api">常见API</a></li>
+        <li><a href="#遍历-1">遍历</a>
+          <ul>
+            <li><a href="#通过键k找值v">通过键k找值v</a></li>
+            <li><a href="#键值对对象遍历">键值对对象遍历</a></li>
+            <li><a href="#lambda表达式遍历-1">lambda表达式遍历</a></li>
+          </ul>
+        </li>
+        <li><a href="#hashmap">HashMap</a>
+          <ul>
+            <li><a href="#样例">样例</a></li>
+          </ul>
+        </li>
+        <li><a href="#linkedhashmap">LinkedHashMap</a>
+          <ul>
+            <li><a href="#treemap">TreeMap</a>
+              <ul>
+                <li><a href="#代码两种书写排序规则">代码两种书写排序规则</a></li>
+              </ul>
+            </li>
+            <li><a href="#hashmap源码分析">HashMap源码分析</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
   </ul>
 
             </nav>
@@ -538,7 +590,7 @@
     C --&gt; C2[TreeSet&lt;br/&gt;（红黑树）]
     C1 --&gt; C3[LinkedHashSet&lt;br/&gt;（哈希表+链表）]
     
-    %% 样式优化（可选）
+    %% 样式优化
     A:::root
     B:::subInterface
     C:::subInterface
@@ -912,8 +964,8 @@ contains方法在底层依赖equals方法</p>
 <li><code>HashSet</code> 通过 <strong><code>hashCode()</code></strong> 快速定位存储位置，若位置冲突再利用 <strong><code>equals()</code></strong> 进行内容“肉搏”比对，只有当两个方法都判定相同时，才会触发去重机制拒绝存入。</li>
 </ul>
 <hr>
-<h4 id="linkedhashset">LinkedHashSet
-</h4><ul>
+<h3 id="linkedhashset">LinkedHashSet
+</h3><ul>
 <li><span style="color: #dc3545;">有序</span>，不重复，无索引</li>
 <li>这里的有序指的是保证存储和去除的元素顺序一致</li>
 <li>原理：底层数据机构依然是哈希表，知识每个元素有额外多了一个==双链表==的机制记录存储的数据</li>
@@ -952,6 +1004,33 @@ contains方法在底层依赖equals方法</p>
 <h5 id="使用规则">使用规则
 </h5><ul>
 <li>默认使用第一种，如果第一种不能满足当前需求，就使用第二种</li>
+</ul>
+<h2 id="list与set的使用场景">List与Set的使用场景
+</h2><ul>
+<li>
+<p>如果想要集合中的元素*<strong>可重复</strong>：</p>
+<ul>
+<li>用<strong>ArrayList</strong>集合，==基于数组的==（用的最多）</li>
+</ul>
+</li>
+<li>
+<p>如果想要集合中的元素<em><strong>可重复</strong></em>，而且当前的<span style="color: #dc3545;">增删操作明显多于查询</span>：</p>
+<ul>
+<li>用<strong>LinkedList</strong>集合，==基于链表的==</li>
+</ul>
+</li>
+<li>
+<p>如果想对集合中的<em><strong>元素去重</strong></em>：</p>
+<ul>
+<li>用<strong>HashSet</strong>，==基于哈希表的==（用的最多）</li>
+</ul>
+</li>
+<li>
+<p>如果相对集合的<em><strong>元素去重</strong></em>，而且<span style="color: #dc3545;">保证存取顺序</span></p>
+<ul>
+<li>用<strong>LinkedHashList</strong>集合，==基于哈希表和双链表，效率低于HashSet==</li>
+</ul>
+</li>
 </ul>
 <hr>
 <h1 id="泛型">泛型
@@ -1026,35 +1105,255 @@ contains方法在底层依赖equals方法</p>
 </span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">extends</span> E<span style="color:#f92672">&gt;</span> 表示可以传递E或者E所有的子类类型
 </span></span><span style="display:flex;"><span>	
 </span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;?</span> <span style="color:#66d9ef">super</span> E<span style="color:#f92672">&gt;</span> 表示可以传递E或者E所有的父类类型
-</span></span></code></pre></div><h1 id="list与set的使用场景">List与Set的使用场景
-</h1><ul>
-<li>
-<p>如果想要集合中的元素*<strong>可重复</strong>：</p>
-<ul>
-<li>用<strong>ArrayList</strong>集合，==基于数组的==（用的最多）</li>
-</ul>
-</li>
-<li>
-<p>如果想要集合中的元素<em><strong>可重复</strong></em>，而且当前的<span style="color: #dc3545;">增删操作明显多于查询</span>：</p>
-<ul>
-<li>用<strong>LinkedList</strong>集合，==基于链表的==</li>
-</ul>
-</li>
-<li>
-<p>如果想对集合中的<em><strong>元素去重</strong></em>：</p>
-<ul>
-<li>用<strong>HashSet</strong>，==基于哈希表的==（用的最多）</li>
-</ul>
-</li>
-<li>
-<p>如果相对集合的<em><strong>元素去重</strong></em>，而且<span style="color: #dc3545;">保证存取顺序</span></p>
-<ul>
-<li>用<strong>LinkedHashList</strong>集合，==基于哈希表和双链表，效率低于HashSet==</li>
-</ul>
-</li>
-</ul>
+</span></span></code></pre></div><hr>
 <h1 id="map">Map
-</h1>
+</h1><pre class="mermaid">
+  flowchart TD
+    A[Map&lt;br/&gt;（双列集合根接口）] --&gt; B[HashMap&lt;br/&gt;（哈希表）]
+    A --&gt; C[TreeMap&lt;br/&gt;（红黑树）]
+    A --&gt; D[Hashtable&lt;br/&gt;（线程安全哈希表）]
+    A --&gt; E[LinkedHashMap&lt;br/&gt;（哈希表+链表）]
+    
+    D --&gt; D1[Properties&lt;br/&gt;（属性集）]
+    
+    %% 保持和Collection流程图一致的样式
+    A:::root
+    B:::impl
+    C:::impl
+    D:::impl
+    E:::impl
+    D1:::impl
+    classDef root fill:#f9f,stroke:#333,stroke-width:2px
+    classDef subInterface fill:#9ff,stroke:#333,stroke-width:2px
+    classDef impl fill:#ff9,stroke:#333,stroke-width:1px
+</pre>
+
+<h2 id="常见api">常见API
+</h2><p><img src="/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/8/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6.png"
+	width="1915"
+	height="749"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="255"
+		data-flex-basis="613px"
+	
+></p>
+<h2 id="遍历-1">遍历
+</h2><h3 id="通过键k找值v">通过键k找值v
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>	Set<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> keys <span style="color:#f92672">=</span> map.<span style="color:#a6e22e">keySet</span>();
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//遍历单列集合，得到每一个键</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> (String key : keys) {  
+</span></span><span style="display:flex;"><span>    System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(map.<span style="color:#a6e22e">get</span>(key));  
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//迭代器遍历</span>
+</span></span><span style="display:flex;"><span>	Iterator it <span style="color:#f92672">=</span>  keys.<span style="color:#a6e22e">iterator</span>();  
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">while</span>(it.<span style="color:#a6e22e">hasNext</span>()){  
+</span></span><span style="display:flex;"><span>	    String key <span style="color:#f92672">=</span> (String)it.<span style="color:#a6e22e">next</span>();  
+</span></span><span style="display:flex;"><span>	    System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(key<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;:&#34;</span><span style="color:#f92672">+</span>map.<span style="color:#a6e22e">get</span>(key));  
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//lambda表达式遍历</span>
+</span></span><span style="display:flex;"><span>	keys.<span style="color:#a6e22e">forEach</span>(key <span style="color:#f92672">-&gt;</span> System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(map.<span style="color:#a6e22e">get</span>(key)));
+</span></span></code></pre></div><h3 id="键值对对象遍历">键值对对象遍历
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>	<span style="color:#75715e">//Set存储键值对</span>
+</span></span><span style="display:flex;"><span>	Set<span style="color:#f92672">&lt;</span>Map.<span style="color:#a6e22e">Entry</span><span style="color:#f92672">&lt;</span>String, String<span style="color:#f92672">&gt;&gt;</span> es <span style="color:#f92672">=</span> map.<span style="color:#a6e22e">entrySet</span>();
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//Entry是Map的内部接口</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//遍历每一个键值对对象</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> (Map.<span style="color:#a6e22e">Entry</span><span style="color:#f92672">&lt;</span>String, String<span style="color:#f92672">&gt;</span> e : es) {  
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	    String  key <span style="color:#f92672">=</span> e.<span style="color:#a6e22e">getKey</span>();  
+</span></span><span style="display:flex;"><span>	    String value <span style="color:#f92672">=</span> e.<span style="color:#a6e22e">getValue</span>();  
+</span></span><span style="display:flex;"><span>	    
+</span></span><span style="display:flex;"><span>	    System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(key <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;:&#34;</span> <span style="color:#f92672">+</span> value);  
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//遍历迭代器</span>
+</span></span><span style="display:flex;"><span>	Iterator <span style="color:#f92672">&lt;</span>Map.<span style="color:#a6e22e">Entry</span><span style="color:#f92672">&lt;</span>String,String<span style="color:#f92672">&gt;&gt;</span> it <span style="color:#f92672">=</span> es.<span style="color:#a6e22e">iterator</span>();  
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">while</span>(it.<span style="color:#a6e22e">hasNext</span>()){  
+</span></span><span style="display:flex;"><span>	    Map.<span style="color:#a6e22e">Entry</span><span style="color:#f92672">&lt;</span>String,String<span style="color:#f92672">&gt;</span> entry <span style="color:#f92672">=</span> it.<span style="color:#a6e22e">next</span>();  
+</span></span><span style="display:flex;"><span>	    String key <span style="color:#f92672">=</span> entry.<span style="color:#a6e22e">getKey</span>();  
+</span></span><span style="display:flex;"><span>	    String value <span style="color:#f92672">=</span> entry.<span style="color:#a6e22e">getValue</span>();  
+</span></span><span style="display:flex;"><span>	    System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(key<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;:&#34;</span><span style="color:#f92672">+</span>value);  
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//lambda表达式</span>
+</span></span><span style="display:flex;"><span>	es.<span style="color:#a6e22e">forEach</span>(e <span style="color:#f92672">-&gt;</span> System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(e.<span style="color:#a6e22e">getKey</span>()<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;:&#34;</span><span style="color:#f92672">+</span>e.<span style="color:#a6e22e">getValue</span>()));
+</span></span></code></pre></div><h3 id="lambda表达式遍历-1">lambda表达式遍历
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>	map.<span style="color:#a6e22e">forEach</span>(<span style="color:#66d9ef">new</span> BiConsumer<span style="color:#f92672">&lt;</span>String, String<span style="color:#f92672">&gt;</span>() {  
+</span></span><span style="display:flex;"><span>	    <span style="color:#a6e22e">@Override</span>  
+</span></span><span style="display:flex;"><span>	    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">accept</span>(String k, String v) {  
+</span></span><span style="display:flex;"><span>	        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(k<span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;:&#34;</span> <span style="color:#f92672">+</span>v);  
+</span></span><span style="display:flex;"><span>	    }  
+</span></span><span style="display:flex;"><span>	});
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">-----------------------</span>
+</span></span><span style="display:flex;"><span>	map.<span style="color:#a6e22e">forEack</span>((key,value) <span style="color:#f92672">-&gt;</span> System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(k<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;:&#34;</span><span style="color:#f92672">+</span>v));
+</span></span><span style="display:flex;"><span>	
+</span></span></code></pre></div><h2 id="hashmap">HashMap
+</h2><ul>
+<li>HashMap 是 Map 的一个实现类</li>
+<li>特点都是由键决定的：无序，不重复，无索引</li>
+<li>HashMap 与 HashSet 的底层原理是一样的，都是哈希表</li>
+<li><strong>HashMap的键位置如果存储的是自定义对象，需要重写hashCode和equals</strong></li>
+</ul>
+<h3 id="样例">样例
+</h3><p><img src="/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/8/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6-1.png"
+	width="808"
+	height="244"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="331"
+		data-flex-basis="794px"
+	
+></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>	默认的hashCode和equals方法
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">@Override</span>  
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">equals</span>(Object obj) {  
+</span></span><span style="display:flex;"><span>	    <span style="color:#66d9ef">if</span>(<span style="color:#66d9ef">this</span> <span style="color:#f92672">==</span> obj) <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;  
+</span></span><span style="display:flex;"><span>	    <span style="color:#66d9ef">if</span>(obj <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">||</span> getClass() <span style="color:#f92672">!=</span> obj.<span style="color:#a6e22e">getClass</span>() ) <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;  
+</span></span><span style="display:flex;"><span>	    Student student <span style="color:#f92672">=</span> (Student)obj;  
+</span></span><span style="display:flex;"><span>	    <span style="color:#66d9ef">return</span>  name.<span style="color:#a6e22e">equals</span>(student.<span style="color:#a6e22e">name</span>) <span style="color:#f92672">&amp;&amp;</span> age <span style="color:#f92672">==</span> student.<span style="color:#a6e22e">age</span>;  
+</span></span><span style="display:flex;"><span>	}  
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">@Override</span>  
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">hashCode</span>() {  
+</span></span><span style="display:flex;"><span>	    <span style="color:#66d9ef">return</span> Objects.<span style="color:#a6e22e">hash</span>(name,age);  
+</span></span><span style="display:flex;"><span>	}
+</span></span></code></pre></div><h2 id="linkedhashmap">LinkedHashMap
+</h2><ul>
+<li><span style="color: #dc3545;">由键决定：有序</span>、不重复、无索引</li>
+<li>这里的有序值得是保证存储和去除的元素一致</li>
+<li><span style="color: #dc3545;">原理：</span>底层数据结构依然是哈希表，只是每个键值对元素又额外多了一个双链表的机制记录存储的顺序</li>
+</ul>
+<h3 id="treemap">TreeMap
+</h3><ul>
+<li>TreeMap跟TreeSet的底层原理一样，都是红黑树结构的</li>
+<li>由键决定特性：不重复，无索引，可排序</li>
+<li>可排序：**<span style="color: #dc3545;font-weight: bold;">对键进行排序</span></li>
+<li><span style="color: #dc3545;font-weight: bold;">注意：默认按照键的从小到大进行排序，也可以自己规定键的排序规则</span></li>
+</ul>
+<h4 id="代码两种书写排序规则">代码两种书写排序规则
+</h4><ul>
+<li>创建Comparable接口，指定比较规则</li>
+<li>创建集合时传递Comparator比较器对象，指定比较规则</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>		TreeMap<span style="color:#f92672">&lt;</span>Integer,String<span style="color:#f92672">&gt;</span> tm <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TreeMap<span style="color:#f92672">&lt;&gt;</span>(<span style="color:#66d9ef">new</span> Comparator<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span>() {  
+</span></span><span style="display:flex;"><span>		    <span style="color:#a6e22e">@Override</span>  
+</span></span><span style="display:flex;"><span>		    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">compare</span>(Integer o1, Integer o2) {  
+</span></span><span style="display:flex;"><span>		        <span style="color:#75715e">//o1 : 当前要添加的元素  </span>
+</span></span><span style="display:flex;"><span>		        <span style="color:#75715e">//o2 : 当前要添加的元素        </span>
+</span></span><span style="display:flex;"><span>		        <span style="color:#75715e">//升序</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">return</span> o1 <span style="color:#f92672">-</span> o2;
+</span></span><span style="display:flex;"><span>		    }  
+</span></span><span style="display:flex;"><span>		});
+</span></span></code></pre></div><h3 id="hashmap源码分析">HashMap源码分析
+</h3><ul>
+<li>HashMap里面每一个对象包含以下内容</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>1.<span style="color:#a6e22e">1链表中的键值对对象</span>
+</span></span><span style="display:flex;"><span>	包含<span style="color:#960050;background-color:#1e0010">：</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">int</span> hash;
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">final</span> K key;
+</span></span><span style="display:flex;"><span>			V value;
+</span></span><span style="display:flex;"><span>			Nodfe<span style="color:#f92672">&lt;</span>K,V<span style="color:#f92672">&gt;</span> next;
+</span></span><span style="display:flex;"><span>1.<span style="color:#a6e22e">2红黑树中的键值对对象</span>
+</span></span><span style="display:flex;"><span>	包含<span style="color:#960050;background-color:#1e0010">：</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">int</span> hash;
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">final</span> K key;
+</span></span><span style="display:flex;"><span>			V value;
+</span></span><span style="display:flex;"><span>			Node<span style="color:#f92672">&lt;</span>K,V<span style="color:#f92672">&gt;</span> right;
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">boolean</span> red;
+</span></span><span style="display:flex;"><span>2.<span style="color:#a6e22e">添加元素</span>
+</span></span><span style="display:flex;"><span>	HashMap<span style="color:#f92672">&lt;</span>String,Integer<span style="color:#f92672">&gt;</span> hm <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>	hm.<span style="color:#a6e22e">put</span>(<span style="color:#e6db74">&#34;aaa&#34;</span>,111);
+</span></span><span style="display:flex;"><span>	hm.<span style="color:#a6e22e">put</span>(<span style="color:#e6db74">&#34;bbb&#34;</span>,222);
+</span></span><span style="display:flex;"><span>添加元素的时候至少考虑三种情况
+</span></span><span style="display:flex;"><span>2.<span style="color:#a6e22e">1</span> 数组位置为null
+</span></span><span style="display:flex;"><span>2.<span style="color:#a6e22e">2</span> 数组位置不为null<span style="color:#960050;background-color:#1e0010">，</span>键重复<span style="color:#960050;background-color:#1e0010">，</span>元素覆盖
+</span></span><span style="display:flex;"><span>2.<span style="color:#a6e22e">3</span> 数组位置不为null<span style="color:#960050;background-color:#1e0010">，</span>键不重复<span style="color:#960050;background-color:#1e0010">，</span>挂在下面形成链表或者红黑树
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//参数一：键</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//参数二：值</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//返回值：被覆盖元素的值，如果没有覆盖，返回value</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> V <span style="color:#a6e22e">put</span>(K key, V value) {  
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//参数一：</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> putVal(hash(key), key, value, <span style="color:#66d9ef">false</span>, <span style="color:#66d9ef">true</span>);  
+</span></span><span style="display:flex;"><span>}  
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//利用键计算出对应的哈希值，再把哈希值进行一些处理</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">hash</span>(Object key) {  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> h;  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (key <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>) <span style="color:#f92672">?</span> 0 : (h <span style="color:#f92672">=</span> key.<span style="color:#a6e22e">hashCode</span>()) <span style="color:#f92672">^</span> (h <span style="color:#f92672">&gt;&gt;&gt;</span> 16);  
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//参数一：键的哈希值</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//参数二：键</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//参数三：值</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//参数四：如果键重复了是否保留 </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//       true-&gt;表示老元素的值保留，不会覆盖 </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//       false-&gt;表示老欧元素的值不会保留，会进行覆盖</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">final</span> V <span style="color:#a6e22e">putVal</span>(<span style="color:#66d9ef">int</span> hash, K key, V value, <span style="color:#66d9ef">boolean</span> onlyIfAbsent,<span style="color:#66d9ef">boolean</span> evict) {  
+</span></span><span style="display:flex;"><span>	Node<span style="color:#f92672">&lt;</span>K,V<span style="color:#f92672">&gt;[]</span> tab; <span style="color:#75715e">//定义一个局部变量，用来记录哈希表数组的地址值，用于优化（方法在栈里，变量在堆里，直接在栈里找地址值） null</span>
+</span></span><span style="display:flex;"><span>	Node<span style="color:#f92672">&lt;</span>K,V<span style="color:#f92672">&gt;</span> p; <span style="color:#75715e">//临时第三方变量，记录键值对对象的地址值</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span> n, i;  <span style="color:#75715e">//当前数组的的长度与索引</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//将哈希表中数组的地址值赋值给局部变量tab</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//将数组长度赋值给n</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> ((tab <span style="color:#f92672">=</span> table) <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">||</span> (n <span style="color:#f92672">=</span> tab.<span style="color:#a6e22e">length</span>) <span style="color:#f92672">==</span> 0)  <span style="color:#75715e">//true</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">//1.如果当前是第一次添加数据，底层会创建一个默认长度为16，加载因子为0.75的数组</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">//2.如果不是第一次添加数据，会看数组中的元素是否达到了扩容条件</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">//如果没有达到扩容条件 -&gt; 无操作</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">//如果达到了 -&gt; 底层会把数组扩容为原先的 两倍 ，并把数据全部转移到新的哈希表中</span>
+</span></span><span style="display:flex;"><span>		n <span style="color:#f92672">=</span> (tab <span style="color:#f92672">=</span> resize()).<span style="color:#a6e22e">length</span>;  
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//拿着数组的长度跟键的哈希值进行计算得到 -&gt; 在数组中应存入的位置</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> ((p <span style="color:#f92672">=</span> tab<span style="color:#f92672">[</span>i <span style="color:#f92672">=</span> (n <span style="color:#f92672">-</span> 1) <span style="color:#f92672">&amp;</span> hash<span style="color:#f92672">]</span>) <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>)  
+</span></span><span style="display:flex;"><span>		tab<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> newNode(hash, key, value, <span style="color:#66d9ef">null</span>);  
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">else</span> {  
+</span></span><span style="display:flex;"><span>		Node<span style="color:#f92672">&lt;</span>K,V<span style="color:#f92672">&gt;</span> e; K k;  
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> (p.<span style="color:#a6e22e">hash</span> <span style="color:#f92672">==</span> hash <span style="color:#f92672">&amp;&amp;</span>  
+</span></span><span style="display:flex;"><span>			((k <span style="color:#f92672">=</span> p.<span style="color:#a6e22e">key</span>) <span style="color:#f92672">==</span> key <span style="color:#f92672">||</span> (key <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">&amp;&amp;</span> key.<span style="color:#a6e22e">equals</span>(k))))  
+</span></span><span style="display:flex;"><span>			e <span style="color:#f92672">=</span> p;  
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (p <span style="color:#66d9ef">instanceof</span> TreeNode)  
+</span></span><span style="display:flex;"><span>			e <span style="color:#f92672">=</span> ((TreeNode<span style="color:#f92672">&lt;</span>K,V<span style="color:#f92672">&gt;</span>)p).<span style="color:#a6e22e">putTreeVal</span>(<span style="color:#66d9ef">this</span>, tab, hash, key, value);  
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">else</span> {  
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> binCount <span style="color:#f92672">=</span> 0; ; <span style="color:#f92672">++</span>binCount) {  
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">if</span> ((e <span style="color:#f92672">=</span> p.<span style="color:#a6e22e">next</span>) <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>) {  
+</span></span><span style="display:flex;"><span>					p.<span style="color:#a6e22e">next</span> <span style="color:#f92672">=</span> newNode(hash, key, value, <span style="color:#66d9ef">null</span>);  
+</span></span><span style="display:flex;"><span>					<span style="color:#66d9ef">if</span> (binCount <span style="color:#f92672">&gt;=</span> TREEIFY_THRESHOLD <span style="color:#f92672">-</span> 1) <span style="color:#75715e">// -1 for 1st  </span>
+</span></span><span style="display:flex;"><span>						treeifyBin(tab, hash);  
+</span></span><span style="display:flex;"><span>					<span style="color:#66d9ef">break</span>;  
+</span></span><span style="display:flex;"><span>				}  
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">if</span> (e.<span style="color:#a6e22e">hash</span> <span style="color:#f92672">==</span> hash <span style="color:#f92672">&amp;&amp;</span>  
+</span></span><span style="display:flex;"><span>					((k <span style="color:#f92672">=</span> e.<span style="color:#a6e22e">key</span>) <span style="color:#f92672">==</span> key <span style="color:#f92672">||</span> (key <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">&amp;&amp;</span> key.<span style="color:#a6e22e">equals</span>(k))))  
+</span></span><span style="display:flex;"><span>					<span style="color:#66d9ef">break</span>;  
+</span></span><span style="display:flex;"><span>				p <span style="color:#f92672">=</span> e;  
+</span></span><span style="display:flex;"><span>			}  
+</span></span><span style="display:flex;"><span>		}  
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> (e <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) { <span style="color:#75715e">// existing mapping for key  </span>
+</span></span><span style="display:flex;"><span>			V oldValue <span style="color:#f92672">=</span> e.<span style="color:#a6e22e">value</span>;  
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>onlyIfAbsent <span style="color:#f92672">||</span> oldValue <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>)  
+</span></span><span style="display:flex;"><span>				e.<span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> value;  
+</span></span><span style="display:flex;"><span>			afterNodeAccess(e);  
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">return</span> oldValue;  
+</span></span><span style="display:flex;"><span>		}  
+</span></span><span style="display:flex;"><span>	}  
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">++</span>modCount;  
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> (<span style="color:#f92672">++</span>size <span style="color:#f92672">&gt;</span> threshold)  
+</span></span><span style="display:flex;"><span>		resize();  
+</span></span><span style="display:flex;"><span>	afterNodeInsertion(evict);  
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>;  
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
 </section>
 
 
@@ -1149,7 +1448,7 @@ contains方法在底层依赖equals方法</p>
     <span>已累计耕耘</span>
     <b style="color:var(--primary);">10</b>
     <span>篇博文 · 共</span>
-    <b style="color:var(--primary);">22.17k</b>
+    <b style="color:var(--primary);">23.89k</b>
     <span>个字</span>
   </div>
 
