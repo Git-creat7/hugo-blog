@@ -1,1143 +1,140 @@
-<!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
-    <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="API 应用程序编程接口\nAPI就是别人写好的东西，我们不需要自己编写，直接使用即可 例如： Random r = new Random();\nScanner sc = new Scanner();\nJava API：JDK中提供的各种功能的Java类 System public static void exit(int status) 终止当前运行的Java虚拟机 public static long currentTimeMillis() 返回当前系统的时间（毫秒） public static void arraycopy(数据源数组,起始索引,目的地数组,起始索引,拷贝个数) 数组拷贝 （地址值）\n">
-<title>06-API</title>
-
-<link rel='canonical' href='https://creat.asia/post/06-api/'>
-
-<link rel="stylesheet" href="/scss/style.min.d051633e9ded8f77fc44eeb3f636bf80e48f5dc28505d1057f161559a18d4857.css"><meta property='og:title' content="06-API">
-<meta property='og:description' content="API 应用程序编程接口\nAPI就是别人写好的东西，我们不需要自己编写，直接使用即可 例如： Random r = new Random();\nScanner sc = new Scanner();\nJava API：JDK中提供的各种功能的Java类 System public static void exit(int status) 终止当前运行的Java虚拟机 public static long currentTimeMillis() 返回当前系统的时间（毫秒） public static void arraycopy(数据源数组,起始索引,目的地数组,起始索引,拷贝个数) 数组拷贝 （地址值）\n">
-<meta property='og:url' content='https://creat.asia/post/06-api/'>
-<meta property='og:site_name' content='Creat7'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-02-03T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-02-03T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="06-API">
-<meta name="twitter:description" content="API 应用程序编程接口\nAPI就是别人写好的东西，我们不需要自己编写，直接使用即可 例如： Random r = new Random();\nScanner sc = new Scanner();\nJava API：JDK中提供的各种功能的Java类 System public static void exit(int status) 终止当前运行的Java虚拟机 public static long currentTimeMillis() 返回当前系统的时间（毫秒） public static void arraycopy(数据源数组,起始索引,目的地数组,起始索引,拷贝个数) 数组拷贝 （地址值）\n">
-    <link rel="shortcut icon" href="/img/favicon.ico" />
-<style>
-    :root {
-         
-        --sys-font-family: "HarmonyOS_Sans_SC_Medium", Georgia, -apple-system, 'Nimbus Roman No9 L', 'PingFang SC', 'Hiragino Sans GB', 'Noto Serif SC', 'Microsoft Yahei', 'WenQuanYi Micro Hei', 'ST Heiti', sans-serif;
-        --code-font-family: "JetBrainsMono Regular", Menlo, Monaco, Consolas, "Courier New";
-        --article-font-family: "HarmonyOS_Sans_SC_Medium", var(--base-font-family);
-    }
-</style>
-
-<script>
-    (function () {
-        const customFont = document.createElement('link');
-        customFont.href = "https://img.shimoko.com/fonts/font.css";
-        customFont.type = "text/css";
-        customFont.rel = "stylesheet";
-        document.head.appendChild(customFont);
-    }());
-</script>
-
-
-    </head>
-    <body class="
-    article-page
-    ">
-    <script>
-        (function() {
-            const colorSchemeKey = 'StackColorScheme';
-            if(!localStorage.getItem(colorSchemeKey)){
-                localStorage.setItem(colorSchemeKey, "auto");
-            }
-        })();
-    </script><script>
-    (function() {
-        const colorSchemeKey = 'StackColorScheme';
-        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
-        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
-
-        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
-            
-
-            document.documentElement.dataset.scheme = 'dark';
-        } else {
-            document.documentElement.dataset.scheme = 'light';
-        }
-    })();
-</script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Ukenn2112/UkennWeb@3.0/index/web.js"></script>
-        <div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
-    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
-        <span class="hamburger-box">
-            <span class="hamburger-inner"></span>
-        </span>
-    </button>
-
-    <header>
-        
-            <figure class="site-avatar">
-                <a href="/">
-                    <img src="/img/avatar_wechat.jpg" 
-                        width="120"
-                        height="120"
-                        class="site-logo"
-                        loading="lazy"
-                        alt="Avatar">
-                </a>
-                
-                    <span class="emoji">🍥</span>
-                
-            </figure>
-        
-        
-        <div class="site-meta">
-            <h1 class="site-name"><a href="/">Creat7</a></h1>
-            <h2 class="site-description">欢迎来到我的网站，此博客由【Hugo &#43; Stack】来进行搭建，主要分享个人生活和学习笔记</h2>
-        </div>
-    </header><ol class="menu" id="main-menu">
-        
-        
-        
-        <li >
-            <a href='/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <polyline points="5 12 3 12 12 3 21 12 19 12" />
-  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
-  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
-</svg>
-
-
-
-                
-                <span>首页</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/page/archives_/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <rect x="3" y="4" width="18" height="4" rx="2" />
-  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
-  <line x1="10" y1="12" x2="14" y2="12" />
-</svg>
-
-
-
-                
-                <span>归档</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/page/about_/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="7" r="4" />
-  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-</svg>
-
-
-
-                
-                <span>关于</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/page/search_/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="10" cy="10" r="7" />
-  <line x1="21" y1="21" x2="15" y2="15" />
-</svg>
-
-
-
-                
-                <span>搜索</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/page/links_/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
-  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
-</svg>
-
-
-
-                
-                <span>链接</span>
-            </a>
-        </li>
-        
-        <li class="menu-bottom-section">
-            <ol class="menu">
-
-                
-                    <li id="dark-mode-toggle">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="8" cy="12" r="2" />
-  <rect x="2" y="6" width="20" height="12" rx="6" />
-</svg>
-
-
-
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="16" cy="12" r="2" />
-  <rect x="2" y="6" width="20" height="12" rx="6" />
-</svg>
-
-
-
-                        <span>暗色模式</span>
-                    </li>
-                
-            </ol>
-        </li>
-    </ol>
-</aside>
-
-    <aside class="sidebar right-sidebar sticky">
-        
-            
-                
-    <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <line x1="5" y1="9" x2="19" y2="9" />
-  <line x1="5" y1="15" x2="19" y2="15" />
-  <line x1="11" y1="4" x2="7" y2="20" />
-  <line x1="17" y1="4" x2="13" y2="20" />
-</svg>
-
-
-
-        </div>
-        <h2 class="widget-title section-title">目录</h2>
-        
-        <div class="widget--toc">
-            <nav class="toc-nav" id="TableOfContents">
-                
-  <ul>
-    <li><a href="#api">API</a>
-      <ul>
-        <li><a href="#system">System</a></li>
-        <li><a href="#runtime">Runtime</a></li>
-        <li><a href="#object">Object</a>
-          <ul>
-            <li><a href="#克隆clone">克隆clone</a>
-              <ul>
-                <li><a href="#第一种克隆方式浅克隆">第一种克隆方式（浅克隆）</a></li>
-                <li><a href="#第二种克隆方式深克隆">第二种克隆方式（深克隆）</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li><a href="#objects">Objects</a></li>
-        <li><a href="#biginteger和bigdecimal">BigInteger和BigDecimal</a>
-          <ul>
-            <li><a href="#biginteger的构造方法">BigInteger的构造方法</a></li>
-            <li><a href="#biginteger的成员方法">BigInteger的成员方法</a></li>
-            <li><a href="#bigdemical">BigDemical</a></li>
-          </ul>
-        </li>
-        <li><a href="#正则表达式regex">正则表达式（regex）</a></li>
-        <li><a href="#date时间类">Date时间类</a>
-          <ul>
-            <li><a href="#simpledateformat类">SimpleDateFormat类</a>
-              <ul>
-                <li><a href="#构造方法">构造方法</a></li>
-                <li><a href="#常用方法">常用方法</a></li>
-              </ul>
-            </li>
-            <li><a href="#calendar类">Calendar类</a>
-              <ul>
-                <li>
-                  <ul>
-                    <li><a href="#getsetadd方法">get/set/add方法</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li><a href="#包装类">包装类</a>
-          <ul>
-            <li><a href="#integer">Integer</a>
-              <ul>
-                <li><a href="#integer缓存">Integer缓存</a></li>
-                <li><a href="#jdk5以后">JDK5以后</a></li>
-                <li><a href="#integer成员方法">Integer成员方法</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li><a href="#arrays">Arrays</a>
-          <ul>
-            <li><a href="#arraysbinarysearch">Arrays.binarySearch()</a></li>
-            <li><a href="#arrrayscopyof">Arrrays.copyOf()</a></li>
-            <li><a href="#arrrayscopyofrange">Arrrays.copyOfRange()</a></li>
-            <li><a href="#arraysfill">Arrays.fill()</a></li>
-            <li><a href="#arrayssort">Arrays.sort()</a></li>
-            <li><a href="#重载">重载</a></li>
-          </ul>
-        </li>
-        <li><a href="#lambda表达式">Lambda表达式</a>
-          <ul>
-            <li><a href="#可推导可省略">可推导，可省略</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
-
-            </nav>
-        </div>
-    </section>
-
-            
-        
-    </aside>
-
-
-            <main class="main full-width">
-    <article class="main-article">
-    <header class="article-header">
-
-    <div class="article-details">
-    
-    <header class="article-category">
-        
-            
-            
-            
-            <a href="/categories/%E5%85%8B%E9%9A%86/" style="background-color: hsl(355, 60%, 84%); color: hsl(355, 60%, 15%);">
-                克隆
-            </a>
-        
-            
-            
-            
-            <a href="/categories/regex/" style="background-color: #2a9d8f; color: #fff;">
-                正则表达式
-            </a>
-        
-    </header>
-    
-
-    <div class="article-title-wrapper">
-        <h2 class="article-title">
-            <a href="/post/06-api/">06-API</a>
-        </h2>
-    
-        
-    </div>
-
-    
-    
-    
-    
-    <footer class="article-time">
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
-  <circle cx="18" cy="18" r="4" />
-  <path d="M15 3v4" />
-  <path d="M7 3v4" />
-  <path d="M3 11h16" />
-  <path d="M18 16.496v1.504l1 1" />
-</svg>
-                <time class="article-time--published" datetime='2026-02-03T00:00:00Z'>2026年2月3日星期二</time>
-            </div>
-        
-
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="12" r="9" />
-  <polyline points="12 7 12 12 15 15" />
-</svg>
-
-
-
-                <time class="article-time--reading">
-                    阅读时长: 7 分钟
-                </time>
-            </div>
-        
-    </footer>
-    
-
-    
-</div>
-
-</header>
-
-    
-    <aside class="article-toc">
-        <details>
-            <summary>
-                <div class="article-toc-title">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
-                    <span>目录</span>
-                </div>
-            </summary>
-            <nav class="toc-nav">
-                
-  <ul>
-    <li><a href="#api">API</a>
-      <ul>
-        <li><a href="#system">System</a></li>
-        <li><a href="#runtime">Runtime</a></li>
-        <li><a href="#object">Object</a>
-          <ul>
-            <li><a href="#克隆clone">克隆clone</a>
-              <ul>
-                <li><a href="#第一种克隆方式浅克隆">第一种克隆方式（浅克隆）</a></li>
-                <li><a href="#第二种克隆方式深克隆">第二种克隆方式（深克隆）</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li><a href="#objects">Objects</a></li>
-        <li><a href="#biginteger和bigdecimal">BigInteger和BigDecimal</a>
-          <ul>
-            <li><a href="#biginteger的构造方法">BigInteger的构造方法</a></li>
-            <li><a href="#biginteger的成员方法">BigInteger的成员方法</a></li>
-            <li><a href="#bigdemical">BigDemical</a></li>
-          </ul>
-        </li>
-        <li><a href="#正则表达式regex">正则表达式（regex）</a></li>
-        <li><a href="#date时间类">Date时间类</a>
-          <ul>
-            <li><a href="#simpledateformat类">SimpleDateFormat类</a>
-              <ul>
-                <li><a href="#构造方法">构造方法</a></li>
-                <li><a href="#常用方法">常用方法</a></li>
-              </ul>
-            </li>
-            <li><a href="#calendar类">Calendar类</a>
-              <ul>
-                <li>
-                  <ul>
-                    <li><a href="#getsetadd方法">get/set/add方法</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li><a href="#包装类">包装类</a>
-          <ul>
-            <li><a href="#integer">Integer</a>
-              <ul>
-                <li><a href="#integer缓存">Integer缓存</a></li>
-                <li><a href="#jdk5以后">JDK5以后</a></li>
-                <li><a href="#integer成员方法">Integer成员方法</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li><a href="#arrays">Arrays</a>
-          <ul>
-            <li><a href="#arraysbinarysearch">Arrays.binarySearch()</a></li>
-            <li><a href="#arrrayscopyof">Arrrays.copyOf()</a></li>
-            <li><a href="#arrrayscopyofrange">Arrrays.copyOfRange()</a></li>
-            <li><a href="#arraysfill">Arrays.fill()</a></li>
-            <li><a href="#arrayssort">Arrays.sort()</a></li>
-            <li><a href="#重载">重载</a></li>
-          </ul>
-        </li>
-        <li><a href="#lambda表达式">Lambda表达式</a>
-          <ul>
-            <li><a href="#可推导可省略">可推导，可省略</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
-
-            </nav>
-        </details>
-    </aside>
-    
-
-    <section class="article-content">
-    
-    
-    <h1 id="api">API
-</h1><p><strong>应用程序编程接口</strong><br>
-API就是别人写好的东西，我们不需要自己编写，直接使用即可
+<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="API 应用程序编程接口\nAPI就是别人写好的东西，我们不需要自己编写，直接使用即可 例如： Random r = new Random();\nScanner sc = new Scanner();\nJava API：JDK中提供的各种功能的Java类 System public static void exit(int status) 终止当前运行的Java虚拟机 public static long currentTimeMillis() 返回当前系统的时间（毫秒） public static void arraycopy(数据源数组,起始索引,目的地数组,起始索引,拷贝个数) 数组拷贝 （地址值）\n"><title>06-API</title><link rel=canonical href=https://creat.asia/post/06-api/><link rel=stylesheet href=/scss/style.min.d051633e9ded8f77fc44eeb3f636bf80e48f5dc28505d1057f161559a18d4857.css><meta property='og:title' content="06-API"><meta property='og:description' content="API 应用程序编程接口\nAPI就是别人写好的东西，我们不需要自己编写，直接使用即可 例如： Random r = new Random();\nScanner sc = new Scanner();\nJava API：JDK中提供的各种功能的Java类 System public static void exit(int status) 终止当前运行的Java虚拟机 public static long currentTimeMillis() 返回当前系统的时间（毫秒） public static void arraycopy(数据源数组,起始索引,目的地数组,起始索引,拷贝个数) 数组拷贝 （地址值）\n"><meta property='og:url' content='https://creat.asia/post/06-api/'><meta property='og:site_name' content='Creat7'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:published_time' content='2026-02-03T00:00:00+00:00'><meta property='article:modified_time' content='2026-02-03T00:00:00+00:00'><meta name=twitter:title content="06-API"><meta name=twitter:description content="API 应用程序编程接口\nAPI就是别人写好的东西，我们不需要自己编写，直接使用即可 例如： Random r = new Random();\nScanner sc = new Scanner();\nJava API：JDK中提供的各种功能的Java类 System public static void exit(int status) 终止当前运行的Java虚拟机 public static long currentTimeMillis() 返回当前系统的时间（毫秒） public static void arraycopy(数据源数组,起始索引,目的地数组,起始索引,拷贝个数) 数组拷贝 （地址值）\n"><link rel="shortcut icon" href=/img/favicon.ico><style>:root{--sys-font-family:"HarmonyOS_Sans_SC_Medium", Georgia, -apple-system, 'Nimbus Roman No9 L', 'PingFang SC', 'Hiragino Sans GB', 'Noto Serif SC', 'Microsoft Yahei', 'WenQuanYi Micro Hei', 'ST Heiti', sans-serif;--code-font-family:"JetBrainsMono Regular", Menlo, Monaco, Consolas, "Courier New";--article-font-family:"HarmonyOS_Sans_SC_Medium", var(--base-font-family)}</style><script>(function(){const e=document.createElement("link");e.href="https://img.shimoko.com/fonts/font.css",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><script type=text/javascript src=https://cdn.jsdelivr.net/gh/Ukenn2112/UkennWeb@3.0/index/web.js></script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_wechat.jpg width=120 height=120 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🍥</span></figure><div class=site-meta><h1 class=site-name><a href=/>Creat7</a></h1><h2 class=site-description>欢迎来到我的网站，此博客由【Hugo + Stack】来进行搭建，主要分享个人生活和学习笔记</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>首页</span></a></li><li><a href=/page/archives_/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>归档</span></a></li><li><a href=/page/about_/><svg class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
+<span>关于</span></a></li><li><a href=/page/search_/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>搜索</span></a></li><li><a href=/page/links_/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>链接</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>暗色模式</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目录</h2><div class=widget--toc><nav class=toc-nav id=TableOfContents><ul><li><a href=#api>API</a><ul><li><a href=#system>System</a></li><li><a href=#runtime>Runtime</a></li><li><a href=#object>Object</a><ul><li><a href=#克隆clone>克隆clone</a><ul><li><a href=#第一种克隆方式浅克隆>第一种克隆方式（浅克隆）</a></li><li><a href=#第二种克隆方式深克隆>第二种克隆方式（深克隆）</a></li></ul></li></ul></li><li><a href=#objects>Objects</a></li><li><a href=#biginteger和bigdecimal>BigInteger和BigDecimal</a><ul><li><a href=#biginteger的构造方法>BigInteger的构造方法</a></li><li><a href=#biginteger的成员方法>BigInteger的成员方法</a></li><li><a href=#bigdemical>BigDemical</a></li></ul></li><li><a href=#正则表达式regex>正则表达式（regex）</a></li><li><a href=#date时间类>Date时间类</a><ul><li><a href=#simpledateformat类>SimpleDateFormat类</a><ul><li><a href=#构造方法>构造方法</a></li><li><a href=#常用方法>常用方法</a></li></ul></li><li><a href=#calendar类>Calendar类</a><ul><li><ul><li><a href=#getsetadd方法>get/set/add方法</a></li></ul></li></ul></li></ul></li><li><a href=#包装类>包装类</a><ul><li><a href=#integer>Integer</a><ul><li><a href=#integer缓存>Integer缓存</a></li><li><a href=#jdk5以后>JDK5以后</a></li><li><a href=#integer成员方法>Integer成员方法</a></li></ul></li></ul></li><li><a href=#arrays>Arrays</a><ul><li><a href=#arraysbinarysearch>Arrays.binarySearch()</a></li><li><a href=#arrrayscopyof>Arrrays.copyOf()</a></li><li><a href=#arrrayscopyofrange>Arrrays.copyOfRange()</a></li><li><a href=#arraysfill>Arrays.fill()</a></li><li><a href=#arrayssort>Arrays.sort()</a></li><li><a href=#重载>重载</a></li></ul></li><li><a href=#lambda表达式>Lambda表达式</a><ul><li><a href=#可推导可省略>可推导，可省略</a></li></ul></li></ul></li></ul></nav></div></section></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/%E5%85%8B%E9%9A%86/ style=background-color:#efbec2;color:#3d0f13>克隆
+</a><a href=/categories/regex/ style=background-color:#2a9d8f;color:#fff>正则表达式</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/post/06-api/>06-API</a></h2></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2026-02-03T00:00:00Z>2026年2月3日星期二</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>阅读时长: 7 分钟</time></div></footer></div></header><aside class=article-toc><details><summary><div class=article-toc-title><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6-6 6"/></svg>
+<span>目录</span></div></summary><nav class=toc-nav><ul><li><a href=#api>API</a><ul><li><a href=#system>System</a></li><li><a href=#runtime>Runtime</a></li><li><a href=#object>Object</a><ul><li><a href=#克隆clone>克隆clone</a><ul><li><a href=#第一种克隆方式浅克隆>第一种克隆方式（浅克隆）</a></li><li><a href=#第二种克隆方式深克隆>第二种克隆方式（深克隆）</a></li></ul></li></ul></li><li><a href=#objects>Objects</a></li><li><a href=#biginteger和bigdecimal>BigInteger和BigDecimal</a><ul><li><a href=#biginteger的构造方法>BigInteger的构造方法</a></li><li><a href=#biginteger的成员方法>BigInteger的成员方法</a></li><li><a href=#bigdemical>BigDemical</a></li></ul></li><li><a href=#正则表达式regex>正则表达式（regex）</a></li><li><a href=#date时间类>Date时间类</a><ul><li><a href=#simpledateformat类>SimpleDateFormat类</a><ul><li><a href=#构造方法>构造方法</a></li><li><a href=#常用方法>常用方法</a></li></ul></li><li><a href=#calendar类>Calendar类</a><ul><li><ul><li><a href=#getsetadd方法>get/set/add方法</a></li></ul></li></ul></li></ul></li><li><a href=#包装类>包装类</a><ul><li><a href=#integer>Integer</a><ul><li><a href=#integer缓存>Integer缓存</a></li><li><a href=#jdk5以后>JDK5以后</a></li><li><a href=#integer成员方法>Integer成员方法</a></li></ul></li></ul></li><li><a href=#arrays>Arrays</a><ul><li><a href=#arraysbinarysearch>Arrays.binarySearch()</a></li><li><a href=#arrrayscopyof>Arrrays.copyOf()</a></li><li><a href=#arrrayscopyofrange>Arrrays.copyOfRange()</a></li><li><a href=#arraysfill>Arrays.fill()</a></li><li><a href=#arrayssort>Arrays.sort()</a></li><li><a href=#重载>重载</a></li></ul></li><li><a href=#lambda表达式>Lambda表达式</a><ul><li><a href=#可推导可省略>可推导，可省略</a></li></ul></li></ul></li></ul></nav></details></aside><section class=article-content><h1 id=api>API</h1><p><strong>应用程序编程接口</strong><br>API就是别人写好的东西，我们不需要自己编写，直接使用即可
 例如：
-<code>Random  r  = new Random();</code><br>
-<code>Scanner sc = new Scanner();</code></p>
-<ul>
-<li>Java API：JDK中提供的各种功能的Java类</li>
-</ul>
-<hr>
-<h2 id="system">System
-</h2><p><code>public static void exit(int status) 终止当前运行的Java虚拟机</code>
+<code>Random r = new Random();</code><br><code>Scanner sc = new Scanner();</code></p><ul><li>Java API：JDK中提供的各种功能的Java类</li></ul><hr><h2 id=system>System</h2><p><code>public static void exit(int status) 终止当前运行的Java虚拟机</code>
 <code>public static long currentTimeMillis() 返回当前系统的时间（毫秒）</code>
-<code>public static void arraycopy(数据源数组,起始索引,目的地数组,起始索引,拷贝个数) 数组拷贝 （地址值）</code></p>
-<hr>
-<h2 id="runtime">Runtime
-</h2><p><strong>Runtime表示当前虚拟机的运行环境</strong><br>
-<code>public static		Runtime getRuntime() 当前系统的运行环境对象</code><br>
-<code>public void 	exit(int status)	停止虚拟机</code><br>
-<code>public int 	availableProcessors()	获取CPU线程数</code><br>
-<code>public long 	maxMemory()	 JVM能从系统中获取总内存大小byte</code><br>
-<code>public long	totalMemory()JVM已经从系统中获取总内存大小byte</code><br>
-<code>public long 	freeMemory() JVM剩余内存大小byte</code>
-<code>public Process exec(String command)	运行cmd命令</code></p>
-<hr>
-<h2 id="object">Object
-</h2><p><code>public boolean		equals(Objects obj) 比较地址值</code><br>
-<code>public String 		toString() 返回对象的字符串表示形式</code><br>
-<code>protected object clone(int a) 对象克隆</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>		String s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;abc&#34;</span>;
-</span></span><span style="display:flex;"><span>        StringBuilder sb <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> StringBuilder(<span style="color:#e6db74">&#34;abc&#34;</span>);
-</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(s.<span style="color:#a6e22e">equals</span>(sb));<span style="color:#75715e">//false</span>
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">*</span>String中的equals方法会先判断参数是否为字符串<span style="color:#f92672">*</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">*</span>是字符串再比较内部属性<span style="color:#f92672">*</span>
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(sb.<span style="color:#a6e22e">equals</span>(s));<span style="color:#75715e">//false</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">*</span>StringBuilder仅比较地址值<span style="color:#f92672">*</span>
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        (String)
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">equals</span>(Object anObject) {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span> <span style="color:#f92672">==</span> anObject) {
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> (anObject <span style="color:#66d9ef">instanceof</span> String aString)
-</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">&amp;&amp;</span> (<span style="color:#f92672">!</span>COMPACT_STRINGS <span style="color:#f92672">||</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">coder</span> <span style="color:#f92672">==</span> aString.<span style="color:#a6e22e">coder</span>)
-</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">&amp;&amp;</span> StringLatin1.<span style="color:#a6e22e">equals</span>(value, aString.<span style="color:#a6e22e">value</span>);
-</span></span><span style="display:flex;"><span>    	}
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        (StringBuilder{Object的方法})
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">equals</span>(Object obj) {
-</span></span><span style="display:flex;"><span>        	<span style="color:#66d9ef">return</span> (<span style="color:#66d9ef">this</span> <span style="color:#f92672">==</span> obj);
-</span></span><span style="display:flex;"><span>    	}
-</span></span></code></pre></div><hr>
-<h3 id="克隆clone">克隆clone
-</h3><p>对象克隆：把A对象的属性值完全拷贝给B对象，也叫对象拷贝，对象复制</p>
-<h4 id="第一种克隆方式浅克隆">第一种克隆方式（浅克隆）
-</h4><ul>
-<li><strong>不管对象内部的属性是基本数据类型还是引用数据类型，都完全拷贝过来</strong></li>
-<li>Cloneable</li>
-<li>如果一个接口里面没有抽象方法，表示当前的接口是一个可标记接口，现在Cloneable表示一旦实现了那么当前的对象就可以被克隆</li>
-<li>如果没有实现，当前类的对象就不能克隆</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) <span style="color:#66d9ef">throws</span> CloneNotSupportedException {
-</span></span><span style="display:flex;"><span>        Student s1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Student(<span style="color:#e6db74">&#34;zhangsan&#34;</span>,18);
-</span></span><span style="display:flex;"><span>        Object s2 <span style="color:#f92672">=</span> (Student)s1.<span style="color:#a6e22e">clone</span>();
-</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(s1);<span style="color:#75715e">//@23fc625e</span>
-</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(s2);<span style="color:#75715e">//@3f99bd52</span>
-</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(s1 <span style="color:#f92672">==</span> s2);<span style="color:#75715e">//false</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">@Override</span><span style="color:#960050;background-color:#1e0010">（</span>写在JavaBean中<span style="color:#960050;background-color:#1e0010">）</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> Object <span style="color:#a6e22e">clone</span>() <span style="color:#66d9ef">throws</span> CloneNotSupportedException {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">super</span>.<span style="color:#a6e22e">clone</span>();
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">/*	1.重写Object中的clone方法
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">		2.让JavaBean类实现Cloneable接口
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">		3.创建原对象调用clone	*/</span>
-</span></span></code></pre></div><p><img src="/post/06-api/image/06-1.png"
-	width="2028"
-	height="837"
-	loading="lazy"
-	
-		alt="浅克隆"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="242"
-		data-flex-basis="581px"
-	
-></p>
-<blockquote>
-<p>[!NOTE]
+<code>public static void arraycopy(数据源数组,起始索引,目的地数组,起始索引,拷贝个数) 数组拷贝 （地址值）</code></p><hr><h2 id=runtime>Runtime</h2><p><strong>Runtime表示当前虚拟机的运行环境</strong><br><code>public static Runtime getRuntime() 当前系统的运行环境对象</code><br><code>public void exit(int status) 停止虚拟机</code><br><code>public int availableProcessors() 获取CPU线程数</code><br><code>public long maxMemory() JVM能从系统中获取总内存大小byte</code><br><code>public long totalMemory()JVM已经从系统中获取总内存大小byte</code><br><code>public long freeMemory() JVM剩余内存大小byte</code>
+<code>public Process exec(String command) 运行cmd命令</code></p><hr><h2 id=object>Object</h2><p><code>public boolean equals(Objects obj) 比较地址值</code><br><code>public String toString() 返回对象的字符串表示形式</code><br><code>protected object clone(int a) 对象克隆</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-Java data-lang=Java><span style=display:flex><span>		String s <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;abc&#34;</span>;
+</span></span><span style=display:flex><span>        StringBuilder sb <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> StringBuilder(<span style=color:#e6db74>&#34;abc&#34;</span>);
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(s.<span style=color:#a6e22e>equals</span>(sb));<span style=color:#75715e>//false</span>
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#f92672>*</span>String中的equals方法会先判断参数是否为字符串<span style=color:#f92672>*</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>*</span>是字符串再比较内部属性<span style=color:#f92672>*</span>
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(sb.<span style=color:#a6e22e>equals</span>(s));<span style=color:#75715e>//false</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>*</span>StringBuilder仅比较地址值<span style=color:#f92672>*</span>
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        (String)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>boolean</span> <span style=color:#a6e22e>equals</span>(Object anObject) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> (<span style=color:#66d9ef>this</span> <span style=color:#f92672>==</span> anObject) {
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>true</span>;
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> (anObject <span style=color:#66d9ef>instanceof</span> String aString)
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&amp;&amp;</span> (<span style=color:#f92672>!</span>COMPACT_STRINGS <span style=color:#f92672>||</span> <span style=color:#66d9ef>this</span>.<span style=color:#a6e22e>coder</span> <span style=color:#f92672>==</span> aString.<span style=color:#a6e22e>coder</span>)
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&amp;&amp;</span> StringLatin1.<span style=color:#a6e22e>equals</span>(value, aString.<span style=color:#a6e22e>value</span>);
+</span></span><span style=display:flex><span>    	}
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        (StringBuilder{Object的方法})
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>boolean</span> <span style=color:#a6e22e>equals</span>(Object obj) {
+</span></span><span style=display:flex><span>        	<span style=color:#66d9ef>return</span> (<span style=color:#66d9ef>this</span> <span style=color:#f92672>==</span> obj);
+</span></span><span style=display:flex><span>    	}
+</span></span></code></pre></div><hr><h3 id=克隆clone>克隆clone</h3><p>对象克隆：把A对象的属性值完全拷贝给B对象，也叫对象拷贝，对象复制</p><h4 id=第一种克隆方式浅克隆>第一种克隆方式（浅克隆）</h4><ul><li><strong>不管对象内部的属性是基本数据类型还是引用数据类型，都完全拷贝过来</strong></li><li>Cloneable</li><li>如果一个接口里面没有抽象方法，表示当前的接口是一个可标记接口，现在Cloneable表示一旦实现了那么当前的对象就可以被克隆</li><li>如果没有实现，当前类的对象就不能克隆</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-Java data-lang=Java><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>(String<span style=color:#f92672>[]</span> args) <span style=color:#66d9ef>throws</span> CloneNotSupportedException {
+</span></span><span style=display:flex><span>        Student s1 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Student(<span style=color:#e6db74>&#34;zhangsan&#34;</span>,18);
+</span></span><span style=display:flex><span>        Object s2 <span style=color:#f92672>=</span> (Student)s1.<span style=color:#a6e22e>clone</span>();
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(s1);<span style=color:#75715e>//@23fc625e</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(s2);<span style=color:#75715e>//@3f99bd52</span>
+</span></span><span style=display:flex><span>        System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(s1 <span style=color:#f92672>==</span> s2);<span style=color:#75715e>//false</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>@Override</span><span style=color:#960050;background-color:#1e0010>（</span>写在JavaBean中<span style=color:#960050;background-color:#1e0010>）</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>protected</span> Object <span style=color:#a6e22e>clone</span>() <span style=color:#66d9ef>throws</span> CloneNotSupportedException {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>super</span>.<span style=color:#a6e22e>clone</span>();
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>/*	1.重写Object中的clone方法
+</span></span></span><span style=display:flex><span><span style=color:#75715e>		2.让JavaBean类实现Cloneable接口
+</span></span></span><span style=display:flex><span><span style=color:#75715e>		3.创建原对象调用clone	*/</span>
+</span></span></code></pre></div><p><img src=/post/06-api/image/06-1.png width=2028 height=837 loading=lazy alt=浅克隆 class=gallery-image data-flex-grow=242 data-flex-basis=581px></p><blockquote><p>[!NOTE]
 浅克隆（引用数据类型）用的是相同的地址值，当其中一个对象修改该引用类型字段的内容时
-另一个对象也会受到影响，可能导致数据不一致的问题。</p>
-</blockquote>
-<h4 id="第二种克隆方式深克隆">第二种克隆方式（深克隆）
-</h4><ul>
-<li>基本数据类型拷贝过来</li>
-<li>字符串复用</li>
-<li>引用数据类型会重新创建新的</li>
-</ul>
-<p><img src="/post/06-api/image/06-2.png"
-	width="2025"
-	height="837"
-	loading="lazy"
-	
-		alt="深克隆"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="241"
-		data-flex-basis="580px"
-	
-></p>
-<blockquote>
-<p>[!NOTE]
+另一个对象也会受到影响，可能导致数据不一致的问题。</p></blockquote><h4 id=第二种克隆方式深克隆>第二种克隆方式（深克隆）</h4><ul><li>基本数据类型拷贝过来</li><li>字符串复用</li><li>引用数据类型会重新创建新的</li></ul><p><img src=/post/06-api/image/06-2.png width=2025 height=837 loading=lazy alt=深克隆 class=gallery-image data-flex-grow=241 data-flex-basis=580px></p><blockquote><p>[!NOTE]
 基本数据类型 ： 直接克隆对象
 引用数据类型 ： 创建一个新的对象
 注：String 深克隆时用串池地址（原地址），只有在改变后才会创建新String对象，因为String本身不可变
-<strong>此时的data记录新数据的地址值</strong></p>
-</blockquote>
-<p><img src="/post/06-api/image/06-3.png"
-	width="1248"
-	height="939"
-	loading="lazy"
-	
-		alt="深克隆与浅克隆"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="132"
-		data-flex-basis="318px"
-	
-></p>
-<hr>
-<h2 id="objects">Objects
-</h2><p><code>public static boolean equals(Object a,Object b)</code><strong>先做非空判断</strong>，比较两个对象</p>
-<p><code>public static boolean isNull(Object obj)</code>判断对象是否为null，null-&gt;true</p>
-<p><code>public static boolean nonNull(Object obj)</code>判断对象是否为null，与isNull的结果相反</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.Objects;  
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TestDemo</span> {  
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) <span style="color:#66d9ef">throws</span> CloneNotSupportedException {  
-</span></span><span style="display:flex;"><span>       Student s1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;  
-</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">var</span> s2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Student(<span style="color:#e6db74">&#34;zhangsan&#34;</span>,23);  
-</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">boolean</span> res <span style="color:#f92672">=</span> Objects.<span style="color:#a6e22e">equals</span>(s1,s2);  
-</span></span><span style="display:flex;"><span>       System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(res);  
-</span></span><span style="display:flex;"><span>       <span style="color:#75715e">//方法的底层会判断n1 ?= null，如果为null，直接返回false  </span>
-</span></span><span style="display:flex;"><span>       <span style="color:#75715e">//如果s1不为null，那么就利用s1再次调用equals方法  </span>
-</span></span><span style="display:flex;"><span>       <span style="color:#75715e">//此时s1是Student类型，所以最终还是会调用Student中的equals方法  </span>
-</span></span><span style="display:flex;"><span>       <span style="color:#75715e">//未重写-&gt;比较地址值  重写-&gt;比较属性值  </span>
-</span></span><span style="display:flex;"><span>    }  
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><hr>
-<h2 id="biginteger和bigdecimal">BigInteger和BigDecimal
-</h2><h3 id="biginteger的构造方法">BigInteger的构造方法
-</h3><p><code>public BigInteger(int num,Random rnd)</code>获取随机大整数，范围:[0~2的num次方-1]</p>
-<p><code>public BigInteger(String val)</code> 获取指定的大整数</p>
-<p><code>public BigInteger(String val,int radix)</code>获取指定进制的大整数</p>
-<p><code>public static BigInteger valueOf(long val)</code>静态方法获取BigInteger的对象，内部有优化(-1<del>16,1</del>16)</p>
-<blockquote>
-<p>[!NOTE]
-对象一旦创建，内部的数据不能发生改变</p>
-</blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>BigInteger bd1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> BigInteger.<span style="color:#a6e22e">valueOf</span>(1);
-</span></span><span style="display:flex;"><span>BigInteger bd2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> BigInteger.<span style="color:#a6e22e">valueOf</span>(2);
-</span></span><span style="display:flex;"><span>BigInteger res  <span style="color:#f92672">=</span> bd1.<span style="color:#a6e22e">add</span>(bd2);<span style="color:#75715e">//产生一个新对象</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//res = 3;</span>
-</span></span></code></pre></div><p><img src="/post/06-api/image/06-4.png"
-	width="1056"
-	height="353"
-	loading="lazy"
-	
-		alt="BigInteger"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="299"
-		data-flex-basis="717px"
-	
-></p>
-<h3 id="biginteger的成员方法">BigInteger的成员方法
-</h3><p><img src="/post/06-api/image/06-5.png"
-	width="1281"
-	height="673"
-	loading="lazy"
-	
-		alt="成员方法"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="190"
-		data-flex-basis="456px"
-	
-></p>
-<hr>
-<h3 id="bigdemical">BigDemical
-</h3><p><strong>常用方法</strong></p>
-<ul>
-<li>表示的数字不大(没有超出double) -&gt; 使用静态方法
-<code>public static BigDecimal valueOf(double val)</code></li>
-<li>表示的数字比较大(超出double) -&gt; 使用构造方法
-<code>BigDecimal bd = new BigDecimal(String val)</code></li>
-</ul>
-<blockquote>
-<p>[!NOTE]
-如果传递的是[0,10]之间的数，那么方法会返回已经创建好的对象（不会new）</p>
-</blockquote>
-<p><img src="/post/06-api/image/06-6.png"
-	width="2276"
-	height="784"
-	loading="lazy"
-	
-		alt="常用方法"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="290"
-		data-flex-basis="696px"
-	
-></p>
-<blockquote>
-<p>[!NOTE]
-注：divide除法方法必须除尽，否则会报错</p>
-</blockquote>
-<div class="table-wrapper"><table>
-  <thead>
-      <tr>
-          <th style="text-align: left">舍入模式</th>
-          <th style="text-align: left">说明</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left">UP</td>
-          <td style="text-align: left">远离<strong>0方向</strong>舍入的舍入模式(&lt;- -&gt;)</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">DOWN</td>
-          <td style="text-align: left">靠近<strong>0方向</strong>舍入的舍入模式(-&gt; &lt;-)</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">CEILING</td>
-          <td style="text-align: left">向<strong>正无穷大</strong>方向舍入（ -&gt; ）</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">FLOOR</td>
-          <td style="text-align: left">向<strong>负无穷大</strong>方向舍入 ( &lt;- )</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">HALF_UP</td>
-          <td style="text-align: left"><strong>四舍五入</strong></td>
-      </tr>
-  </tbody>
-</table></div>
-<hr>
-<h2 id="正则表达式regex">正则表达式（regex）
-</h2><p><img src="/post/06-api/image/06-7.png"
-	width="927"
-	height="587"
-	loading="lazy"
-	
-		alt="regex"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="157"
-		data-flex-basis="379px"
-	
->
-<img src="/post/06-api/image/06-8.png"
-	width="907"
-	height="522"
-	loading="lazy"
-	
-		alt="regex"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="173"
-		data-flex-basis="417px"
-	
-></p>
-<ul>
-<li><code>(?i)abcd</code>会忽略abcd的大小写</li>
-<li><code>a(?i)bcd</code>会忽略bcd的大小写</li>
-<li><code>a((?i)b)cd</code>会忽略b的大小写</li>
-</ul>
-<hr>
-<h2 id="date时间类">Date时间类
-</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>	<span style="color:#75715e">//简单时间类</span>
-</span></span><span style="display:flex;"><span>	Date d1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Date();<span style="color:#75715e">//获取当前时间</span>
-</span></span><span style="display:flex;"><span>	Date d2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Date(0L)<span style="color:#75715e">//获取初始时间+0ms后的时间Thu Jan 01 08:00:00 CST 1970</span>
-</span></span><span style="display:flex;"><span>	d2.<span style="color:#a6e22e">getTime</span>().<span style="color:#a6e22e">sout</span>;<span style="color:#75715e">//0</span>
-</span></span><span style="display:flex;"><span>	Date d3 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Date(1000L)<span style="color:#75715e">//获取初始时间+1000ms后的时间Thu Jan 01 08:00:01 CST 1970</span>
-</span></span><span style="display:flex;"><span>	d3.<span style="color:#a6e22e">getTime</span>().<span style="color:#a6e22e">sout</span>;<span style="color:#75715e">//1000</span>
-</span></span></code></pre></div><h3 id="simpledateformat类">SimpleDateFormat类
-</h3><ul>
-<li>format格式化：把时间转换成指定格式</li>
-<li>parse解析：把字符串表示的时间变成Date对象</li>
-</ul>
-<h4 id="构造方法">构造方法
-</h4><ul>
-<li>==<code>public SimpleDateFormat()</code>  使用默认格式==</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>	SimpleDateFormat sdf <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span>  SimpleDateFormat();  
-</span></span><span style="display:flex;"><span>	Date  date <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Date(0L);
-</span></span><span style="display:flex;"><span>	String str <span style="color:#f92672">=</span> sdf.<span style="color:#a6e22e">format</span>(date);  
-</span></span><span style="display:flex;"><span>	System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(str);
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	默认格式<span style="color:#960050;background-color:#1e0010">：</span>1970<span style="color:#f92672">/</span>1<span style="color:#f92672">/</span>1 08:00 
-</span></span></code></pre></div><ul>
-<li>==<code>public SimpleDateFormat(String Pattern)</code> 使用指定格式==</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>	SimpleDateFormat sdf <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span>  SimpleDateFormat(<span style="color:#e6db74">&#34;yyyy年MM月dd日 HH:mm:ss EEEE&#34;</span>); 
-</span></span><span style="display:flex;"><span>	Date  date <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Date(0L);  
-</span></span><span style="display:flex;"><span>	String str <span style="color:#f92672">=</span> sdf.<span style="color:#a6e22e">format</span>(date);  
-</span></span><span style="display:flex;"><span>	System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(str);
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	指定格式<span style="color:#960050;background-color:#1e0010">：</span>1970年01月01日 08:00:00 星期四
-</span></span></code></pre></div><div class="table-wrapper"><table>
-  <thead>
-      <tr>
-          <th>字母</th>
-          <th>描述 (Description)</th>
-          <th>示例 (Output)</th>
-          <th>备注 (Note)</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><strong>G</strong></td>
-          <td>年代标志 (Era)</td>
-          <td>AD (公元)</td>
-          <td>通常用于历史日期</td>
-      </tr>
-      <tr>
-          <td><strong>y</strong></td>
-          <td>年 (Year)</td>
-          <td>2026; 26</td>
-          <td><code>yy</code> 是两位年，<code>yyyy</code> 是四位年</td>
-      </tr>
-      <tr>
-          <td><strong>u</strong></td>
-          <td>纪元年 (Year)</td>
-          <td>2026</td>
-          <td>在 <code>java.time</code> 中比 <code>y</code> 更严谨</td>
-      </tr>
-      <tr>
-          <td><strong>M</strong></td>
-          <td><strong>月份 (Month)</strong></td>
-          <td>07; Jul; July</td>
-          <td><strong>大写</strong>；<code>MM</code> 为数字，<code>MMM</code> 为缩写</td>
-      </tr>
-      <tr>
-          <td><strong>L</strong></td>
-          <td>独立月份 (Month)</td>
-          <td>7; July</td>
-          <td>常用于特定语言环境的格式化</td>
-      </tr>
-      <tr>
-          <td><strong>d</strong></td>
-          <td><strong>月中天数 (Day)</strong></td>
-          <td>10; 05</td>
-          <td><strong>小写</strong>；该月中的第几天</td>
-      </tr>
-      <tr>
-          <td><strong>D</strong></td>
-          <td>年中天数 (Day)</td>
-          <td>189</td>
-          <td>该年中的第几天 (1-366)</td>
-      </tr>
-      <tr>
-          <td><strong>E</strong></td>
-          <td>星期 (Day in week)</td>
-          <td>Tue; Tuesday</td>
-          <td>星期几的文本描述</td>
-      </tr>
-      <tr>
-          <td><strong>e</strong></td>
-          <td>星期数字 (Day of week)</td>
-          <td>2</td>
-          <td>1 (周一) 到 7 (周日)</td>
-      </tr>
-      <tr>
-          <td><strong>a</strong></td>
-          <td>上下午标记 (AM/PM)</td>
-          <td>PM</td>
-          <td>上午或下午</td>
-      </tr>
-      <tr>
-          <td><strong>H</strong></td>
-          <td><strong>24小时制小时</strong></td>
-          <td>0-23</td>
-          <td><strong>大写</strong>；常用于服务器日志</td>
-      </tr>
-      <tr>
-          <td><strong>h</strong></td>
-          <td><strong>12小时制小时</strong></td>
-          <td>1-12</td>
-          <td><strong>小写</strong>；需配合 <code>a</code> 使用</td>
-      </tr>
-      <tr>
-          <td><strong>m</strong></td>
-          <td><strong>分钟 (Minute)</strong></td>
-          <td>30</td>
-          <td><strong>小写</strong>；不要和月份 <code>M</code> 搞混</td>
-      </tr>
-      <tr>
-          <td><strong>s</strong></td>
-          <td><strong>秒 (Second)</strong></td>
-          <td>55</td>
-          <td>秒数</td>
-      </tr>
-      <tr>
-          <td><strong>S</strong></td>
-          <td>毫秒 (Fraction)</td>
-          <td>978</td>
-          <td>毫秒或纳秒的零头</td>
-      </tr>
-      <tr>
-          <td><strong>n</strong></td>
-          <td>纳秒 (Nano)</td>
-          <td>500000</td>
-          <td>仅限 Java 8+ 的 <code>java.time</code></td>
-      </tr>
-      <tr>
-          <td><strong>z</strong></td>
-          <td>时区 (Time Zone)</td>
-          <td>CST; PST</td>
-          <td>通用时区名称</td>
-      </tr>
-      <tr>
-          <td><strong>Z</strong></td>
-          <td>时区偏移 (Offset)</td>
-          <td>+0800</td>
-          <td>RFC 822 格式</td>
-      </tr>
-      <tr>
-          <td><strong>X</strong></td>
-          <td>ISO 8601 时区</td>
-          <td>Z; +08; +08:00</td>
-          <td>现代 API 推荐使用的时区格式</td>
-      </tr>
-  </tbody>
-</table></div>
-<h4 id="常用方法">常用方法
-</h4><ul>
-<li>==<code>public final String format(Date date)</code> 格式化（日期对象 -&gt; 字符串)==</li>
-<li>==<code>public Date parse(String source)</code> 解析（字符串 -&gt; 日期对象）==</li>
-</ul>
-<h3 id="calendar类">Calendar类
-</h3><ul>
-<li>Calendar代表了系统当前时间的日历对象，可以单独修改、获取事件中的年月日</li>
-<li>Calendar是一个抽象类，不能直接创建对象，需要通过一个静态方法获取到子类对象
-<img src="/post/06-api/image/06-10.png"
-	width="1609"
-	height="1013"
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="158"
-		data-flex-basis="381px"
-	
-></li>
-</ul>
-<h5 id="getsetadd方法">get/set/add方法
-</h5><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>	Calandar c <span style="color:#f92672">=</span> Calandar.<span style="color:#a6e22e">getInstance</span>();
-</span></span><span style="display:flex;"><span>	c.<span style="color:#a6e22e">get</span>(Calandar.<span style="color:#a6e22e">YEAR</span>);
-</span></span><span style="display:flex;"><span>	c.<span style="color:#a6e22e">set</span>(Calandar.<span style="color:#a6e22e">YEAR</span>,11)<span style="color:#75715e">//实际为12月</span>
-</span></span><span style="display:flex;"><span>	c.<span style="color:#a6e22e">add</span>(Calandar.<span style="color:#a6e22e">YEAR</span>,1)<span style="color:#75715e">//实际为次年1月</span>
-</span></span></code></pre></div><div class="table-wrapper"><table>
-  <thead>
-      <tr>
-          <th style="text-align: left">数字</th>
-          <th style="text-align: left">常量名</th>
-          <th style="text-align: left">含义</th>
-          <th style="text-align: left">注意事项</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left">1</td>
-          <td style="text-align: left">Calendar.YEAR</td>
-          <td style="text-align: left">年</td>
-          <td style="text-align: left">-</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">2</td>
-          <td style="text-align: left">Calendar.MONTH</td>
-          <td style="text-align: left">月</td>
-          <td style="text-align: left">从 0 开始。0表示1月，11表示12月。</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">5</td>
-          <td style="text-align: left">Calendar.DATE / DAY_OF_MONTH</td>
-          <td style="text-align: left">日</td>
-          <td style="text-align: left">两个常量效果一样。</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">10</td>
-          <td style="text-align: left">Calendar.HOUR</td>
-          <td style="text-align: left">小时</td>
-          <td style="text-align: left">12小时制。</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">11</td>
-          <td style="text-align: left">Calendar.HOUR_OF_DAY</td>
-          <td style="text-align: left">小时</td>
-          <td style="text-align: left">24小时制。</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">12</td>
-          <td style="text-align: left">Calendar.MINUTE</td>
-          <td style="text-align: left">分钟</td>
-          <td style="text-align: left">-</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">13</td>
-          <td style="text-align: left">Calendar.SECOND</td>
-          <td style="text-align: left">秒</td>
-          <td style="text-align: left">-</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">7</td>
-          <td style="text-align: left">Calendar.DAY_OF_WEEK</td>
-          <td style="text-align: left">星期</td>
-          <td style="text-align: left">周日是1，周一是2，周六是7。</td>
-      </tr>
-  </tbody>
-</table></div>
-<hr>
-<h2 id="包装类">包装类
-</h2><ul>
-<li>基本数据类型所对应的对象</li>
-</ul>
-<h3 id="integer">Integer
-</h3><h4 id="integer缓存">Integer缓存
-</h4><ul>
-<li>Java的Integer类内部实现了一个静态缓存池，用于存储特定范围内的整数值对应的Integer对象。</li>
-<li>默认情况下，这个范围时-128至127。当通过Integer.valueOf(int)方法创建一个在这个范围内的整数对象时，并不会每次都生成新的对象实例，而是<strong>复用缓存中的现有对象</strong>，会直接从内存中取出，不需要新建一个对象。</li>
-<li>目的：节约内存</li>
-</ul>
-<h4 id="jdk5以后">JDK5以后
-</h4><ul>
-<li>自动装箱、自动拆箱</li>
-<li>直接赋值获取对象</li>
-<li>计算时不需要new，不需要调用方法，直接赋值即可</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>	Integer i1 <span style="color:#f92672">=</span> 10;
-</span></span><span style="display:flex;"><span>	Integer i2 <span style="color:#f92672">=</span> 20;
-</span></span><span style="display:flex;"><span>	Integer i3 <span style="color:#f92672">=</span> i1 <span style="color:#f92672">+</span> i2;<span style="color:#75715e">//底层：先拆箱 -&gt; 计算 -&gt; 再装箱赋值给i3</span>
-</span></span></code></pre></div><h4 id="integer成员方法">Integer成员方法
-</h4><p><img src="/post/06-api/image/06-11.png"
-	width="2042"
-	height="590"
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="346"
-		data-flex-basis="830px"
-	
-></p>
-<hr>
-<h2 id="arrays">Arrays
-</h2><p><img src="/post/06-api/image/06-12.png"
-	width="2158"
-	height="905"
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="238"
-		data-flex-basis="572px"
-	
-></p>
-<h3 id="arraysbinarysearch">Arrays.binarySearch()
-</h3><ul>
-<li>查找的元素存在，就返回真实的索引</li>
-<li>查找的元素不存在，就返回( -插入点 - 1 )</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> a <span style="color:#f92672">=</span>  {1,2,3,4,5,6,7,8,9,10};
-</span></span><span style="display:flex;"><span>	Arrays.<span style="color:#a6e22e">binarySearch</span>(arr,10);<span style="color:#75715e">//9</span>
-</span></span><span style="display:flex;"><span>	Arrays.<span style="color:#a6e22e">binarySearch</span>(arr,100)<span style="color:#75715e">//-11</span>
-</span></span></code></pre></div><hr>
-<h3 id="arrrayscopyof">Arrrays.copyOf()
-</h3><ul>
-<li>if(新数组len &lt; 老数组len) 会部分拷贝</li>
-<li>if(新数组len = 老数组len) 会完全拷贝</li>
-<li>if(新数组len &gt; 老数组len) 会补上默认初始值(int[] 补0)</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> a <span style="color:#f92672">=</span>  {1,2,3,4,5,6,7,8,9,10};
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> newa <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">copyOf</span>(a);
-</span></span></code></pre></div><hr>
-<h3 id="arrrayscopyofrange">Arrrays.copyOfRange()
-</h3><ul>
-<li>包左不包右（左闭右开）</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> a <span style="color:#f92672">=</span>  {1,2,3,4,5,6,7,8,9,10};
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> newa <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">copyOfRange</span>(a,0,9);
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//1 2 3 4 5 6 7 8 9</span>
-</span></span></code></pre></div><hr>
-<h3 id="arraysfill">Arrays.fill()
-</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> a <span style="color:#f92672">=</span>  {1,2,3,4,5,6,7,8,9,10};	
-</span></span><span style="display:flex;"><span>	Arrays.<span style="color:#a6e22e">fill</span>(a,100);<span style="color:#75715e">//100 100 100 ...</span>
-</span></span></code></pre></div><hr>
-<h3 id="arrayssort">Arrays.sort()
-</h3><ul>
-<li>对基本类型快速排序</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>	Arrays.<span style="color:#a6e22e">sort</span>(a);<span style="color:#75715e">//升序</span>
-</span></span></code></pre></div><h3 id="重载">重载
-</h3><ul>
-<li>只能对引用数据类型排序</li>
-<li>o1：表示在无序序列中，遍历得到的每一个元素</li>
-<li>o2：表示有序序列中的元素</li>
-<li>返回值
-<ul>
-<li>负数：表示当前要插入的元素是小的，放在前面</li>
-<li>正数：表示当前要插入的元素是大的，放在后面</li>
-<li>0    ：一样大，放在后面</li>
-</ul>
-</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>	Integer<span style="color:#f92672">[]</span> a <span style="color:#f92672">=</span>  {2,7,5,4,5,6,7,8,9,31};  
-</span></span><span style="display:flex;"><span>Arrays.<span style="color:#a6e22e">sort</span>(a,newComparator<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span>() {  
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">@Override</span>  
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">compare</span>(Integer o1, Integer o2) {  
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> o1<span style="color:#f92672">-</span>o2;  
-</span></span><span style="display:flex;"><span>	}  
-</span></span><span style="display:flex;"><span>});
-</span></span></code></pre></div><h2 id="lambda表达式">Lambda表达式
-</h2><ul>
-<li>( )对应方法的形参</li>
-<li>-&gt; 固定格式</li>
-<li>{ } 对应方法体</li>
-<li>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>  Integer<span style="color:#f92672">[]</span> a <span style="color:#f92672">=</span>  {2,7,5,4,5,6,7,8,9,31};  
-</span></span><span style="display:flex;"><span>  Arrays.<span style="color:#a6e22e">sort</span>(a,(Integer o1, Integer o2) <span style="color:#f92672">-&gt;</span> {  
-</span></span><span style="display:flex;"><span>  	<span style="color:#66d9ef">return</span> o1<span style="color:#f92672">-</span>o2;  
-</span></span><span style="display:flex;"><span>  }  
-</span></span><span style="display:flex;"><span>  );
-</span></span></code></pre></div></li>
-</ul>
-<pre tabindex="0"><code>&gt;[!NOTE]
+<strong>此时的data记录新数据的地址值</strong></p></blockquote><p><img src=/post/06-api/image/06-3.png width=1248 height=939 loading=lazy alt=深克隆与浅克隆 class=gallery-image data-flex-grow=132 data-flex-basis=318px></p><hr><h2 id=objects>Objects</h2><p><code>public static boolean equals(Object a,Object b)</code><strong>先做非空判断</strong>，比较两个对象</p><p><code>public static boolean isNull(Object obj)</code>判断对象是否为null，null->true</p><p><code>public static boolean nonNull(Object obj)</code>判断对象是否为null，与isNull的结果相反</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-Java data-lang=Java><span style=display:flex><span><span style=color:#f92672>import</span> java.util.Objects;  
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>TestDemo</span> {  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>(String<span style=color:#f92672>[]</span> args) <span style=color:#66d9ef>throws</span> CloneNotSupportedException {  
+</span></span><span style=display:flex><span>       Student s1 <span style=color:#f92672>=</span> <span style=color:#66d9ef>null</span>;  
+</span></span><span style=display:flex><span>       <span style=color:#66d9ef>var</span> s2 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Student(<span style=color:#e6db74>&#34;zhangsan&#34;</span>,23);  
+</span></span><span style=display:flex><span>       <span style=color:#66d9ef>boolean</span> res <span style=color:#f92672>=</span> Objects.<span style=color:#a6e22e>equals</span>(s1,s2);  
+</span></span><span style=display:flex><span>       System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(res);  
+</span></span><span style=display:flex><span>       <span style=color:#75715e>//方法的底层会判断n1 ?= null，如果为null，直接返回false  </span>
+</span></span><span style=display:flex><span>       <span style=color:#75715e>//如果s1不为null，那么就利用s1再次调用equals方法  </span>
+</span></span><span style=display:flex><span>       <span style=color:#75715e>//此时s1是Student类型，所以最终还是会调用Student中的equals方法  </span>
+</span></span><span style=display:flex><span>       <span style=color:#75715e>//未重写-&gt;比较地址值  重写-&gt;比较属性值  </span>
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><hr><h2 id=biginteger和bigdecimal>BigInteger和BigDecimal</h2><h3 id=biginteger的构造方法>BigInteger的构造方法</h3><p><code>public BigInteger(int num,Random rnd)</code>获取随机大整数，范围:[0~2的num次方-1]</p><p><code>public BigInteger(String val)</code> 获取指定的大整数</p><p><code>public BigInteger(String val,int radix)</code>获取指定进制的大整数</p><p><code>public static BigInteger valueOf(long val)</code>静态方法获取BigInteger的对象，内部有优化(-1<del>16,1</del>16)</p><blockquote><p>[!NOTE]
+对象一旦创建，内部的数据不能发生改变</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-Java data-lang=Java><span style=display:flex><span>BigInteger bd1 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> BigInteger.<span style=color:#a6e22e>valueOf</span>(1);
+</span></span><span style=display:flex><span>BigInteger bd2 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> BigInteger.<span style=color:#a6e22e>valueOf</span>(2);
+</span></span><span style=display:flex><span>BigInteger res  <span style=color:#f92672>=</span> bd1.<span style=color:#a6e22e>add</span>(bd2);<span style=color:#75715e>//产生一个新对象</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>//res = 3;</span>
+</span></span></code></pre></div><p><img src=/post/06-api/image/06-4.png width=1056 height=353 loading=lazy alt=BigInteger class=gallery-image data-flex-grow=299 data-flex-basis=717px></p><h3 id=biginteger的成员方法>BigInteger的成员方法</h3><p><img src=/post/06-api/image/06-5.png width=1281 height=673 loading=lazy alt=成员方法 class=gallery-image data-flex-grow=190 data-flex-basis=456px></p><hr><h3 id=bigdemical>BigDemical</h3><p><strong>常用方法</strong></p><ul><li>表示的数字不大(没有超出double) -> 使用静态方法
+<code>public static BigDecimal valueOf(double val)</code></li><li>表示的数字比较大(超出double) -> 使用构造方法
+<code>BigDecimal bd = new BigDecimal(String val)</code></li></ul><blockquote><p>[!NOTE]
+如果传递的是[0,10]之间的数，那么方法会返回已经创建好的对象（不会new）</p></blockquote><p><img src=/post/06-api/image/06-6.png width=2276 height=784 loading=lazy alt=常用方法 class=gallery-image data-flex-grow=290 data-flex-basis=696px></p><blockquote><p>[!NOTE]
+注：divide除法方法必须除尽，否则会报错</p></blockquote><div class=table-wrapper><table><thead><tr><th style=text-align:left>舍入模式</th><th style=text-align:left>说明</th></tr></thead><tbody><tr><td style=text-align:left>UP</td><td style=text-align:left>远离<strong>0方向</strong>舍入的舍入模式(&lt;- ->)</td></tr><tr><td style=text-align:left>DOWN</td><td style=text-align:left>靠近<strong>0方向</strong>舍入的舍入模式(-> &lt;-)</td></tr><tr><td style=text-align:left>CEILING</td><td style=text-align:left>向<strong>正无穷大</strong>方向舍入（ -> ）</td></tr><tr><td style=text-align:left>FLOOR</td><td style=text-align:left>向<strong>负无穷大</strong>方向舍入 ( &lt;- )</td></tr><tr><td style=text-align:left>HALF_UP</td><td style=text-align:left><strong>四舍五入</strong></td></tr></tbody></table></div><hr><h2 id=正则表达式regex>正则表达式（regex）</h2><p><img src=/post/06-api/image/06-7.png width=927 height=587 loading=lazy alt=regex class=gallery-image data-flex-grow=157 data-flex-basis=379px>
+<img src=/post/06-api/image/06-8.png width=907 height=522 loading=lazy alt=regex class=gallery-image data-flex-grow=173 data-flex-basis=417px></p><ul><li><code>(?i)abcd</code>会忽略abcd的大小写</li><li><code>a(?i)bcd</code>会忽略bcd的大小写</li><li><code>a((?i)b)cd</code>会忽略b的大小写</li></ul><hr><h2 id=date时间类>Date时间类</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-Java data-lang=Java><span style=display:flex><span>	<span style=color:#75715e>//简单时间类</span>
+</span></span><span style=display:flex><span>	Date d1 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Date();<span style=color:#75715e>//获取当前时间</span>
+</span></span><span style=display:flex><span>	Date d2 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Date(0L)<span style=color:#75715e>//获取初始时间+0ms后的时间Thu Jan 01 08:00:00 CST 1970</span>
+</span></span><span style=display:flex><span>	d2.<span style=color:#a6e22e>getTime</span>().<span style=color:#a6e22e>sout</span>;<span style=color:#75715e>//0</span>
+</span></span><span style=display:flex><span>	Date d3 <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Date(1000L)<span style=color:#75715e>//获取初始时间+1000ms后的时间Thu Jan 01 08:00:01 CST 1970</span>
+</span></span><span style=display:flex><span>	d3.<span style=color:#a6e22e>getTime</span>().<span style=color:#a6e22e>sout</span>;<span style=color:#75715e>//1000</span>
+</span></span></code></pre></div><h3 id=simpledateformat类>SimpleDateFormat类</h3><ul><li>format格式化：把时间转换成指定格式</li><li>parse解析：把字符串表示的时间变成Date对象</li></ul><h4 id=构造方法>构造方法</h4><ul><li>==<code>public SimpleDateFormat()</code> 使用默认格式==</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-Java data-lang=Java><span style=display:flex><span>	SimpleDateFormat sdf <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span>  SimpleDateFormat();  
+</span></span><span style=display:flex><span>	Date  date <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Date(0L);
+</span></span><span style=display:flex><span>	String str <span style=color:#f92672>=</span> sdf.<span style=color:#a6e22e>format</span>(date);  
+</span></span><span style=display:flex><span>	System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(str);
+</span></span><span style=display:flex><span>	
+</span></span><span style=display:flex><span>	默认格式<span style=color:#960050;background-color:#1e0010>：</span>1970<span style=color:#f92672>/</span>1<span style=color:#f92672>/</span>1 08:00 
+</span></span></code></pre></div><ul><li>==<code>public SimpleDateFormat(String Pattern)</code> 使用指定格式==</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-Java data-lang=Java><span style=display:flex><span>	SimpleDateFormat sdf <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span>  SimpleDateFormat(<span style=color:#e6db74>&#34;yyyy年MM月dd日 HH:mm:ss EEEE&#34;</span>); 
+</span></span><span style=display:flex><span>	Date  date <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Date(0L);  
+</span></span><span style=display:flex><span>	String str <span style=color:#f92672>=</span> sdf.<span style=color:#a6e22e>format</span>(date);  
+</span></span><span style=display:flex><span>	System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(str);
+</span></span><span style=display:flex><span>	
+</span></span><span style=display:flex><span>	指定格式<span style=color:#960050;background-color:#1e0010>：</span>1970年01月01日 08:00:00 星期四
+</span></span></code></pre></div><div class=table-wrapper><table><thead><tr><th>字母</th><th>描述 (Description)</th><th>示例 (Output)</th><th>备注 (Note)</th></tr></thead><tbody><tr><td><strong>G</strong></td><td>年代标志 (Era)</td><td>AD (公元)</td><td>通常用于历史日期</td></tr><tr><td><strong>y</strong></td><td>年 (Year)</td><td>2026; 26</td><td><code>yy</code> 是两位年，<code>yyyy</code> 是四位年</td></tr><tr><td><strong>u</strong></td><td>纪元年 (Year)</td><td>2026</td><td>在 <code>java.time</code> 中比 <code>y</code> 更严谨</td></tr><tr><td><strong>M</strong></td><td><strong>月份 (Month)</strong></td><td>07; Jul; July</td><td><strong>大写</strong>；<code>MM</code> 为数字，<code>MMM</code> 为缩写</td></tr><tr><td><strong>L</strong></td><td>独立月份 (Month)</td><td>7; July</td><td>常用于特定语言环境的格式化</td></tr><tr><td><strong>d</strong></td><td><strong>月中天数 (Day)</strong></td><td>10; 05</td><td><strong>小写</strong>；该月中的第几天</td></tr><tr><td><strong>D</strong></td><td>年中天数 (Day)</td><td>189</td><td>该年中的第几天 (1-366)</td></tr><tr><td><strong>E</strong></td><td>星期 (Day in week)</td><td>Tue; Tuesday</td><td>星期几的文本描述</td></tr><tr><td><strong>e</strong></td><td>星期数字 (Day of week)</td><td>2</td><td>1 (周一) 到 7 (周日)</td></tr><tr><td><strong>a</strong></td><td>上下午标记 (AM/PM)</td><td>PM</td><td>上午或下午</td></tr><tr><td><strong>H</strong></td><td><strong>24小时制小时</strong></td><td>0-23</td><td><strong>大写</strong>；常用于服务器日志</td></tr><tr><td><strong>h</strong></td><td><strong>12小时制小时</strong></td><td>1-12</td><td><strong>小写</strong>；需配合 <code>a</code> 使用</td></tr><tr><td><strong>m</strong></td><td><strong>分钟 (Minute)</strong></td><td>30</td><td><strong>小写</strong>；不要和月份 <code>M</code> 搞混</td></tr><tr><td><strong>s</strong></td><td><strong>秒 (Second)</strong></td><td>55</td><td>秒数</td></tr><tr><td><strong>S</strong></td><td>毫秒 (Fraction)</td><td>978</td><td>毫秒或纳秒的零头</td></tr><tr><td><strong>n</strong></td><td>纳秒 (Nano)</td><td>500000</td><td>仅限 Java 8+ 的 <code>java.time</code></td></tr><tr><td><strong>z</strong></td><td>时区 (Time Zone)</td><td>CST; PST</td><td>通用时区名称</td></tr><tr><td><strong>Z</strong></td><td>时区偏移 (Offset)</td><td>+0800</td><td>RFC 822 格式</td></tr><tr><td><strong>X</strong></td><td>ISO 8601 时区</td><td>Z; +08; +08:00</td><td>现代 API 推荐使用的时区格式</td></tr></tbody></table></div><h4 id=常用方法>常用方法</h4><ul><li>==<code>public final String format(Date date)</code> 格式化（日期对象 -> 字符串)==</li><li>==<code>public Date parse(String source)</code> 解析（字符串 -> 日期对象）==</li></ul><h3 id=calendar类>Calendar类</h3><ul><li>Calendar代表了系统当前时间的日历对象，可以单独修改、获取事件中的年月日</li><li>Calendar是一个抽象类，不能直接创建对象，需要通过一个静态方法获取到子类对象
+<img src=/post/06-api/image/06-10.png width=1609 height=1013 loading=lazy class=gallery-image data-flex-grow=158 data-flex-basis=381px></li></ul><h5 id=getsetadd方法>get/set/add方法</h5><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-Java data-lang=Java><span style=display:flex><span>	Calandar c <span style=color:#f92672>=</span> Calandar.<span style=color:#a6e22e>getInstance</span>();
+</span></span><span style=display:flex><span>	c.<span style=color:#a6e22e>get</span>(Calandar.<span style=color:#a6e22e>YEAR</span>);
+</span></span><span style=display:flex><span>	c.<span style=color:#a6e22e>set</span>(Calandar.<span style=color:#a6e22e>YEAR</span>,11)<span style=color:#75715e>//实际为12月</span>
+</span></span><span style=display:flex><span>	c.<span style=color:#a6e22e>add</span>(Calandar.<span style=color:#a6e22e>YEAR</span>,1)<span style=color:#75715e>//实际为次年1月</span>
+</span></span></code></pre></div><div class=table-wrapper><table><thead><tr><th style=text-align:left>数字</th><th style=text-align:left>常量名</th><th style=text-align:left>含义</th><th style=text-align:left>注意事项</th></tr></thead><tbody><tr><td style=text-align:left>1</td><td style=text-align:left>Calendar.YEAR</td><td style=text-align:left>年</td><td style=text-align:left>-</td></tr><tr><td style=text-align:left>2</td><td style=text-align:left>Calendar.MONTH</td><td style=text-align:left>月</td><td style=text-align:left>从 0 开始。0表示1月，11表示12月。</td></tr><tr><td style=text-align:left>5</td><td style=text-align:left>Calendar.DATE / DAY_OF_MONTH</td><td style=text-align:left>日</td><td style=text-align:left>两个常量效果一样。</td></tr><tr><td style=text-align:left>10</td><td style=text-align:left>Calendar.HOUR</td><td style=text-align:left>小时</td><td style=text-align:left>12小时制。</td></tr><tr><td style=text-align:left>11</td><td style=text-align:left>Calendar.HOUR_OF_DAY</td><td style=text-align:left>小时</td><td style=text-align:left>24小时制。</td></tr><tr><td style=text-align:left>12</td><td style=text-align:left>Calendar.MINUTE</td><td style=text-align:left>分钟</td><td style=text-align:left>-</td></tr><tr><td style=text-align:left>13</td><td style=text-align:left>Calendar.SECOND</td><td style=text-align:left>秒</td><td style=text-align:left>-</td></tr><tr><td style=text-align:left>7</td><td style=text-align:left>Calendar.DAY_OF_WEEK</td><td style=text-align:left>星期</td><td style=text-align:left>周日是1，周一是2，周六是7。</td></tr></tbody></table></div><hr><h2 id=包装类>包装类</h2><ul><li>基本数据类型所对应的对象</li></ul><h3 id=integer>Integer</h3><h4 id=integer缓存>Integer缓存</h4><ul><li>Java的Integer类内部实现了一个静态缓存池，用于存储特定范围内的整数值对应的Integer对象。</li><li>默认情况下，这个范围时-128至127。当通过Integer.valueOf(int)方法创建一个在这个范围内的整数对象时，并不会每次都生成新的对象实例，而是<strong>复用缓存中的现有对象</strong>，会直接从内存中取出，不需要新建一个对象。</li><li>目的：节约内存</li></ul><h4 id=jdk5以后>JDK5以后</h4><ul><li>自动装箱、自动拆箱</li><li>直接赋值获取对象</li><li>计算时不需要new，不需要调用方法，直接赋值即可</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-Java data-lang=Java><span style=display:flex><span>	Integer i1 <span style=color:#f92672>=</span> 10;
+</span></span><span style=display:flex><span>	Integer i2 <span style=color:#f92672>=</span> 20;
+</span></span><span style=display:flex><span>	Integer i3 <span style=color:#f92672>=</span> i1 <span style=color:#f92672>+</span> i2;<span style=color:#75715e>//底层：先拆箱 -&gt; 计算 -&gt; 再装箱赋值给i3</span>
+</span></span></code></pre></div><h4 id=integer成员方法>Integer成员方法</h4><p><img src=/post/06-api/image/06-11.png width=2042 height=590 loading=lazy class=gallery-image data-flex-grow=346 data-flex-basis=830px></p><hr><h2 id=arrays>Arrays</h2><p><img src=/post/06-api/image/06-12.png width=2158 height=905 loading=lazy class=gallery-image data-flex-grow=238 data-flex-basis=572px></p><h3 id=arraysbinarysearch>Arrays.binarySearch()</h3><ul><li>查找的元素存在，就返回真实的索引</li><li>查找的元素不存在，就返回( -插入点 - 1 )</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-Java data-lang=Java><span style=display:flex><span>	<span style=color:#66d9ef>int</span><span style=color:#f92672>[]</span> a <span style=color:#f92672>=</span>  {1,2,3,4,5,6,7,8,9,10};
+</span></span><span style=display:flex><span>	Arrays.<span style=color:#a6e22e>binarySearch</span>(arr,10);<span style=color:#75715e>//9</span>
+</span></span><span style=display:flex><span>	Arrays.<span style=color:#a6e22e>binarySearch</span>(arr,100)<span style=color:#75715e>//-11</span>
+</span></span></code></pre></div><hr><h3 id=arrrayscopyof>Arrrays.copyOf()</h3><ul><li>if(新数组len &lt; 老数组len) 会部分拷贝</li><li>if(新数组len = 老数组len) 会完全拷贝</li><li>if(新数组len > 老数组len) 会补上默认初始值(int[] 补0)</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-Java data-lang=Java><span style=display:flex><span>	<span style=color:#66d9ef>int</span><span style=color:#f92672>[]</span> a <span style=color:#f92672>=</span>  {1,2,3,4,5,6,7,8,9,10};
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>int</span><span style=color:#f92672>[]</span> newa <span style=color:#f92672>=</span> Arrays.<span style=color:#a6e22e>copyOf</span>(a);
+</span></span></code></pre></div><hr><h3 id=arrrayscopyofrange>Arrrays.copyOfRange()</h3><ul><li>包左不包右（左闭右开）</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-Java data-lang=Java><span style=display:flex><span>	<span style=color:#66d9ef>int</span><span style=color:#f92672>[]</span> a <span style=color:#f92672>=</span>  {1,2,3,4,5,6,7,8,9,10};
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>int</span><span style=color:#f92672>[]</span> newa <span style=color:#f92672>=</span> Arrays.<span style=color:#a6e22e>copyOfRange</span>(a,0,9);
+</span></span><span style=display:flex><span>	<span style=color:#75715e>//1 2 3 4 5 6 7 8 9</span>
+</span></span></code></pre></div><hr><h3 id=arraysfill>Arrays.fill()</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-Java data-lang=Java><span style=display:flex><span>	<span style=color:#66d9ef>int</span><span style=color:#f92672>[]</span> a <span style=color:#f92672>=</span>  {1,2,3,4,5,6,7,8,9,10};	
+</span></span><span style=display:flex><span>	Arrays.<span style=color:#a6e22e>fill</span>(a,100);<span style=color:#75715e>//100 100 100 ...</span>
+</span></span></code></pre></div><hr><h3 id=arrayssort>Arrays.sort()</h3><ul><li>对基本类型快速排序</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-Java data-lang=Java><span style=display:flex><span>	Arrays.<span style=color:#a6e22e>sort</span>(a);<span style=color:#75715e>//升序</span>
+</span></span></code></pre></div><h3 id=重载>重载</h3><ul><li>只能对引用数据类型排序</li><li>o1：表示在无序序列中，遍历得到的每一个元素</li><li>o2：表示有序序列中的元素</li><li>返回值<ul><li>负数：表示当前要插入的元素是小的，放在前面</li><li>正数：表示当前要插入的元素是大的，放在后面</li><li>0 ：一样大，放在后面</li></ul></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-Java data-lang=Java><span style=display:flex><span>	Integer<span style=color:#f92672>[]</span> a <span style=color:#f92672>=</span>  {2,7,5,4,5,6,7,8,9,31};  
+</span></span><span style=display:flex><span>Arrays.<span style=color:#a6e22e>sort</span>(a,newComparator<span style=color:#f92672>&lt;</span>Integer<span style=color:#f92672>&gt;</span>() {  
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>@Override</span>  
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>public</span> <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>compare</span>(Integer o1, Integer o2) {  
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>return</span> o1<span style=color:#f92672>-</span>o2;  
+</span></span><span style=display:flex><span>	}  
+</span></span><span style=display:flex><span>});
+</span></span></code></pre></div><h2 id=lambda表达式>Lambda表达式</h2><ul><li>( )对应方法的形参</li><li>-> 固定格式</li><li>{ } 对应方法体</li><li><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-Java data-lang=Java><span style=display:flex><span>  Integer<span style=color:#f92672>[]</span> a <span style=color:#f92672>=</span>  {2,7,5,4,5,6,7,8,9,31};  
+</span></span><span style=display:flex><span>  Arrays.<span style=color:#a6e22e>sort</span>(a,(Integer o1, Integer o2) <span style=color:#f92672>-&gt;</span> {  
+</span></span><span style=display:flex><span>  	<span style=color:#66d9ef>return</span> o1<span style=color:#f92672>-</span>o2;  
+</span></span><span style=display:flex><span>  }  
+</span></span><span style=display:flex><span>  );
+</span></span></code></pre></div></li></ul><pre tabindex=0><code>&gt;[!NOTE]
 &gt;lambda 表达式可以用来简化匿名内部类的书写（不是所有）
 &gt;lambda 表达式只能简化函数式接口的匿名内部类写法
 &gt;
@@ -1150,166 +147,37 @@ Arrays.sort(a,(Integer o1, Integer o2) -&gt; {
 		return o1-o2;  
 	}  
 );
-</code></pre><hr>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#f92672">package</span> MyTestDemo2;  
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TestDemo</span>{  
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args){  
-</span></span><span style="display:flex;"><span>        method(()<span style="color:#f92672">-&gt;</span>{  
-</span></span><span style="display:flex;"><span>            System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;lambda:&#34;</span>);  
-</span></span><span style="display:flex;"><span>            System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;swimming&#34;</span>);  
-</span></span><span style="display:flex;"><span>        });  
-</span></span><span style="display:flex;"><span>    }  
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">method</span>(swim s){  
-</span></span><span style="display:flex;"><span>        s.<span style="color:#a6e22e">swimming</span>();  
-</span></span><span style="display:flex;"><span>    }  
-</span></span><span style="display:flex;"><span>}  
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@FunctionalInterface</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">swim</span>{  
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">swimming</span>();  
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="可推导可省略">可推导，可省略
-</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>	Integer<span style="color:#f92672">[]</span> a <span style="color:#f92672">=</span>  {2,7,5,4,5,6,7,8,9,31};  
-</span></span><span style="display:flex;"><span>	Arrays.<span style="color:#a6e22e">sort</span>(a,(o1,o2) <span style="color:#f92672">-&gt;</span> o1<span style="color:#f92672">-</span>o2);<span style="color:#75715e">//升序</span>
-</span></span><span style="display:flex;"><span>	Arrays.<span style="color:#a6e22e">sort</span>(a,(o1,o2) <span style="color:#f92672">-&gt;</span> o2<span style="color:#f92672">-</span>o1);<span style="color:#75715e">//倒序</span>
-</span></span></code></pre></div>
-</section>
-
-
-    <footer class="article-footer">
-    
-
-    </footer>
-
-
-    
-</article>
-
-    
-
-    
-
-     
-    
-        
-    <div class="disqus-container">
-    
-</div>
-
-<style>
-    .disqus-container {
-        background-color: var(--card-background);
-        border-radius: var(--card-border-radius);
-        box-shadow: var(--shadow-l1);
-        padding: var(--card-padding);
-    }
-</style>
-
-<script>
-    window.addEventListener('onColorSchemeChange', (e) => {
-        if (typeof DISQUS == 'object') {
-            DISQUS.reset({
-                reload: true
-            });
-        }
-    })
-</script>
-
-    
-
-    <div class="busuanzi-stats-top" style="text-align: center; font-size: 0.9em; margin-bottom: 10px;">
-    今日访问 <span id="busuanzi_today_pv" style="color:var(--primary); font-weight:bold;">...</span> 次 | 
-    今日访客 <span id="busuanzi_today_uv" style="color:var(--primary); font-weight:bold;">...</span> 人 | 
-    本页阅读 <span id="busuanzi_page_pv" style="color:var(--primary); font-weight:bold;">...</span> 次
-</div>
-
-<section class="count_info" style="text-align: center; line-height: 2;">
-  
-  <div>
-    <span>小站已萌萌哒运行了</span>
-    <b id="ds" style="color:var(--primary);">0</b> <span>天</span>
-    <b id="hs" style="color:var(--primary);">0</b> <span>时</span>
-    <b id="ms" style="color:var(--primary);">0</b> <span>分</span>
-  </div>
-
-  
-  <div>
-    
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-    <span>已累计耕耘</span>
-    <b style="color:var(--primary);">10</b>
-    <span>篇博文 · 共</span>
-    <b style="color:var(--primary);">23.89k</b>
-    <span>个字</span>
-  </div>
-
-  
-  <div id="busuanzi_container_site_pv">
-    <span>总访问量</span>
-    <b id="busuanzi_site_pv" style="color:var(--primary);">...</b>
-    <span>次</span>
-  </div>
-</section>
-
-<script>
-(function () {
-  
-  const startTime = new Date("2026-02-05T00:00:00").getTime();
-
-  function updateRuntime() {
-    const now = Date.now();
-    const diff = Math.floor((now - startTime) / 1000);
-
-    if (diff < 0) return; 
-
-    const d = document.getElementById("ds");
-    const h = document.getElementById("hs");
-    const m = document.getElementById("ms");
-
-    if (d) d.innerText = Math.floor(diff / 86400);
-    if (h) h.innerText = Math.floor((diff % 86400) / 3600);
-    if (m) m.innerText = Math.floor((diff % 3600) / 60);
-  }
-
-  updateRuntime();
-  setInterval(updateRuntime, 60000); 
-})();
-</script>
-
-<script src="//cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" defer></script>
-
-    
-
-
-
-<script type="module">
+</code></pre><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-Java data-lang=Java><span style=display:flex><span><span style=color:#f92672>package</span> MyTestDemo2;  
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>TestDemo</span>{  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>main</span>(String<span style=color:#f92672>[]</span> args){  
+</span></span><span style=display:flex><span>        method(()<span style=color:#f92672>-&gt;</span>{  
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;lambda:&#34;</span>);  
+</span></span><span style=display:flex><span>            System.<span style=color:#a6e22e>out</span>.<span style=color:#a6e22e>println</span>(<span style=color:#e6db74>&#34;swimming&#34;</span>);  
+</span></span><span style=display:flex><span>        });  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>method</span>(swim s){  
+</span></span><span style=display:flex><span>        s.<span style=color:#a6e22e>swimming</span>();  
+</span></span><span style=display:flex><span>    }  
+</span></span><span style=display:flex><span>}  
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@FunctionalInterface</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>swim</span>{  
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>swimming</span>();  
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=可推导可省略>可推导，可省略</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-Java data-lang=Java><span style=display:flex><span>	Integer<span style=color:#f92672>[]</span> a <span style=color:#f92672>=</span>  {2,7,5,4,5,6,7,8,9,31};  
+</span></span><span style=display:flex><span>	Arrays.<span style=color:#a6e22e>sort</span>(a,(o1,o2) <span style=color:#f92672>-&gt;</span> o1<span style=color:#f92672>-</span>o2);<span style=color:#75715e>//升序</span>
+</span></span><span style=display:flex><span>	Arrays.<span style=color:#a6e22e>sort</span>(a,(o1,o2) <span style=color:#f92672>-&gt;</span> o2<span style=color:#f92672>-</span>o1);<span style=color:#75715e>//倒序</span>
+</span></span></code></pre></div></section><footer class=article-footer></footer></article><div class=disqus-container></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{typeof DISQUS=="object"&&DISQUS.reset({reload:!0})})</script><div class=busuanzi-stats-top style=text-align:center;font-size:.9em;margin-bottom:10px>今日访问 <span id=busuanzi_today_pv style=color:var(--primary);font-weight:700>...</span> 次 |
+今日访客 <span id=busuanzi_today_uv style=color:var(--primary);font-weight:700>...</span> 人 |
+本页阅读 <span id=busuanzi_page_pv style=color:var(--primary);font-weight:700>...</span> 次</div><section class=count_info style=text-align:center;line-height:2><div><span>小站已萌萌哒运行了</span>
+<b id=ds style=color:var(--primary)>0</b> <span>天</span>
+<b id=hs style=color:var(--primary)>0</b> <span>时</span>
+<b id=ms style=color:var(--primary)>0</b> <span>分</span></div><div><span>已累计耕耘</span>
+<b style=color:var(--primary)>10</b>
+<span>篇博文 · 共</span>
+<b style=color:var(--primary)>23.89k</b>
+<span>个字</span></div><div id=busuanzi_container_site_pv><span>总访问量</span>
+<b id=busuanzi_site_pv style=color:var(--primary)>...</b>
+<span>次</span></div></section><script>(function(){const t=new Date("2026-02-05T00:00:00").getTime();function e(){const i=Date.now(),e=Math.floor((i-t)/1e3);if(e<0)return;const n=document.getElementById("ds"),s=document.getElementById("hs"),o=document.getElementById("ms");n&&(n.innerText=Math.floor(e/86400)),s&&(s.innerText=Math.floor(e%86400/3600)),o&&(o.innerText=Math.floor(e%3600/60))}e(),setInterval(e,6e4)})()</script><script src=//cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js defer></script><script type=module>
     import gallery from '\/ts\/gallery.js';
 
     const articleContent = document.querySelector('.article-content');
@@ -1333,32 +201,4 @@ Arrays.sort(a,(Integer o1, Integer o2) -&gt; {
         });
         lightbox.init();
     }
-</script>
-    
-
-            </main>
-        </div>
-        <script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
-<script>
-    (function () {
-        const customFont = document.createElement('link');
-        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
-
-        customFont.type = "text/css";
-        customFont.rel = "stylesheet";
-
-        document.head.appendChild(customFont);
-    }());
-</script>
-<script src="https://npm.elemecdn.com/nprogress@0.2.0/nprogress.js" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://npm.elemecdn.com/nprogress@0.2.0/nprogress.css" crossorigin="anonymous" />
-<script>
-    NProgress.start();
-    document.addEventListener("readystatechange", () => {
-        if (document.readyState === "interactive") NProgress.inc(0.8);
-        if (document.readyState === "complete") NProgress.done();
-    });
-</script>
-
-    </body>
-</html>
+</script></main></div><script type=text/javascript src=/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script><script src=https://npm.elemecdn.com/nprogress@0.2.0/nprogress.js crossorigin=anonymous></script><link rel=stylesheet href=https://npm.elemecdn.com/nprogress@0.2.0/nprogress.css crossorigin=anonymous><script>NProgress.start(),document.addEventListener("readystatechange",()=>{document.readyState==="interactive"&&NProgress.inc(.8),document.readyState==="complete"&&NProgress.done()})</script></body></html>
