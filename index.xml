@@ -473,7 +473,6 @@
 &lt;p&gt;&lt;strong&gt;&lt;code&gt;finally&lt;/code&gt;代码块一定会执行，除非虚拟机退出&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;&lt;strong&gt;当流对象实现了&lt;code&gt;AutoCloseable&lt;/code&gt;接口时，可以使用小括号&lt;/strong&gt;
-&lt;img src="https://creat.asia/img/12-1.png" loading="lazy" &gt;
 &lt;img src="https://creat.asia/img/12-1.png" loading="lazy" &gt;&lt;/p&gt;
 &lt;h3 id="修正后的文件拷贝"&gt;修正后的文件拷贝
 &lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	FileInputStream fis &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; FileInputStream(PATH &lt;span style="color:#f92672"&gt;+&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;b.txt&amp;#34;&lt;/span&gt;); 
