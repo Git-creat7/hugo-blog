@@ -58,7 +58,7 @@
 &lt;li&gt;每一个节点上最多有两个子节点&lt;/li&gt;
 &lt;li&gt;任意节点左子树上的值都小于当前节点&lt;/li&gt;
 &lt;li&gt;任意节点右子树上的值都大于当前节点
-&amp;lt; img src="https://creat.asia/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image/09.png"
+&lt;img src="https://creat.asia/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image/09.png"
  width="872"
  height="484"
  loading="lazy"
@@ -79,7 +79,7 @@
 &lt;li&gt;左子树全部为空，从形式上看，更像一个==单链表==&lt;/li&gt;
 &lt;li&gt;插入速度没有影响&lt;/li&gt;
 &lt;li&gt;查询速度明显降低
-&amp;lt; img src="https://creat.asia/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image/09-1.png"
+&lt;img src="https://creat.asia/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image/09-1.png"
  width="921"
  height="594"
  loading="lazy"
@@ -96,7 +96,7 @@
 &lt;ul&gt;
 &lt;li&gt;二叉查找树&lt;/li&gt;
 &lt;li&gt;规则：==&lt;strong&gt;任意&lt;/strong&gt;节点左右子树高度差不超过1==
-&amp;lt; img src="https://creat.asia/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image/09-3.png"
+&lt;img src="https://creat.asia/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image/09-3.png"
  width="2011"
  height="415"
  loading="lazy"
@@ -131,7 +131,7 @@
 &lt;table&gt;
  &lt;thead&gt;
  &lt;tr&gt;
- &lt;th&gt;&amp;lt; img src="https://creat.asia/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image/09-4.png"
+ &lt;th&gt;&lt;img src="https://creat.asia/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image/09-4.png"
  width="845"
  height="613"
  loading="lazy"
@@ -142,7 +142,7 @@
  data-flex-basis="330px"
  
  &gt;&lt;/th&gt;
- &lt;th&gt;&amp;lt; img src="https://creat.asia/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image/09-5.png"
+ &lt;th&gt;&lt;img src="https://creat.asia/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image/09-5.png"
  width="548"
  height="402"
  loading="lazy"
@@ -170,7 +170,7 @@
 &lt;table&gt;
  &lt;thead&gt;
  &lt;tr&gt;
- &lt;th&gt;&amp;lt; img src="https://creat.asia/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image/09-6.png"
+ &lt;th&gt;&lt;img src="https://creat.asia/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image/09-6.png"
  width="998"
  height="698"
  loading="lazy"
@@ -181,7 +181,7 @@
  data-flex-basis="343px"
  
  &gt;&lt;/th&gt;
- &lt;th&gt;&amp;lt; img src="https://creat.asia/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image/09-7.png"
+ &lt;th&gt;&lt;img src="https://creat.asia/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image/09-7.png"
  width="985"
  height="670"
  loading="lazy"
@@ -221,7 +221,7 @@
 &lt;li&gt;再整体左旋&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
-&lt;p&gt;&amp;lt; img src="https://creat.asia/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image/09-8.png"
+&lt;p&gt;&lt;img src="https://creat.asia/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image/09-8.png"
  width="1774"
  height="1017"
  loading="lazy"
@@ -255,7 +255,7 @@
 &lt;/h4&gt;&lt;ul&gt;
 &lt;li&gt;添加的节点默认是红色的（红色效率高）&lt;/li&gt;
 &lt;li&gt;查找、插入、删除的时间复杂度最坏为O(log n)
-&amp;lt; img src="https://creat.asia/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image/09-10.png"
+&lt;img src="https://creat.asia/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image/09-10.png"
  width="2275"
  height="896"
  loading="lazy"
