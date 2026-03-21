@@ -37,8 +37,10 @@
 
 &lt;h1 id="collection"&gt;Collection
 &lt;/h1&gt;&lt;p&gt;&lt;img src="https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-1.png"
-	width="1607"
-	height="670"
+	
+		width="1607"
+		height="670"
+	
 	loading="lazy"
 	
 	
@@ -103,8 +105,10 @@ contains方法在底层依赖equals方法&lt;/p&gt;
 &lt;li&gt;元素有序，可重复，有索引&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;img src="https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-2.png"
-	width="1792"
-	height="482"
+	
+		width="1792"
+		height="482"
+	
 	loading="lazy"
 	
 	
@@ -189,8 +193,10 @@ contains方法在底层依赖equals方法&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;img src="https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-3.png"
-	width="1764"
-	height="1009"
+	
+		width="1764"
+		height="1009"
+	
 	loading="lazy"
 	
 	
@@ -208,8 +214,10 @@ contains方法在底层依赖equals方法&lt;/p&gt;
 &lt;li&gt;如果一次添加多个元素，1.5倍放不下，则新创建数组的长度以实际为准。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;img src="https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-4.png"
-	width="2520"
-	height="1005"
+	
+		width="2520"
+		height="1005"
+	
 	loading="lazy"
 	
 	
@@ -293,8 +301,10 @@ contains方法在底层依赖equals方法&lt;/p&gt;
 &lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;底层数据结构是双链表，查询慢，增删快，但是如果操作的是首尾元素，速度也是极快
 &lt;img src="https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-5.png"
-	width="2296"
-	height="255"
+	
+		width="2296"
+		height="255"
+	
 	loading="lazy"
 	
 	
@@ -305,8 +315,10 @@ contains方法在底层依赖equals方法&lt;/p&gt;
 &gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;img src="https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-6.png"
-	width="2481"
-	height="1079"
+	
+		width="2481"
+		height="1079"
+	
 	loading="lazy"
 	
 	
@@ -317,8 +329,10 @@ contains方法在底层依赖equals方法&lt;/p&gt;
 &gt;&lt;/p&gt;
 &lt;h3 id="iterator迭代器"&gt;Iterator迭代器
 &lt;/h3&gt;&lt;p&gt;&lt;img src="https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-7.png"
-	width="2537"
-	height="983"
+	
+		width="2537"
+		height="983"
+	
 	loading="lazy"
 	
 	
@@ -560,8 +574,10 @@ contains方法在底层依赖equals方法&lt;/p&gt;
 
 &lt;h2 id="常见api"&gt;常见API
 &lt;/h2&gt;&lt;p&gt;&lt;img src="https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/8/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6.png"
-	width="1915"
-	height="749"
+	
+		width="1915"
+		height="749"
+	
 	loading="lazy"
 	
 	
@@ -632,8 +648,10 @@ contains方法在底层依赖equals方法&lt;/p&gt;
 &lt;/ul&gt;
 &lt;h3 id="样例"&gt;样例
 &lt;/h3&gt;&lt;p&gt;&lt;img src="https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/8/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6-1.png"
-	width="808"
-	height="244"
+	
+		width="808"
+		height="244"
+	
 	loading="lazy"
 	
 	
