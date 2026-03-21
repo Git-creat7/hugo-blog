@@ -21,7 +21,9 @@
 </span></span><span style=display:flex><span>	fis.<span style=color:#a6e22e>close</span>();
 </span></span></code></pre></div><blockquote><p>[!NOTE]
 <strong><code>close</code>关闭顺序</strong>：先开的后关，后开的先关</p></blockquote><h2 id=异常处理try-with-resources>异常处理<code>try-with-resources</code></h2><h3 id=try-catch-finally><code>try-catch-finally</code></h3><blockquote><p><strong><code>finally</code>代码块一定会执行，除非虚拟机退出</strong></p></blockquote><p><strong>当流对象实现了<code>AutoCloseable</code>接口时，可以使用小括号</strong>
-<img src loading=lazy></p><h3 id=修正后的文件拷贝>修正后的文件拷贝</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-Java data-lang=Java><span style=display:flex><span>	FileInputStream fis <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> FileInputStream(PATH <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;b.txt&#34;</span>);  
+&lt; img src="/img/12-1.png"
+loading="lazy"
+></p><h3 id=修正后的文件拷贝>修正后的文件拷贝</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-Java data-lang=Java><span style=display:flex><span>	FileInputStream fis <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> FileInputStream(PATH <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;b.txt&#34;</span>);  
 </span></span><span style=display:flex><span>	FileOutputStream fos <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> FileOutputStream(PATH <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;copy.txt&#34;</span>);  
 </span></span><span style=display:flex><span>	  
 </span></span><span style=display:flex><span>	<span style=color:#66d9ef>try</span> (fis;fos){  
@@ -145,7 +147,7 @@
 <b id=ms style=color:var(--primary)>0</b> <span>分</span></div><div><span>已累计耕耘</span>
 <b style=color:var(--primary)>13</b>
 <span>篇博文 · 共</span>
-<b style=color:var(--primary)>34.05k</b>
+<b style=color:var(--primary)>34.40k</b>
 <span>个字</span></div><div id=busuanzi_container_site_pv><span>总访问量</span>
 <b id=busuanzi_site_pv style=color:var(--primary)>...</b>
 <span>次</span></div></section><script>(function(){const t=new Date("2026-02-05T00:00:00").getTime();function e(){const i=Date.now(),e=Math.floor((i-t)/1e3);if(e<0)return;const n=document.getElementById("ds"),s=document.getElementById("hs"),o=document.getElementById("ms");n&&(n.innerText=Math.floor(e/86400)),s&&(s.innerText=Math.floor(e%86400/3600)),o&&(o.innerText=Math.floor(e%3600/60))}e(),setInterval(e,6e4)})()</script><script src=//cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js defer></script><script type=module>

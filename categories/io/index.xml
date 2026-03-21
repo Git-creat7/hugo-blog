@@ -175,8 +175,7 @@
 &lt;p&gt;&lt;strong&gt;&lt;code&gt;finally&lt;/code&gt;代码块一定会执行，除非虚拟机退出&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;&lt;strong&gt;当流对象实现了&lt;code&gt;AutoCloseable&lt;/code&gt;接口时，可以使用小括号&lt;/strong&gt;
-
- &lt;img src=""
+&amp;lt; img src="https://creat.asia/img/12-1.png"
  loading="lazy"
  
  &gt;&lt;/p&gt;
