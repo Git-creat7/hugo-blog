@@ -37,18 +37,16 @@
 
 &lt;h1 id="collection"&gt;Collection
 &lt;/h1&gt;&lt;p&gt;&lt;img src="https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-1.png"
-	
-		width="1607"
-		height="670"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="239"
-		data-flex-basis="575px"
-	
-&gt;&lt;/p&gt;
+ width="1607"
+ height="670"
+ loading="lazy"
+ 
+ 
+ class="gallery-image"
+ data-flex-grow="239"
+ data-flex-basis="575px"
+ 
+ &gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;Collection是单列集合的祖宗接口，它的功能是全部单列集合都可以继承使用的&lt;/p&gt;
@@ -105,18 +103,16 @@ contains方法在底层依赖equals方法&lt;/p&gt;
 &lt;li&gt;元素有序，可重复，有索引&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;img src="https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-2.png"
-	
-		width="1792"
-		height="482"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="371"
-		data-flex-basis="892px"
-	
-&gt;&lt;/p&gt;
+ width="1792"
+ height="482"
+ loading="lazy"
+ 
+ 
+ class="gallery-image"
+ data-flex-grow="371"
+ data-flex-basis="892px"
+ 
+ &gt;&lt;/p&gt;
 &lt;h3 id="addremove"&gt;add/remove
 &lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	List&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;String&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; L &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; ArrayList&lt;span style="color:#f92672"&gt;&amp;lt;&amp;gt;&lt;/span&gt;(); 
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	L.&lt;span style="color:#a6e22e"&gt;add&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;aaa&amp;#34;&lt;/span&gt;); 
@@ -193,18 +189,16 @@ contains方法在底层依赖equals方法&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;img src="https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-3.png"
-	
-		width="1764"
-		height="1009"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="174"
-		data-flex-basis="419px"
-	
-&gt;&lt;/p&gt;
+ width="1764"
+ height="1009"
+ loading="lazy"
+ 
+ 
+ class="gallery-image"
+ data-flex-grow="174"
+ data-flex-basis="419px"
+ 
+ &gt;&lt;/p&gt;
 &lt;h3 id="arraylist底层原理"&gt;ArrayList底层原理
 &lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;底层是数组结构的&lt;/li&gt;
@@ -214,18 +208,16 @@ contains方法在底层依赖equals方法&lt;/p&gt;
 &lt;li&gt;如果一次添加多个元素，1.5倍放不下，则新创建数组的长度以实际为准。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;img src="https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-4.png"
-	
-		width="2520"
-		height="1005"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="250"
-		data-flex-basis="601px"
-	
-&gt;&lt;/p&gt;
+ width="2520"
+ height="1005"
+ loading="lazy"
+ 
+ 
+ class="gallery-image"
+ data-flex-grow="250"
+ data-flex-basis="601px"
+ 
+ &gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;boolean&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;add&lt;/span&gt;(E e) { 
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; modCount&lt;span style="color:#f92672"&gt;++&lt;/span&gt;; 
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; add(e, elementData, size);
@@ -301,46 +293,40 @@ contains方法在底层依赖equals方法&lt;/p&gt;
 &lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;底层数据结构是双链表，查询慢，增删快，但是如果操作的是首尾元素，速度也是极快
 &lt;img src="https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-5.png"
-	
-		width="2296"
-		height="255"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="900"
-		data-flex-basis="2160px"
-	
-&gt;&lt;/li&gt;
+ width="2296"
+ height="255"
+ loading="lazy"
+ 
+ 
+ class="gallery-image"
+ data-flex-grow="900"
+ data-flex-basis="2160px"
+ 
+ &gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;img src="https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-6.png"
-	
-		width="2481"
-		height="1079"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="229"
-		data-flex-basis="551px"
-	
-&gt;&lt;/p&gt;
+ width="2481"
+ height="1079"
+ loading="lazy"
+ 
+ 
+ class="gallery-image"
+ data-flex-grow="229"
+ data-flex-basis="551px"
+ 
+ &gt;&lt;/p&gt;
 &lt;h3 id="iterator迭代器"&gt;Iterator迭代器
 &lt;/h3&gt;&lt;p&gt;&lt;img src="https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-7.png"
-	
-		width="2537"
-		height="983"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="258"
-		data-flex-basis="619px"
-	
-&gt;&lt;/p&gt;
+ width="2537"
+ height="983"
+ loading="lazy"
+ 
+ 
+ class="gallery-image"
+ data-flex-grow="258"
+ data-flex-basis="619px"
+ 
+ &gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;&lt;code&gt;modCount&lt;/code&gt; (Modification Count)&lt;/strong&gt;： 属于 &lt;code&gt;ArrayList&lt;/code&gt; 对象。只要列表结构发生变化（&lt;code&gt;add&lt;/code&gt;, &lt;code&gt;remove&lt;/code&gt;, &lt;code&gt;clear&lt;/code&gt; 等），这个计数器就会 &lt;strong&gt;+1&lt;/strong&gt;。&lt;/p&gt;
@@ -574,18 +560,16 @@ contains方法在底层依赖equals方法&lt;/p&gt;
 
 &lt;h2 id="常见api"&gt;常见API
 &lt;/h2&gt;&lt;p&gt;&lt;img src="https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/8/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6.png"
-	
-		width="1915"
-		height="749"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="255"
-		data-flex-basis="613px"
-	
-&gt;&lt;/p&gt;
+ width="1915"
+ height="749"
+ loading="lazy"
+ 
+ 
+ class="gallery-image"
+ data-flex-grow="255"
+ data-flex-basis="613px"
+ 
+ &gt;&lt;/p&gt;
 &lt;h2 id="遍历-1"&gt;遍历
 &lt;/h2&gt;&lt;h3 id="通过键k找值v"&gt;通过键k找值v
 &lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	Set&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;String&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; keys &lt;span style="color:#f92672"&gt;=&lt;/span&gt; map.&lt;span style="color:#a6e22e"&gt;keySet&lt;/span&gt;();
@@ -648,18 +632,16 @@ contains方法在底层依赖equals方法&lt;/p&gt;
 &lt;/ul&gt;
 &lt;h3 id="样例"&gt;样例
 &lt;/h3&gt;&lt;p&gt;&lt;img src="https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/8/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6-1.png"
-	
-		width="808"
-		height="244"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="331"
-		data-flex-basis="794px"
-	
-&gt;&lt;/p&gt;
+ width="808"
+ height="244"
+ loading="lazy"
+ 
+ 
+ class="gallery-image"
+ data-flex-grow="331"
+ data-flex-basis="794px"
+ 
+ &gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	默认的hashCode和equals方法
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#a6e22e"&gt;@Override&lt;/span&gt; 
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;boolean&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;equals&lt;/span&gt;(Object obj) { 
