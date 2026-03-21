@@ -1,31 +1,28 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Creat7</title><link>https://creat.asia/</link><description>Recent content on Creat7</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 21 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://creat.asia/index.xml" rel="self" type="application/rss+xml"/><item><title>11-异常和File</title><link>https://creat.asia/post/11-%E5%BC%82%E5%B8%B8%E5%92%8Cfile/</link><pubDate>Sat, 21 Mar 2026 00:00:00 +0000</pubDate><guid>https://creat.asia/post/11-%E5%BC%82%E5%B8%B8%E5%92%8Cfile/</guid><description>&lt;h1 id="异常"&gt;异常
-&lt;/h1&gt;&lt;pre class="mermaid"&gt;
- Throwable（所有异常/错误的根类）
-|
-├─ Error（系统级致命错误，程序无法恢复）
-│ ├─ OutOfMemoryError（内存溢出，如创建超大对象/无限集合）
-│ └─ StackOverflowError（栈溢出，如无限递归调用）
-│
-└─ Exception（程序可处理的异常）运行时异常+编译时异常
- |
- ├─ RuntimeException（运行时异常/非检查型，编译器不强制捕获）
- | |
- │ ├─ NullPointerException（空指针，调用null对象的方法/属性）
- │ ├─ IndexOutOfBoundsException（下标越界，如数组/集合下标超出范围）
- │ ├─ ClassCastException（类型转换异常，如String强转Integer）
- │ ├─ IllegalArgumentException（参数非法，如传入不符合规则的参数）
- │ └─ ArithmeticException（算术异常，如整数除以0）
- │
- |
- └─ CheckedException（检查型异常，编译器强制捕获/声明抛出）
-	 |
- ├─ IOException（IO操作异常）
- │ └─ FileNotFoundException（文件未找到，如读取不存在的文件）
- ├─ SQLException（数据库操作异常，如SQL语法错误/连接失败）
- └─ InterruptedException（线程中断异常，如休眠线程被打断）
-&lt;/pre&gt;
-
-&lt;h2 id="捕获异常try-catch"&gt;捕获异常&lt;code&gt;try-catch&lt;/code&gt;
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-txt" data-lang="txt"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Throwable（所有异常/错误的根类）
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;├─ Error（系统级致命错误，程序无法恢复）
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ ├─ OutOfMemoryError（内存溢出，如创建超大对象/无限集合）
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ └─ StackOverflowError（栈溢出，如无限递归调用）
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;└─ Exception（程序可处理的异常）运行时异常+编译时异常
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; |
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ├─ RuntimeException（运行时异常/非检查型，编译器不强制捕获）
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; | |
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ ├─ NullPointerException（空指针，调用null对象的方法/属性）
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ ├─ IndexOutOfBoundsException（下标越界，如数组/集合下标超出范围）
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ ├─ ClassCastException（类型转换异常，如String强转Integer）
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ ├─ IllegalArgumentException（参数非法，如传入不符合规则的参数）
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ └─ ArithmeticException（算术异常，如整数除以0）
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; |
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; └─ CheckedException（检查型异常，编译器强制捕获/声明抛出）
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 |
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ├─ IOException（IO操作异常）
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ └─ FileNotFoundException（文件未找到，如读取不存在的文件）
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ├─ SQLException（数据库操作异常，如SQL语法错误/连接失败）
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; └─ InterruptedException（线程中断异常，如休眠线程被打断）
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="捕获异常try-catch"&gt;捕获异常&lt;code&gt;try-catch&lt;/code&gt;
 &lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt;&lt;span style="color:#f92672"&gt;[]&lt;/span&gt; arr &lt;span style="color:#f92672"&gt;=&lt;/span&gt; {1,2,3}; 
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;try&lt;/span&gt;{ 
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;		&lt;span style="color:#75715e"&gt;//程序创建异常，与catch（）中的异常对比，可捕获 -&amp;gt; 执行catch{..}&lt;/span&gt;

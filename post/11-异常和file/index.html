@@ -10,31 +10,30 @@
 <span>暗色模式</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目录</h2><div class=widget--toc><nav class=toc-nav id=TableOfContents><ul><li><a href=#异常>异常</a><ul><li><a href=#捕获异常try-catch>捕获异常<code>try-catch</code></a><ul><li><a href=#常见问题>常见问题</a><ul><li><a href=#如果try中没有遇到问题怎么办>如果<code>try</code>中没有遇到问题，怎么办？</a></li><li><a href=#如果try中可能遇到多个问题怎么办>如果<code>try</code>中可能遇到多个问题，怎么办？</a></li><li><a href=#如果try中遇到的问题没有被捕获怎么办>如果<code>try</code>中遇到的问题没有被捕获，怎么办？</a></li><li><a href=#如果try中遇到了问题那么try下面的其他代码块还会执行吗>如果<code>try</code>中遇到了问题，那么<code>try</code>下面的其他代码块还会执行吗？</a></li></ul></li><li><a href=#常用方法>常用方法</a></li></ul></li><li><a href=#抛出处理>抛出处理</a></li><li><a href=#自定义异常>自定义异常</a></li></ul></li><li><a href=#file>File</a><ul><li><a href=#常用方法-1>常用方法</a></li></ul></li></ul></nav></div></section></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><div class=article-title-wrapper><h2 class=article-title><a href=/post/11-%E5%BC%82%E5%B8%B8%E5%92%8Cfile/>11-异常和File</a></h2></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
 <time class=article-time--published datetime=2026-03-21T00:00:00Z>2026年3月21日星期六</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
 <time class=article-time--reading>阅读时长: 5 分钟</time></div></footer></div></header><aside class=article-toc><details><summary><div class=article-toc-title><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6-6 6"/></svg>
-<span>目录</span></div></summary><nav class=toc-nav><ul><li><a href=#异常>异常</a><ul><li><a href=#捕获异常try-catch>捕获异常<code>try-catch</code></a><ul><li><a href=#常见问题>常见问题</a><ul><li><a href=#如果try中没有遇到问题怎么办>如果<code>try</code>中没有遇到问题，怎么办？</a></li><li><a href=#如果try中可能遇到多个问题怎么办>如果<code>try</code>中可能遇到多个问题，怎么办？</a></li><li><a href=#如果try中遇到的问题没有被捕获怎么办>如果<code>try</code>中遇到的问题没有被捕获，怎么办？</a></li><li><a href=#如果try中遇到了问题那么try下面的其他代码块还会执行吗>如果<code>try</code>中遇到了问题，那么<code>try</code>下面的其他代码块还会执行吗？</a></li></ul></li><li><a href=#常用方法>常用方法</a></li></ul></li><li><a href=#抛出处理>抛出处理</a></li><li><a href=#自定义异常>自定义异常</a></li></ul></li><li><a href=#file>File</a><ul><li><a href=#常用方法-1>常用方法</a></li></ul></li></ul></nav></details></aside><section class=article-content><h1 id=异常>异常</h1><pre class=mermaid>
-  Throwable（所有异常/错误的根类）
-|
-├─ Error（系统级致命错误，程序无法恢复）
-│  ├─ OutOfMemoryError（内存溢出，如创建超大对象/无限集合）
-│  └─ StackOverflowError（栈溢出，如无限递归调用）
-│
-└─ Exception（程序可处理的异常）运行时异常+编译时异常
-   |
-   ├─ RuntimeException（运行时异常/非检查型，编译器不强制捕获）
-   |  |
-   │  ├─ NullPointerException（空指针，调用null对象的方法/属性）
-   │  ├─ IndexOutOfBoundsException（下标越界，如数组/集合下标超出范围）
-   │  ├─ ClassCastException（类型转换异常，如String强转Integer）
-   │  ├─ IllegalArgumentException（参数非法，如传入不符合规则的参数）
-   │  └─ ArithmeticException（算术异常，如整数除以0）
-   │
-   |
-   └─ CheckedException（检查型异常，编译器强制捕获/声明抛出）
-	  |
-      ├─ IOException（IO操作异常）
-      │  └─ FileNotFoundException（文件未找到，如读取不存在的文件）
-      ├─ SQLException（数据库操作异常，如SQL语法错误/连接失败）
-      └─ InterruptedException（线程中断异常，如休眠线程被打断）
-</pre><h2 id=捕获异常try-catch>捕获异常<code>try-catch</code></h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-Java data-lang=Java><span style=display:flex><span>	<span style=color:#66d9ef>int</span><span style=color:#f92672>[]</span> arr <span style=color:#f92672>=</span> {1,2,3};  
+<span>目录</span></div></summary><nav class=toc-nav><ul><li><a href=#异常>异常</a><ul><li><a href=#捕获异常try-catch>捕获异常<code>try-catch</code></a><ul><li><a href=#常见问题>常见问题</a><ul><li><a href=#如果try中没有遇到问题怎么办>如果<code>try</code>中没有遇到问题，怎么办？</a></li><li><a href=#如果try中可能遇到多个问题怎么办>如果<code>try</code>中可能遇到多个问题，怎么办？</a></li><li><a href=#如果try中遇到的问题没有被捕获怎么办>如果<code>try</code>中遇到的问题没有被捕获，怎么办？</a></li><li><a href=#如果try中遇到了问题那么try下面的其他代码块还会执行吗>如果<code>try</code>中遇到了问题，那么<code>try</code>下面的其他代码块还会执行吗？</a></li></ul></li><li><a href=#常用方法>常用方法</a></li></ul></li><li><a href=#抛出处理>抛出处理</a></li><li><a href=#自定义异常>自定义异常</a></li></ul></li><li><a href=#file>File</a><ul><li><a href=#常用方法-1>常用方法</a></li></ul></li></ul></nav></details></aside><section class=article-content><h1 id=异常>异常</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-txt data-lang=txt><span style=display:flex><span>Throwable（所有异常/错误的根类）
+</span></span><span style=display:flex><span>|
+</span></span><span style=display:flex><span>├─ Error（系统级致命错误，程序无法恢复）
+</span></span><span style=display:flex><span>│  ├─ OutOfMemoryError（内存溢出，如创建超大对象/无限集合）
+</span></span><span style=display:flex><span>│  └─ StackOverflowError（栈溢出，如无限递归调用）
+</span></span><span style=display:flex><span>│
+</span></span><span style=display:flex><span>└─ Exception（程序可处理的异常）运行时异常+编译时异常
+</span></span><span style=display:flex><span>   |
+</span></span><span style=display:flex><span>   ├─ RuntimeException（运行时异常/非检查型，编译器不强制捕获）
+</span></span><span style=display:flex><span>   |  |
+</span></span><span style=display:flex><span>   │  ├─ NullPointerException（空指针，调用null对象的方法/属性）
+</span></span><span style=display:flex><span>   │  ├─ IndexOutOfBoundsException（下标越界，如数组/集合下标超出范围）
+</span></span><span style=display:flex><span>   │  ├─ ClassCastException（类型转换异常，如String强转Integer）
+</span></span><span style=display:flex><span>   │  ├─ IllegalArgumentException（参数非法，如传入不符合规则的参数）
+</span></span><span style=display:flex><span>   │  └─ ArithmeticException（算术异常，如整数除以0）
+</span></span><span style=display:flex><span>   │
+</span></span><span style=display:flex><span>   |
+</span></span><span style=display:flex><span>   └─ CheckedException（检查型异常，编译器强制捕获/声明抛出）
+</span></span><span style=display:flex><span>	  |
+</span></span><span style=display:flex><span>      ├─ IOException（IO操作异常）
+</span></span><span style=display:flex><span>      │  └─ FileNotFoundException（文件未找到，如读取不存在的文件）
+</span></span><span style=display:flex><span>      ├─ SQLException（数据库操作异常，如SQL语法错误/连接失败）
+</span></span><span style=display:flex><span>      └─ InterruptedException（线程中断异常，如休眠线程被打断）
+</span></span></code></pre></div><h2 id=捕获异常try-catch>捕获异常<code>try-catch</code></h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-Java data-lang=Java><span style=display:flex><span>	<span style=color:#66d9ef>int</span><span style=color:#f92672>[]</span> arr <span style=color:#f92672>=</span> {1,2,3};  
 </span></span><span style=display:flex><span>	<span style=color:#66d9ef>try</span>{  
 </span></span><span style=display:flex><span>		<span style=color:#75715e>//程序创建异常，与catch（）中的异常对比，可捕获 -&gt; 执行catch{..}</span>
 </span></span><span style=display:flex><span>		<span style=color:#75715e>//当catch{..}执行完毕，继续向下执行</span>
@@ -135,10 +134,4 @@
         });
         lightbox.init();
     }
-</script><script type=module>
-    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.12.2/+esm';
-    mermaid.initialize({
-        startOnLoad: true,
-        theme: 'neutral',
-    });
 </script></main></div><script type=text/javascript src=/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script><script src=https://npm.elemecdn.com/nprogress@0.2.0/nprogress.js crossorigin=anonymous></script><link rel=stylesheet href=https://npm.elemecdn.com/nprogress@0.2.0/nprogress.css crossorigin=anonymous><script>NProgress.start(),document.addEventListener("readystatechange",()=>{document.readyState==="interactive"&&NProgress.inc(.8),document.readyState==="complete"&&NProgress.done()})</script></body></html>
