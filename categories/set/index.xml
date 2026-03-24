@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Set on Creat7</title><link>https://creat.asia/categories/set/</link><description>Recent content in Set on Creat7</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Tue, 03 Feb 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://creat.asia/categories/set/index.xml" rel="self" type="application/rss+xml"/><item><title>08-集合进阶</title><link>https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/</link><pubDate>Tue, 03 Feb 2026 00:00:00 +0000</pubDate><guid>https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/</guid><description>&lt;h1 id="collection-接口单列集合根接口"&gt;Collection 接口（单列集合根接口）
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Set on Creat7</title><link>/categories/set/</link><description>Recent content in Set on Creat7</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Tue, 03 Feb 2026 00:00:00 +0000</lastBuildDate><atom:link href="/categories/set/index.xml" rel="self" type="application/rss+xml"/><item><title>08-集合进阶</title><link>/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/</link><pubDate>Tue, 03 Feb 2026 00:00:00 +0000</pubDate><guid>/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/</guid><description>&lt;h1 id="collection-接口单列集合根接口"&gt;Collection 接口（单列集合根接口）
 &lt;/h1&gt;&lt;pre tabindex="0"&gt;&lt;code&gt;	├─ List 接口（有序、可重复）
 	│ ├─ ArrayList（实现类）：动态数组，查询快、增删慢
 	│ ├─ LinkedList（实现类）：双向链表，增删快、查询慢
@@ -36,7 +36,7 @@
 &lt;/pre&gt;
 
 &lt;h1 id="collection"&gt;Collection
-&lt;/h1&gt;&lt;p&gt;&lt;img src="https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-1.png"
+&lt;/h1&gt;&lt;p&gt;&lt;img src="/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-1.png"
  width="1607"
  height="670"
  loading="lazy"
@@ -102,7 +102,7 @@ contains方法在底层依赖equals方法&lt;/p&gt;
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;元素有序，可重复，有索引&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src="https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-2.png"
+&lt;p&gt;&lt;img src="/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-2.png"
  width="1792"
  height="482"
  loading="lazy"
@@ -188,7 +188,7 @@ contains方法在底层依赖equals方法&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src="https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-3.png"
+&lt;p&gt;&lt;img src="/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-3.png"
  width="1764"
  height="1009"
  loading="lazy"
@@ -207,7 +207,7 @@ contains方法在底层依赖equals方法&lt;/p&gt;
 &lt;li&gt;存满时，会扩容==1.5倍==（向下取整）&lt;/li&gt;
 &lt;li&gt;如果一次添加多个元素，1.5倍放不下，则新创建数组的长度以实际为准。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src="https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-4.png"
+&lt;p&gt;&lt;img src="/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-4.png"
  width="2520"
  height="1005"
  loading="lazy"
@@ -292,7 +292,7 @@ contains方法在底层依赖equals方法&lt;/p&gt;
 &lt;h3 id="linkedlist集合"&gt;LinkedList集合
 &lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;底层数据结构是双链表，查询慢，增删快，但是如果操作的是首尾元素，速度也是极快
-&lt;img src="https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-5.png"
+&lt;img src="/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-5.png"
  width="2296"
  height="255"
  loading="lazy"
@@ -304,7 +304,7 @@ contains方法在底层依赖equals方法&lt;/p&gt;
  
  &gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src="https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-6.png"
+&lt;p&gt;&lt;img src="/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-6.png"
  width="2481"
  height="1079"
  loading="lazy"
@@ -316,7 +316,7 @@ contains方法在底层依赖equals方法&lt;/p&gt;
  
  &gt;&lt;/p&gt;
 &lt;h3 id="iterator迭代器"&gt;Iterator迭代器
-&lt;/h3&gt;&lt;p&gt;&lt;img src="https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-7.png"
+&lt;/h3&gt;&lt;p&gt;&lt;img src="/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/image/08-7.png"
  width="2537"
  height="983"
  loading="lazy"
@@ -559,7 +559,7 @@ contains方法在底层依赖equals方法&lt;/p&gt;
 &lt;/pre&gt;
 
 &lt;h2 id="常见api"&gt;常见API
-&lt;/h2&gt;&lt;p&gt;&lt;img src="https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/8/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6.png"
+&lt;/h2&gt;&lt;p&gt;&lt;img src="/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/8/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6.png"
  width="1915"
  height="749"
  loading="lazy"
@@ -631,7 +631,7 @@ contains方法在底层依赖equals方法&lt;/p&gt;
 &lt;li&gt;&lt;strong&gt;HashMap的键位置如果存储的是自定义对象，需要重写hashCode和equals&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id="样例"&gt;样例
-&lt;/h3&gt;&lt;p&gt;&lt;img src="https://creat.asia/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/8/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6-1.png"
+&lt;/h3&gt;&lt;p&gt;&lt;img src="/post/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6/8/08-%E9%9B%86%E5%90%88%E8%BF%9B%E9%98%B6-1.png"
  width="808"
  height="244"
  loading="lazy"

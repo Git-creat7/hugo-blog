@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>IO on Creat7</title><link>https://creat.asia/categories/io/</link><description>Recent content in IO on Creat7</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 21 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://creat.asia/categories/io/index.xml" rel="self" type="application/rss+xml"/><item><title>12-IO流</title><link>https://creat.asia/post/12-io%E6%B5%81/</link><pubDate>Sat, 21 Mar 2026 00:00:00 +0000</pubDate><guid>https://creat.asia/post/12-io%E6%B5%81/</guid><description>&lt;p&gt;&lt;strong&gt;程序是在“内存”里跑的，所以永远以内存为原点。&lt;/strong&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>IO on Creat7</title><link>/categories/io/</link><description>Recent content in IO on Creat7</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 21 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="/categories/io/index.xml" rel="self" type="application/rss+xml"/><item><title>12-IO流</title><link>/post/12-io%E6%B5%81/</link><pubDate>Sat, 21 Mar 2026 00:00:00 +0000</pubDate><guid>/post/12-io%E6%B5%81/</guid><description>&lt;p&gt;&lt;strong&gt;程序是在“内存”里跑的，所以永远以内存为原点。&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;参照物：程序/内存&lt;/strong&gt;&lt;/p&gt;
@@ -175,7 +175,7 @@
 &lt;p&gt;&lt;strong&gt;&lt;code&gt;finally&lt;/code&gt;代码块一定会执行，除非虚拟机退出&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;&lt;strong&gt;当流对象实现了&lt;code&gt;AutoCloseable&lt;/code&gt;接口时，可以使用小括号&lt;/strong&gt;
-&lt;img src="https://creat.asia/img/12-1.png"
+&lt;img src="/img/12-1.png"
  loading="lazy"
  data-pending-gallery
  
