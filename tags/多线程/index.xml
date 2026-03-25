@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>多线程 on Creat7</title><link>/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</link><description>Recent content in 多线程 on Creat7</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 22 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/index.xml" rel="self" type="application/rss+xml"/><item><title>13-多线程和JUC</title><link>/post/13-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8Cjuc/</link><pubDate>Sun, 22 Mar 2026 00:00:00 +0000</pubDate><guid>/post/13-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8Cjuc/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;本文更新于 2026-03-22&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id="多线程"&gt;多线程
+&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;1.&lt;strong&gt;进程 (Process)&lt;/strong&gt;：运行中的程序（比如 IDEA、Chrome、QQ）。它是操作系统资源分配的最小单位。&lt;/p&gt;
+&lt;p&gt;2.&lt;strong&gt;线程 (Thread)&lt;/strong&gt;：进程中的一个“执行路径”。一个进程可以包含多个线程（比如 Chrome 里一个线程下载文件，一个线程渲染网页）。&lt;/p&gt;
+&lt;/blockquote&gt;</description></item></channel></rss>
