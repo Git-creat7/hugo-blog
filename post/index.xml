@@ -4256,7 +4256,7 @@ contains方法在底层依赖equals方法&lt;/p&gt;
  data-flex-basis="609px"
  
  &gt;&lt;/li&gt;
-&lt;/ul&gt;</description></item><item><title/><link>/post/10-stream%E6%B5%81%E4%B8%8E%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/post/10-stream%E6%B5%81%E4%B8%8E%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8/</guid><description>&lt;h1 id="stream流的思想和获取stream流"&gt;Stream流的思想和获取Stream流
+&lt;/ul&gt;</description></item><item><title>10-Stream流与方法引用</title><link>/post/10-stream%E6%B5%81%E4%B8%8E%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8/</link><pubDate>Tue, 03 Feb 2026 00:00:00 +0000</pubDate><guid>/post/10-stream%E6%B5%81%E4%B8%8E%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8/</guid><description>&lt;h1 id="stream流的思想和获取stream流"&gt;Stream流的思想和获取Stream流
 &lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;比喻：&lt;/strong&gt; Stream 是流水线，不存数据&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;作用：&lt;/strong&gt; 结合Lambda表达式，简化集合、数组操作&lt;/li&gt;
