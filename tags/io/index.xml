@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>IO on Creat7</title><link>/tags/io/</link><description>Recent content in IO on Creat7</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 21 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="/tags/io/index.xml" rel="self" type="application/rss+xml"/><item><title>12-IO流</title><link>/post/12-io%E6%B5%81/</link><pubDate>Sat, 21 Mar 2026 00:00:00 +0000</pubDate><guid>/post/12-io%E6%B5%81/</guid><description>&lt;p&gt;&lt;strong&gt;程序是在“内存”里跑的，所以永远以内存为原点。&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;参照物：程序/内存&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Input (输入)&lt;/strong&gt;：数据从硬盘/网络 &lt;strong&gt;流进&lt;/strong&gt; 内存。—— &lt;strong&gt;读（Read）&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Output (输出)&lt;/strong&gt;：数据从内存 &lt;strong&gt;流出&lt;/strong&gt; 到硬盘/网络。—— &lt;strong&gt;写（Write）&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;维度&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;字节流 (万能，图片/视频/文本)&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;字符流 (仅限纯文本，自带编码)&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;输入 (Read)&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;InputStream&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;Reader&lt;/strong&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;输出 (Write)&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;OutputStream&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;Writer&lt;/strong&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h1 id="字节流"&gt;字节流
+&lt;/h1&gt;&lt;h2 id="fileoutputstream"&gt;&lt;code&gt;FileOutputStream&lt;/code&gt;
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;操作本地文件的字节输出流，可以把程序中的数据写到本地文件中&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="核心步骤"&gt;核心步骤：
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;创建对象&lt;/strong&gt;：&lt;code&gt;FileOutputStream fos = new FileOutputStream(&amp;quot;a.txt&amp;quot;);&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;细节1：如果文件不存在，会自动创建，但是要保证父级路径是存在的。&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;细节2：如果文件存在，会清空原内容&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;写出数据&lt;/strong&gt;：&lt;code&gt;fos.write(97);&lt;/code&gt; // 写出的是 ASCII 码，文件中显示 &amp;lsquo;a&amp;rsquo;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;释放资源&lt;/strong&gt;：&lt;code&gt;fos.close();&lt;/code&gt; // &lt;strong&gt;极其重要！&lt;/strong&gt; 不关流，文件会被程序锁死。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="写出数据的三种方式"&gt;写出数据的三种方式
+&lt;/h3&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;方法名&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;说明&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;适用场景&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;write(int b)&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;一次写一个字节&lt;/td&gt;
+ &lt;td&gt;极少用，效率太低&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;write(byte[] b)&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;一次写一个字节数组&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;常用&lt;/strong&gt;，适合写出大量数据&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;write(byte[] b, off, len)&lt;/code&gt;&lt;/strong&gt; &lt;code&gt;off:offset&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;写出数组的一部分&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;最常用&lt;/strong&gt;，配合循环读取时能精确控制写出的量&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id="fileoutputstream写数据的问题"&gt;&lt;code&gt;FileOutputStream&lt;/code&gt;写数据的问题
+&lt;/h3&gt;&lt;h4 id="换行"&gt;换行
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Windows&lt;/strong&gt;: &lt;code&gt;\r\n 回车 + 换行，java在底层会补全&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Linux/Unix&lt;/strong&gt;: &lt;code&gt;\n&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Mac&lt;/strong&gt;: &lt;code&gt;\r&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;System.lineSeparator() 获取操作系统的换行符&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id="续写"&gt;续写
+&lt;/h4&gt;&lt;p&gt;&lt;code&gt;public FileOutputStream(File file, boolean append) true则续写&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id="fileinputstream"&gt;&lt;code&gt;FileInputStream&lt;/code&gt;
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;功能&lt;/strong&gt;：硬盘 $\rightarrow$ 内存 (读取字节)。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;结束标志&lt;/strong&gt;：读取到 &lt;code&gt;-1&lt;/code&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;性能优化&lt;/strong&gt;：定义 &lt;code&gt;byte[]&lt;/code&gt; 数组作为缓冲区，一次读取多个字节。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;适用场景&lt;/strong&gt;：文件拷贝（图片、音视频）、不需要处理文本内容的场景。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="核心步骤-1"&gt;核心步骤：
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;创建对象&lt;/strong&gt;：&lt;code&gt;FileIutputStream fis = new FileIutputStream(&amp;quot;a.txt&amp;quot;);&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;细节1：如果文件不存在，会&lt;strong&gt;直接报错&lt;/strong&gt;&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;读取数据&lt;/strong&gt;：&lt;code&gt;int b = fis.read(97);&lt;/code&gt; // 读出的是 ASCII 码，读出来显示 &amp;lsquo;a&amp;rsquo;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;细节1： 读到文件末尾，&lt;code&gt;read&lt;/code&gt;返回&lt;code&gt;-1&lt;/code&gt;&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;释放资源&lt;/strong&gt;：&lt;code&gt;fis.close();&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="读入数据的方法"&gt;读入数据的方法
+&lt;/h3&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;方法名&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;返回值类型&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;含义&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;read()&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;int&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;读取一个字节(效率低)，返回该字节的值；读完返回 &lt;strong&gt;-1&lt;/strong&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;read(byte[] buffer)&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;int&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;读取字节填充进数组，返回&lt;strong&gt;实际读取个数&lt;/strong&gt;；读完返回 &lt;strong&gt;-1&lt;/strong&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;available()&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;int&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;返回文件剩余的可读字节数（慎用，大文件会爆内存）&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id="文件拷贝"&gt;文件拷贝
+&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	FileInputStream fis &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; FileInputStream(PATH&lt;span style="color:#f92672"&gt;+&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;b.txt&amp;#34;&lt;/span&gt;); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	FileOutputStream fos &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; FileOutputStream(PATH&lt;span style="color:#f92672"&gt;+&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;copy.txt&amp;#34;&lt;/span&gt;); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;byte&lt;/span&gt;&lt;span style="color:#f92672"&gt;[]&lt;/span&gt; buffer &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;byte&lt;/span&gt;&lt;span style="color:#f92672"&gt;[&lt;/span&gt;1024&lt;span style="color:#f92672"&gt;]&lt;/span&gt;;&lt;span style="color:#75715e"&gt;//1KB &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; len; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; ((len &lt;span style="color:#f92672"&gt;=&lt;/span&gt; (fis.&lt;span style="color:#a6e22e"&gt;read&lt;/span&gt;(buffer))) &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; &lt;span style="color:#f92672"&gt;-&lt;/span&gt;1) { 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 fos.&lt;span style="color:#a6e22e"&gt;write&lt;/span&gt;(buffer, 0, len); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	} 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	fos.&lt;span style="color:#a6e22e"&gt;close&lt;/span&gt;(); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	fis.&lt;span style="color:#a6e22e"&gt;close&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;[!NOTE]
+&lt;strong&gt;&lt;code&gt;close&lt;/code&gt;关闭顺序&lt;/strong&gt;：先开的后关，后开的先关&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id="异常处理try-with-resources"&gt;异常处理&lt;code&gt;try-with-resources&lt;/code&gt;
+&lt;/h2&gt;&lt;h3 id="try-catch-finally"&gt;&lt;code&gt;try-catch-finally&lt;/code&gt;
+&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;finally&lt;/code&gt;代码块一定会执行，除非虚拟机退出&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;当流对象实现了&lt;code&gt;AutoCloseable&lt;/code&gt;接口时，可以使用小括号&lt;/strong&gt;
+&lt;img src="/img/12-1.png"
+ loading="lazy"
+ data-pending-gallery
+ 
+ &gt;&lt;/p&gt;
+&lt;h3 id="修正后的文件拷贝"&gt;修正后的文件拷贝
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	FileInputStream fis &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; FileInputStream(PATH &lt;span style="color:#f92672"&gt;+&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;b.txt&amp;#34;&lt;/span&gt;); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	FileOutputStream fos &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; FileOutputStream(PATH &lt;span style="color:#f92672"&gt;+&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;copy.txt&amp;#34;&lt;/span&gt;); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;try&lt;/span&gt; (fis;fos){ 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 &lt;span style="color:#66d9ef"&gt;byte&lt;/span&gt;&lt;span style="color:#f92672"&gt;[]&lt;/span&gt; buffer &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;byte&lt;/span&gt;&lt;span style="color:#f92672"&gt;[&lt;/span&gt;1024&lt;span style="color:#f92672"&gt;]&lt;/span&gt;;&lt;span style="color:#75715e"&gt;//1KB &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; len; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; ((len &lt;span style="color:#f92672"&gt;=&lt;/span&gt; (fis.&lt;span style="color:#a6e22e"&gt;read&lt;/span&gt;(buffer))) &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; &lt;span style="color:#f92672"&gt;-&lt;/span&gt;1) { 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 fos.&lt;span style="color:#a6e22e"&gt;write&lt;/span&gt;(buffer, 0, len); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 } 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	} &lt;span style="color:#66d9ef"&gt;catch&lt;/span&gt; (IOException e) { 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 e.&lt;span style="color:#a6e22e"&gt;printStackTrace&lt;/span&gt;(); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h1 id="字符集"&gt;字符集
+&lt;/h1&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;编码格式&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;中文占位&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;字节流读取过程&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;结果&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;GBK&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;2 字节&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;fis.read()&lt;/code&gt; 一次拿 1 字节&lt;/td&gt;
+ &lt;td&gt;拿到了半个字 $\rightarrow$ &lt;strong&gt;乱码&lt;/strong&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;UTF-8&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;3 字节&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;fis.read()&lt;/code&gt; 一次拿 1 字节&lt;/td&gt;
+ &lt;td&gt;拿到了三分之一个字 $\rightarrow$ &lt;strong&gt;乱码&lt;/strong&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id="字符流--字节流--字符集"&gt;字符流 = 字节流 + 字符集
+&lt;/h2&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;特性&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;字节流 (Stream)&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;字符流 (Reader/Writer)&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;数据单位&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;字节 (8 bit)&lt;/td&gt;
+ &lt;td&gt;字符 (16 bit)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;处理对象&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;所有文件&lt;/strong&gt;（图片、视频、文本）&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;仅限纯文本&lt;/strong&gt;（txt, java, html）&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;读中文&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;会乱码&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;不会乱码&lt;/strong&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;拷贝图片&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;完美拷贝&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;文件会损坏&lt;/strong&gt;（千万别用字符流拷图片）&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id="核心步骤-2"&gt;核心步骤：
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;创建对象&lt;/strong&gt;：&lt;code&gt;FileReader fr = new FileReader(&amp;quot;a.txt&amp;quot;);&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;_细节_1：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;读取数据&lt;/strong&gt;：&lt;code&gt;while((ch = fr.read() )!= -1){}&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;细节1：按字节读取，遇到中文，&lt;strong&gt;一次会读多个字节&lt;/strong&gt;，读取后解码。返回整数&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;细节2：读到文件末尾返回&lt;code&gt;-1&lt;/code&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;read()&lt;/code&gt;的细节：&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;在读取之后，方法的底层还会进行解码并转成十进制，最终会把这个十进制作为返回值，这个十进制的数据也表示在字符集上的数字。&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;释放资源&lt;/strong&gt;：&lt;code&gt;fr.close();&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h1 id="缓冲流"&gt;缓冲流
+&lt;/h1&gt;&lt;pre tabindex="0"&gt;&lt;code class="language-plainext" data-lang="plainext"&gt;	IO流体系
+	├─ 字节流
+	│ ├─ InputStream（字节输入流）
+	│ │ ├─ FileInputStream（基本字节输入流）
+	│ │ └─ BufferedInputStream（字节缓冲输入流）
+	│ └─ OutputStream（字节输出流）
+	│ ├─ FileOutputStream（基本字节输出流）
+	│ └─ BufferedOutputStream（字节缓冲输出流）
+	└─ 字符流
+	 ├─ Reader（字符输入流）
+	 │ ├─ FileReader（基本字符输入流）
+	 │ └─ BufferedReader（字符缓冲输入流）
+	 └─ Writer（字符输出流）
+	 ├─ FileWriter（基本字符输出流）
+	 └─ BufferedWriter（字符缓冲输出流）
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id="1为什么它快"&gt;1.为什么它快？
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;普通流&lt;/strong&gt;：每读写一个字节，就要调用一次操作系统的 API，直接操作硬盘。硬盘 IO 是计算机最慢的操作。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;缓冲流&lt;/strong&gt;：在内存中开辟了一个 &lt;strong&gt;8KB (8192 byte)&lt;/strong&gt; 的字节数组（缓冲区）。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;输入缓冲&lt;/strong&gt;：一次性从硬盘读 8KB 进来，你调 &lt;code&gt;read()&lt;/code&gt; 时，它是从内存数组里拿。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;输出缓冲&lt;/strong&gt;：你调 &lt;code&gt;write()&lt;/code&gt; 时，数据先存在内存数组里，攒满 8KB 后，一次性“喷”向硬盘。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="2家族结构与包装模式"&gt;2.家族结构与包装模式
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;缓冲流属于&lt;strong&gt;装饰者模式&lt;/strong&gt;（Decorator Pattern），它不具备读写文件的能力，必须依托于“基本流”。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;语法模板：&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;// “套娃”式创建：外层关了，内层自动关&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	BufferedInputStream bis &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; BufferedInputStream(&lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; FileInputStream(&lt;span style="color:#e6db74"&gt;&amp;#34;a.mp4&amp;#34;&lt;/span&gt;));
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;类型&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;缓冲流名称&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;包装的基本流&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;字节输入&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;BufferedInputStream&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;FileInputStream&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;字节输出&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;BufferedOutputStream&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;FileOutputStream&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;字符输入&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;BufferedReader&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;FileReader&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;字符输出&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;BufferedWriter&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;FileWriter&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id="字符缓冲流的特殊方法"&gt;字符缓冲流的特殊方法
+&lt;/h2&gt;&lt;h3 id="-bufferedreader---readline"&gt;① &lt;code&gt;BufferedReader&lt;/code&gt; -&amp;gt; &lt;code&gt;readLine()&lt;/code&gt;
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;功能&lt;/strong&gt;：读取一整行，直到遇到换行符（&lt;code&gt;\r&lt;/code&gt; 或 &lt;code&gt;\n&lt;/code&gt;）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;返回值&lt;/strong&gt;：返回 &lt;code&gt;String&lt;/code&gt;。&lt;strong&gt;注意：不包含换行符本身。&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;结束标志&lt;/strong&gt;：读到文件末尾返回 &lt;strong&gt;&lt;code&gt;null&lt;/code&gt;&lt;/strong&gt;（注意：不再是 -1）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="-bufferedwriter---newline"&gt;② &lt;code&gt;BufferedWriter&lt;/code&gt; -&amp;gt; &lt;code&gt;newLine()&lt;/code&gt;
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;功能&lt;/strong&gt;：写出一个换行符。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;优势&lt;/strong&gt;：&lt;strong&gt;跨平台性&lt;/strong&gt;。它会根据当前操作系统自动切换 &lt;code&gt;\r\n&lt;/code&gt; (Win) 或 &lt;code&gt;\n&lt;/code&gt; (Linux)。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="性能对比"&gt;性能对比
+&lt;/h2&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;方式&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;性能&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;评价&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;基本流 + 单字节&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;极慢&lt;/td&gt;
+ &lt;td&gt;可能需要几分钟&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;基本流 + 数组 (8KB)&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;快&lt;/td&gt;
+ &lt;td&gt;常用，性能已经很好了&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;缓冲流 + 单字节&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;快&lt;/td&gt;
+ &lt;td&gt;缓冲流弥补了单字节的频繁 IO&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;缓冲流 + 数组 (8KB)&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;极快&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;推荐使用&lt;/strong&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[!WARNING]
+&lt;strong&gt;1.缓冲区溢出&lt;/strong&gt;：输出流写完后，如果程序突然崩溃且没关流，缓冲区里没满 8KB 的那部分数据会&lt;strong&gt;丢失&lt;/strong&gt;。所以必须 &lt;code&gt;close()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2.刷新缓冲区&lt;/strong&gt;：&lt;code&gt;flush()&lt;/code&gt; 只能清空缓冲区（强制写出），&lt;code&gt;close()&lt;/code&gt; 会先调 &lt;code&gt;flush()&lt;/code&gt; 再关流&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3.内存占用&lt;/strong&gt;：虽然缓冲流快，但每个流都会占 8KB 内存。如果同时开启几万个流，要注意内存溢出&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id="带缓冲的字符流读取模板"&gt;带缓冲的字符流读取模板
+&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;try&lt;/span&gt; (BufferedReader br &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; BufferedReader(&lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; FileReader(&lt;span style="color:#e6db74"&gt;&amp;#34;config.txt&amp;#34;&lt;/span&gt;));
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 BufferedWriter bw &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; BufferedWriter(&lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; FileWriter(&lt;span style="color:#e6db74"&gt;&amp;#34;copy.txt&amp;#34;&lt;/span&gt;))) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 String line;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 &lt;span style="color:#75715e"&gt;// 1. 读一行&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; ((line &lt;span style="color:#f92672"&gt;=&lt;/span&gt; br.&lt;span style="color:#a6e22e"&gt;readLine&lt;/span&gt;()) &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;null&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 &lt;span style="color:#75715e"&gt;// 2. 写一行&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 bw.&lt;span style="color:#a6e22e"&gt;write&lt;/span&gt;(line);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 &lt;span style="color:#75715e"&gt;// 3. 必须手动补换行，因为 readLine 不读换行符&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 bw.&lt;span style="color:#a6e22e"&gt;newLine&lt;/span&gt;(); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	} &lt;span style="color:#66d9ef"&gt;catch&lt;/span&gt; (IOException e) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 e.&lt;span style="color:#a6e22e"&gt;printStackTrace&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="转换流"&gt;转换流
+&lt;/h1&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;转换流名称&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;构造参数&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;作用方向&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;常用场景&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;InputStreamReader&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;InputStream&lt;/code&gt;, &lt;code&gt;Charset&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;字节 $\rightarrow$ 字符 (解码)&lt;/td&gt;
+ &lt;td&gt;读取非 UTF-8 编码的文本文件&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;OutputStreamWriter&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;OutputStream&lt;/code&gt;, &lt;code&gt;Charset&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;字符 $\rightarrow$ 字节 (编码)&lt;/td&gt;
+ &lt;td&gt;将文本以指定编码存入文件（如存为 GBK）&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;JDK11&lt;/code&gt;以后&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;// 底层其实就是封装了转换流&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;FileReader fr &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; FileReader(&lt;span style="color:#e6db74"&gt;&amp;#34;gbk_file.txt&amp;#34;&lt;/span&gt;, Charset.&lt;span style="color:#a6e22e"&gt;forName&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;GBK&amp;#34;&lt;/span&gt;));
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;BufferedReader br &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; BufferedReader(fr);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;如何实现字节流读一整行不出现乱码？&lt;/strong&gt;
+字节流 -&amp;gt; 字符流(可以指定编码) -&amp;gt; 字符缓冲流（可以读一整行）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#75715e"&gt;//1. 创建文件字节输入流&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	FileInputStream fis &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; FileInputStream(PATH &lt;span style="color:#f92672"&gt;+&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;d.txt&amp;#34;&lt;/span&gt;); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#75715e"&gt;// 2. 将字节流包装为字符流（默认使用系统编码）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	InputStreamReader isr &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; InputStreamReader(fis); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#75715e"&gt;//3. 将字符流包装为缓冲字符流，可以按行读取提高效率&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	BufferedReader br &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; BufferedReader(isr); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	System.&lt;span style="color:#a6e22e"&gt;out&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;println&lt;/span&gt;(br.&lt;span style="color:#a6e22e"&gt;readLine&lt;/span&gt;()); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	br.&lt;span style="color:#a6e22e"&gt;close&lt;/span&gt;();&lt;span style="color:#75715e"&gt;//关闭高级流&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h1 id="序列化流对象操作流"&gt;序列化流/对象操作流
+&lt;/h1&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;维度&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;ObjectOutputStream&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;ObjectInputStream&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;动作&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;序列化 (Serialization)&lt;/td&gt;
+ &lt;td&gt;反序列化 (Deserialization)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;方向&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;内存 $\rightarrow$ 硬盘&lt;/td&gt;
+ &lt;td&gt;硬盘 $\rightarrow$ 内存&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;构造方法&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;oos(OutputStream out)&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;ois(InputStream in)&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;方法&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;writeObject(Object obj)&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;readObject()&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;前提条件&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;Javabean&lt;/code&gt;必须实现 &lt;code&gt;Serializable&lt;/code&gt;接口&lt;/td&gt;
+ &lt;td&gt;类路径必须存在，ID 必须匹配&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#75715e"&gt;//前提：实现Serializable（标记性）接口&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	Student stu &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; Student(&lt;span style="color:#e6db74"&gt;&amp;#34;张三&amp;#34;&lt;/span&gt;, 20); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	ObjectOutputStream oos &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; ObjectOutputStream(&lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; FileOutputStream(PATH&lt;span style="color:#f92672"&gt;+&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;student.txt&amp;#34;&lt;/span&gt;)); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	oos.&lt;span style="color:#a6e22e"&gt;writeObject&lt;/span&gt;(stu); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	oos.&lt;span style="color:#a6e22e"&gt;close&lt;/span&gt;(); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#75715e"&gt;//--------------------------------------------//&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	ObjectInputStream ois &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; ObjectInputStream(&lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; FileInputStream(PATH&lt;span style="color:#f92672"&gt;+&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;student.txt&amp;#34;&lt;/span&gt;)); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	System.&lt;span style="color:#a6e22e"&gt;out&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;println&lt;/span&gt;(ois.&lt;span style="color:#a6e22e"&gt;readObject&lt;/span&gt;()); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	ois.&lt;span style="color:#a6e22e"&gt;close&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="细节一serialversionuid-版本号"&gt;细节一：&lt;code&gt;serialVersionUID&lt;/code&gt; (版本号)
+&lt;/h2&gt;&lt;p&gt;当你序列化一个对象后，如果修改了类的代码（比如加了个字段），再进行反序列化就会报 &lt;code&gt;InvalidClassException&lt;/code&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;解决&lt;/strong&gt;：手动给类加一个固定的 ID。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;private static final long serialVersionUID = 1L;&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;这样即使类改了，只要 ID 没变，Java 就会认为它们是同一个类。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="细节二transient-瞬态关键字"&gt;细节二：&lt;code&gt;transient&lt;/code&gt; (瞬态关键字)
+&lt;/h2&gt;&lt;p&gt;如果你不希望某个成员变量被保存到硬盘（比如用户的&lt;strong&gt;密码&lt;/strong&gt;），只需在变量前加 &lt;code&gt;transient&lt;/code&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;private transient String password;&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;反序列化回来后，该字段会变成默认值（如 &lt;code&gt;null&lt;/code&gt;）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="细节三"&gt;细节三：
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;序列化时写入什么类型，反序列化时就必须用什么类型接收，类型必须完全一致。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	Student s1 &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; Student(&lt;span style="color:#e6db74"&gt;&amp;#34;张三&amp;#34;&lt;/span&gt;,23,&lt;span style="color:#e6db74"&gt;&amp;#34;南京&amp;#34;&lt;/span&gt;); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	Student s2 &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; Student(&lt;span style="color:#e6db74"&gt;&amp;#34;李四&amp;#34;&lt;/span&gt;,22,&lt;span style="color:#e6db74"&gt;&amp;#34;重庆&amp;#34;&lt;/span&gt;); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	Student s3 &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; Student(&lt;span style="color:#e6db74"&gt;&amp;#34;王五&amp;#34;&lt;/span&gt;,24,&lt;span style="color:#e6db74"&gt;&amp;#34;上海&amp;#34;&lt;/span&gt;); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	ArrayList&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;Student&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; list &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; ArrayList&lt;span style="color:#f92672"&gt;&amp;lt;&amp;gt;&lt;/span&gt;(); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	list.&lt;span style="color:#a6e22e"&gt;add&lt;/span&gt;(s1); list.&lt;span style="color:#a6e22e"&gt;add&lt;/span&gt;(s2); list.&lt;span style="color:#a6e22e"&gt;add&lt;/span&gt;(s3); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	ObjectOutputStream oos &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; ObjectOutputStream(&lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; FileOutputStream(PATH&lt;span style="color:#f92672"&gt;+&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;student.txt&amp;#34;&lt;/span&gt;)); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#75715e"&gt;//序列化使用Array List写入&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	oos.&lt;span style="color:#a6e22e"&gt;writeObject&lt;/span&gt;(list); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	oos.&lt;span style="color:#a6e22e"&gt;close&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#75715e"&gt;//---------反序列化---------//&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	ObjectInputStream ois &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; ObjectInputStream(&lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; FileInputStream(PATH&lt;span style="color:#f92672"&gt;+&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;student.txt&amp;#34;&lt;/span&gt;)); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#75715e"&gt;//同样使用ArrayList反序列化&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	ArrayList&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;Student&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; list &lt;span style="color:#f92672"&gt;=&lt;/span&gt;(ArrayList&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;Student&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt;)ois.&lt;span style="color:#a6e22e"&gt;readObject&lt;/span&gt;(); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; (Student s : list) { 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 System.&lt;span style="color:#a6e22e"&gt;out&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;println&lt;/span&gt;(s); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	ois.&lt;span style="color:#a6e22e"&gt;close&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h1 id="打印流"&gt;打印流
+&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;地位&lt;/strong&gt;：最方便的&lt;strong&gt;只写&lt;/strong&gt;流。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;三大招&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;println()&lt;/code&gt;：写啥都行，写完换行。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;printf()&lt;/code&gt;：格式化打印（如保留两位小数 &lt;code&gt;% .2f&lt;/code&gt;）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;System.setOut()&lt;/code&gt;：重定向输出。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;打印流只有输出，没有输入。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;它是对其他输出流的包装，可以配合缓冲流一起用：&lt;code&gt;new PrintWriter(new BufferedWriter(new FileWriter(&amp;quot;a.txt&amp;quot;)))&lt;/code&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;类别&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;名 称&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;对应家族&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;常用场景&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;字节打印流&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;PrintStream&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;OutputStream&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;标准输出（控制台）、日志记录&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;字符打印流&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;PrintWriter&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;Writer&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;网页响应 (Servlet)、文本写入&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id="字节打印流"&gt;字节打印流
+&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	PrintStream ps &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; PrintStream(&lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; FileOutputStream(PATH &lt;span style="color:#f92672"&gt;+&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;c.txt&amp;#34;&lt;/span&gt;),&lt;span style="color:#66d9ef"&gt;true&lt;/span&gt;,Charset.&lt;span style="color:#a6e22e"&gt;forName&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;UTF-8&amp;#34;&lt;/span&gt;)); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	ps.&lt;span style="color:#a6e22e"&gt;println&lt;/span&gt;(97);&lt;span style="color:#75715e"&gt;//写出 + 自动刷新 + 自动换行 &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	ps.&lt;span style="color:#a6e22e"&gt;printf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;%s+%s = %s&amp;#34;&lt;/span&gt;,1,1,2); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	ps.&lt;span style="color:#a6e22e"&gt;close&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="字符打印流"&gt;字符打印流
+&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	PrintWriter pw &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; PrintWriter(&lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; FileWriter(PATH&lt;span style="color:#f92672"&gt;+&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;c.txt&amp;#34;&lt;/span&gt;), &lt;span style="color:#66d9ef"&gt;true&lt;/span&gt;); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	pw.&lt;span style="color:#a6e22e"&gt;println&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;你好&amp;#34;&lt;/span&gt;); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	pw.&lt;span style="color:#a6e22e"&gt;close&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="核心区别"&gt;核心区别
+&lt;/h2&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;维度&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;字节打印流 (PrintStream)&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;字符打印流 (PrintWriter)&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;所属家族&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;OutputStream&lt;/code&gt; 的子类&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;Writer&lt;/code&gt; 的子类&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;处理单位&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;字节&lt;/strong&gt;（即使你传的是字符，它也会先转成字节）&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;字符&lt;/strong&gt;（直接按字符处理）&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;内部缓冲区&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;没有&lt;/strong&gt;（它直接调底层的 OutputStream）&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;有&lt;/strong&gt;（它内部维护了一个字符缓冲区）&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;自动刷新 (AutoFlush)&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;只要调了 &lt;code&gt;println&lt;/code&gt; 就会自动刷新&lt;/td&gt;
+ &lt;td&gt;必须在构造器手动开启 &lt;code&gt;true&lt;/code&gt; 才会自动刷新&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;主要用途&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;标准输出 (&lt;code&gt;System.out&lt;/code&gt;)、&lt;strong&gt;写原始字节数据&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;写纯文本&lt;/strong&gt;、Web 开发 (Servlet 响应)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id="标准输出流-systemout"&gt;标准输出流 (System.out)
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;本质&lt;/strong&gt;：一个预定义的 &lt;code&gt;PrintStream&lt;/code&gt; 对象。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;特点&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;随 JVM 启动而产生，随 JVM 关闭而销毁。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;专门用于向控制台输出数据。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;核心功能&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;print()&lt;/code&gt; / &lt;code&gt;println()&lt;/code&gt;：万能打印。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;printf()&lt;/code&gt;：格式化打印（如 &lt;code&gt;%d&lt;/code&gt;, &lt;code&gt;%f&lt;/code&gt;）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;System.setOut(PrintStream)&lt;/code&gt;：修改输出目的地（常用于写简单的日志工具）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id="解压缩流压缩流"&gt;解压缩流/压缩流
+&lt;/h1&gt;&lt;pre tabindex="0"&gt;&lt;code class="language-plainext" data-lang="plainext"&gt;	InputStream（字节输入流）-&amp;gt; 解压缩流
+	OutputStream（字节输出流）-&amp;gt; 压缩流
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id="解压"&gt;解压
+&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;什么是 ZipEntry？&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;一个 ZIP 文件就像一个大包裹，里面的每个文件或文件夹都是一个 &lt;strong&gt;&lt;code&gt;ZipEntry&lt;/code&gt;&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;解压过程&lt;/strong&gt;：就是通过 &lt;code&gt;getNextEntry()&lt;/code&gt; 方法，一个一个地把包裹里的东西（Entry）拿出来，然后用普通的字节流（&lt;code&gt;FileOutputStream&lt;/code&gt;）把它们写到本地。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;static&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;unzip&lt;/span&gt;(File src,File dest) &lt;span style="color:#66d9ef"&gt;throws&lt;/span&gt; IOException { 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ZipInputStream zip &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; ZipInputStream(&lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; FileInputStream(src)); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ZipEntry entry; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; ((entry &lt;span style="color:#f92672"&gt;=&lt;/span&gt; zip.&lt;span style="color:#a6e22e"&gt;getNextEntry&lt;/span&gt;()) &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;null&lt;/span&gt;) { 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(entry.&lt;span style="color:#a6e22e"&gt;isDirectory&lt;/span&gt;()){ 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; File f &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; File(dest,entry.&lt;span style="color:#a6e22e"&gt;getName&lt;/span&gt;()); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; f.&lt;span style="color:#a6e22e"&gt;mkdirs&lt;/span&gt;(); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }&lt;span style="color:#66d9ef"&gt;else&lt;/span&gt;{ 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; FileOutputStream fos &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; FileOutputStream(&lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; File(dest,entry.&lt;span style="color:#a6e22e"&gt;getName&lt;/span&gt;())); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; b; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt;((b &lt;span style="color:#f92672"&gt;=&lt;/span&gt; zip.&lt;span style="color:#a6e22e"&gt;read&lt;/span&gt;()) &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; &lt;span style="color:#f92672"&gt;-&lt;/span&gt;1){ 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; fos.&lt;span style="color:#a6e22e"&gt;write&lt;/span&gt;(b); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; fos.&lt;span style="color:#a6e22e"&gt;close&lt;/span&gt;(); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; zip.&lt;span style="color:#a6e22e"&gt;closeEntry&lt;/span&gt;();&lt;span style="color:#75715e"&gt;//表示在压缩包中的一个文件处理完毕了 &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; zip.&lt;span style="color:#a6e22e"&gt;close&lt;/span&gt;(); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item></channel></rss>
