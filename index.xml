@@ -1,11 +1,624 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Creat7</title><link>/</link><description>Recent content on Creat7</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 22 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>13-多线程和JUC</title><link>/post/13-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8Cjuc/</link><pubDate>Sun, 22 Mar 2026 00:00:00 +0000</pubDate><guid>/post/13-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8Cjuc/</guid><description>&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Creat7</title><link>/</link><description>Recent content on Creat7</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 22 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>13-多线程和JUC</title><link>/post/13-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8Cjuc/13-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8Cjuc/</link><pubDate>Sun, 22 Mar 2026 00:00:00 +0000</pubDate><guid>/post/13-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8Cjuc/13-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8Cjuc/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;本文更新于 2026-03-22&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id="多线程"&gt;多线程
 &lt;/h1&gt;&lt;blockquote&gt;
 &lt;p&gt;1.&lt;strong&gt;进程 (Process)&lt;/strong&gt;：运行中的程序（比如 IDEA、Chrome、QQ）。它是操作系统资源分配的最小单位。&lt;/p&gt;
 &lt;p&gt;2.&lt;strong&gt;线程 (Thread)&lt;/strong&gt;：进程中的一个“执行路径”。一个进程可以包含多个线程（比如 Chrome 里一个线程下载文件，一个线程渲染网页）。&lt;/p&gt;
-&lt;/blockquote&gt;</description></item><item><title>11-异常和File</title><link>/post/11-%E5%BC%82%E5%B8%B8%E5%92%8Cfile/</link><pubDate>Sat, 21 Mar 2026 00:00:00 +0000</pubDate><guid>/post/11-%E5%BC%82%E5%B8%B8%E5%92%8Cfile/</guid><description>&lt;h1 id="异常"&gt;异常
+&lt;/blockquote&gt;
+&lt;h2 id="并发和并行"&gt;并发和并行
+&lt;/h2&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;维度&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;并发 (Concurrency)&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;并行 (Parallelism)&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;核心特点&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;任务&lt;strong&gt;交替&lt;/strong&gt;执行&lt;/td&gt;
+ &lt;td&gt;任务&lt;strong&gt;同时&lt;/strong&gt;执行&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;资源需求&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;单核 CPU 即可实现&lt;/td&gt;
+ &lt;td&gt;必须&lt;strong&gt;多核 CPU&lt;/strong&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;目的&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;提高 CPU 利用率，解决“阻塞”&lt;/td&gt;
+ &lt;td&gt;提高计算速度，缩短处理时间&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;关系&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;并发不一定是并行&lt;/td&gt;
+ &lt;td&gt;并行一定是并发的一种形式&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;img src="/img/13-%e5%a4%9a%e7%ba%bf%e7%a8%8b%e5%92%8cJUC-1.png"
+ loading="lazy"
+ data-pending-gallery
+ 
+ &gt;&lt;/td&gt;
+ &lt;td&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id="实现方式"&gt;实现方式
+&lt;/h2&gt;&lt;h3 id="继承thread类"&gt;继承&lt;code&gt;Thread&lt;/code&gt;类
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;class&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;MyThread&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;extends&lt;/span&gt; Thread {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;@Override&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;run&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i &lt;span style="color:#f92672"&gt;=&lt;/span&gt; 0; i &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; 100; i&lt;span style="color:#f92672"&gt;++&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; System.&lt;span style="color:#a6e22e"&gt;out&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;println&lt;/span&gt;(getName() &lt;span style="color:#f92672"&gt;+&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34; 在运行: &amp;#34;&lt;/span&gt; &lt;span style="color:#f92672"&gt;+&lt;/span&gt; i);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#75715e"&gt;// 启动：new MyThread().start();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	优点:代码简单&lt;span style="color:#960050;background-color:#1e0010"&gt;，&lt;/span&gt;直接 &lt;span style="color:#960050;background-color:#1e0010"&gt;`&lt;/span&gt;&lt;span style="color:#66d9ef"&gt;this&lt;/span&gt;&lt;span style="color:#960050;background-color:#1e0010"&gt;`&lt;/span&gt; 就能获取线程名&lt;span style="color:#960050;background-color:#1e0010"&gt;。&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	缺点&lt;span style="color:#960050;background-color:#1e0010"&gt;：&lt;/span&gt;Java 是单继承&lt;span style="color:#960050;background-color:#1e0010"&gt;，&lt;/span&gt;继承了 Thread 就不能继承别的类了&lt;span style="color:#960050;background-color:#1e0010"&gt;。&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="实现runnable接口"&gt;实现&lt;code&gt;Runnable&lt;/code&gt;接口
+&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;class&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;MyRun&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;implements&lt;/span&gt; Runnable {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;@Override&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;run&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; System.&lt;span style="color:#a6e22e"&gt;out&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;println&lt;/span&gt;(Thread.&lt;span style="color:#a6e22e"&gt;currentThread&lt;/span&gt;().&lt;span style="color:#a6e22e"&gt;getName&lt;/span&gt;() &lt;span style="color:#f92672"&gt;+&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34; 执行中&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#75715e"&gt;// 启动：new Thread(new MyRun()).start();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	优点&lt;span style="color:#960050;background-color:#1e0010"&gt;：&lt;/span&gt;扩展性强&lt;span style="color:#960050;background-color:#1e0010"&gt;，&lt;/span&gt;可以实现接口的同时继承别的类&lt;span style="color:#960050;background-color:#1e0010"&gt;；&lt;/span&gt;适合多个线程处理同一个资源&lt;span style="color:#960050;background-color:#1e0010"&gt;。&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="实现callable接口"&gt;实现&lt;code&gt;Callable&lt;/code&gt;接口
+&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;class&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;MyCallable&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;implements&lt;/span&gt; Callable&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;Integer&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;@Override&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; Integer &lt;span style="color:#a6e22e"&gt;call&lt;/span&gt;() &lt;span style="color:#66d9ef"&gt;throws&lt;/span&gt; Exception {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; 100 &lt;span style="color:#f92672"&gt;+&lt;/span&gt; 200; &lt;span style="color:#75715e"&gt;// 返回计算结果&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#75715e"&gt;// 启动需配合 FutureTask&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	特点&lt;span style="color:#960050;background-color:#1e0010"&gt;：&lt;/span&gt;可以获取线程执行后的结果&lt;span style="color:#960050;background-color:#1e0010"&gt;，&lt;/span&gt;还能抛出异常&lt;span style="color:#960050;background-color:#1e0010"&gt;。&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="成员方法"&gt;成员方法
+&lt;/h2&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;方法名&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;说明&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;备注&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;setName(String name)&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;设置线程名称&lt;/td&gt;
+ &lt;td&gt;默认是 &lt;code&gt;Thread-0,Thread-1&lt;/code&gt; 等&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;getName()&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;获取线程名称&lt;/td&gt;
+ &lt;td&gt;建议在构造时就起好名字&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;getPriority()&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;获取线程优先级&lt;/td&gt;
+ &lt;td&gt;范围 1-10，默认 5&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;setPriority(int p)&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;设置线程优先级&lt;/td&gt;
+ &lt;td&gt;优先级越高，抢到 CPU 时间片的&lt;strong&gt;概率&lt;/strong&gt;越大&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;currentThread()&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;静态方法&lt;/strong&gt;，获取当前线程&lt;/td&gt;
+ &lt;td&gt;哪条线程执行这行代码，就返回谁&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;给线程设置名字：&lt;/strong&gt;
+可以用&lt;code&gt;set&lt;/code&gt;也可以用构造方法&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;currentThread()&lt;/code&gt;:
+当&lt;code&gt;JVM&lt;/code&gt;虚拟机启动之后，会自动启动多条线程，其中一条是&lt;code&gt;main&lt;/code&gt;线程，它的作用是调用&lt;code&gt;main&lt;/code&gt;方法，并执行里面的代码。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id="状态控制方法"&gt;状态控制方法
+&lt;/h3&gt;&lt;p&gt;这些方法直接影响线程的运行节奏，是多线程编程的核心。&lt;/p&gt;
+&lt;h4 id="-sleeplong-ms线程休眠"&gt;① &lt;code&gt;sleep(long ms)&lt;/code&gt;：线程休眠
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;类型&lt;/strong&gt;：静态方法。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;作用&lt;/strong&gt;：让当前线程进入“阻塞状态”指定的时间。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;特点&lt;/strong&gt;：&lt;strong&gt;不释放锁&lt;/strong&gt;（如果你拿着钥匙睡觉，别人依然进不来）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;应用&lt;/strong&gt;：在拼图游戏中，如果想制作一个“倒计时”或“动画间隔”，就用它。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id="-yield线程让步"&gt;② &lt;code&gt;yield()&lt;/code&gt;：线程让步
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;类型&lt;/strong&gt;：静态方法。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;作用&lt;/strong&gt;：暗示 CPU 当前线程愿意让出执行权。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;特点&lt;/strong&gt;：线程从“运行”回到“就绪”状态。CPU 可能会再次选中它，也可能选中别人。这是一种&lt;strong&gt;谦让&lt;/strong&gt;，不是强制停止。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id="-join线程插队"&gt;③ &lt;code&gt;join()&lt;/code&gt;：线程插队
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;类型&lt;/strong&gt;：成员方法。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;作用&lt;/strong&gt;：在 A 线程中调用 &lt;code&gt;B.join()&lt;/code&gt;，意味着 A 必须等 B 执行完，A 才能继续。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;类比&lt;/strong&gt;：你在排队买饭，突然一个 VIP（B 线程）插到了你前面，你必须等他买完。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="守护线程daemon-thread"&gt;守护线程&lt;code&gt;（Daemon Thread）&lt;/code&gt;
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;方法&lt;/strong&gt;：&lt;code&gt;setDaemon(true)&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;定义&lt;/strong&gt;：当进程中所有的“用户线程”都结束了，守护线程即便没运行完，也会&lt;strong&gt;被 JVM 强制杀掉&lt;/strong&gt;。(不是立马结束，而是 &lt;strong&gt;陆续结束&lt;/strong&gt;)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;比喻&lt;/strong&gt;：用户线程是“国王”，守护线程是“保镖”。国王死了，保镖也就没存在的意义了。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;应用&lt;/strong&gt;：垃圾回收器（GC）就是一个经典的守护线程。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="生命周期"&gt;生命周期
+&lt;/h2&gt;&lt;p&gt;&lt;img src="/img/13-%e5%a4%9a%e7%ba%bf%e7%a8%8b%e5%92%8cJUC-2.png"
+ loading="lazy"
+ data-pending-gallery
+ 
+ &gt;&lt;/p&gt;
+&lt;h2 id="线程安全"&gt;线程安全
+&lt;/h2&gt;&lt;h3 id="三大特性"&gt;三大特性
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;原子性 (Atomicity)&lt;/strong&gt;：一个操作要么全部执行成功，要么全部失败，中间不能被中断。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;可见性 (Visibility)&lt;/strong&gt;：一个线程修改了共享变量的值，其他线程能够立即看到。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;有序性 (Ordering)&lt;/strong&gt;：程序执行的顺序按照代码的先后顺序执行（防止指令重排）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="为什么会出现线程不安全"&gt;为什么会出现线程不安全？
+&lt;/h3&gt;&lt;p&gt;线程安全问题发生的&lt;strong&gt;三个必要条件&lt;/strong&gt;（缺一不可）：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;多线程环境&lt;/strong&gt;：至少有两个线程在跑。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;共享资源&lt;/strong&gt;：多个线程访问同一个变量（如成员变量、静态变量）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;写操作&lt;/strong&gt;：至少有一个线程在修改这个变量。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="解决方案1-同步代码块-synchronized"&gt;解决方案1: 同步代码块 &lt;code&gt;(synchronized)&lt;/code&gt;
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;在实例方法中，通常用 &lt;code&gt;this&lt;/code&gt;；在静态方法中，通常用 &lt;code&gt;类名.class&lt;/code&gt;。&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;class&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;MyThread&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;extends&lt;/span&gt; Thread { 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;static&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; sum &lt;span style="color:#f92672"&gt;=&lt;/span&gt; 0; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;//锁对象，一定要是唯一的&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;static&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;final&lt;/span&gt; Object obj &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; Object(); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;@Override&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;run&lt;/span&gt;() { 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;true&lt;/span&gt;) { 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;synchronized&lt;/span&gt; (obj) { 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 核心：在锁内部再次判断，保证原子性 &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (sum &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; 100) { 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;try&lt;/span&gt; { 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Thread.&lt;span style="color:#a6e22e"&gt;sleep&lt;/span&gt;(100); &lt;span style="color:#75715e"&gt;// 模拟网络延迟或出票时间 &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } &lt;span style="color:#66d9ef"&gt;catch&lt;/span&gt; (InterruptedException e) { 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; e.&lt;span style="color:#a6e22e"&gt;printStackTrace&lt;/span&gt;(); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; sum&lt;span style="color:#f92672"&gt;++&lt;/span&gt;; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; System.&lt;span style="color:#a6e22e"&gt;out&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;println&lt;/span&gt;(getName()&lt;span style="color:#f92672"&gt;+&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;正在卖第&amp;#34;&lt;/span&gt;&lt;span style="color:#f92672"&gt;+&lt;/span&gt;sum&lt;span style="color:#f92672"&gt;+&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;张票!&amp;#34;&lt;/span&gt;); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } &lt;span style="color:#66d9ef"&gt;else&lt;/span&gt; { 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 票卖完了，跳出死循环 &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;break&lt;/span&gt;; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id="-卖票案例避坑指南"&gt;🛠️ 卖票案例避坑指南
+&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;锁的唯一性&lt;/strong&gt;：用了 &lt;code&gt;static final Object obj&lt;/code&gt;，这确保了无论创建多少个 &lt;code&gt;MyThread&lt;/code&gt; 对象，它们抢的都是同一把锁。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;判断逻辑的位置&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;如果判断在 &lt;code&gt;synchronized&lt;/code&gt; 外面，会有“判断通过但由于抢锁延迟导致数据过期”的风险。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;金律&lt;/strong&gt;：对共享变量的&lt;strong&gt;判断&lt;/strong&gt;和&lt;strong&gt;修改&lt;/strong&gt;，必须包裹在同一个 &lt;code&gt;synchronized&lt;/code&gt; 块内。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Sleep 的位置&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;sleep&lt;/code&gt; 放在同步块里会**“抱着锁睡觉”**，其他线程只能干等，效率低。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在这个练习中，它是为了放大问题。在实际开发中，应尽量缩短同步块的代码量。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="解决方案2-同步方法"&gt;解决方案2: 同步方法
+&lt;/h3&gt;&lt;h4 id="同步方法的分类与锁对象"&gt;同步方法的分类与锁对象
+&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;同步方法分为两种，它们的锁对象是 Java 自动指定的，不需要手动创建 &lt;code&gt;obj&lt;/code&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h5 id="-同步实例方法非静态"&gt;① 同步实例方法（非静态）
+&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;格式&lt;/strong&gt;：&lt;code&gt;public synchronized void method() { ... }&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;锁对象&lt;/strong&gt;：&lt;strong&gt;&lt;code&gt;this&lt;/code&gt;&lt;/strong&gt;（当前调用该方法的对象）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;适用场景&lt;/strong&gt;：多个线程操作同一个对象的成员变量。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id="-同步静态方法"&gt;② 同步静态方法
+&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;格式&lt;/strong&gt;：&lt;code&gt;public static synchronized void method() { ... }&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;锁对象&lt;/strong&gt;：&lt;strong&gt;&lt;code&gt;类名.class&lt;/code&gt;&lt;/strong&gt;（当前类的字节码文件对象）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;适用场景&lt;/strong&gt;：多个线程操作类的静态变量（比如你代码里的 &lt;code&gt;static int sum&lt;/code&gt;）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[!IMPORTANT]
+&lt;code&gt;StringBuffer&lt;/code&gt;、&lt;code&gt;Vector&lt;/code&gt;、&lt;code&gt;Hashtable&lt;/code&gt; 内部都是通过同步方法实现线程安全的，所以它们效率比 &lt;code&gt;StringBuilder&lt;/code&gt;、&lt;code&gt;ArrayList&lt;/code&gt;、&lt;code&gt;HashMap&lt;/code&gt; 低&lt;/p&gt;
+&lt;p&gt;单线程用&lt;code&gt;StringBuilder&lt;/code&gt;，多线程要&lt;strong&gt;考虑线程安全&lt;/strong&gt;用&lt;code&gt;StringBuffer&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id="lock锁接口"&gt;&lt;code&gt;Lock&lt;/code&gt;锁(接口)
+&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;1.Static 关键字&lt;/strong&gt;：因为是 &lt;code&gt;extends Thread&lt;/code&gt;，所以 &lt;code&gt;Lock&lt;/code&gt; 必须加 &lt;code&gt;static&lt;/code&gt;。否则每个线程对象都有一把自己的锁，根本锁不住！&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2.Lock 的位置&lt;/strong&gt;：放在 &lt;code&gt;try&lt;/code&gt; 块上方。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3.Unlock 的位置&lt;/strong&gt;：必须在 &lt;code&gt;finally&lt;/code&gt; 第一行。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4.死循环出口&lt;/strong&gt;：在 &lt;code&gt;break&lt;/code&gt; 之前，务必确保 &lt;code&gt;finally&lt;/code&gt; 能被触发（Java 默认支持，不用担心）。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;class&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;MyThread&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;extends&lt;/span&gt; Thread {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;static&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; sum &lt;span style="color:#f92672"&gt;=&lt;/span&gt; 0;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;static&lt;/span&gt; Lock lock &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; ReentrantLock();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;@Override&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;run&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;true&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 1. 锁放在 try 外面&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; lock.&lt;span style="color:#a6e22e"&gt;lock&lt;/span&gt;(); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;try&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (sum &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; 100) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Thread.&lt;span style="color:#a6e22e"&gt;sleep&lt;/span&gt;(10); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; sum&lt;span style="color:#f92672"&gt;++&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;					sout(getName() &lt;span style="color:#f92672"&gt;+&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;正在卖第&amp;#34;&lt;/span&gt; &lt;span style="color:#f92672"&gt;+&lt;/span&gt; sum &lt;span style="color:#f92672"&gt;+&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;张票!&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } &lt;span style="color:#66d9ef"&gt;else&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 2. 票卖完了，跳出循环&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;break&lt;/span&gt;; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } &lt;span style="color:#66d9ef"&gt;catch&lt;/span&gt; (InterruptedException e) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; e.&lt;span style="color:#a6e22e"&gt;printStackTrace&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } &lt;span style="color:#66d9ef"&gt;finally&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 3. 无论如何都会还锁&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; lock.&lt;span style="color:#a6e22e"&gt;unlock&lt;/span&gt;(); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id="锁的权衡-trade-off"&gt;锁的权衡 (Trade-off)
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;synchronized&lt;/code&gt;&lt;/strong&gt;：&lt;strong&gt;自动挡&lt;/strong&gt;。适合 80% 的日常业务场景，JVM 帮你管，安全、省心。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;Lock&lt;/code&gt;&lt;/strong&gt;：&lt;strong&gt;手动挡&lt;/strong&gt;。适合 20% 的高并发、高性能、复杂调度场景。能漂移、能极速，但操作不当容易熄火（死锁）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;结论&lt;/strong&gt;：&lt;strong&gt;优先使用 &lt;code&gt;synchronized&lt;/code&gt;&lt;/strong&gt;，直到你发现它实现不了你的某个高级需求（如公平性、超时、尝试获取）时，再重构为 &lt;code&gt;Lock&lt;/code&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="等待唤醒机制"&gt;等待唤醒机制
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;生产者 (Producer)&lt;/strong&gt;：负责准备数据（比如从网络下载图片、计算游戏解法）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;消费者 (Consumer)&lt;/strong&gt;：负责使用数据（比如把图片渲染到屏幕、执行步数）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;仓库 (Buffer)&lt;/strong&gt;：中间存储数据的变量或容器。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;方法名&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;作用&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;状态切换&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;wait()&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;让当前线程释放锁，进入等待池，直到被唤醒&lt;/td&gt;
+ &lt;td&gt;运行 -&amp;gt; 等待&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;notify()&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;随机唤醒&lt;strong&gt;一个&lt;/strong&gt;在该锁上等待的线程&lt;/td&gt;
+ &lt;td&gt;等待 -&amp;gt; 就绪&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;notifyAll()&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;唤醒在&lt;strong&gt;这把锁&lt;/strong&gt;上等待的&lt;strong&gt;所有&lt;/strong&gt;线程（更安全）&lt;/td&gt;
+ &lt;td&gt;等待 -&amp;gt; 就绪&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;//定义中间控制类（Buffer）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;class&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Desk&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 0: 没有饭, 1: 有饭&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;static&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; foodFlag &lt;span style="color:#f92672"&gt;=&lt;/span&gt; 0;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 锁对象&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;static&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;final&lt;/span&gt; Object lock &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; Object();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;//消费者&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;run&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;true&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;synchronized&lt;/span&gt; (Desk.&lt;span style="color:#a6e22e"&gt;lock&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (Desk.&lt;span style="color:#a6e22e"&gt;foodFlag&lt;/span&gt; &lt;span style="color:#f92672"&gt;==&lt;/span&gt; 0) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;try&lt;/span&gt; { Desk.&lt;span style="color:#a6e22e"&gt;lock&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;wait&lt;/span&gt;(); } &lt;span style="color:#66d9ef"&gt;catch&lt;/span&gt; (Exception e) {} &lt;span style="color:#75715e"&gt;// 没饭就等&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } &lt;span style="color:#66d9ef"&gt;else&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; System.&lt;span style="color:#a6e22e"&gt;out&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;println&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;吃货：开炫！&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Desk.&lt;span style="color:#a6e22e"&gt;foodFlag&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt; 0; &lt;span style="color:#75715e"&gt;// 吃完了&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Desk.&lt;span style="color:#a6e22e"&gt;lock&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;notifyAll&lt;/span&gt;(); &lt;span style="color:#75715e"&gt;// 叫醒厨师再做点&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;//生产者&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;run&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;true&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;synchronized&lt;/span&gt; (Desk.&lt;span style="color:#a6e22e"&gt;lock&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (Desk.&lt;span style="color:#a6e22e"&gt;foodFlag&lt;/span&gt; &lt;span style="color:#f92672"&gt;==&lt;/span&gt; 1) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;try&lt;/span&gt; { Desk.&lt;span style="color:#a6e22e"&gt;lock&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;wait&lt;/span&gt;(); } &lt;span style="color:#66d9ef"&gt;catch&lt;/span&gt; (Exception e) {} &lt;span style="color:#75715e"&gt;// 有饭就歇着&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } &lt;span style="color:#66d9ef"&gt;else&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; System.&lt;span style="color:#a6e22e"&gt;out&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;println&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;厨师：出锅一份回锅肉！&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Desk.&lt;span style="color:#a6e22e"&gt;foodFlag&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt; 1; &lt;span style="color:#75715e"&gt;// 饭好了&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Desk.&lt;span style="color:#a6e22e"&gt;lock&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;notifyAll&lt;/span&gt;(); &lt;span style="color:#75715e"&gt;// 叫醒吃货开饭&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="阻塞队列"&gt;阻塞队列
+&lt;/h3&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;实现类&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;特点&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;适用场景&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;ArrayBlockingQueue&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;有界&lt;/strong&gt;，底层是数组&lt;/td&gt;
+ &lt;td&gt;必须指定大小，性能稳定，最常用。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;LinkedBlockingQueue&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;可选界&lt;/strong&gt;，底层是链表&lt;/td&gt;
+ &lt;td&gt;默认大小是 &lt;code&gt;Integer.MAX_VALUE&lt;/code&gt;（接近无限），容易 OOM。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;//生产者&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;class&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Cook&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;extends&lt;/span&gt; Thread {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;private&lt;/span&gt; BlockingQueue&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;String&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; queue;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Cook&lt;/span&gt;(BlockingQueue&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;String&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; queue) { &lt;span style="color:#66d9ef"&gt;this&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;queue&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt; queue; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;@Override&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;run&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;true&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;try&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// put 方法自带阻塞逻辑：如果队列满了，就在这儿等&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; queue.&lt;span style="color:#a6e22e"&gt;put&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;回锅肉&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; System.&lt;span style="color:#a6e22e"&gt;out&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;println&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;厨师放了一份回锅肉，当前库存：&amp;#34;&lt;/span&gt; &lt;span style="color:#f92672"&gt;+&lt;/span&gt; queue.&lt;span style="color:#a6e22e"&gt;size&lt;/span&gt;());
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } &lt;span style="color:#66d9ef"&gt;catch&lt;/span&gt; (InterruptedException e) { e.&lt;span style="color:#a6e22e"&gt;printStackTrace&lt;/span&gt;(); }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;//消费者&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;class&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Foodie&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;extends&lt;/span&gt; Thread {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;private&lt;/span&gt; BlockingQueue&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;String&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; queue;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Foodie&lt;/span&gt;(BlockingQueue&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;String&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; queue) { &lt;span style="color:#66d9ef"&gt;this&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;queue&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt; queue; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;@Override&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;run&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;true&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;try&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// take 方法自带阻塞逻辑：如果队列空了，就在这儿等&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; String food &lt;span style="color:#f92672"&gt;=&lt;/span&gt; queue.&lt;span style="color:#a6e22e"&gt;take&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; System.&lt;span style="color:#a6e22e"&gt;out&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;println&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;吃货炫了一份：&amp;#34;&lt;/span&gt; &lt;span style="color:#f92672"&gt;+&lt;/span&gt; food);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } &lt;span style="color:#66d9ef"&gt;catch&lt;/span&gt; (InterruptedException e) { e.&lt;span style="color:#a6e22e"&gt;printStackTrace&lt;/span&gt;(); }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;//测试类（连接两者）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;// 创建一个只能装 1 份饭的阻塞队列&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;BlockingQueue&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;String&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; queue &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; ArrayBlockingQueue&lt;span style="color:#f92672"&gt;&amp;lt;&amp;gt;&lt;/span&gt;(1);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; Cook(queue).&lt;span style="color:#a6e22e"&gt;start&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; Foodie(queue).&lt;span style="color:#a6e22e"&gt;start&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;操作类型&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;抛出异常&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;返回特殊值&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;阻塞（推荐）&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;超时退出&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;插入&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;add(e)&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;offer(e)&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;put(e)&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;offer(e, time, unit)&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;移除&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;remove()&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;poll()&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;take()&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;poll(time, unit)&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;检查&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;element()&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;peek()&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;无&lt;/td&gt;
+ &lt;td&gt;无&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id="线程池"&gt;线程池
+&lt;/h2&gt;&lt;h3 id="线程池的优点"&gt;线程池的优点
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;降低资源消耗&lt;/strong&gt;：通过重复利用已创建的线程，降低线程创建和销毁造成的开销。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;提高响应速度&lt;/strong&gt;：任务到达时，不需要等待线程创建就能立即执行。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;提高线程的可管理性&lt;/strong&gt;：线程是稀缺资源，如果无限制地创建，会降低系统稳定性。线程池可以进行统一分配、调优和监控。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;API&lt;/th&gt;
+ &lt;th&gt;问题&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;Executors.newFixedThreadPool()&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;使用无界队列，可能导致 OOM&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;Executors.newCachedThreadPool()&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;最大线程数为 Integer.MAX_VALUE，可能瞬间创建几十万线程&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;Executors.newScheduledThreadPool()&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;核心线程不会回收&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id="核心元素"&gt;核心元素
+&lt;/h3&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;参数&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;对应比喻&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;官方定义&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;corePoolSize&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;正式员工&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;核心线程数（常驻线程）。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;maximumPoolSize&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;全部员工&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;最大线程数（核心 + 临时）。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;keepAliveTime&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;解雇等待期&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;临时线程闲置多久后被销毁。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;unit&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;时间单位&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;对应上面的时间单位（秒、分钟等）。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;workQueue&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;等候区&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;任务阻塞队列（放不下的活先排队）。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;threadFactory&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;HR/招聘&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;线程工厂（给线程起名、设优先级）。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;handler&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;拒单策略&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;拒绝策略（活太多实在干不完怎么办）。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id="具体实现"&gt;具体实现
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;ThreadPoolExecutor pool &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; ThreadPoolExecutor( 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; 3, &lt;span style="color:#75715e"&gt;//核心线程数量 不能小于0 &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; 6, &lt;span style="color:#75715e"&gt;//最大线程数量 不能小于0 且&amp;gt;=核心线程数量 &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; 60, &lt;span style="color:#75715e"&gt;//空闲线程最大存活时间 &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; TimeUnit.&lt;span style="color:#a6e22e"&gt;SECONDS&lt;/span&gt;, &lt;span style="color:#75715e"&gt;//空闲线程最大存活时间的单位 &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; ArrayBlockingQueue&lt;span style="color:#f92672"&gt;&amp;lt;&amp;gt;&lt;/span&gt;(3),&lt;span style="color:#75715e"&gt;//任务队列 不能为null &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Executors.&lt;span style="color:#a6e22e"&gt;defaultThreadFactory&lt;/span&gt;(),&lt;span style="color:#75715e"&gt;//线程工厂 不能为null &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; ThreadPoolExecutor.&lt;span style="color:#a6e22e"&gt;AbortPolicy&lt;/span&gt;()&lt;span style="color:#75715e"&gt;//拒绝策略 不能为null &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	任务 1&lt;span style="color:#f92672"&gt;~&lt;/span&gt;3&lt;span style="color:#960050;background-color:#1e0010"&gt;：&lt;/span&gt;直接创建 3 个核心线程&lt;span style="color:#960050;background-color:#1e0010"&gt;（&lt;/span&gt;正式工&lt;span style="color:#960050;background-color:#1e0010"&gt;）&lt;/span&gt;开始干活
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	任务 4&lt;span style="color:#f92672"&gt;~&lt;/span&gt;6&lt;span style="color:#960050;background-color:#1e0010"&gt;：&lt;/span&gt;核心线程已满&lt;span style="color:#960050;background-color:#1e0010"&gt;，&lt;/span&gt;3 个任务进入 ArrayBlockingQueue&lt;span style="color:#960050;background-color:#1e0010"&gt;（&lt;/span&gt;等候区&lt;span style="color:#960050;background-color:#1e0010"&gt;）&lt;/span&gt;排队
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	任务 7&lt;span style="color:#f92672"&gt;~&lt;/span&gt;9&lt;span style="color:#960050;background-color:#1e0010"&gt;：&lt;/span&gt;等候区已满&lt;span style="color:#960050;background-color:#1e0010"&gt;，&lt;/span&gt;线程池开启 3 个临时线程&lt;span style="color:#960050;background-color:#1e0010"&gt;（&lt;/span&gt;临时工&lt;span style="color:#960050;background-color:#1e0010"&gt;），&lt;/span&gt;总线程数达到 maximumPoolSize 6 个并开始干活
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	任务 10&lt;span style="color:#960050;background-color:#1e0010"&gt;：&lt;/span&gt;核心线程&lt;span style="color:#960050;background-color:#1e0010"&gt;、&lt;/span&gt;队列&lt;span style="color:#960050;background-color:#1e0010"&gt;、&lt;/span&gt;临时线程均已满&lt;span style="color:#960050;background-color:#1e0010"&gt;，&lt;/span&gt;触发 AbortPolicy 拒绝策略&lt;span style="color:#960050;background-color:#1e0010"&gt;，&lt;/span&gt;程序抛出 RejectedExecutionException 异常
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>11-异常和File</title><link>/post/11-%E5%BC%82%E5%B8%B8%E5%92%8Cfile/</link><pubDate>Sat, 21 Mar 2026 00:00:00 +0000</pubDate><guid>/post/11-%E5%BC%82%E5%B8%B8%E5%92%8Cfile/</guid><description>&lt;h1 id="异常"&gt;异常
 &lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-txt" data-lang="txt"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Throwable（所有异常/错误的根类）
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;├─ Error（系统级致命错误，程序无法恢复）
