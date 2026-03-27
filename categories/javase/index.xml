@@ -1331,301 +1331,6 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	任务 7&lt;span style="color:#f92672"&gt;~&lt;/span&gt;9&lt;span style="color:#960050;background-color:#1e0010"&gt;：&lt;/span&gt;等候区已满&lt;span style="color:#960050;background-color:#1e0010"&gt;，&lt;/span&gt;线程池开启 3 个临时线程&lt;span style="color:#960050;background-color:#1e0010"&gt;（&lt;/span&gt;临时工&lt;span style="color:#960050;background-color:#1e0010"&gt;），&lt;/span&gt;总线程数达到 maximumPoolSize 6 个并开始干活
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	任务 10&lt;span style="color:#960050;background-color:#1e0010"&gt;：&lt;/span&gt;核心线程&lt;span style="color:#960050;background-color:#1e0010"&gt;、&lt;/span&gt;队列&lt;span style="color:#960050;background-color:#1e0010"&gt;、&lt;/span&gt;临时线程均已满&lt;span style="color:#960050;background-color:#1e0010"&gt;，&lt;/span&gt;触发 AbortPolicy 拒绝策略&lt;span style="color:#960050;background-color:#1e0010"&gt;，&lt;/span&gt;程序抛出 RejectedExecutionException 异常
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>11-异常和File</title><link>/post/11-%E5%BC%82%E5%B8%B8%E5%92%8Cfile/</link><pubDate>Sat, 21 Mar 2026 00:00:00 +0000</pubDate><guid>/post/11-%E5%BC%82%E5%B8%B8%E5%92%8Cfile/</guid><description>&lt;h1 id="异常"&gt;异常
-&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-txt" data-lang="txt"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Throwable（所有异常/错误的根类）
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;├─ Error（系统级致命错误，程序无法恢复）
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ ├─ OutOfMemoryError（内存溢出，如创建超大对象/无限集合）
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ └─ StackOverflowError（栈溢出，如无限递归调用）
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;└─ Exception（程序可处理的异常）运行时异常+编译时异常
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; |
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ├─ RuntimeException（运行时异常/非检查型，编译器不强制捕获）
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; | |
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ ├─ NullPointerException（空指针，调用null对象的方法/属性）
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ ├─ IndexOutOfBoundsException（下标越界，如数组/集合下标超出范围）
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ ├─ ClassCastException（类型转换异常，如String强转Integer）
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ ├─ IllegalArgumentException（参数非法，如传入不符合规则的参数）
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ └─ ArithmeticException（算术异常，如整数除以0）
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; |
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; └─ CheckedException（检查型异常，编译器强制捕获/声明抛出）
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 |
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ├─ IOException（IO操作异常）
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ └─ FileNotFoundException（文件未找到，如读取不存在的文件）
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ├─ SQLException（数据库操作异常，如SQL语法错误/连接失败）
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; └─ InterruptedException（线程中断异常，如休眠线程被打断）
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="捕获异常try-catch"&gt;捕获异常&lt;code&gt;try-catch&lt;/code&gt;
-&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt;&lt;span style="color:#f92672"&gt;[]&lt;/span&gt; arr &lt;span style="color:#f92672"&gt;=&lt;/span&gt; {1,2,3}; 
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;try&lt;/span&gt;{ 
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;		&lt;span style="color:#75715e"&gt;//程序创建异常，与catch（）中的异常对比，可捕获 -&amp;gt; 执行catch{..}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;		&lt;span style="color:#75715e"&gt;//当catch{..}执行完毕，继续向下执行&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 System.&lt;span style="color:#a6e22e"&gt;out&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;println&lt;/span&gt;(arr&lt;span style="color:#f92672"&gt;[&lt;/span&gt;10&lt;span style="color:#f92672"&gt;]&lt;/span&gt;); 
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	}&lt;span style="color:#66d9ef"&gt;catch&lt;/span&gt; (ArrayIndexOutOfBoundsException e){ 
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 System.&lt;span style="color:#a6e22e"&gt;out&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;println&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;数组越界了&amp;#34;&lt;/span&gt;); 
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	} 
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	System.&lt;span style="color:#a6e22e"&gt;out&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;println&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;执行！&amp;#34;&lt;/span&gt;);
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="常见问题"&gt;常见问题
-&lt;/h3&gt;&lt;h4 id="如果try中没有遇到问题怎么办"&gt;如果&lt;code&gt;try&lt;/code&gt;中没有遇到问题，怎么办？
-&lt;/h4&gt;&lt;blockquote&gt;
-&lt;p&gt;会把&lt;code&gt;try&lt;/code&gt;中的所有代码全部执行完毕，&lt;strong&gt;不会执行&lt;/strong&gt;&lt;code&gt;catch&lt;/code&gt;中的代码&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt; 只有出现了异常，才会执行&lt;code&gt;catch&lt;/code&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h4 id="如果try中可能遇到多个问题怎么办"&gt;如果&lt;code&gt;try&lt;/code&gt;中可能遇到多个问题，怎么办？
-&lt;/h4&gt;&lt;blockquote&gt;
-&lt;p&gt;写多个&lt;code&gt;catch&lt;/code&gt;与之对应&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt; 如果捕获多个异常，父类一定要写在下面&lt;/p&gt;
-&lt;p&gt;JDK7以后，可以用&lt;code&gt;catch&lt;/code&gt;捕获多个异常，中间用&lt;code&gt;|&lt;/code&gt;隔开&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h4 id="如果try中遇到的问题没有被捕获怎么办"&gt;如果&lt;code&gt;try&lt;/code&gt;中遇到的问题没有被捕获，怎么办？
-&lt;/h4&gt;&lt;blockquote&gt;
-&lt;p&gt;&lt;u&gt;JVM虚拟机默认处理异常&lt;/u&gt;，会停止程序&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h4 id="如果try中遇到了问题那么try下面的其他代码块还会执行吗"&gt;如果&lt;code&gt;try&lt;/code&gt;中遇到了问题，那么&lt;code&gt;try&lt;/code&gt;下面的其他代码块还会执行吗？
-&lt;/h4&gt;&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;不会执行&lt;/strong&gt; ，会直接跳转到对应的&lt;code&gt;catch&lt;/code&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id="常用方法"&gt;常用方法
-&lt;/h3&gt;&lt;table&gt;
- &lt;thead&gt;
- &lt;tr&gt;
- &lt;th&gt;&lt;strong&gt;方法名&lt;/strong&gt;&lt;/th&gt;
- &lt;th&gt;&lt;strong&gt;返回值&lt;/strong&gt;&lt;/th&gt;
- &lt;th&gt;&lt;strong&gt;作用&lt;/strong&gt;&lt;/th&gt;
- &lt;/tr&gt;
- &lt;/thead&gt;
- &lt;tbody&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;strong&gt;&lt;code&gt;e.getMessage()&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
- &lt;td&gt;&lt;code&gt;String&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;&lt;strong&gt;简报&lt;/strong&gt;：只告诉你最简单的错误原因（如 &amp;ldquo;By zero&amp;rdquo;）。&lt;/td&gt;
- &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;strong&gt;&lt;code&gt;e.toString()&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
- &lt;td&gt;&lt;code&gt;String&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;&lt;strong&gt;中报&lt;/strong&gt;：异常类型 + 错误原因（如 &lt;code&gt;java.lang.ArithmeticException: / by zero&lt;/code&gt;）&lt;/td&gt;
- &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;strong&gt;&lt;code&gt;e.printStackTrace()&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
- &lt;td&gt;&lt;code&gt;void&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;&lt;strong&gt;详报&lt;/strong&gt;：在控制台打印完整的堆栈信息，&lt;strong&gt;最常用&lt;/strong&gt;&lt;/td&gt;
- &lt;/tr&gt;
- &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h2 id="抛出处理"&gt;抛出处理
-&lt;/h2&gt;&lt;table&gt;
- &lt;thead&gt;
- &lt;tr&gt;
- &lt;th&gt;&lt;strong&gt;关键字&lt;/strong&gt;&lt;/th&gt;
- &lt;th&gt;&lt;strong&gt;位置&lt;/strong&gt;&lt;/th&gt;
- &lt;th&gt;&lt;strong&gt;作用&lt;/strong&gt;&lt;/th&gt;
- &lt;th&gt;&lt;strong&gt;后面跟什么&lt;/strong&gt;&lt;/th&gt;
- &lt;/tr&gt;
- &lt;/thead&gt;
- &lt;tbody&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;strong&gt;&lt;code&gt;throws&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
- &lt;td&gt;方法声明处&lt;/td&gt;
- &lt;td&gt;向上抛&lt;/td&gt;
- &lt;td&gt;&lt;strong&gt;异常类名&lt;/strong&gt;（可以跟多个）&lt;/td&gt;
- &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;strong&gt;&lt;code&gt;throw&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
- &lt;td&gt;方法体内&lt;/td&gt;
- &lt;td&gt;制造异常&lt;/td&gt;
- &lt;td&gt;&lt;strong&gt;异常对象&lt;/strong&gt;（只能跟一个）&lt;/td&gt;
- &lt;/tr&gt;
- &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;ul&gt;
-&lt;li&gt;运行时异常不需要&lt;code&gt;throws&lt;/code&gt;声明&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id="自定义异常"&gt;自定义异常
-&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;定义异常类&lt;/li&gt;
-&lt;li&gt;写继承关系&lt;/li&gt;
-&lt;li&gt;空参构造&lt;/li&gt;
-&lt;li&gt;带参构造&lt;/li&gt;
-&lt;/ul&gt;
-&lt;table&gt;
- &lt;thead&gt;
- &lt;tr&gt;
- &lt;th&gt;类型&lt;/th&gt;
- &lt;th&gt;继承 &lt;code&gt;Exception&lt;/code&gt;（检查型）&lt;/th&gt;
- &lt;th&gt;继承 &lt;code&gt;RuntimeException&lt;/code&gt;（非检查型）&lt;/th&gt;
- &lt;/tr&gt;
- &lt;/thead&gt;
- &lt;tbody&gt;
- &lt;tr&gt;
- &lt;td&gt;强制要求&lt;/td&gt;
- &lt;td&gt;必须用 try-catch 捕获，或声明 throws&lt;/td&gt;
- &lt;td&gt;无需强制捕获，按需处理&lt;/td&gt;
- &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td&gt;适用场景&lt;/td&gt;
- &lt;td&gt;必须处理的严重业务异常（比如文件读写失败）&lt;/td&gt;
- &lt;td&gt;普通业务异常（比如余额不足、用户不存在）&lt;/td&gt;
- &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td&gt;代码复杂度&lt;/td&gt;
- &lt;td&gt;高（到处加 try-catch）&lt;/td&gt;
- &lt;td&gt;低（只在需要处理的地方捕获）&lt;/td&gt;
- &lt;/tr&gt;
- &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr&gt;
-&lt;h1 id="file"&gt;File
-&lt;/h1&gt;&lt;h2 id="常用方法-1"&gt;常用方法
-&lt;/h2&gt;&lt;table&gt;
- &lt;thead&gt;
- &lt;tr&gt;
- &lt;th&gt;&lt;strong&gt;类别&lt;/strong&gt;&lt;/th&gt;
- &lt;th&gt;&lt;strong&gt;方法名&lt;/strong&gt;&lt;/th&gt;
- &lt;th&gt;&lt;strong&gt;返回值&lt;/strong&gt;&lt;/th&gt;
- &lt;th&gt;&lt;strong&gt;核心功能&lt;/strong&gt;&lt;/th&gt;
- &lt;th&gt;&lt;strong&gt;备注&lt;/strong&gt;&lt;/th&gt;
- &lt;/tr&gt;
- &lt;/thead&gt;
- &lt;tbody&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;strong&gt;获取&lt;/strong&gt;&lt;/td&gt;
- &lt;td&gt;&lt;code&gt;getName()&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;&lt;code&gt;String&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;获取文件或文件夹名称&lt;/td&gt;
- &lt;td&gt;带后缀名（如 &lt;code&gt;a.txt&lt;/code&gt;）&lt;/td&gt;
- &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;/td&gt;
- &lt;td&gt;&lt;code&gt;length()&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;&lt;code&gt;long&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;获取文件大小，文件夹为&lt;code&gt;0&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;单位是&lt;strong&gt;字节 (Byte)&lt;/strong&gt;，UTF-8一个汉字三个字节&lt;/td&gt;
- &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;/td&gt;
- &lt;td&gt;&lt;code&gt;lastModified()&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;&lt;code&gt;long&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;最后修改时间&lt;/td&gt;
- &lt;td&gt;毫秒值，需转换日期&lt;/td&gt;
- &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;strong&gt;路径&lt;/strong&gt;&lt;/td&gt;
- &lt;td&gt;&lt;code&gt;getPath()&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;&lt;code&gt;String&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;获取构造时传入的路径&lt;/td&gt;
- &lt;td&gt;怎么 &lt;code&gt;new&lt;/code&gt;的就给什么&lt;/td&gt;
- &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;/td&gt;
- &lt;td&gt;&lt;code&gt;getAbsolutePath()&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;&lt;code&gt;String&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;获取&lt;strong&gt;绝对路径&lt;/strong&gt;&lt;/td&gt;
- &lt;td&gt;从盘符开始的全路径&lt;/td&gt;
- &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;strong&gt;判断&lt;/strong&gt;&lt;/td&gt;
- &lt;td&gt;&lt;code&gt;exists()&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;&lt;code&gt;boolean&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;路径是否存在&lt;/td&gt;
- &lt;td&gt;&lt;strong&gt;最常用&lt;/strong&gt;，防报错必备&lt;/td&gt;
- &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;/td&gt;
- &lt;td&gt;&lt;code&gt;isFile()&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;&lt;code&gt;boolean&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;是否为文件&lt;/td&gt;
- &lt;td&gt;路径不存在则返回 false&lt;/td&gt;
- &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;/td&gt;
- &lt;td&gt;&lt;code&gt;isDirectory()&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;&lt;code&gt;boolean&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;是否为文件夹&lt;/td&gt;
- &lt;td&gt;路径不存在则返回 false&lt;/td&gt;
- &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;strong&gt;创建&lt;/strong&gt;&lt;/td&gt;
- &lt;td&gt;&lt;code&gt;createNewFile()&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;&lt;code&gt;boolean&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;创建新文件&lt;/td&gt;
- &lt;td&gt;文件夹不存在会创建失败&lt;/td&gt;
- &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;/td&gt;
- &lt;td&gt;&lt;code&gt;mkdirs()&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;&lt;code&gt;boolean&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;&lt;strong&gt;递归&lt;/strong&gt;创建文件夹&lt;/td&gt;
- &lt;td&gt;建议永远用带 s 的这个&lt;/td&gt;
- &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td&gt;&lt;strong&gt;删除&lt;/strong&gt;&lt;/td&gt;
- &lt;td&gt;&lt;code&gt;delete()&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;&lt;code&gt;boolean&lt;/code&gt;&lt;/td&gt;
- &lt;td&gt;删除文件/空文件夹&lt;/td&gt;
- &lt;td&gt;&lt;strong&gt;不走回收站&lt;/strong&gt;，直接消失&lt;/td&gt;
- &lt;/tr&gt;
- &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;综合练习：&lt;/strong&gt; 统计各种文件的数量&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;/**
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt; * 递归方法：统计指定目录下所有文件的后缀名数量（包含子目录）
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt; * @param src 要统计的目标目录File对象
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt; * @return 后缀名-数量的HashMap，键为后缀名/无后缀，值为对应数量
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt; */&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;static&lt;/span&gt; HashMap&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;String,Integer&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;getCount&lt;/span&gt;(File src){
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	HashMap&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;String,Integer&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt;hm &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; HashMap&lt;span style="color:#f92672"&gt;&amp;lt;&amp;gt;&lt;/span&gt;();
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	File&lt;span style="color:#f92672"&gt;[]&lt;/span&gt; fs &lt;span style="color:#f92672"&gt;=&lt;/span&gt; src.&lt;span style="color:#a6e22e"&gt;listFiles&lt;/span&gt;();
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#75715e"&gt;// 判空：避免目录为空/无访问权限导致空指针&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (fs &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;null&lt;/span&gt;) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;		&lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; (File f : fs) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;			&lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (f.&lt;span style="color:#a6e22e"&gt;isFile&lt;/span&gt;()) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;				&lt;span style="color:#75715e"&gt;// 按&amp;#34;.&amp;#34;分割文件名，用于提取后缀名（注意转义符\\.）&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;				String&lt;span style="color:#f92672"&gt;[]&lt;/span&gt; split &lt;span style="color:#f92672"&gt;=&lt;/span&gt; f.&lt;span style="color:#a6e22e"&gt;getName&lt;/span&gt;().&lt;span style="color:#a6e22e"&gt;split&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;\\.&amp;#34;&lt;/span&gt;);
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;				
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;				&lt;span style="color:#75715e"&gt;// 分割后长度&amp;gt;=2说明有后缀名（如test.txt分割后是[test,txt]）&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;				&lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(split.&lt;span style="color:#a6e22e"&gt;length&lt;/span&gt; &lt;span style="color:#f92672"&gt;&amp;gt;=&lt;/span&gt; 2){
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;					&lt;span style="color:#75715e"&gt;// 取分割数组最后一个元素作为后缀名&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;					String endName &lt;span style="color:#f92672"&gt;=&lt;/span&gt; split&lt;span style="color:#f92672"&gt;[&lt;/span&gt;split.&lt;span style="color:#a6e22e"&gt;length&lt;/span&gt;&lt;span style="color:#f92672"&gt;-&lt;/span&gt;1&lt;span style="color:#f92672"&gt;]&lt;/span&gt;;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;					
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;					&lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(&lt;span style="color:#f92672"&gt;!&lt;/span&gt;hm.&lt;span style="color:#a6e22e"&gt;containsKey&lt;/span&gt;(endName))
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;						hm.&lt;span style="color:#a6e22e"&gt;put&lt;/span&gt;(endName,1);
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;					&lt;span style="color:#66d9ef"&gt;else&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;						hm.&lt;span style="color:#a6e22e"&gt;put&lt;/span&gt;(endName,hm.&lt;span style="color:#a6e22e"&gt;get&lt;/span&gt;(endName)&lt;span style="color:#f92672"&gt;+&lt;/span&gt;1);
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;				}&lt;span style="color:#66d9ef"&gt;else&lt;/span&gt;{
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;					&lt;span style="color:#75715e"&gt;// 分割后长度&amp;lt;2说明无后缀名（如readme、.gitignore）&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;					&lt;span style="color:#75715e"&gt;// 首次统计&amp;#34;无后缀&amp;#34;：初始化为1&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;					
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;					&lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(&lt;span style="color:#f92672"&gt;!&lt;/span&gt;hm.&lt;span style="color:#a6e22e"&gt;containsKey&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;无后缀&amp;#34;&lt;/span&gt;))
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;						hm.&lt;span style="color:#a6e22e"&gt;put&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;无后缀&amp;#34;&lt;/span&gt;,1);
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;					&lt;span style="color:#66d9ef"&gt;else&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;						hm.&lt;span style="color:#a6e22e"&gt;put&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;无后缀&amp;#34;&lt;/span&gt;,hm.&lt;span style="color:#a6e22e"&gt;get&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;无后缀&amp;#34;&lt;/span&gt;)&lt;span style="color:#f92672"&gt;+&lt;/span&gt;1);
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;				}
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;			}&lt;span style="color:#66d9ef"&gt;else&lt;/span&gt;{
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;				&lt;span style="color:#75715e"&gt;// 当前File是子目录：递归调用getCount统计子目录的后缀名&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;				HashMap&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;String,Integer&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; dfs &lt;span style="color:#f92672"&gt;=&lt;/span&gt; getCount(f);
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;				&lt;span style="color:#75715e"&gt;// 遍历子目录的统计结果，合并到当前目录的HashMap中&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;				
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;				&lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; (String k : dfs.&lt;span style="color:#a6e22e"&gt;keySet&lt;/span&gt;()){
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;					&lt;span style="color:#75715e"&gt;// 当前目录未统计过该后缀：直接赋值子目录的统计数&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;					&lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(&lt;span style="color:#f92672"&gt;!&lt;/span&gt;hm.&lt;span style="color:#a6e22e"&gt;containsKey&lt;/span&gt;(k))
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;						hm.&lt;span style="color:#a6e22e"&gt;put&lt;/span&gt;(k,dfs.&lt;span style="color:#a6e22e"&gt;get&lt;/span&gt;(k));
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;					&lt;span style="color:#75715e"&gt;// 当前目录已统计过该后缀：累加子目录的统计数&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;					&lt;span style="color:#66d9ef"&gt;else&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;						hm.&lt;span style="color:#a6e22e"&gt;put&lt;/span&gt;(k,hm.&lt;span style="color:#a6e22e"&gt;get&lt;/span&gt;(k)&lt;span style="color:#f92672"&gt;+&lt;/span&gt;dfs.&lt;span style="color:#a6e22e"&gt;get&lt;/span&gt;(k));
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;				}
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;			}
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;		}
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	}
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#75715e"&gt;// 返回当前目录（含子目录）的最终统计结果&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; hm;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>12-IO流</title><link>/post/12-io%E6%B5%81/</link><pubDate>Sat, 21 Mar 2026 00:00:00 +0000</pubDate><guid>/post/12-io%E6%B5%81/</guid><description>&lt;p&gt;&lt;strong&gt;程序是在“内存”里跑的，所以永远以内存为原点。&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -2361,6 +2066,301 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } 
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } 
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; zip.&lt;span style="color:#a6e22e"&gt;close&lt;/span&gt;(); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>11-异常和File</title><link>/post/11-%E5%BC%82%E5%B8%B8%E5%92%8Cfile/</link><pubDate>Fri, 20 Mar 2026 00:00:00 +0000</pubDate><guid>/post/11-%E5%BC%82%E5%B8%B8%E5%92%8Cfile/</guid><description>&lt;h1 id="异常"&gt;异常
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-txt" data-lang="txt"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Throwable（所有异常/错误的根类）
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;|
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;├─ Error（系统级致命错误，程序无法恢复）
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ ├─ OutOfMemoryError（内存溢出，如创建超大对象/无限集合）
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ └─ StackOverflowError（栈溢出，如无限递归调用）
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;└─ Exception（程序可处理的异常）运行时异常+编译时异常
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; |
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ├─ RuntimeException（运行时异常/非检查型，编译器不强制捕获）
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; | |
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ ├─ NullPointerException（空指针，调用null对象的方法/属性）
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ ├─ IndexOutOfBoundsException（下标越界，如数组/集合下标超出范围）
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ ├─ ClassCastException（类型转换异常，如String强转Integer）
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ ├─ IllegalArgumentException（参数非法，如传入不符合规则的参数）
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ └─ ArithmeticException（算术异常，如整数除以0）
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; |
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; └─ CheckedException（检查型异常，编译器强制捕获/声明抛出）
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 |
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ├─ IOException（IO操作异常）
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; │ └─ FileNotFoundException（文件未找到，如读取不存在的文件）
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ├─ SQLException（数据库操作异常，如SQL语法错误/连接失败）
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; └─ InterruptedException（线程中断异常，如休眠线程被打断）
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="捕获异常try-catch"&gt;捕获异常&lt;code&gt;try-catch&lt;/code&gt;
+&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt;&lt;span style="color:#f92672"&gt;[]&lt;/span&gt; arr &lt;span style="color:#f92672"&gt;=&lt;/span&gt; {1,2,3}; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;try&lt;/span&gt;{ 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;		&lt;span style="color:#75715e"&gt;//程序创建异常，与catch（）中的异常对比，可捕获 -&amp;gt; 执行catch{..}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;		&lt;span style="color:#75715e"&gt;//当catch{..}执行完毕，继续向下执行&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 System.&lt;span style="color:#a6e22e"&gt;out&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;println&lt;/span&gt;(arr&lt;span style="color:#f92672"&gt;[&lt;/span&gt;10&lt;span style="color:#f92672"&gt;]&lt;/span&gt;); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	}&lt;span style="color:#66d9ef"&gt;catch&lt;/span&gt; (ArrayIndexOutOfBoundsException e){ 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 System.&lt;span style="color:#a6e22e"&gt;out&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;println&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;数组越界了&amp;#34;&lt;/span&gt;); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	} 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	System.&lt;span style="color:#a6e22e"&gt;out&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;println&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;执行！&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="常见问题"&gt;常见问题
+&lt;/h3&gt;&lt;h4 id="如果try中没有遇到问题怎么办"&gt;如果&lt;code&gt;try&lt;/code&gt;中没有遇到问题，怎么办？
+&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;会把&lt;code&gt;try&lt;/code&gt;中的所有代码全部执行完毕，&lt;strong&gt;不会执行&lt;/strong&gt;&lt;code&gt;catch&lt;/code&gt;中的代码&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt; 只有出现了异常，才会执行&lt;code&gt;catch&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id="如果try中可能遇到多个问题怎么办"&gt;如果&lt;code&gt;try&lt;/code&gt;中可能遇到多个问题，怎么办？
+&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;写多个&lt;code&gt;catch&lt;/code&gt;与之对应&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt; 如果捕获多个异常，父类一定要写在下面&lt;/p&gt;
+&lt;p&gt;JDK7以后，可以用&lt;code&gt;catch&lt;/code&gt;捕获多个异常，中间用&lt;code&gt;|&lt;/code&gt;隔开&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id="如果try中遇到的问题没有被捕获怎么办"&gt;如果&lt;code&gt;try&lt;/code&gt;中遇到的问题没有被捕获，怎么办？
+&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;u&gt;JVM虚拟机默认处理异常&lt;/u&gt;，会停止程序&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id="如果try中遇到了问题那么try下面的其他代码块还会执行吗"&gt;如果&lt;code&gt;try&lt;/code&gt;中遇到了问题，那么&lt;code&gt;try&lt;/code&gt;下面的其他代码块还会执行吗？
+&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;不会执行&lt;/strong&gt; ，会直接跳转到对应的&lt;code&gt;catch&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id="常用方法"&gt;常用方法
+&lt;/h3&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;方法名&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;返回值&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;作用&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;e.getMessage()&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;String&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;简报&lt;/strong&gt;：只告诉你最简单的错误原因（如 &amp;ldquo;By zero&amp;rdquo;）。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;e.toString()&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;String&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;中报&lt;/strong&gt;：异常类型 + 错误原因（如 &lt;code&gt;java.lang.ArithmeticException: / by zero&lt;/code&gt;）&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;e.printStackTrace()&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;void&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;详报&lt;/strong&gt;：在控制台打印完整的堆栈信息，&lt;strong&gt;最常用&lt;/strong&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id="抛出处理"&gt;抛出处理
+&lt;/h2&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;关键字&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;位置&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;作用&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;后面跟什么&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;throws&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;方法声明处&lt;/td&gt;
+ &lt;td&gt;向上抛&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;异常类名&lt;/strong&gt;（可以跟多个）&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;throw&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;方法体内&lt;/td&gt;
+ &lt;td&gt;制造异常&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;异常对象&lt;/strong&gt;（只能跟一个）&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;运行时异常不需要&lt;code&gt;throws&lt;/code&gt;声明&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="自定义异常"&gt;自定义异常
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;定义异常类&lt;/li&gt;
+&lt;li&gt;写继承关系&lt;/li&gt;
+&lt;li&gt;空参构造&lt;/li&gt;
+&lt;li&gt;带参构造&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;类型&lt;/th&gt;
+ &lt;th&gt;继承 &lt;code&gt;Exception&lt;/code&gt;（检查型）&lt;/th&gt;
+ &lt;th&gt;继承 &lt;code&gt;RuntimeException&lt;/code&gt;（非检查型）&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;强制要求&lt;/td&gt;
+ &lt;td&gt;必须用 try-catch 捕获，或声明 throws&lt;/td&gt;
+ &lt;td&gt;无需强制捕获，按需处理&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;适用场景&lt;/td&gt;
+ &lt;td&gt;必须处理的严重业务异常（比如文件读写失败）&lt;/td&gt;
+ &lt;td&gt;普通业务异常（比如余额不足、用户不存在）&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;代码复杂度&lt;/td&gt;
+ &lt;td&gt;高（到处加 try-catch）&lt;/td&gt;
+ &lt;td&gt;低（只在需要处理的地方捕获）&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h1 id="file"&gt;File
+&lt;/h1&gt;&lt;h2 id="常用方法-1"&gt;常用方法
+&lt;/h2&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;类别&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;方法名&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;返回值&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;核心功能&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;备注&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;获取&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;getName()&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;String&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;获取文件或文件夹名称&lt;/td&gt;
+ &lt;td&gt;带后缀名（如 &lt;code&gt;a.txt&lt;/code&gt;）&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;length()&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;long&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;获取文件大小，文件夹为&lt;code&gt;0&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;单位是&lt;strong&gt;字节 (Byte)&lt;/strong&gt;，UTF-8一个汉字三个字节&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;lastModified()&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;long&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;最后修改时间&lt;/td&gt;
+ &lt;td&gt;毫秒值，需转换日期&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;路径&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;getPath()&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;String&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;获取构造时传入的路径&lt;/td&gt;
+ &lt;td&gt;怎么 &lt;code&gt;new&lt;/code&gt;的就给什么&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;getAbsolutePath()&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;String&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;获取&lt;strong&gt;绝对路径&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;从盘符开始的全路径&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;判断&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;exists()&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;boolean&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;路径是否存在&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;最常用&lt;/strong&gt;，防报错必备&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;isFile()&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;boolean&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;是否为文件&lt;/td&gt;
+ &lt;td&gt;路径不存在则返回 false&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;isDirectory()&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;boolean&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;是否为文件夹&lt;/td&gt;
+ &lt;td&gt;路径不存在则返回 false&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;创建&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;createNewFile()&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;boolean&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;创建新文件&lt;/td&gt;
+ &lt;td&gt;文件夹不存在会创建失败&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;mkdirs()&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;boolean&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;递归&lt;/strong&gt;创建文件夹&lt;/td&gt;
+ &lt;td&gt;建议永远用带 s 的这个&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;删除&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;delete()&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;boolean&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;删除文件/空文件夹&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;不走回收站&lt;/strong&gt;，直接消失&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;综合练习：&lt;/strong&gt; 统计各种文件的数量&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;/**
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt; * 递归方法：统计指定目录下所有文件的后缀名数量（包含子目录）
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt; * @param src 要统计的目标目录File对象
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt; * @return 后缀名-数量的HashMap，键为后缀名/无后缀，值为对应数量
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt; */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;static&lt;/span&gt; HashMap&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;String,Integer&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;getCount&lt;/span&gt;(File src){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	HashMap&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;String,Integer&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt;hm &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; HashMap&lt;span style="color:#f92672"&gt;&amp;lt;&amp;gt;&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	File&lt;span style="color:#f92672"&gt;[]&lt;/span&gt; fs &lt;span style="color:#f92672"&gt;=&lt;/span&gt; src.&lt;span style="color:#a6e22e"&gt;listFiles&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#75715e"&gt;// 判空：避免目录为空/无访问权限导致空指针&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (fs &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;null&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;		&lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; (File f : fs) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;			&lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (f.&lt;span style="color:#a6e22e"&gt;isFile&lt;/span&gt;()) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;				&lt;span style="color:#75715e"&gt;// 按&amp;#34;.&amp;#34;分割文件名，用于提取后缀名（注意转义符\\.）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;				String&lt;span style="color:#f92672"&gt;[]&lt;/span&gt; split &lt;span style="color:#f92672"&gt;=&lt;/span&gt; f.&lt;span style="color:#a6e22e"&gt;getName&lt;/span&gt;().&lt;span style="color:#a6e22e"&gt;split&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;\\.&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;				
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;				&lt;span style="color:#75715e"&gt;// 分割后长度&amp;gt;=2说明有后缀名（如test.txt分割后是[test,txt]）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;				&lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(split.&lt;span style="color:#a6e22e"&gt;length&lt;/span&gt; &lt;span style="color:#f92672"&gt;&amp;gt;=&lt;/span&gt; 2){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;					&lt;span style="color:#75715e"&gt;// 取分割数组最后一个元素作为后缀名&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;					String endName &lt;span style="color:#f92672"&gt;=&lt;/span&gt; split&lt;span style="color:#f92672"&gt;[&lt;/span&gt;split.&lt;span style="color:#a6e22e"&gt;length&lt;/span&gt;&lt;span style="color:#f92672"&gt;-&lt;/span&gt;1&lt;span style="color:#f92672"&gt;]&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;					
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;					&lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(&lt;span style="color:#f92672"&gt;!&lt;/span&gt;hm.&lt;span style="color:#a6e22e"&gt;containsKey&lt;/span&gt;(endName))
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;						hm.&lt;span style="color:#a6e22e"&gt;put&lt;/span&gt;(endName,1);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;					&lt;span style="color:#66d9ef"&gt;else&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;						hm.&lt;span style="color:#a6e22e"&gt;put&lt;/span&gt;(endName,hm.&lt;span style="color:#a6e22e"&gt;get&lt;/span&gt;(endName)&lt;span style="color:#f92672"&gt;+&lt;/span&gt;1);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;				}&lt;span style="color:#66d9ef"&gt;else&lt;/span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;					&lt;span style="color:#75715e"&gt;// 分割后长度&amp;lt;2说明无后缀名（如readme、.gitignore）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;					&lt;span style="color:#75715e"&gt;// 首次统计&amp;#34;无后缀&amp;#34;：初始化为1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;					
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;					&lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(&lt;span style="color:#f92672"&gt;!&lt;/span&gt;hm.&lt;span style="color:#a6e22e"&gt;containsKey&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;无后缀&amp;#34;&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;						hm.&lt;span style="color:#a6e22e"&gt;put&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;无后缀&amp;#34;&lt;/span&gt;,1);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;					&lt;span style="color:#66d9ef"&gt;else&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;						hm.&lt;span style="color:#a6e22e"&gt;put&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;无后缀&amp;#34;&lt;/span&gt;,hm.&lt;span style="color:#a6e22e"&gt;get&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;无后缀&amp;#34;&lt;/span&gt;)&lt;span style="color:#f92672"&gt;+&lt;/span&gt;1);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;				}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;			}&lt;span style="color:#66d9ef"&gt;else&lt;/span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;				&lt;span style="color:#75715e"&gt;// 当前File是子目录：递归调用getCount统计子目录的后缀名&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;				HashMap&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;String,Integer&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; dfs &lt;span style="color:#f92672"&gt;=&lt;/span&gt; getCount(f);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;				&lt;span style="color:#75715e"&gt;// 遍历子目录的统计结果，合并到当前目录的HashMap中&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;				
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;				&lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; (String k : dfs.&lt;span style="color:#a6e22e"&gt;keySet&lt;/span&gt;()){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;					&lt;span style="color:#75715e"&gt;// 当前目录未统计过该后缀：直接赋值子目录的统计数&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;					&lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(&lt;span style="color:#f92672"&gt;!&lt;/span&gt;hm.&lt;span style="color:#a6e22e"&gt;containsKey&lt;/span&gt;(k))
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;						hm.&lt;span style="color:#a6e22e"&gt;put&lt;/span&gt;(k,dfs.&lt;span style="color:#a6e22e"&gt;get&lt;/span&gt;(k));
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;					&lt;span style="color:#75715e"&gt;// 当前目录已统计过该后缀：累加子目录的统计数&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;					&lt;span style="color:#66d9ef"&gt;else&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;						hm.&lt;span style="color:#a6e22e"&gt;put&lt;/span&gt;(k,hm.&lt;span style="color:#a6e22e"&gt;get&lt;/span&gt;(k)&lt;span style="color:#f92672"&gt;+&lt;/span&gt;dfs.&lt;span style="color:#a6e22e"&gt;get&lt;/span&gt;(k));
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;				}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;			}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;		}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#75715e"&gt;// 返回当前目录（含子目录）的最终统计结果&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; hm;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>00-基础知识拓展</title><link>/post/00-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%8B%93%E5%B1%95/</link><pubDate>Tue, 03 Feb 2026 00:00:00 +0000</pubDate><guid>/post/00-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E6%8B%93%E5%B1%95/</guid><description/></item><item><title>01-基本语法</title><link>/post/01-%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/</link><pubDate>Tue, 03 Feb 2026 00:00:00 +0000</pubDate><guid>/post/01-%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/</guid><description>&lt;h1 id="数组"&gt;数组
 &lt;/h1&gt;&lt;h2 id="索引"&gt;索引
