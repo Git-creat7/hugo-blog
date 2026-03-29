@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>反射 on Creat7</title><link>/tags/%E5%8F%8D%E5%B0%84/</link><description>Recent content in 反射 on Creat7</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 27 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="/tags/%E5%8F%8D%E5%B0%84/index.xml" rel="self" type="application/rss+xml"/><item><title>15-反射与动态代理</title><link>/post/15-%E5%8F%8D%E5%B0%84%E4%B8%8E%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/15-%E5%8F%8D%E5%B0%84%E4%B8%8E%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/</link><pubDate>Fri, 27 Mar 2026 00:00:00 +0000</pubDate><guid>/post/15-%E5%8F%8D%E5%B0%84%E4%B8%8E%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/15-%E5%8F%8D%E5%B0%84%E4%B8%8E%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;本文更新于 2026-03-26&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id="反射"&gt;反射
+&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;原定义：允许对封装类的字段，方法，和构造函数的信息进行编程式访问&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;反射&lt;/strong&gt; 允许程序在&lt;strong&gt;运行状态&lt;/strong&gt;中，对于任意一个类，都能知道这个类的所有属性和方法；对于任意一个对象，都能调用它的任意方法和属性。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;正常方式&lt;/strong&gt;：引入包 $\rightarrow$ &lt;code&gt;new&lt;/code&gt; 对象 $\rightarrow$ 调用方法。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;反射方式&lt;/strong&gt;：获取 &lt;code&gt;Class&lt;/code&gt; 对象 $\rightarrow$ 解剖类内容 $\rightarrow$ 操作成员。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="获取-class-对象的三种方式"&gt;获取 Class 对象的三种方式
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;类名.class&lt;/strong&gt;（最安全，性能最高）：
+&lt;code&gt;Class clazz = Student.class;&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一般当作参数进行传递&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;对象.getClass()&lt;/strong&gt;（已有对象时使用）：
+&lt;code&gt;Student s = new Student(); Class clazz = s.getClass();&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Class.forName(&amp;ldquo;全类名&amp;rdquo;)&lt;/strong&gt;（&lt;strong&gt;最常用&lt;/strong&gt;，配置文件加载）：
+&lt;code&gt;Class clazz = Class.forName(&amp;quot;com.mysql.cj.jdbc.Driver&amp;quot;);&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="核心api"&gt;核心API
+&lt;/h2&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;操作目标&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;对应类&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;核心方法&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;构造方法&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;Constructor&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;newInstance(参数)&lt;/code&gt; ：创建对象&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;成员变量&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;Field&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;set(对象, 值)&lt;/code&gt; / &lt;code&gt;get(对象)&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;成员方法&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;Method&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;invoke(对象, 参数)&lt;/code&gt; ：运行方法&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id="反射获取构造方法"&gt;反射获取构造方法
+&lt;/h2&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;方法名&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;作用&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;备注&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;getConstructors()&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;获取所有 &lt;strong&gt;public&lt;/strong&gt; 构造&lt;/td&gt;
+ &lt;td&gt;只能拿到公有的。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;getDeclaredConstructors()&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;获取 &lt;strong&gt;所有&lt;/strong&gt; 构造&lt;/td&gt;
+ &lt;td&gt;包含私有、受保护的。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;getConstructor(Class...)&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;获取指定的 &lt;strong&gt;public&lt;/strong&gt; 构造&lt;/td&gt;
+ &lt;td&gt;需传入参数类型的字节码。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;getDeclaredConstructor(Class...)&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;获取指定的构造&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;最常用&lt;/strong&gt;，可以获取私有构造。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id="反射获取成员变量"&gt;反射获取成员变量
+&lt;/h2&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;方法名&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;作用&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;备注&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;getFields()&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;获取所有 &lt;strong&gt;public&lt;/strong&gt; 变量&lt;/td&gt;
+ &lt;td&gt;包含从父类继承的公有变量。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;getDeclaredFields()&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;获取 &lt;strong&gt;所有&lt;/strong&gt; 变量&lt;/td&gt;
+ &lt;td&gt;仅限本类定义的（含私有）。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;getField(String name)&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;获取指定的 &lt;strong&gt;public&lt;/strong&gt; 变量&lt;/td&gt;
+ &lt;td&gt;根据变量名获取。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;getDeclaredField(String name)&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;获取指定的变量&lt;/td&gt;
+ &lt;td&gt;可以获取私有变量。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;当变量为private时，可以通过&lt;code&gt;setAccessible(true)&lt;/code&gt;设置为可访问&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	Class clazz &lt;span style="color:#f92672"&gt;=&lt;/span&gt; Class.&lt;span style="color:#a6e22e"&gt;forName&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;asia.creat.demo2.Student&amp;#34;&lt;/span&gt;); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	Field name &lt;span style="color:#f92672"&gt;=&lt;/span&gt; clazz.&lt;span style="color:#a6e22e"&gt;getDeclaredField&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;name&amp;#34;&lt;/span&gt;); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	Student s &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; Student(&lt;span style="color:#e6db74"&gt;&amp;#34;张三&amp;#34;&lt;/span&gt;,23,&lt;span style="color:#e6db74"&gt;&amp;#34;男&amp;#34;&lt;/span&gt;); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	name.&lt;span style="color:#a6e22e"&gt;setAccessible&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;true&lt;/span&gt;); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	Object value &lt;span style="color:#f92672"&gt;=&lt;/span&gt; name.&lt;span style="color:#a6e22e"&gt;get&lt;/span&gt;(s); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	System.&lt;span style="color:#a6e22e"&gt;out&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;println&lt;/span&gt;(value); 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="反射获取成员方法"&gt;反射获取成员方法
+&lt;/h2&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;方法名&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;作用&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;备注&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;getMethods()&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;获取所有 &lt;strong&gt;public&lt;/strong&gt; 方法&lt;/td&gt;
+ &lt;td&gt;包含本类及父类继承的所有公有方法。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;getDeclaredMethods()&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;获取 &lt;strong&gt;所有&lt;/strong&gt; 方法&lt;/td&gt;
+ &lt;td&gt;仅限本类定义的（含私有）。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;getMethod(String, Class...)&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;获取指定的 &lt;strong&gt;public&lt;/strong&gt; 方法&lt;/td&gt;
+ &lt;td&gt;需指定方法名和参数类型。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;getDeclaredMethod(String, Class...)&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;获取指定的方法&lt;/td&gt;
+ &lt;td&gt;用于精确锁定本类某个方法。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id="总结反射的三步"&gt;总结：反射的三步
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;获取 Class 对象&lt;/strong&gt;：&lt;code&gt;Class clazz = Class.forName(&amp;quot;全类名&amp;quot;);&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;获取成员对象&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;找构造：&lt;code&gt;getDeclaredConstructor()&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;找属性：&lt;code&gt;getDeclaredField(&amp;quot;变量名&amp;quot;)&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;找方法：&lt;code&gt;getDeclaredMethod(&amp;quot;方法名&amp;quot;, 参数.class)&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;暴力拆解（针对 private）&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;执行 &lt;code&gt;setAccessible(true);&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;实际操作&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;构造 $\rightarrow$ &lt;code&gt;newInstance()&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;属性 $\rightarrow$ &lt;code&gt;set() / get()&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;方法 $\rightarrow$ &lt;code&gt;invoke()&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id="动态代理"&gt;动态代理
+&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;无侵入性&lt;/strong&gt;：不需要修改 &lt;code&gt;BigStar&lt;/code&gt; 的任何代码，就能给它增加功能。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;JDK 代理限制&lt;/strong&gt;：只能代理&lt;strong&gt;实现了接口&lt;/strong&gt;的类。如果一个类没接口，需要使用 &lt;strong&gt;CGLIB&lt;/strong&gt;（通过继承实现代理）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;应用场景&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;日志记录&lt;/strong&gt;：每个方法执行前打印参数，执行后打印耗时。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;权限校验&lt;/strong&gt;：执行方法前检查用户是否登录。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;事务管理&lt;/strong&gt;：Spring 在方法开始前开启事务，结束后提交或回滚。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;// 1. 定义接口（明星的功能清单）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;interface&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Star&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; String &lt;span style="color:#a6e22e"&gt;sing&lt;/span&gt;(String name);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;dance&lt;/span&gt;(String name);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;// 2. 定义实现类（真正的明星：被代理对象）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;class&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;BigStar&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;implements&lt;/span&gt; Star {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;private&lt;/span&gt; String name;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;BigStar&lt;/span&gt;(String name) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;this&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;name&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt; name;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;@Override&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; String &lt;span style="color:#a6e22e"&gt;sing&lt;/span&gt;(String name) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; System.&lt;span style="color:#a6e22e"&gt;out&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;println&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;this&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;name&lt;/span&gt; &lt;span style="color:#f92672"&gt;+&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;正在唱歌: &amp;#34;&lt;/span&gt; &lt;span style="color:#f92672"&gt;+&lt;/span&gt; name);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;谢谢&amp;#34;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;@Override&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;dance&lt;/span&gt;(String name) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; System.&lt;span style="color:#a6e22e"&gt;out&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;println&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;this&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;name&lt;/span&gt; &lt;span style="color:#f92672"&gt;+&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;正在跳舞: &amp;#34;&lt;/span&gt; &lt;span style="color:#f92672"&gt;+&lt;/span&gt; name);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// Getter &amp;amp; Setter ...&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; String &lt;span style="color:#a6e22e"&gt;getName&lt;/span&gt;() { &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; name; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;setName&lt;/span&gt;(String name) { &lt;span style="color:#66d9ef"&gt;this&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;name&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt; name; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;// 3. 创建代理工具类（经纪人生成器）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;import&lt;/span&gt; java.lang.reflect.Proxy;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;class&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;ProxyUtil&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;static&lt;/span&gt; Star &lt;span style="color:#a6e22e"&gt;creatProxy&lt;/span&gt;(BigStar bs) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;/*
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt; * Proxy.newProxyInstance 参数说明：
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt; * 1. 类加载器：用于加载生成的代理类
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt; * 2. 接口数组：告诉代理类要实现哪些方法
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt; * 3. 处理器(InvocationHandler)：定义代理对象要额外做的“杂事”
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt; */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Star s &lt;span style="color:#f92672"&gt;=&lt;/span&gt; (Star) Proxy.&lt;span style="color:#a6e22e"&gt;newProxyInstance&lt;/span&gt;(
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ProxyUtil.&lt;span style="color:#a6e22e"&gt;class&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;getClassLoader&lt;/span&gt;(),
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; Class&lt;span style="color:#f92672"&gt;[]&lt;/span&gt;{Star.&lt;span style="color:#a6e22e"&gt;class&lt;/span&gt;},
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; (proxy, method, args) &lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 这里就是“增强”逻辑（插队干活）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (&lt;span style="color:#e6db74"&gt;&amp;#34;sing&amp;#34;&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;equals&lt;/span&gt;(method.&lt;span style="color:#a6e22e"&gt;getName&lt;/span&gt;())) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; System.&lt;span style="color:#a6e22e"&gt;out&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;println&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;【准备】准备话筒，收钱&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } &lt;span style="color:#66d9ef"&gt;else&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (&lt;span style="color:#e6db74"&gt;&amp;#34;dance&amp;#34;&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;equals&lt;/span&gt;(method.&lt;span style="color:#a6e22e"&gt;getName&lt;/span&gt;())) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; System.&lt;span style="color:#a6e22e"&gt;out&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;println&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;【准备】准备场地，收钱&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 核心步骤：通过反射调用被代理对象（明星）的真实方法&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; method.&lt;span style="color:#a6e22e"&gt;invoke&lt;/span&gt;(bs, args);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; );
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; s;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;// 4. 测试类（外部调用）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;class&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;ReflectDemo&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;static&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;main&lt;/span&gt;(String&lt;span style="color:#f92672"&gt;[]&lt;/span&gt; args) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 1. 创建真实的对象&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; BigStar bs &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; BigStar(&lt;span style="color:#e6db74"&gt;&amp;#34;张三&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 2. 获取代理对象（请经纪人）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Star proxy &lt;span style="color:#f92672"&gt;=&lt;/span&gt; ProxyUtil.&lt;span style="color:#a6e22e"&gt;creatProxy&lt;/span&gt;(bs);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 3. 通过代理对象调用方法&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; String result &lt;span style="color:#f92672"&gt;=&lt;/span&gt; proxy.&lt;span style="color:#a6e22e"&gt;sing&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;《千里之外》&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; System.&lt;span style="color:#a6e22e"&gt;out&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;println&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;返回值: &amp;#34;&lt;/span&gt; &lt;span style="color:#f92672"&gt;+&lt;/span&gt; result);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; System.&lt;span style="color:#a6e22e"&gt;out&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;println&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;--------------------&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; proxy.&lt;span style="color:#a6e22e"&gt;dance&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;太空步&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item></channel></rss>
