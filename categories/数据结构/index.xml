@@ -58,15 +58,9 @@
 &lt;li&gt;每一个节点上最多有两个子节点&lt;/li&gt;
 &lt;li&gt;任意节点左子树上的值都小于当前节点&lt;/li&gt;
 &lt;li&gt;任意节点右子树上的值都大于当前节点
-&lt;img src="/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image/09.png"
- width="872"
- height="484"
+&lt;img src="/post/image/09.png"
  loading="lazy"
- 
- 
- class="gallery-image"
- data-flex-grow="180"
- data-flex-basis="432px"
+ data-pending-gallery
  
  &gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -79,15 +73,9 @@
 &lt;li&gt;左子树全部为空，从形式上看，更像一个==单链表==&lt;/li&gt;
 &lt;li&gt;插入速度没有影响&lt;/li&gt;
 &lt;li&gt;查询速度明显降低
-&lt;img src="/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image/09-1.png"
- width="921"
- height="594"
+&lt;img src="/post/image/09-1.png"
  loading="lazy"
- 
- 
- class="gallery-image"
- data-flex-grow="155"
- data-flex-basis="372px"
+ data-pending-gallery
  
  &gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -96,15 +84,9 @@
 &lt;ul&gt;
 &lt;li&gt;二叉查找树&lt;/li&gt;
 &lt;li&gt;规则：==&lt;strong&gt;任意&lt;/strong&gt;节点左右子树高度差不超过1==
-&lt;img src="/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image/09-3.png"
- width="2011"
- height="415"
+&lt;img src="/post/image/09-3.png"
  loading="lazy"
- 
- 
- class="gallery-image"
- data-flex-grow="484"
- data-flex-basis="1162px"
+ data-pending-gallery
  
  &gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -131,27 +113,15 @@
 &lt;table&gt;
  &lt;thead&gt;
  &lt;tr&gt;
- &lt;th&gt;&lt;img src="/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image/09-4.png"
- width="845"
- height="613"
+ &lt;th&gt;&lt;img src="/post/image/09-4.png"
  loading="lazy"
+ data-pending-gallery
  alt="500"
- 
- class="gallery-image"
- data-flex-grow="137"
- data-flex-basis="330px"
- 
  &gt;&lt;/th&gt;
- &lt;th&gt;&lt;img src="/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image/09-5.png"
- width="548"
- height="402"
+ &lt;th&gt;&lt;img src="/post/image/09-5.png"
  loading="lazy"
+ data-pending-gallery
  alt="500"
- 
- class="gallery-image"
- data-flex-grow="136"
- data-flex-basis="327px"
- 
  &gt;&lt;/th&gt;
  &lt;/tr&gt;
  &lt;/thead&gt;
@@ -170,27 +140,15 @@
 &lt;table&gt;
  &lt;thead&gt;
  &lt;tr&gt;
- &lt;th&gt;&lt;img src="/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image/09-6.png"
- width="998"
- height="698"
+ &lt;th&gt;&lt;img src="/post/image/09-6.png"
  loading="lazy"
+ data-pending-gallery
  alt="500"
- 
- class="gallery-image"
- data-flex-grow="142"
- data-flex-basis="343px"
- 
  &gt;&lt;/th&gt;
- &lt;th&gt;&lt;img src="/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image/09-7.png"
- width="985"
- height="670"
+ &lt;th&gt;&lt;img src="/post/image/09-7.png"
  loading="lazy"
+ data-pending-gallery
  alt="500"
- 
- class="gallery-image"
- data-flex-grow="147"
- data-flex-basis="352px"
- 
  &gt;&lt;/th&gt;
  &lt;/tr&gt;
  &lt;/thead&gt;
@@ -221,15 +179,9 @@
 &lt;li&gt;再整体左旋&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
-&lt;p&gt;&lt;img src="/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image/09-8.png"
- width="1774"
- height="1017"
+&lt;p&gt;&lt;img src="/post/image/09-8.png"
  loading="lazy"
- 
- 
- class="gallery-image"
- data-flex-grow="174"
- data-flex-basis="418px"
+ data-pending-gallery
  
  &gt;&lt;/p&gt;
 &lt;hr&gt;
@@ -255,15 +207,9 @@
 &lt;/h4&gt;&lt;ul&gt;
 &lt;li&gt;添加的节点默认是红色的（红色效率高）&lt;/li&gt;
 &lt;li&gt;查找、插入、删除的时间复杂度最坏为O(log n)
-&lt;img src="/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image/09-10.png"
- width="2275"
- height="896"
+&lt;img src="/post/image/09-10.png"
  loading="lazy"
- 
- 
- class="gallery-image"
- data-flex-grow="253"
- data-flex-basis="609px"
+ data-pending-gallery
  
  &gt;&lt;/li&gt;
 &lt;/ul&gt;</description></item></channel></rss>
