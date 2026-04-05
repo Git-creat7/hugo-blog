@@ -869,10 +869,10 @@
 &lt;h2 id="b-tree"&gt;B-Tree
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;a class="link" href="JavaSE/09-%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84###%e5%bc%8a%e7%ab%af" &gt;二叉树缺点&lt;/a&gt;：顺序插入时，会形成一个链表，查询性能大大下降。大数据量情况下，层级较深，检索速度慢&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="09-%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84###%e5%bc%8a%e7%ab%af" &gt;二叉树缺点&lt;/a&gt;：顺序插入时，会形成一个链表，查询性能大大下降。大数据量情况下，层级较深，检索速度慢&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;a class="link" href="JavaSE/09-%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84#%e7%ba%a2%e9%bb%91%e6%a0%91" &gt;红黑树&lt;/a&gt;：大数据量情况下，层次较深，检索速度慢&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="09-%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84#%e7%ba%a2%e9%bb%91%e6%a0%91" &gt;红黑树&lt;/a&gt;：大数据量情况下，层次较深，检索速度慢&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;B-Tree:&lt;/p&gt;
