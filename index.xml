@@ -858,20 +858,14 @@
  &lt;td style="text-align: left"&gt;&lt;strong&gt;Full-text 索引&lt;/strong&gt;&lt;/td&gt;
  &lt;td style="text-align: left"&gt;全文索引，通过建立倒排索引快速匹配文本中的关键词。类似于：Lucence，Solr，ES&lt;/td&gt;
  &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td style="text-align: left"&gt;&lt;img src="/post/image/%e8%bf%9b%e9%98%b6-%e7%b4%a2%e5%bc%95-1.png"
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;img src="/post/image/%e8%bf%9b%e9%98%b6-%e7%b4%a2%e5%bc%95-1.png"
  loading="lazy"
  data-pending-gallery
  
- &gt;&lt;/td&gt;
- &lt;td&gt;&lt;/td&gt;
- &lt;/tr&gt;
- &lt;tr&gt;
- &lt;td style="text-align: left"&gt;&lt;strong&gt;注意&lt;/strong&gt;：InnoDB 具有&lt;strong&gt;自适应哈希索引 (Adaptive Hash Index)&lt;/strong&gt; 功能。当 InnoDB 注意到某些索引值被频繁查询时，会在内存中自动基于 B+Tree 索引建立哈希索引，以加速等值寻找。&lt;/td&gt;
- &lt;td&gt;&lt;/td&gt;
- &lt;/tr&gt;
- &lt;/tbody&gt;
-&lt;/table&gt;
+ &gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：InnoDB 具有&lt;strong&gt;自适应哈希索引 (Adaptive Hash Index)&lt;/strong&gt; 功能。当 InnoDB 注意到某些索引值被频繁查询时，会在内存中自动基于 B+Tree 索引建立哈希索引，以加速等值寻找。&lt;/p&gt;
 &lt;h2 id="b-tree"&gt;B-Tree
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;
