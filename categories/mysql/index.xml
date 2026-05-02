@@ -1,4 +1,1328 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MySQL on Creat7</title><link>/categories/mysql/</link><description>Recent content in MySQL on Creat7</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 04 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="/categories/mysql/index.xml" rel="self" type="application/rss+xml"/><item><title>进阶-SQL优化</title><link>/post/%E8%BF%9B%E9%98%B6-sql%E4%BC%98%E5%8C%96/</link><pubDate>Sat, 04 Apr 2026 00:00:00 +0000</pubDate><guid>/post/%E8%BF%9B%E9%98%B6-sql%E4%BC%98%E5%8C%96/</guid><description>&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MySQL on Creat7</title><link>/categories/mysql/</link><description>Recent content in MySQL on Creat7</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 05 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="/categories/mysql/index.xml" rel="self" type="application/rss+xml"/><item><title>InnoDB引擎</title><link>/post/innodb%E5%BC%95%E6%93%8E/</link><pubDate>Sun, 05 Apr 2026 00:00:00 +0000</pubDate><guid>/post/innodb%E5%BC%95%E6%93%8E/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;本文更新于 2026-04-05&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;InnoDB 是 MySQL 的默认事务型引擎，也是目前最常用、最强大的存储引擎。它被设计用来处理大量的短期事务，具有高性能和高可用性。&lt;/p&gt;
+&lt;h1 id="核心特性"&gt;核心特性
+&lt;/h1&gt;&lt;p&gt;InnoDB 的强大源于其四大核心支柱：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;事务支持 (ACID)&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;支持事务的原子性、一致性、隔离性和持久性。通过 &lt;strong&gt;Redo Log&lt;/strong&gt;（重做日志）保证持久性，通过 &lt;strong&gt;Undo Log&lt;/strong&gt;（回滚日志）保证原子性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;行级锁 (Row-level Locking)&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;不同于 MyISAM 的表级锁，InnoDB 支持行锁，极大提高了多用户并发操作的性能。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;外键约束 (Foreign Key)&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;它是 MySQL 中唯一支持外键的内置存储引擎，能够维护数据的参照完整性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;MVCC (多版本并发控制)&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;通过 Read View 和 Undo Log 实现非阻塞读。在“可重复读”隔离级别下，读操作不会加锁，从而提升了并发查询效率。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h1 id="逻辑存储结构"&gt;逻辑存储结构
+&lt;/h1&gt;&lt;p&gt;InnoDB 将所有数据逻辑地存放在一个名为 &lt;strong&gt;Tablespace&lt;/strong&gt;（表空间）的地方，其结构从大到小依次为：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;表空间 (Tablespace)&lt;/strong&gt;：包含系统表空间（ibdata1）或独立表空间（.ibd）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;段 (Segment)&lt;/strong&gt;：分为数据段（Leaf node segment）、索引段（Non-leaf node segment）等。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;区 (Extent)&lt;/strong&gt;：固定大小为 1MB，由 64 个连续的页组成。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;页 (Page)&lt;/strong&gt;：InnoDB 磁盘管理的最小单位，默认大小为 &lt;strong&gt;16KB&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;行 (Row)&lt;/strong&gt;：InnoDB存储引擎数据是按行进行存放的&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h1 id="mysql-innodb-架构"&gt;MySQL InnoDB 架构
+&lt;/h1&gt;&lt;p&gt;InnoDB 存储引擎的架构设计主要分为两个部分：
+&lt;strong&gt;内存结构 (In-Memory Structures)&lt;/strong&gt; 和 &lt;strong&gt;磁盘结构 (On-Disk Structures)&lt;/strong&gt;。
+这种设计旨在平衡高性能（内存操作）与数据持久性（磁盘存储）。&lt;/p&gt;
+&lt;h2 id="内存结构-in-memory-structures"&gt;内存结构 (In-Memory Structures)
+&lt;/h2&gt;&lt;p&gt;内存池是 InnoDB 性能的核心，其主要组件包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Buffer Pool (缓冲池)&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;核心作用&lt;/strong&gt;：缓存磁盘上的真实数据页和索引页。
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;机制&lt;/strong&gt;：读取数据时，若缓冲池有则直接返回；修改数据时，先修改缓冲池中的页（变为“脏页”），再通过 Checkpoint 机制异步刷入磁盘。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;img src="InnoDB%e5%bc%95%e6%93%8e-3.png"
+ loading="lazy"
+ data-pending-gallery
+ 
+ &gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Change Buffer (写缓冲区)&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;针对&lt;strong&gt;非唯一辅助索引&lt;/strong&gt;的优化。当插入或更新辅助索引且该页不在缓冲池时，先记录在 Change Buffer 中，等未来读取该页时再进行合并。&lt;/li&gt;
+&lt;li&gt;&lt;img src="InnoDB%e5%bc%95%e6%93%8e-4.png"
+ loading="lazy"
+ data-pending-gallery
+ 
+ &gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Adaptive Hash Index (自适应哈希索引)&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;InnoDB 会监控表上的索引查询，如果观察到某些索引值被频繁访问，会自动建立哈希索引以加速查询（将 B+ 树查询变为 O(1) 查找）&lt;/li&gt;
+&lt;li&gt;&lt;img src="InnoDB%e5%bc%95%e6%93%8e-5.png"
+ loading="lazy"
+ data-pending-gallery
+ 
+ &gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Log Buffer (日志缓冲区)&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用于保存准备写入磁盘的 &lt;strong&gt;Redo Log&lt;/strong&gt; 数据。默认大小为 16MB，定期刷入磁盘以保证事务的持久性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;意义：&lt;/strong&gt; 即使内存里的数据还没来得及写回磁盘就断电了，重启后也能通过磁盘上的 Redo Log 把数据恢复回来。&lt;/li&gt;
+&lt;li&gt;&lt;img src="InnoDB%e5%bc%95%e6%93%8e-6.png"
+ loading="lazy"
+ data-pending-gallery
+ 
+ &gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="磁盘结构-on-disk-structures"&gt;磁盘结构 (On-Disk Structures)
+&lt;/h2&gt;&lt;p&gt;磁盘结构确保了数据的物理存储和崩溃恢复能力：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Tablespaces (表空间)&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;System Tablespace (系统表空间)&lt;/strong&gt;：存储 InnoDB 数据字典、双写缓冲区等。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;File-Per-Table Tablespaces (独立表空间)&lt;/strong&gt;：每个表对应一个 &lt;code&gt;.ibd&lt;/code&gt; 文件，存储该表的数据和索引&lt;/li&gt;
+&lt;li&gt;&lt;img src="InnoDB%e5%bc%95%e6%93%8e-7.png"
+ loading="lazy"
+ data-pending-gallery
+ 
+ &gt;&lt;/li&gt;
+&lt;li&gt;创建表空间&amp;amp;撤销表空间&amp;amp;临时表空间&lt;/li&gt;
+&lt;li&gt;&lt;img src="InnoDB%e5%bc%95%e6%93%8e-8.png"
+ loading="lazy"
+ data-pending-gallery
+ 
+ &gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Doublewrite Buffer (双写缓冲区)&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;位于系统表空间的物理存储区。在将页写入数据文件前，先写入此处。用于防止在写入过程中发生断电导致的“页破碎”问题。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Redo Log (重做日志)&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;记录对页的物理修改。当数据库宕机重启，会根据 Redo Log 将未落盘的脏页恢复。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Undo Logs (回滚日志)&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;逻辑日志，记录事务变更前的样子。用于&lt;strong&gt;事务回滚&lt;/strong&gt;和 &lt;strong&gt;MVCC&lt;/strong&gt;（实现非阻塞读）。
+&lt;img src="InnoDB%e5%bc%95%e6%93%8e-9.png"
+ loading="lazy"
+ data-pending-gallery
+ 
+ &gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="核心后台线程"&gt;核心后台线程
+&lt;/h2&gt;&lt;p&gt;InnoDB 依靠多个后台线程来维持运行：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Master Thread&lt;/strong&gt;：负责将缓冲池数据异步刷新到磁盘，保持数据一致性。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;IO Thread&lt;/strong&gt;：主要负责 AIO（异步IO）请求的回调处理（分为 Read, Write, Log, Insert Buffer 线程）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Purge Thread&lt;/strong&gt;：事务提交后，负责回收已经不再需要的 Undo Log 页。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Page Cleaner Thread&lt;/strong&gt;：专门负责脏页的刷新工作，减轻 Master Thread 的负担。
+&lt;img src="InnoDB%e5%bc%95%e6%93%8e-10.png"
+ loading="lazy"
+ data-pending-gallery
+ 
+ &gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id="架构设计的精髓wal-write-ahead-logging"&gt;架构设计的精髓：WAL (Write-Ahead Logging)
+&lt;/h2&gt;&lt;p&gt;InnoDB 遵循 &lt;strong&gt;日志先行策略&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;当数据发生变更时，先修改内存（Buffer Pool），并同步记录 Redo Log 到磁盘。&lt;/li&gt;
+&lt;li&gt;只要 Redo Log 落地，即使此时内存中的“脏页”还没来得及刷入磁盘，数据库发生崩溃也能通过日志恢复。&lt;/li&gt;
+&lt;li&gt;这种将“随机写磁盘”转变为“顺序写日志”的设计，是 InnoDB 高性能读写的基石。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h1 id="事务原理"&gt;事务原理
+&lt;/h1&gt;&lt;p&gt;事务（Transaction）是逻辑上的一组操作，要么全部成功，要么全部失败。在 InnoDB 引擎中，事务的四大特性（ACID）是通过不同的技术手段共同保障的。&lt;/p&gt;
+&lt;h2 id="持久性-durability--redo-log"&gt;持久性 (Durability) — Redo Log
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;定义&lt;/strong&gt;：一旦事务提交，它对数据库的改变就是永久性的，即使系统崩溃也不会丢失。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;实现原理&lt;/strong&gt;：&lt;strong&gt;Redo Log（重做日志）&lt;/strong&gt; 与 &lt;strong&gt;WAL（Write-Ahead Logging）&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;工作机制&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;当数据修改时，InnoDB 先修改 Buffer Pool 中的内存页。&lt;/li&gt;
+&lt;li&gt;同时将修改操作记录到 &lt;strong&gt;Redo Log Buffer&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;事务提交时，根据策略将 Redo Log 顺序写入磁盘文件。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Crash Recovery&lt;/strong&gt;：如果数据库宕机，虽然内存里的脏页丢了，但重启后系统会读取磁盘上的 Redo Log，把未落盘的修改“重做”一遍。
+&lt;img src="InnoDB%e5%bc%95%e6%93%8e-11.png"
+ loading="lazy"
+ data-pending-gallery
+ 
+ &gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="原子性-atomicity--undo-log"&gt;原子性 (Atomicity) — Undo Log
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;定义&lt;/strong&gt;：事务是不可分割的最小单位，要么全部完成，要么全部不完成。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;实现原理&lt;/strong&gt;：&lt;strong&gt;Undo Log（回滚日志）&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;工作机制&lt;/strong&gt;：当事务对数据库进行修改时，InnoDB 会生成对应的 Undo Log。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果你执行的是 &lt;code&gt;INSERT&lt;/code&gt;，日志会记录一条对应的 &lt;code&gt;DELETE&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;如果你执行的是 &lt;code&gt;UPDATE&lt;/code&gt;，日志会记录修改前的数据。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;结果&lt;/strong&gt;：如果事务执行失败或调用了 &lt;code&gt;ROLLBACK&lt;/code&gt;，系统会利用 Undo Log 中的逻辑记录将数据恢复到事务开始前的样子。
+&lt;img src="InnoDB%e5%bc%95%e6%93%8e-12.png"
+ loading="lazy"
+ data-pending-gallery
+ 
+ &gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="一致性-consistency"&gt;一致性 (Consistency)
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;定义&lt;/strong&gt;：事务执行前后，数据库的完整性约束没有被破坏，数据从一个一致性状态转移到另一个一致性状态。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;实现原理&lt;/strong&gt;：一致性是事务追求的&lt;strong&gt;最终目标&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;手段&lt;/strong&gt;：它由原子性、隔离性和持久性共同维系，同时也依赖于数据库的完整性约束（如外键、唯一索引、非空限制）以及应用层的逻辑正确性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="隔离性-isolation--mvcc--锁"&gt;隔离性 (Isolation) — MVCC &amp;amp; 锁
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;定义&lt;/strong&gt;：多个并发事务之间相互隔离，互不干扰。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;实现原理&lt;/strong&gt;：&lt;strong&gt;锁机制&lt;/strong&gt; 与 &lt;strong&gt;MVCC（多版本并发控制）&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;工作机制&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;锁&lt;/strong&gt;：处理“写-写”冲突，确保同一时间只有一个事务能修改同一行数据。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;MVCC&lt;/strong&gt;：处理“读-写”冲突。通过在每行记录后面保存隐藏列（事务ID、回滚指针）并结合 &lt;strong&gt;Read View&lt;/strong&gt;，让事务能读取到符合自己隔离级别的数据快照，实现非阻塞读。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="总结acid-实现脑图"&gt;总结：ACID 实现脑图
+&lt;/h2&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th style="text-align: left"&gt;特性&lt;/th&gt;
+ &lt;th style="text-align: left"&gt;实现技术&lt;/th&gt;
+ &lt;th style="text-align: left"&gt;核心作用&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;原子性 (A)&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;Undo Log&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;逻辑回滚，确保要么都做，要么都不做。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;隔离性 (I)&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;MVCC + 锁&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;并发控制，确保事务执行不被干扰。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;持久性 (D)&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;Redo Log&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;崩溃恢复，确保提交的数据不丢失。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;一致性 (C)&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;上述三者 + 代码逻辑&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;最终目的，确保数据逻辑正确。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;核心提示&lt;/strong&gt;：对于 Java 开发来说，理解 &lt;code&gt;Redo Log&lt;/code&gt;（保证不丢数据）和 &lt;code&gt;Undo Log&lt;/code&gt;（保证能回滚）的区别是面试和调优的关键。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id="mvcc"&gt;MVCC
+&lt;/h1&gt;&lt;p&gt;MVCC 全称 &lt;strong&gt;多版本并发控制&lt;/strong&gt; (Multi-Version Concurrency Control)，是 InnoDB 实现隔离级别（读已提交 RC 和 可重复读 RR）的核心技术。
+它的核心思想是：&lt;strong&gt;通过保存数据的历史版本，实现“读-写”操作的非阻塞。&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;快照读 (Snapshot Read)：&lt;/strong&gt; 普通的 &lt;code&gt;SELECT&lt;/code&gt; 语句（不加锁）。它读的是记录的“某个版本”，可能是历史数据。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;当前读 (Current Read)：&lt;/strong&gt; &lt;code&gt;INSERT&lt;/code&gt;、&lt;code&gt;UPDATE&lt;/code&gt;、&lt;code&gt;DELETE&lt;/code&gt; 或 &lt;code&gt;SELECT ... FOR UPDATE&lt;/code&gt;。它必须读取记录的“最新版本”，并且要加锁。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;MVCC 解决的就是“快照读”的问题。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id="隐式字段"&gt;隐式字段
+&lt;/h2&gt;&lt;p&gt;InnoDB 在每行记录后面都会自动加上三个隐藏列：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;DB_TRX_ID&lt;/strong&gt;：最近修改该记录的事务 ID。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;DB_ROLL_PTR&lt;/strong&gt;：回滚指针，指向该记录的上一个版本（在 Undo Log 中）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;DB_ROW_ID&lt;/strong&gt;：如果表没有主键，InnoDB 会自动生成一个自增 ID（有主键则无此列）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="作用"&gt;作用
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;实现回滚 (Rollback)： 当你执行 ROLLBACK 时，系统通过 DB_ROLL_PTR 找到旧数据，直接覆盖回来。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;实现 MVCC（读写不冲突）： 当事务 A 在改数据（加了排他锁），事务 B 来读。B 会根据自己的 Read View 和记录上的 DB_TRX_ID 判断：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;“这个版本是 A 正在改的，我不能看。”于是 B 顺着 DB_ROLL_PTR 去读 Undo Log 里的旧版本。&lt;/li&gt;
+&lt;li&gt;结果： 事务 A 慢慢改，事务 B 照样读，互不干扰。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="undo-log版本链"&gt;undo log版本链
+&lt;/h2&gt;&lt;p&gt;每当一个事务修改数据时，旧版本的数据会被写入 Undo Log 中。通过 &lt;strong&gt;DB_ROLL_PTR&lt;/strong&gt;，不同事务对同一行记录的修改会形成一个由旧到新的链表。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;[&lt;/span&gt; 当前聚簇索引记录 (最新行) &lt;span style="color:#f92672"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#960050;background-color:#1e0010"&gt;┌─────────────────────────────────────┐&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#960050;background-color:#1e0010"&gt;│&lt;/span&gt; 业务字段&lt;span style="color:#960050;background-color:#1e0010"&gt;：&lt;/span&gt;name &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;&amp;#39;&lt;/span&gt;王五&lt;span style="color:#960050;background-color:#1e0010"&gt;&amp;#39;&lt;/span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;│&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#960050;background-color:#1e0010"&gt;│&lt;/span&gt; 隐藏字段 DB_TRX_ID &lt;span style="color:#f92672"&gt;=&lt;/span&gt; 30 &lt;span style="color:#960050;background-color:#1e0010"&gt;│&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#960050;background-color:#1e0010"&gt;│&lt;/span&gt; 隐藏字段 DB_ROLL_PTR &lt;span style="color:#f92672"&gt;=&lt;/span&gt; 指针地址 A &lt;span style="color:#960050;background-color:#1e0010"&gt;│&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#960050;background-color:#1e0010"&gt;└───────────────┬─────────────────────┘&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;│&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;▼&lt;/span&gt; 指针指向 Undo Log
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;┌─────────────────────────────┐&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;│&lt;/span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;【&lt;/span&gt;Undo Log 版本1&lt;span style="color:#960050;background-color:#1e0010"&gt;】&lt;/span&gt;A &lt;span style="color:#960050;background-color:#1e0010"&gt;│&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;│&lt;/span&gt; 数据&lt;span style="color:#960050;background-color:#1e0010"&gt;：&lt;/span&gt;name &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;&amp;#39;&lt;/span&gt;李四&lt;span style="color:#960050;background-color:#1e0010"&gt;&amp;#39;&lt;/span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;│&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;│&lt;/span&gt; 事务ID&lt;span style="color:#960050;background-color:#1e0010"&gt;：&lt;/span&gt;TRX_ID &lt;span style="color:#f92672"&gt;=&lt;/span&gt; 20 &lt;span style="color:#960050;background-color:#1e0010"&gt;│&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;│&lt;/span&gt; 回滚指针&lt;span style="color:#960050;background-color:#1e0010"&gt;：&lt;/span&gt;指针地址 B &lt;span style="color:#960050;background-color:#1e0010"&gt;│&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;└───────────────┬─────────────┘&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;│&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;▼&lt;/span&gt; 继续指向上一版本
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;┌─────────────────────┐&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;│&lt;/span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;【&lt;/span&gt;Undo Log 版本2&lt;span style="color:#960050;background-color:#1e0010"&gt;】&lt;/span&gt;B &lt;span style="color:#960050;background-color:#1e0010"&gt;│&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;│&lt;/span&gt; 数据&lt;span style="color:#960050;background-color:#1e0010"&gt;：&lt;/span&gt;name &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;&amp;#39;&lt;/span&gt;张三&lt;span style="color:#960050;background-color:#1e0010"&gt;&amp;#39;&lt;/span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;│&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;│&lt;/span&gt; 事务ID&lt;span style="color:#960050;background-color:#1e0010"&gt;：&lt;/span&gt;TRX_ID &lt;span style="color:#f92672"&gt;=&lt;/span&gt; 10 &lt;span style="color:#960050;background-color:#1e0010"&gt;│&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;│&lt;/span&gt; 回滚指针&lt;span style="color:#960050;background-color:#1e0010"&gt;：&lt;/span&gt;NULL &lt;span style="color:#960050;background-color:#1e0010"&gt;│&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;└─────────────────────┘&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;│&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;▼&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;【&lt;/span&gt;链表结束&lt;span style="color:#960050;background-color:#1e0010"&gt;】&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src="InnoDB%e5%bc%95%e6%93%8e-13.png"
+ loading="lazy"
+ data-pending-gallery
+ 
+ &gt;&lt;/p&gt;
+&lt;h2 id="read-view一致性视图"&gt;read view(一致性视图)
+&lt;/h2&gt;&lt;p&gt;ReadView(读视图)是 &lt;strong&gt;快照读&lt;/strong&gt; SQL执行时MVCC提取数据的依据，记录并维护系统当前活跃的事务(未提交的)id。
+它包含四个核心字段：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;m_ids&lt;/strong&gt;：当前活跃（未提交）的事务 ID 列表。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;min_trx_id&lt;/strong&gt;：活跃事务中的最小值。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;max_trx_id&lt;/strong&gt;：预分配给下一个事务的 ID 值，当前最大失误ID+1（事物的ID是自增的）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;creator_trx_id&lt;/strong&gt;：创建该 Read View 的事务 ID。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="版本可见性算法-核心逻辑"&gt;版本可见性算法 (核心逻辑)
+&lt;/h2&gt;&lt;p&gt;当一个事务读取某行记录时，它会拿着该行的 &lt;code&gt;DB_TRX_ID&lt;/code&gt; 去和自己的 &lt;code&gt;Read View&lt;/code&gt; 进行比对：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;trx_id == creator_trx_id&lt;/strong&gt;：该版本是我自己改的，&lt;strong&gt;可见&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;trx_id &amp;lt; min_trx_id&lt;/strong&gt;：该版本在 Read View &lt;strong&gt;创建前已提交&lt;/strong&gt;，&lt;strong&gt;可见&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;trx_id &amp;gt;= max_trx_id&lt;/strong&gt;：该版本在 Read View &lt;strong&gt;创建后才开启&lt;/strong&gt;，&lt;strong&gt;不可见&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;min_trx_id &amp;lt;= trx_id &amp;lt; max_trx_id&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;若 &lt;code&gt;trx_id&lt;/code&gt; 在 &lt;code&gt;m_ids&lt;/code&gt; 列表中：说明事务还没提交，&lt;strong&gt;不可见&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;若 &lt;code&gt;trx_id&lt;/code&gt; 不在 &lt;code&gt;m_ids&lt;/code&gt; 列表中：说明事务已提交，&lt;strong&gt;可见&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;如果不可见怎么办？&lt;/strong&gt; 顺着 &lt;code&gt;DB_ROLL_PTR&lt;/code&gt; 回滚指针去找 Undo Log 里的上一个版本，直到找到可见的版本为止。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;MVCC 在 &lt;strong&gt;RC&lt;/strong&gt; 和 &lt;strong&gt;RR&lt;/strong&gt; 级别下的唯一区别在于 &lt;strong&gt;生成 Read View 的时机&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;读已提交 (RC)&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;每次执行 SELECT 语句时&lt;/strong&gt; 都会重新生成一个新的 Read View。&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;结果&lt;/em&gt;：可以看到其他事务期间提交的数据（不可重复读）。
+&lt;img src="InnoDB%e5%bc%95%e6%93%8e-14.png"
+ loading="lazy"
+ data-pending-gallery
+ 
+ &gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th style="text-align: left"&gt;属性&lt;/th&gt;
+ &lt;th style="text-align: left"&gt;含义&lt;/th&gt;
+ &lt;th style="text-align: left"&gt;第一个 ReadView&lt;/th&gt;
+ &lt;th style="text-align: left"&gt;第二个 ReadView&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;m_ids&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;当前&lt;strong&gt;活跃&lt;/strong&gt;事务 ID 列表（正在运行的事务）&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;&lt;code&gt;{3, 4, 5}&lt;/code&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;&lt;code&gt;{4, 5}&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;min_trx_id&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;m_ids 中的最小值&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;3&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;4&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;max_trx_id&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;生成 ReadView 时，系统分配的下一个事务 ID&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;6&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;6&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;creator_trx_id&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;生成该视图的事务 ID（当前事务 ID）&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;5&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;5&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;可重复读 (RR)&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;仅在事务第一次执行 SELECT 时&lt;/strong&gt; 生成一个 Read View，后续所有查询共用这一个。&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;结果&lt;/em&gt;：整个事务期间看到的数据始终一致（解决了不可重复读，并在很大程度上解决了幻读）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;img src="InnoDB%e5%bc%95%e6%93%8e-16.png"
+ loading="lazy"
+ data-pending-gallery
+ 
+ &gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th style="text-align: left"&gt;属性&lt;/th&gt;
+ &lt;th style="text-align: left"&gt;值&lt;/th&gt;
+ &lt;th style="text-align: left"&gt;含义&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;code&gt;m_ids&lt;/code&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;&lt;code&gt;{3, 4, 5}&lt;/code&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;生成 ReadView 时，系统中&lt;strong&gt;所有活跃（未提交）事务 ID&lt;/strong&gt;的集合&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;code&gt;min_trx_id&lt;/code&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;&lt;code&gt;3&lt;/code&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;&lt;code&gt;m_ids&lt;/code&gt; 中的最小值&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;code&gt;max_trx_id&lt;/code&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;&lt;code&gt;6&lt;/code&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;生成 ReadView 时，系统即将分配的下一个事务 ID（比当前所有活跃 ID 都大）&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;code&gt;creator_trx_id&lt;/code&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;&lt;code&gt;5&lt;/code&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;生成这个 ReadView 的事务 ID（也就是事务 5 自己）&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;img src="InnoDB%e5%bc%95%e6%93%8e-17.png"
+ loading="lazy"
+ data-pending-gallery
+ 
+ &gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id="mysql管理"&gt;MySQL管理
+&lt;/h1&gt;&lt;h2 id="系统数据库"&gt;系统数据库
+&lt;/h2&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th style="text-align: left"&gt;数据库名&lt;/th&gt;
+ &lt;th style="text-align: left"&gt;角色&lt;/th&gt;
+ &lt;th style="text-align: left"&gt;常用操作&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;mysql&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;管理员&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;修改用户密码、配置 SSL 证书、调整权限。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;information_schema&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;开发者&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;检查表结构、查找大表、确认字段长度。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;performance_schema&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;DBA / 性能专家&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;深度分析 CPU 尖峰、定位锁等待根源。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;sys&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;运维/开发者&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;快速查看慢查询 Top 10、分析未使用的索引。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id="常用工具"&gt;常用工具
+&lt;/h2&gt;&lt;h3 id="mysql客户端工具"&gt;mysql客户端工具
+&lt;/h3&gt;&lt;p&gt;&lt;img src="InnoDB%e5%bc%95%e6%93%8e-18.png"
+ loading="lazy"
+ data-pending-gallery
+ 
+ &gt;&lt;/p&gt;
+&lt;h2 id="mysqlbinlog二进制日志查看工具"&gt;mysqlbinlog二进制日志查看工具
+&lt;/h2&gt;&lt;p&gt;&lt;img src="InnoDB%e5%bc%95%e6%93%8e-20.png"
+ loading="lazy"
+ data-pending-gallery
+ 
+ &gt;&lt;/p&gt;
+&lt;h2 id="mysqlshow查看数据库表字段的统计信息"&gt;mysqlshow查看数据库、表、字段的统计信息
+&lt;/h2&gt;&lt;p&gt;&lt;img src="InnoDB%e5%bc%95%e6%93%8e-21.png"
+ loading="lazy"
+ data-pending-gallery
+ 
+ &gt;&lt;/p&gt;
+&lt;h2 id="mysqldump数据备份工具"&gt;mysqldump数据备份工具
+&lt;/h2&gt;&lt;p&gt;&lt;img src="InnoDB%e5%bc%95%e6%93%8e-19.png"
+ loading="lazy"
+ data-pending-gallery
+ 
+ &gt;&lt;/p&gt;
+&lt;h2 id="mysqlimportsource数据导入工具"&gt;mysqlimport/source数据导入工具
+&lt;/h2&gt;&lt;p&gt;&lt;img src="InnoDB%e5%bc%95%e6%93%8e-22.png"
+ loading="lazy"
+ data-pending-gallery
+ 
+ &gt;&lt;/p&gt;</description></item><item><title>JDBC</title><link>/post/jdbc--mybatis/</link><pubDate>Sun, 05 Apr 2026 00:00:00 +0000</pubDate><guid>/post/jdbc--mybatis/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;本文更新于 2026-04-05&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id="api"&gt;API
+&lt;/h1&gt;&lt;h2 id="drivermanager-驱动管理类"&gt;DriverManager 驱动管理类
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;注册驱动&lt;/strong&gt;：让 &lt;code&gt;DriverManager&lt;/code&gt; 知道当前有哪些可用的数据库驱动（如 MySQL, Oracle, PostgreSQL）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;建立连接&lt;/strong&gt;：根据传入的 URL、用户名和密码，找到匹配的驱动并返回一个 &lt;code&gt;Connection&lt;/code&gt; 对象。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#e6db74"&gt;&amp;#34;jdbc:mysql://127.0.0.1:3306/school_db?useSSL=false&amp;amp;serverTimezone=UTC&amp;amp;characterEncoding=UTF-8&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;//127.0.0.1:3306/&lt;/code&gt;&lt;/strong&gt;：指定数据库服务器的地址和监听端口（默认 3306）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;school_db&lt;/code&gt;&lt;/strong&gt;：要连接的具体数据库模式（Schema）名称。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;useSSL=false&lt;/code&gt;&lt;/strong&gt;：关闭 SSL 加密连接（开发环境下常用，减少性能开销）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;serverTimezone=UTC&lt;/code&gt;&lt;/strong&gt;：指定服务器时区。若不设置，在某些 MySQL 版本中可能会抛出时区错误。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;characterEncoding=UTF-8&lt;/code&gt;&lt;/strong&gt;：强制使用 UTF-8 编码，防止中文乱码。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#75715e"&gt;// 1. 注册驱动 (JDBC 4.0 以后这一步可以省略)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	Class.&lt;span style="color:#a6e22e"&gt;forName&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;com.mysql.cj.jdbc.Driver&amp;#34;&lt;/span&gt;); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#75715e"&gt;// 2. 通过 DriverManager 获取连接&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	String url &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;jdbc:mysql://localhost:3306/test_db&amp;#34;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	Connection conn &lt;span style="color:#f92672"&gt;=&lt;/span&gt; DriverManager.&lt;span style="color:#a6e22e"&gt;getConnection&lt;/span&gt;(url, &lt;span style="color:#e6db74"&gt;&amp;#34;root&amp;#34;&lt;/span&gt;, &lt;span style="color:#e6db74"&gt;&amp;#34;password&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id="connection"&gt;Connection
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Connection&lt;/code&gt; 接口是 JDBC API 的核心，代表与特定数据库的&lt;strong&gt;物理会话（Session）&lt;/strong&gt;。所有的 SQL 语句都在此连接的上下文中执行。&lt;/p&gt;
+&lt;h3 id="核心方法"&gt;核心方法
+&lt;/h3&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th style="text-align: left"&gt;方法&lt;/th&gt;
+ &lt;th style="text-align: left"&gt;功能描述&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;&lt;code&gt;createStatement()&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;创建一个基本的 &lt;code&gt;Statement&lt;/code&gt; 对象，用于执行静态 SQL。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;&lt;code&gt;prepareStatement(String sql)&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;创建一个预编译的语句对象，支持参数化查询（防注入）。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;&lt;code&gt;setAutoCommit(boolean)&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;设置是否自动提交事务。默认为 &lt;code&gt;true&lt;/code&gt;。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;&lt;code&gt;commit()&lt;/code&gt; / &lt;code&gt;rollback()&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;手动提交或回滚当前事务中的所有更改。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;&lt;code&gt;close()&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;释放该连接占用的数据库和 JDBC 资源。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;&lt;code&gt;isClosed()&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;检查连接是否已关闭或失效。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id="jdbc的事务处理"&gt;JDBC的事务处理
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	Connection conn &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;null&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;try&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 conn &lt;span style="color:#f92672"&gt;=&lt;/span&gt; DriverManager.&lt;span style="color:#a6e22e"&gt;getConnection&lt;/span&gt;(url, user, pass);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 &lt;span style="color:#75715e"&gt;// 1. 关闭自动提交，开启事务&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 conn.&lt;span style="color:#a6e22e"&gt;setAutoCommit&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;false&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 &lt;span style="color:#75715e"&gt;// 2. 执行 SQL A (扣钱)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 &lt;span style="color:#75715e"&gt;// 3. 执行 SQL B (加钱)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 &lt;span style="color:#75715e"&gt;// 4. 业务全部成功，手动提交&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 conn.&lt;span style="color:#a6e22e"&gt;commit&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	} &lt;span style="color:#66d9ef"&gt;catch&lt;/span&gt; (Exception e) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 &lt;span style="color:#75715e"&gt;// 5. 一旦出异常，全部回滚&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (conn &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;null&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 &lt;span style="color:#66d9ef"&gt;try&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 conn.&lt;span style="color:#a6e22e"&gt;rollback&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 } &lt;span style="color:#66d9ef"&gt;catch&lt;/span&gt; (SQLException ex) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 ex.&lt;span style="color:#a6e22e"&gt;printStackTrace&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	} &lt;span style="color:#66d9ef"&gt;finally&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 &lt;span style="color:#75715e"&gt;// 6. 记得关闭连接&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (conn &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;null&lt;/span&gt;) conn.&lt;span style="color:#a6e22e"&gt;close&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id="statement"&gt;Statement
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Statement&lt;/code&gt; 是 JDBC 中最基础的执行对象，用于执行静态 SQL 语句。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#75715e"&gt;// 1. 通过连接创建一个邮差&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	Statement stmt &lt;span style="color:#f92672"&gt;=&lt;/span&gt; conn.&lt;span style="color:#a6e22e"&gt;createStatement&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#75715e"&gt;// 2. 让邮差去送信（执行 SQL）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	String sql &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;UPDATE user SET name = &amp;#39;张三&amp;#39; WHERE id = 1&amp;#34;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; rows &lt;span style="color:#f92672"&gt;=&lt;/span&gt; stmt.&lt;span style="color:#a6e22e"&gt;executeUpdate&lt;/span&gt;(sql); &lt;span style="color:#75715e"&gt;// 返回受影响的行数&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#75715e"&gt;// 3. 如果是查询，会带回一个结果集&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	ResultSet rs &lt;span style="color:#f92672"&gt;=&lt;/span&gt; stmt.&lt;span style="color:#a6e22e"&gt;executeQuery&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;SELECT * FROM user&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;特性&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;executeUpdate()&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;executeQuery()&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;SQL 类型&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;INSERT, UPDATE, DELETE, DDL&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;SELECT&lt;/code&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;返回类型&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;int&lt;/code&gt; (行数)&lt;/td&gt;
+ &lt;td&gt;&lt;code&gt;ResultSet&lt;/code&gt; (数据集合)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;典型场景&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;转账、注册、修改密码、删帖&lt;/td&gt;
+ &lt;td&gt;查余额、搜商品、看个人资料&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;为空时&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;返回 &lt;code&gt;0&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;返回一个空的 &lt;code&gt;ResultSet&lt;/code&gt;（&lt;code&gt;rs.next()&lt;/code&gt; 为 false）&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id="resultset-结果集对象"&gt;Resultset 结果集对象
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;ResultSet&lt;/code&gt;（结果集）是 JDBC 中用于存储和操作数据库查询结果的对象。它类似于一张&lt;strong&gt;虚拟的临时表&lt;/strong&gt;，维持着一个指向当前数据行的光标（Cursor）&lt;/p&gt;
+&lt;h3 id="工作原理光标机制-the-cursor"&gt;工作原理：光标机制 (The Cursor)
+&lt;/h3&gt;&lt;p&gt;当你执行 &lt;code&gt;executeQuery()&lt;/code&gt; 后，返回的 &lt;code&gt;ResultSet&lt;/code&gt; 对象初始状态下，光标指向第一行数据的&lt;strong&gt;上方&lt;/strong&gt;（即“Before First”位置）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;next()&lt;/code&gt; 方法&lt;/strong&gt;：将光标下移一行。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;返回值&lt;/strong&gt;：如果下一行有数据，返回 &lt;code&gt;true&lt;/code&gt;；如果已经到达末尾，返回 &lt;code&gt;false&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;常用遍历模式&lt;/strong&gt;：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-java" data-lang="java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (rs.&lt;span style="color:#a6e22e"&gt;next&lt;/span&gt;()) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 处理当前行的数据&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; rs.&lt;span style="color:#a6e22e"&gt;getXxx&lt;/span&gt;(参数);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h3 id="获取数据的方法-getter-methods"&gt;获取数据的方法 (Getter Methods)
+&lt;/h3&gt;&lt;p&gt;&lt;code&gt;ResultSet&lt;/code&gt; 提供了丰富的 &lt;code&gt;getXXX&lt;/code&gt; 方法来获取不同类型的数据，通常支持两种定位方式：&lt;/p&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th style="text-align: left"&gt;获取方式&lt;/th&gt;
+ &lt;th style="text-align: left"&gt;示例&lt;/th&gt;
+ &lt;th style="text-align: left"&gt;优缺点&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;通过列索引&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;&lt;code&gt;rs.getString(1)&lt;/code&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;性能略高，但代码可读性差，且依赖 SQL 字段顺序。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;通过列标签&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;&lt;code&gt;rs.getInt(&amp;quot;user_id&amp;quot;)&lt;/code&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;推荐方式&lt;/strong&gt;。可读性强，不依赖 SQL 字段顺序。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;常用类型映射：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;getString()&lt;/code&gt; -&amp;gt; &lt;code&gt;String&lt;/code&gt; (VARCHAR, TEXT)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;getInt()&lt;/code&gt; -&amp;gt; &lt;code&gt;int&lt;/code&gt; (INT)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;getDouble()&lt;/code&gt; -&amp;gt; &lt;code&gt;double&lt;/code&gt; (DOUBLE, DECIMAL)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;getTimestamp()&lt;/code&gt; -&amp;gt; &lt;code&gt;java.sql.Timestamp&lt;/code&gt; (DATETIME)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;getObject()&lt;/code&gt; -&amp;gt; 通用类型，通常用于处理动态查询。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[!NOTE] 注意
+JDBC 的列索引是从 &lt;strong&gt;1&lt;/strong&gt; 开始的（1-based），而 Java 数组和集合是从 &lt;strong&gt;0&lt;/strong&gt; 开始的（0-based）。如果在循环里混用了，会导致 &lt;code&gt;SQLException: Column Index out of range&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	Connection conn &lt;span style="color:#f92672"&gt;=&lt;/span&gt; DriverManager.&lt;span style="color:#a6e22e"&gt;getConnection&lt;/span&gt;(url,username,password); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	String sql &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;SELECT * FROM users&amp;#34;&lt;/span&gt;; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;try&lt;/span&gt; (conn; Statement stmt &lt;span style="color:#f92672"&gt;=&lt;/span&gt; conn.&lt;span style="color:#a6e22e"&gt;createStatement&lt;/span&gt;(); ResultSet rs &lt;span style="color:#f92672"&gt;=&lt;/span&gt; stmt.&lt;span style="color:#a6e22e"&gt;executeQuery&lt;/span&gt;(sql)) { 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (rs.&lt;span style="color:#a6e22e"&gt;next&lt;/span&gt;()){ 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 String user &lt;span style="color:#f92672"&gt;=&lt;/span&gt; rs.&lt;span style="color:#a6e22e"&gt;getString&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;username&amp;#34;&lt;/span&gt;); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 String passwd &lt;span style="color:#f92672"&gt;=&lt;/span&gt; rs.&lt;span style="color:#a6e22e"&gt;getString&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;password&amp;#34;&lt;/span&gt;); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 String date &lt;span style="color:#f92672"&gt;=&lt;/span&gt; rs.&lt;span style="color:#a6e22e"&gt;getString&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;created_at&amp;#34;&lt;/span&gt;); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 System.&lt;span style="color:#a6e22e"&gt;out&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;println&lt;/span&gt;(user &lt;span style="color:#f92672"&gt;+&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34; &amp;#34;&lt;/span&gt; &lt;span style="color:#f92672"&gt;+&lt;/span&gt; passwd &lt;span style="color:#f92672"&gt;+&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34; &amp;#34;&lt;/span&gt; &lt;span style="color:#f92672"&gt;+&lt;/span&gt; date); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 } 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id="preparedstatement-预编译语句对象"&gt;PreparedStatement 预编译语句对象
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;PreparedStatement&lt;/code&gt; 继承自 &lt;code&gt;Statement&lt;/code&gt; 接口，是 JDBC 中最常用的 SQL 执行对象。它代表一条&lt;strong&gt;预编译&lt;/strong&gt;的 SQL 语句，能够有效提高性能并彻底杜绝 SQL 注入风险&lt;/p&gt;
+&lt;h3 id="优势"&gt;优势
+&lt;/h3&gt;&lt;p&gt;相比于普通的 &lt;code&gt;Statement&lt;/code&gt;，&lt;code&gt;PreparedStatement&lt;/code&gt; 具有三大核心优势：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;防止 SQL 注入&lt;/strong&gt;：通过参数化查询，将 SQL 逻辑与数据分离，使恶意代码无法改变 SQL 结构。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;性能优化&lt;/strong&gt;：数据库会对预编译后的 SQL 进行缓存（执行计划）。后续执行相同结构的 SQL（仅参数不同）时，无需重新解析。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;代码可读性&lt;/strong&gt;：使用占位符 &lt;code&gt;?&lt;/code&gt; 代替繁琐的字符串拼接，代码更加整洁。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="使用步骤"&gt;使用步骤
+&lt;/h3&gt;&lt;p&gt;使用 &lt;code&gt;PreparedStatement&lt;/code&gt; 遵循以下固定流程：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;编写带占位符的 SQL&lt;/strong&gt;：使用 &lt;code&gt;?&lt;/code&gt; 作为参数位置。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;预编译 SQL&lt;/strong&gt;：通过 &lt;code&gt;Connection&lt;/code&gt; 对象获取 &lt;code&gt;PreparedStatement&lt;/code&gt; 实例。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;设置参数&lt;/strong&gt;：调用 &lt;code&gt;setXXX()&lt;/code&gt; 方法为每个 &lt;code&gt;?&lt;/code&gt; 赋值（注意：索引从 &lt;strong&gt;1&lt;/strong&gt; 开始）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;执行 SQL&lt;/strong&gt;：调用 &lt;code&gt;executeQuery()&lt;/code&gt; 或 &lt;code&gt;executeUpdate()&lt;/code&gt;（注意：执行时&lt;strong&gt;不需要&lt;/strong&gt;再传入 SQL 字符串）。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;代码示例：&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-java" data-lang="java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	String sql &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;SELECT * FROM users WHERE username = ? AND password = ?&amp;#34;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;try&lt;/span&gt; (PreparedStatement pstmt &lt;span style="color:#f92672"&gt;=&lt;/span&gt; conn.&lt;span style="color:#a6e22e"&gt;prepareStatement&lt;/span&gt;(sql)) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 &lt;span style="color:#75715e"&gt;// 1. 设置参数（索引从 1 开始）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 pstmt.&lt;span style="color:#a6e22e"&gt;setString&lt;/span&gt;(1, &lt;span style="color:#e6db74"&gt;&amp;#34;admin&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 pstmt.&lt;span style="color:#a6e22e"&gt;setString&lt;/span&gt;(2, &lt;span style="color:#e6db74"&gt;&amp;#34;123456&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 &lt;span style="color:#75715e"&gt;// 2. 执行查询&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 &lt;span style="color:#66d9ef"&gt;try&lt;/span&gt; (ResultSet rs &lt;span style="color:#f92672"&gt;=&lt;/span&gt; pstmt.&lt;span style="color:#a6e22e"&gt;executeQuery&lt;/span&gt;()) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (rs.&lt;span style="color:#a6e22e"&gt;next&lt;/span&gt;()) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 &lt;span style="color:#75715e"&gt;// 处理结果&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="常用api"&gt;常用API
+&lt;/h3&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;方法&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;功能描述&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;setObject(int, Object)&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;最通用的赋值方法，自动映射 Java 类型到数据库类型。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;setInt / setString / ...&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;强类型赋值，确保数据类型安全。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;setNull(int, int)&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;为数据库字段设置 NULL 值。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;addBatch()&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;将当前参数组加入批处理队列。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;&lt;code&gt;clearParameters()&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;清除当前设置的所有参数，以便重用该对象。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id="批处理"&gt;&lt;code&gt;*&lt;/code&gt;批处理
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	String sql &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;INSERT INTO students (name, score) VALUES (?, ?)&amp;#34;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;try&lt;/span&gt; (PreparedStatement pstmt &lt;span style="color:#f92672"&gt;=&lt;/span&gt; conn.&lt;span style="color:#a6e22e"&gt;prepareStatement&lt;/span&gt;(sql)) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; (Student s : studentList) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 pstmt.&lt;span style="color:#a6e22e"&gt;setString&lt;/span&gt;(1, s.&lt;span style="color:#a6e22e"&gt;getName&lt;/span&gt;());
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 pstmt.&lt;span style="color:#a6e22e"&gt;setInt&lt;/span&gt;(2, s.&lt;span style="color:#a6e22e"&gt;getScore&lt;/span&gt;());
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 pstmt.&lt;span style="color:#a6e22e"&gt;addBatch&lt;/span&gt;(); &lt;span style="color:#75715e"&gt;// 添加到批处理&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 pstmt.&lt;span style="color:#a6e22e"&gt;executeBatch&lt;/span&gt;(); &lt;span style="color:#75715e"&gt;// 一次性发送所有数据&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;[!WARNING] 注意
+SQL语句中的占位符&lt;strong&gt;只能给值/参数使用&lt;/strong&gt;，&lt;strong&gt;不能给表名使用&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id="原理"&gt;原理
+&lt;/h3&gt;&lt;p&gt;&lt;code&gt;PreparedStatement&lt;/code&gt; 不仅仅是 &lt;code&gt;Statement&lt;/code&gt; 的子接口，它在数据库层面引入了&lt;strong&gt;预编译（Prepare&lt;/strong&gt;机制。&lt;/p&gt;
+&lt;h4 id="防注入原理语义定型"&gt;防注入原理：语义定型
+&lt;/h4&gt;&lt;p&gt;这是 &lt;code&gt;PreparedStatement&lt;/code&gt; 最核心的安全特性。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;逻辑固定&lt;/strong&gt;：在预编译阶段，SQL 的逻辑结构（如 &lt;code&gt;SELECT...WHERE...AND&lt;/code&gt;）已经确定并被数据库理解。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;字面量处理&lt;/strong&gt;：随后传入的任何参数，无论包含什么特殊字符（如 &lt;code&gt;' OR '1'='1&lt;/code&gt;），都会被数据库引擎强制视为一个&lt;strong&gt;整体的字符串常量&lt;/strong&gt;，而不会被当作 SQL 指令的一部分。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;类型检查&lt;/strong&gt;：&lt;code&gt;setXXX&lt;/code&gt; 方法在 Java 端就进行了类型校验，不符合类型的参数无法通过编译。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id="数据库连接池"&gt;数据库连接池
+&lt;/h1&gt;&lt;p&gt;数据库连接池是程序启动时自动建立的一定数量的数据库连接，并将这些连接维持在一个“池”中。当应用程序需要访问数据库时，直接从池中借用，使用完毕后归还给池。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;数据库连接池&lt;/strong&gt;是个容器，负责分配、管理数据库连接 (Connection)。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;它允许应用程序重复使用一个现有的数据库连接，而不是再重新建立一个。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;释放空闲时间超过最大空闲时间的连接，来避免因为没有释放连接而引起的数据库连接遗漏。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;优势：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;资源重用&lt;/li&gt;
+&lt;li&gt;提升系统响应速度&lt;/li&gt;
+&lt;li&gt;避免数据库连接遗漏&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id="为什么走连接池"&gt;为什么走连接池？
+&lt;/h2&gt;&lt;p&gt;在不使用连接池的情况下，每次数据库操作都遵循“六步走”：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;加载驱动&lt;/strong&gt; (消耗 CPU)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;建立物理连接&lt;/strong&gt; (涉及 TCP 三次握手，最耗时，通常需 0.1s - 0.5s)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;身份验证&lt;/strong&gt; (安全开销)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;执行 SQL&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;结果返回&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;销毁连接&lt;/strong&gt; (TCP 四次挥手)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;弊端&lt;/strong&gt;：在高并发场景下，频繁创建/销毁连接会产生巨大的网络负载，甚至导致数据库因连接数过多而宕机&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="主流连接池对比"&gt;主流连接池对比
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;HikariCP 追光者(推荐)&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;特点&lt;/strong&gt;：目前性能最强的连接池，字节码精简，速度极快。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;地位&lt;/strong&gt;：Spring Boot 2.0+ 默认连接池。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Druid 德鲁伊(阿里巴巴)&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;特点&lt;/strong&gt;：功能最全面，自带 &lt;strong&gt;SQL 监控&lt;/strong&gt;、防御 SQL 注入、统计信息等。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;地位&lt;/strong&gt;：国内 Java 开发者的首选，利于排查慢 SQL。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;C3P0 / DBCP&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;特点&lt;/strong&gt;：较老，配置繁琐，性能在现代高并发环境下略显不足。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id="核心参数配置"&gt;核心参数配置
+&lt;/h2&gt;&lt;p&gt;在使用连接池（如 Druid 或 HikariCP）时，这些参数直接决定了系统的吞吐量：&lt;/p&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th style="text-align: left"&gt;参数名称&lt;/th&gt;
+ &lt;th style="text-align: left"&gt;描述&lt;/th&gt;
+ &lt;th style="text-align: left"&gt;建议&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;initialSize&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;初始连接数&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;建议与 &lt;code&gt;minIdle&lt;/code&gt; 一致。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;maxActive&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;最大活跃连接数&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;根据数据库承载能力设置（如 50-100）。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;maxWait&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;获取连接的最大等待时间&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;设置过长会导致前端请求挂起，建议 2000ms 左右。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;minIdle&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;最小空闲连接数&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;始终保持在池中的“保底”连接。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;validationQuery&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;验证连接是否有效的 SQL&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;MySQL 常用 &lt;code&gt;SELECT 1&lt;/code&gt;。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#75715e"&gt;// 1. 加载配置文件&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	Properties props &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; Properties();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	props.&lt;span style="color:#a6e22e"&gt;load&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; FileInputStream(&lt;span style="color:#e6db74"&gt;&amp;#34;druid.properties&amp;#34;&lt;/span&gt;));
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#75715e"&gt;// 2. 获取数据源 (DataSource)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	DataSource ds &lt;span style="color:#f92672"&gt;=&lt;/span&gt; DruidDataSourceFactory.&lt;span style="color:#a6e22e"&gt;createDataSource&lt;/span&gt;(props);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#75715e"&gt;// 3. 从池中获取连接&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;try&lt;/span&gt; (Connection conn &lt;span style="color:#f92672"&gt;=&lt;/span&gt; ds.&lt;span style="color:#a6e22e"&gt;getConnection&lt;/span&gt;()) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 &lt;span style="color:#75715e"&gt;// 这里的 close() 只是把连接归还给池&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 System.&lt;span style="color:#a6e22e"&gt;out&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;println&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;获取到连接：&amp;#34;&lt;/span&gt; &lt;span style="color:#f92672"&gt;+&lt;/span&gt; conn);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h1 id="mybatis"&gt;MyBatis
+&lt;/h1&gt;&lt;h2 id="预编译占位符最常用最安全"&gt;&lt;code&gt;#{}&lt;/code&gt;：预编译占位符（最常用、最安全）
+&lt;/h2&gt;&lt;p&gt;这是 MyBatis 的默认推荐方式。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;底层原理&lt;/strong&gt;：它是基于 JDBC 的 &lt;code&gt;PreparedStatement&lt;/code&gt; 实现的。MyBatis 会先将 SQL 语句中的 &lt;code&gt;#{}&lt;/code&gt; 替换为 &lt;code&gt;?&lt;/code&gt;，发送给数据库进行预编译，然后再将参数值设置进去。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;特点&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;安全性高&lt;/strong&gt;：自动处理 SQL 注入风险。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;自动转义&lt;/strong&gt;：如果传入的是字符串，它会自动加上单引号 &lt;code&gt;' '&lt;/code&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;示例&lt;/strong&gt;：&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Mysql" data-lang="Mysql"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;-- 输入参数 name = &amp;#34;Zhang&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;SELECT&lt;/span&gt; &lt;span style="color:#f92672"&gt;*&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;FROM&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;user&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;WHERE&lt;/span&gt; username &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#75715e"&gt;#{name}
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;-- 解析后的 SQL：SELECT * FROM user WHERE username = ?
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;-- 执行时：SELECT * FROM user WHERE username = &amp;#39;Zhang&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;特性&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;#{}&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;${}&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;处理方式&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;预编译 (PreparedStatement)&lt;/td&gt;
+ &lt;td&gt;字符串替换 (Statement)&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;场景&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;参数值传递&lt;/td&gt;
+ &lt;td&gt;表名、字段名动态设置时使用&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;安全性&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;高&lt;/strong&gt;，防止 SQL 注入&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;低&lt;/strong&gt;，有 SQL 注入风险&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;性能&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;高（预编译可重用执行计划）&lt;/td&gt;
+ &lt;td&gt;低（每次都需要重新解析 SQL）&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;自动加引号&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;是&lt;/td&gt;
+ &lt;td&gt;否&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;这些场景通常是 &lt;strong&gt;“参数不是作为值，而是作为 SQL 的语法组成部分”&lt;/strong&gt; 时：&lt;/td&gt;
+ &lt;td&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;动态表名&lt;/strong&gt;：&lt;code&gt;SELECT * FROM ${tableName}&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;动态列名&lt;/strong&gt;：&lt;code&gt;SELECT ${columnName} FROM user&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;动态排序&lt;/strong&gt;：&lt;code&gt;ORDER BY ${orderColumn} ${sortType}&lt;/code&gt;（比如让用户点击表头按不同字段排序）&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="问为什么--能防止-sql-注入而--不能"&gt;问：“为什么 &lt;code&gt;#{}&lt;/code&gt; 能防止 SQL 注入，而 &lt;code&gt;${}&lt;/code&gt; 不能？”
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;回答：&lt;/strong&gt; “因为 &lt;code&gt;#{}&lt;/code&gt; 采用了 JDBC 的 &lt;strong&gt;预编译 (PreparedStatement)&lt;/strong&gt; 机制。在这种机制下，SQL 的结构在参数传入前就已经确定并发送给数据库解析了。参数被视为单纯的‘值’，即使参数里包含 &lt;code&gt;OR 1=1&lt;/code&gt; 这样的指令，也只会被当作一段普通的文本处理，不会改变 SQL 的逻辑语义。 而 &lt;code&gt;${}&lt;/code&gt; 只是简单的 &lt;strong&gt;字符串拼接&lt;/strong&gt;，参数会直接参与 SQL 语句的解析和编译，从而可能改变 SQL 的执行意图，导致注入风险。”&lt;/p&gt;
+&lt;h2 id="增删改查"&gt;增删改查
+&lt;/h2&gt;&lt;h3 id="插入insert"&gt;插入INSERT
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Mapper接口&lt;span style="color:#960050;background-color:#1e0010"&gt;：&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#a6e22e"&gt;@Insert&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;INSERT INTO user(username,password,name,age) VALUES(#{username},#{password},#{name},#{age})&amp;#34;&lt;/span&gt;) 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;insert&lt;/span&gt;(User user);&lt;span style="color:#75715e"&gt;//插入用户信息&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Spring测试&lt;span style="color:#960050;background-color:#1e0010"&gt;：&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#a6e22e"&gt;@Test&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;testInsert&lt;/span&gt;(){ 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; User user &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; User(&lt;span style="color:#66d9ef"&gt;null&lt;/span&gt;,&lt;span style="color:#e6db74"&gt;&amp;#34;jjj&amp;#34;&lt;/span&gt;,&lt;span style="color:#e6db74"&gt;&amp;#34;666888&amp;#34;&lt;/span&gt;,&lt;span style="color:#e6db74"&gt;&amp;#34;鸡鸡鸡&amp;#34;&lt;/span&gt;,18); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; userMapper.&lt;span style="color:#a6e22e"&gt;insert&lt;/span&gt;(user);&lt;span style="color:#75715e"&gt;//调用UserMapper接口中的insert方法，插入用户信息 &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="删除delete"&gt;删除DELETE
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Mapper接口&lt;span style="color:#960050;background-color:#1e0010"&gt;：&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#a6e22e"&gt;@Delete&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;DELETE FROM user WHERE id = #{id}&amp;#34;&lt;/span&gt;) 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;deleteById&lt;/span&gt;(Integer id);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Spring测试&lt;span style="color:#960050;background-color:#1e0010"&gt;：&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#a6e22e"&gt;@Autowired&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;private&lt;/span&gt; UserMapper userMapper;&lt;span style="color:#75715e"&gt;//注入UserMapper接口的代理对象&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#a6e22e"&gt;@Test&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;testDeleteById&lt;/span&gt;(){ 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 userMapper.&lt;span style="color:#a6e22e"&gt;deleteById&lt;/span&gt;(5); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="修改update"&gt;修改UPDATE
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Mapper接口&lt;span style="color:#960050;background-color:#1e0010"&gt;：&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#a6e22e"&gt;@Update&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;UPDATE user set username = #{username},password = #{password},name = #{name},age = #{age} WHERE id = #{id}&amp;#34;&lt;/span&gt;) 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;update&lt;/span&gt;(User user);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Spring测试&lt;span style="color:#960050;background-color:#1e0010"&gt;：&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;testUpdate&lt;/span&gt;(){ 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; User user &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;new&lt;/span&gt; User(1,&lt;span style="color:#e6db74"&gt;&amp;#34;zhouyu&amp;#34;&lt;/span&gt;,&lt;span style="color:#e6db74"&gt;&amp;#34;8989&amp;#34;&lt;/span&gt;,&lt;span style="color:#e6db74"&gt;&amp;#34;周瑜&amp;#34;&lt;/span&gt;,19); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; userMapper.&lt;span style="color:#a6e22e"&gt;update&lt;/span&gt;(user);&lt;span style="color:#75715e"&gt;//调用UserMapper接口中的update方法，更新用户信息 &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="查询select"&gt;查询SELECT
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-Java" data-lang="Java"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#a6e22e"&gt;@Select&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;SELECT * FROM user WHERE username = #{username} AND password = #{password}&amp;#34;&lt;/span&gt;) 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; User &lt;span style="color:#a6e22e"&gt;findByUsernameAndPassword&lt;/span&gt;( 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;@Param&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;username&amp;#34;&lt;/span&gt;)String username, 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;@Param&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;password&amp;#34;&lt;/span&gt;) String password);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;❗说明:&lt;/strong&gt;
+&lt;strong&gt;基于官方骨架创建的springboot项目中&lt;/strong&gt;，接口编译时会&lt;strong&gt;保留方法形参名&lt;/strong&gt;，@Param注解可以省略(#{形参名})&lt;/p&gt;
+&lt;h4 id="param内部原理图解"&gt;@Param内部原理图解
+&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;调用接口&lt;/strong&gt;：调用 &lt;code&gt;findByUsernameAndPassword(&amp;quot;Zhang&amp;quot;, &amp;quot;123&amp;quot;)&lt;/code&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;封装 Map&lt;/strong&gt;：MyBatis 内部会将这些参数封装成一个 &lt;code&gt;Map&lt;/code&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;没有 &lt;code&gt;@Param&lt;/code&gt;&lt;/strong&gt;：Map 为 &lt;code&gt;{arg0: &amp;quot;Zhang&amp;quot;, arg1: &amp;quot;123&amp;quot;}&lt;/code&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;有 &lt;code&gt;@Param&lt;/code&gt;&lt;/strong&gt;：Map 为 &lt;code&gt;{username: &amp;quot;Zhang&amp;quot;, password: &amp;quot;123&amp;quot;}&lt;/code&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;SQL 填充&lt;/strong&gt;：执行时，MyBatis 从 Map 中根据 Key（即 &lt;code&gt;username&lt;/code&gt;）取出 Value&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id="问mybatis-的-param-注解有什么用"&gt;问：“MyBatis 的 &lt;code&gt;@Param&lt;/code&gt; 注解有什么用？”
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;回答：&lt;/strong&gt; “&lt;code&gt;@Param&lt;/code&gt; 主要用于&lt;strong&gt;多参数传递&lt;/strong&gt;的场景。由于 Java 字节码在编译后可能会丢失方法参数名，导致 MyBatis 无法将 SQL 中的占位符与方法参数对应。 通过 &lt;code&gt;@Param&lt;/code&gt; 注解，我们可以显式地为参数命名，MyBatis 会将这些参数封装进一个 Map 中，从而在解析 SQL 语句时能够准确地通过 Key 找到对应的 Value。这增强了代码的可读性，并避免了多参数环境下参数找不到的异常。”&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="xml映射配置"&gt;XML映射配置
+&lt;/h2&gt;&lt;h3 id="基本组成结构"&gt;基本组成结构
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-XML" data-lang="XML"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34; ?&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;&amp;lt;!DOCTYPE mapper
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt; PUBLIC &amp;#34;-//mybatis.org//DTD Mapper 3.0//EN&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt; &amp;#34;http://mybatis.org/dtd/mybatis-3-mapper.dtd&amp;#34;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;&amp;lt;mapper&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;namespace=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;com.example.mapper.UserMapper&amp;#34;&lt;/span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;select&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;id=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;findById&amp;#34;&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;resultType=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;com.example.pojo.User&amp;#34;&lt;/span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; SELECT * FROM user WHERE id = #{id}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;/select&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;&amp;lt;/mapper&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="核心对应关系"&gt;核心对应关系
+&lt;/h3&gt;&lt;p&gt;为了让 Spring 容器能通过接口找到对应的 SQL，必须严格遵守以下约定：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;名称空间一致&lt;/strong&gt;：XML映射文件 的 &lt;code&gt;namespace&lt;/code&gt; 属性必须是接口的&lt;strong&gt;全路径名&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;ID与方法名 一致&lt;/strong&gt;：XML映射文件中 SQL 标签的 &lt;code&gt;id&lt;/code&gt; 属性必须与接口中的&lt;strong&gt;方法名&lt;/strong&gt;完全一致。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;包名类名一致&lt;/strong&gt;： XML映射文件 的名称与&lt;code&gt;Mapper&lt;/code&gt;接口名称一致，并且将XML映射文件和Mapper放在相同包下（同包同名）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;参数/结果一致&lt;/strong&gt;：&lt;code&gt;parameterType&lt;/code&gt;（通常可省略）和 &lt;code&gt;resultType&lt;/code&gt; 要与接口的入参和出参对应&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-XML" data-lang="XML"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34; ?&amp;gt;&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;&amp;lt;!DOCTYPE mapper 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt; PUBLIC &amp;#34;-//mybatis.org//DTD Mapper 3.0//EN&amp;#34; 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt; &amp;#34;http://mybatis.org/dtd/mybatis-3-mapper.dtd&amp;#34;&amp;gt;&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;&amp;lt;mapper&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;namespace=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;org.example.mapper.UserMapper&amp;#34;&lt;/span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;select&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;id=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;findAll&amp;#34;&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;resultType=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;org.example.pojo.User&amp;#34;&lt;/span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; #往User封装 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; SELECT id,username,password,name,age FROM user 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;/select&amp;gt;&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;&amp;lt;/mapper&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;相当于Mapper中的：@Select(&amp;#34;SELECT id,username,password,name,age FROM user&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;场景&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;推荐方式&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;原因&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;简单的根据 ID 查询、删除&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;注解&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;快速、省事，不用在文件间跳来跳去。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;复杂的关联查询（Join）&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;XML&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;注解难以处理复杂的 &lt;code&gt;resultMap&lt;/code&gt; 嵌套映射。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;动态搜索、批量插入&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;XML&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;动态标签（&lt;code&gt;&amp;lt;if&amp;gt;&lt;/code&gt;, &lt;code&gt;&amp;lt;foreach&amp;gt;&lt;/code&gt;）是 XML 的杀手锏。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;SQL 语句经常需要优化&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;XML&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;修改 SQL 时不影响 Java 逻辑，更易于维护。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id="辅助配置"&gt;辅助配置
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-properties" data-lang="properties"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#75715e"&gt;# 指定XML映射文件的位置 &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#a6e22e"&gt;mybatis.mapper-locations&lt;/span&gt;&lt;span style="color:#f92672"&gt;=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;classpath:mapper/*.xml&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="xml-中的-sql"&gt;XML 中的 SQL
+&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-XML" data-lang="XML"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;&amp;lt;mapper&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;namespace=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;asia.creat.mapper.EmpMapper&amp;#34;&lt;/span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#f92672"&gt;&amp;lt;select&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;id=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;listByCondition&amp;#34;&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;resultType=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;asia.creat.pojo.Emp&amp;#34;&lt;/span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; SELECT *FROM emp e LEFT JOIN dept d ON e.dept_id = d.id WHERE e.name 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; LIKE CONCAT(&amp;#39;%&amp;#39;,#{name},&amp;#39;%&amp;#39;) AND e.gender = #{gender} 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; AND e.entry_date BETWEEN #{begin} AND #{end} 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ORDER BY e.update_time DESC 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#f92672"&gt;&amp;lt;/select&amp;gt;&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;&amp;lt;/mapper&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="动态sql"&gt;动态SQL
+&lt;/h2&gt;&lt;p&gt;MyBatis 提供了几个强大的逻辑标签：&lt;/p&gt;
+&lt;h3 id="if条件判断"&gt;&lt;code&gt;&amp;lt;if&amp;gt;&lt;/code&gt;：条件判断
+&lt;/h3&gt;&lt;p&gt;最常用的标签。如果 &lt;code&gt;test&lt;/code&gt; 属性中的表达式为真，则拼接标签内的 SQL&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-XML" data-lang="XML"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;&amp;lt;select&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;id=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;find&amp;#34;&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;resultType=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;Emp&amp;#34;&lt;/span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; SELECT * FROM emp WHERE 1=1
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;if&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;test=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;name != null&amp;#34;&lt;/span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; AND name LIKE #{name}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;/if&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;if&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;test=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;gender != null&amp;#34;&lt;/span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; AND gender = #{gender}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;/if&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;&amp;lt;/select&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="where智能处理"&gt;&lt;code&gt;&amp;lt;where&amp;gt;&lt;/code&gt;：智能处理
+&lt;/h3&gt;&lt;p&gt;上面的写法里我们被迫写了 &lt;code&gt;WHERE 1=1&lt;/code&gt;，这很丑。&lt;code&gt;&amp;lt;where&amp;gt;&lt;/code&gt; 标签能自动完成两件事：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;如果子标签有内容，才插入 &lt;code&gt;WHERE&lt;/code&gt; 关键字&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;自动剔除内容开头多余的 &lt;code&gt;AND&lt;/code&gt; 或 &lt;code&gt;OR&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-XML" data-lang="XML"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;&amp;lt;select&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;id=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;find&amp;#34;&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;resultType=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;Emp&amp;#34;&lt;/span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; SELECT * FROM emp
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;where&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;if&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;test=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;name != null&amp;#34;&lt;/span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt;AND name = #{name}&lt;span style="color:#f92672"&gt;&amp;lt;/if&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;if&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;test=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;gender != null&amp;#34;&lt;/span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt;AND gender = #{gender}&lt;span style="color:#f92672"&gt;&amp;lt;/if&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;/where&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;&amp;lt;/select&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="set动态更新"&gt;&lt;code&gt;&amp;lt;set&amp;gt;&lt;/code&gt;：动态更新
+&lt;/h3&gt;&lt;p&gt;用于 &lt;code&gt;UPDATE&lt;/code&gt; 语句。它会自动插入 &lt;code&gt;SET&lt;/code&gt; 关键字，并聪明地删掉最后一个多余的&lt;strong&gt;逗号&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-XML" data-lang="XML"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;&amp;lt;update&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;id=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;update&amp;#34;&lt;/span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; UPDATE emp
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;set&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;if&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;test=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;username != null&amp;#34;&lt;/span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt;username = #{username},&lt;span style="color:#f92672"&gt;&amp;lt;/if&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;if&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;test=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;password != null&amp;#34;&lt;/span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt;password = #{password},&lt;span style="color:#f92672"&gt;&amp;lt;/if&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;/set&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; WHERE id = #{id}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;&amp;lt;/update&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="foreach循环遍历"&gt;&lt;code&gt;&amp;lt;foreach&amp;gt;&lt;/code&gt;：循环遍历
+&lt;/h3&gt;&lt;p&gt;专门处理 &lt;code&gt;IN&lt;/code&gt; 查询或批量插入。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;collection&lt;/code&gt;：参数名（如 List 或数组）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;item&lt;/code&gt;：遍历出的每一项变量名&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;separator&lt;/code&gt;：分隔符（如逗号）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;open&lt;/code&gt;：遍历开始前拼接的片段&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;close&lt;/code&gt;：遍历结束后拼接的片段&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-XML" data-lang="XML"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;&amp;lt;delete&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;id=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;deleteByIds&amp;#34;&lt;/span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; DELETE FROM emp WHERE id IN
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;foreach&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;collection=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;ids&amp;#34;&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;item=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;id&amp;#34;&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;open=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;(&amp;#34;&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;close=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;)&amp;#34;&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;separator=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;,&amp;#34;&lt;/span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; #{id}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;/foreach&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;&amp;lt;/delete&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="工作原理"&gt;工作原理
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;解析&lt;/strong&gt;：MyBatis 在执行前扫描 XML 标签&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;判断&lt;/strong&gt;：根据你传入的参数对象（比如 &lt;code&gt;EmpQueryParam&lt;/code&gt;）的值，计算 &lt;code&gt;test&lt;/code&gt; 里的表达式&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;渲染&lt;/strong&gt;：只保留符合条件的片段，拼接成最终的“原生 SQL”交给数据库执行&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="使用提示"&gt;使用提示
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;字符串判空&lt;/strong&gt;：对于 String 类型，习惯上写成 &lt;code&gt;&amp;lt;if test=&amp;quot;name != null and name != ''&amp;quot;&amp;gt;&lt;/code&gt;，同时检查 &lt;code&gt;null&lt;/code&gt; 和空字符串&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;SQL 注入&lt;/strong&gt;：始终使用 &lt;code&gt;#{}&lt;/code&gt; 传参，它会自动进行预编译。除非是要动态传表名或排序列名（这种极少数情况才用 &lt;code&gt;${}&lt;/code&gt;）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;XML 还是注解？&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;简单的 SQL 可以写在注解 &lt;code&gt;@Select&lt;/code&gt; 里&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;复杂的动态 SQL &lt;strong&gt;强烈建议&lt;/strong&gt;写在 XML 里，因为 XML 的结构化标签比在 Java 字符串里拼 SQL 舒服且清晰得多&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h1 id="springboot配置文件"&gt;SpringBoot配置文件
+&lt;/h1&gt;&lt;h2 id="配置格式"&gt;配置格式
+&lt;/h2&gt;&lt;p&gt;SpringBoot项目提供了多种属性配置方式(properties、yaml、yml)&lt;/p&gt;
+&lt;h2 id="核心语法规则避坑指南"&gt;核心语法规则（避坑指南）
+&lt;/h2&gt;&lt;p&gt;YAML 的语法非常严苛，这些错误尤其会导致 Spring Boot 启动失败：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;大小写敏感&lt;/strong&gt;：&lt;code&gt;Name&lt;/code&gt; 和 &lt;code&gt;name&lt;/code&gt; 是不同的。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;使用缩进表示层级&lt;/strong&gt;：禁止使用 Tab 键，必须使用 &lt;strong&gt;空格&lt;/strong&gt;（通常缩进 2 个空格）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;冒号后必须有空格&lt;/strong&gt;：这是最容易忘的！&lt;code&gt;key: value&lt;/code&gt; 冒号后面必须跟着一个空格。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;“#” 表示注释&lt;/strong&gt;：与 Java 里的 &lt;code&gt;//&lt;/code&gt; 作用一样。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id="yaml-的数据格式"&gt;YAML 的数据格式
+&lt;/h2&gt;&lt;h3 id="纯量普通键值对"&gt;纯量（普通键值对）
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-yaml" data-lang="yaml"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;server&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;port&lt;/span&gt;: &lt;span style="color:#ae81ff"&gt;8080&lt;/span&gt; &lt;span style="color:#75715e"&gt;# 注意冒号后的空格&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;address&lt;/span&gt;: &lt;span style="color:#ae81ff"&gt;127.0.0.1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="对象层级关系"&gt;对象（层级关系）
+&lt;/h3&gt;&lt;p&gt;YAML 天然适合表达这种父子结构：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-yaml" data-lang="yaml"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;student&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;name&lt;/span&gt;: &lt;span style="color:#ae81ff"&gt;ZhangKun&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;age&lt;/span&gt;: &lt;span style="color:#ae81ff"&gt;20&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;major&lt;/span&gt;: &lt;span style="color:#ae81ff"&gt;SoftwareEngineering&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="数组--集合"&gt;数组 / 集合
+&lt;/h3&gt;&lt;p&gt;使用 &lt;strong&gt;短横线 &lt;code&gt;-&lt;/code&gt;&lt;/strong&gt; 表示列表中的一个项：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-yaml" data-lang="yaml"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;subjects&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; - &lt;span style="color:#ae81ff"&gt;Java&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; - &lt;span style="color:#ae81ff"&gt;MyBatis&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; - &lt;span style="color:#ae81ff"&gt;SpringBoot&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;[!WARNING]
+在yml格式的配置文件中，如果配置项的值是以0开头的，值需要使用&amp;rsquo; &amp;lsquo;引起来，因为以0开头在yml中表示8进制的数据。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;如果 &lt;code&gt;src/main/resources&lt;/code&gt; 下同时存在 &lt;code&gt;application.properties&lt;/code&gt; 和 &lt;code&gt;application.yml&lt;/code&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Spring 会同时加载两个文件&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如果有重复配置，&lt;strong&gt;&lt;code&gt;.properties&lt;/code&gt; 的优先级更高&lt;/strong&gt;（它会覆盖 &lt;code&gt;.yml&lt;/code&gt; 的内容）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;建议&lt;/strong&gt;：项目中统一只用一种格式，避免逻辑混乱。&lt;/p&gt;
+&lt;/blockquote&gt;</description></item><item><title>未命名</title><link>/post/image/%E6%9C%AA%E5%91%BD%E5%90%8D/</link><pubDate>Sun, 05 Apr 2026 00:00:00 +0000</pubDate><guid>/post/image/%E6%9C%AA%E5%91%BD%E5%90%8D/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;本文更新于 2026-04-05&lt;/p&gt;
+&lt;/blockquote&gt;</description></item><item><title>进阶-SQL优化</title><link>/post/%E8%BF%9B%E9%98%B6-sql%E4%BC%98%E5%8C%96/</link><pubDate>Sat, 04 Apr 2026 00:00:00 +0000</pubDate><guid>/post/%E8%BF%9B%E9%98%B6-sql%E4%BC%98%E5%8C%96/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;本文更新于 2026-04-04&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id="插入数据"&gt;插入数据
@@ -310,7 +1634,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#75715e"&gt;-- 无索引 -&amp;gt; 表锁
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;UPDATE&lt;/span&gt; course &lt;span style="color:#66d9ef"&gt;SET&lt;/span&gt; name &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;SpringBoot&amp;#39;&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;WHERE&lt;/span&gt; name &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;JavaEE&amp;#39;&lt;/span&gt;;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;</description></item><item><title>进阶-锁</title><link>/post/%E8%BF%9B%E9%98%B6-%E9%94%81/</link><pubDate>Sat, 04 Apr 2026 00:00:00 +0000</pubDate><guid>/post/%E8%BF%9B%E9%98%B6-%E9%94%81/</guid><description>&lt;blockquote&gt;
-&lt;p&gt;本文更新于 2026-04-04
+&lt;p&gt;本文更新于 2026-04-05
 &lt;img src="/post/image/%e8%bf%9b%e9%98%b6-%e9%94%81-3.png"
  loading="lazy"
  data-pending-gallery
@@ -430,20 +1754,284 @@
 &lt;h2 id="意向锁-intention-lock"&gt;意向锁 (Intention Lock)
 &lt;/h2&gt;&lt;p&gt;意向锁是为了解决“行锁”与“表锁”共存时的效率问题。&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;意向共享锁 (IS)&lt;/strong&gt;：事务准备给某些行加读锁前，先给表加 IS。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;意向排他锁 (IX)&lt;/strong&gt;：事务准备给某些行加写锁前，先给表加 IX。&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;意向共享锁 (IS)&lt;/strong&gt;：事务准备给某些行加读锁前，先给表加 IS。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;与表锁共享锁(read)兼容，与表锁排他锁(write)互斥。&lt;/li&gt;
+&lt;li&gt;执行 &lt;code&gt;SELECT ... FOR SHARE&lt;/code&gt; 前自动加。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;核心意义&lt;/strong&gt;：当你想加表锁（如 &lt;code&gt;lock tables write&lt;/code&gt;）时，不需要逐行检查是否有行锁，直接看表上是否有意向锁即可，极大提高了性能。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;意向排他锁 (IX)&lt;/strong&gt;：事务准备给某些行加写锁前，先给表加 IX。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;与表锁共享锁(read)及排他锁(write)都互斥，意向锁之间不会互斥。&lt;/li&gt;
+&lt;li&gt;执行 &lt;code&gt;INSERT/UPDATE/DELETE&lt;/code&gt; 前自动加。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;锁类型&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;IS (意向共享)&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;IX (意向排他)&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;S (表级共享)&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;X (表级排他)&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;IS&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;兼容&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;兼容&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;兼容&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;冲突&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;IX&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;兼容&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;兼容&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;冲突&lt;/td&gt;
+ &lt;td&gt;冲突&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;S&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;兼容&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;冲突&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;兼容&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;冲突&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;X&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;冲突&lt;/td&gt;
+ &lt;td&gt;冲突&lt;/td&gt;
+ &lt;td&gt;冲突&lt;/td&gt;
+ &lt;td&gt;冲突&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;核心意义&lt;/strong&gt;：当你想加表锁（如 &lt;code&gt;lock tables write&lt;/code&gt;）时，不需要逐行检查是否有行锁，直接看表上是否有意向锁即可，极大提高了性能。&lt;/td&gt;
+ &lt;td&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[!tip] 解释
+意向锁就像是酒店大堂的&lt;strong&gt;状态指示牌&lt;/strong&gt;。如果没有它，你想包下整个酒店（表锁），得挨个敲门看有没有人住（行锁）；有了它，你看一眼前台的登记簿（意向锁）就全明白了。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2 id="auto-inc-锁"&gt;AUTO-INC 锁
 &lt;/h2&gt;&lt;p&gt;这是一种特殊的表级锁，主要用于处理带有 &lt;code&gt;AUTO_INCREMENT&lt;/code&gt; 列的表。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;当插入数据时，会加一个表级的 AUTO-INC 锁来获取自增值。&lt;/li&gt;
 &lt;li&gt;在高并发插入场景下，这可能成为性能瓶颈（现代 MySQL 可以通过 &lt;code&gt;innodb_autoinc_lock_mode&lt;/code&gt; 参数进行优化，使用轻量级互斥锁代替）。&lt;/li&gt;
-&lt;/ul&gt;</description></item><item><title>多表查询</title><link>/post/%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/</link><pubDate>Thu, 02 Apr 2026 00:00:00 +0000</pubDate><guid>/post/%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/</guid><description>&lt;blockquote&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h1 id="行级锁"&gt;行级锁
+&lt;/h1&gt;&lt;p&gt;行级锁是 MySQL 中锁粒度最小的一种锁，主要由 &lt;strong&gt;InnoDB&lt;/strong&gt; 存储引擎实现&lt;/p&gt;
+&lt;p&gt;它的特点是锁冲突概率最低，并发处理能力最强，但开销相对较大，且可能会出现&lt;strong&gt;死锁&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;锁类型&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;名称&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;锁定范围&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;作用&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;支持&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;Record Lock&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;记录锁&lt;/td&gt;
+ &lt;td&gt;仅锁定单个索引记录。&lt;/td&gt;
+ &lt;td&gt;防止其他事务修改或删除该行。&lt;/td&gt;
+ &lt;td&gt;在RC,RR隔离级别下都支持&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;Gap Lock&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;间隙锁&lt;/td&gt;
+ &lt;td&gt;锁定索引记录之间的间隙（不含记录本身）。&lt;/td&gt;
+ &lt;td&gt;防止其他事务在间隙内插入数据，解决&lt;strong&gt;幻读&lt;/strong&gt;。&lt;/td&gt;
+ &lt;td&gt;在RR隔离级别下支持&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;strong&gt;Next-Key Lock&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;临键锁&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;记录锁 + 间隙锁&lt;/strong&gt;的组合。（锁住数据及前面的间隙）&lt;/td&gt;
+ &lt;td&gt;锁定一个范围，并锁定记录本身。InnoDB 默认的锁算法。&lt;/td&gt;
+ &lt;td&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id="行锁"&gt;行锁
+&lt;/h2&gt;&lt;h2 id="行锁分类"&gt;行锁分类
+&lt;/h2&gt;&lt;p&gt;行锁在逻辑上主要分为两类：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;共享锁 (S 锁 / Shared Lock)&lt;/strong&gt;：又称读锁。允许事务读取一行数据。多个事务可以同时持有同一行的 S 锁。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;特点&lt;/em&gt;：兼容 S 锁，冲突 X 锁。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;排他锁 (X 锁 / Exclusive Lock)&lt;/strong&gt;：又称写锁。允许事务删除或更新一行数据。当一个事务持有 X 锁时，其他事务无法再对该行加任何锁。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;特点&lt;/em&gt;：冲突一切锁（包括 S 和 X）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;&lt;strong&gt;SQL 语句&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;行锁类型&lt;/strong&gt;&lt;/th&gt;
+ &lt;th&gt;&lt;strong&gt;说明&lt;/strong&gt;&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;INSERT ...&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;排他锁 (X)&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;自动加锁。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;UPDATE ...&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;排他锁 (X)&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;自动加锁。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;DELETE ...&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;排他锁 (X)&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;自动加锁。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;SELECT (正常)&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;不加任何锁&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;基于 MVCC 实现的快照读，不阻塞其他事务。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;SELECT ... LOCK IN SHARE MODE&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;共享锁 (S)&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;需要手动在 &lt;code&gt;SELECT&lt;/code&gt; 之后添加（兼容 S，互斥 X）。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;&lt;code&gt;SELECT ... FOR UPDATE&lt;/code&gt;&lt;/td&gt;
+ &lt;td&gt;&lt;strong&gt;排他锁 (X)&lt;/strong&gt;&lt;/td&gt;
+ &lt;td&gt;需要手动在 &lt;code&gt;SELECT&lt;/code&gt; 之后添加（互斥 S 和 X）。&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[!TIPS]
+InnoDB 的行锁是通过&lt;strong&gt;给索引上的索引项加锁&lt;/strong&gt;来实现的，而不是针对记录本身。
+这意味着：&lt;strong&gt;如果你的 SQL 没有走索引，行锁就会升级为表锁。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id="间隙锁和临键锁"&gt;间隙锁和临键锁
+&lt;/h2&gt;&lt;p&gt;在 InnoDB 的 &lt;strong&gt;可重复读 (RR)&lt;/strong&gt; 隔离级别下，间隙锁和临键锁是解决 &lt;strong&gt;幻读 (PR)&lt;/strong&gt; 的核心机制。它们都是行级锁的变体，但是锁定的范围不同&lt;/p&gt;
+&lt;h3 id="间隙锁-gap-lock"&gt;间隙锁 (Gap Lock)
+&lt;/h3&gt;&lt;p&gt;间隙锁锁定的不是记录本身，而是两条索引记录之间的“间隙”，或者是第一条记录之前、最后一条记录之后的空间。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;目的&lt;/strong&gt;：防止其他事务在间隙中插入（INSERT）新数据，从而避免幻读。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;特性&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;间隙锁之间是&lt;strong&gt;兼容&lt;/strong&gt;的。一个事务持有的间隙锁不会阻止另一个事务在同一个间隙上获取间隙锁。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;它们唯一的冲突点是：&lt;strong&gt;防止其他事务插入数据&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;示例&lt;/strong&gt;：&lt;/p&gt;
+&lt;p&gt;假设表中 id 有 1, 5, 10。执行 &lt;code&gt;SELECT * FROM t WHERE id = 3 FOR UPDATE;&lt;/code&gt;。
+由于 id=3 不存在，InnoDB 会在 (1, 5) 这个间隙加锁。此时，任何想插入 id=2, 3, 4 的操作都会被阻塞。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id="临键锁-next-key-lock"&gt;临键锁 (Next-Key Lock)
+&lt;/h3&gt;&lt;p&gt;临键锁是 &lt;strong&gt;记录锁 (Record Lock)&lt;/strong&gt; 和 &lt;strong&gt;间隙锁 (Gap Lock)&lt;/strong&gt; 的组合。它既锁定索引记录本身，也锁定记录之前的间隙。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;公式&lt;/strong&gt;：Next-Key Lock = Gap Lock + Record Lock。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;范围&lt;/strong&gt;：默认是&lt;strong&gt;左开右闭&lt;/strong&gt;区间。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;默认机制&lt;/strong&gt;：InnoDB 在 RR 隔离级别下，对行扫描时默认加的就是 Next-Key Lock。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;示例&lt;/strong&gt;：&lt;/p&gt;
+&lt;p&gt;假设表中 id 有 1, 5, 10。执行范围查询 &lt;code&gt;WHERE id &amp;gt; 5 AND id &amp;lt;= 10 FOR UPDATE&lt;/code&gt;。
+临键锁会锁定区间 &lt;strong&gt;(5, 10]&lt;/strong&gt;。这包括了间隙 (5, 10) 和记录 id=10 本身。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id="锁的退化规则-优化"&gt;锁的退化规则 (优化)
+&lt;/h3&gt;&lt;p&gt;为了提高并发性能，InnoDB 在某些特定条件下会将临键锁“降级”：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;唯一索引等值查询（记录存在）&lt;/strong&gt;：
+当使用主键或唯一索引进行等值查询，且记录确实存在时，Next-Key Lock 会退化为 &lt;strong&gt;记录锁 (Record Lock)&lt;/strong&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;原因&lt;/em&gt;：既然记录是唯一的且已存在，就不可能再插入相同的记录，没必要锁间隙。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;唯一索引等值查询（记录不存在）&lt;/strong&gt;：
+当查询的记录不存在时，Next-Key Lock 会退化为 &lt;strong&gt;间隙锁 (Gap Lock)&lt;/strong&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;范围&lt;/em&gt;：锁定该值所在的那个间隙。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;非唯一索引（普通索引）查询&lt;/strong&gt;：
+即便命中记录，InnoDB 也会在记录两边加锁（Next-Key Lock 加上右侧的 Gap Lock），以确保不会有新的相同索引值插入。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h3 id="总结对比"&gt;总结对比
+&lt;/h3&gt;&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th style="text-align: left"&gt;锁类型&lt;/th&gt;
+ &lt;th style="text-align: left"&gt;锁定对象&lt;/th&gt;
+ &lt;th style="text-align: left"&gt;包含记录本身&lt;/th&gt;
+ &lt;th style="text-align: left"&gt;主要作用&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;记录锁 (Record Lock)&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;单行记录&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;是&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;防止其他事务修改或删除该行&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;间隙锁 (Gap Lock)&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;索引之间的间隙&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;否&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;防止其他事务插入数据，解决幻读&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: left"&gt;&lt;strong&gt;临键锁 (Next-Key Lock)&lt;/strong&gt;&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;间隙 + 记录&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;是&lt;/td&gt;
+ &lt;td style="text-align: left"&gt;RR 级别下的默认锁，结合了前两者优点&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;核心提示&lt;/strong&gt;：间隙锁和临键锁只在 &lt;strong&gt;可重复读 (RR)&lt;/strong&gt; 或更严苛的隔离级别下生效。在 &lt;strong&gt;读已提交 (RC)&lt;/strong&gt; 级别下，间隙锁会被禁用（除非涉及外键约束或重复键检查）。&lt;/p&gt;</description></item><item><title>多表查询</title><link>/post/%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/</link><pubDate>Thu, 02 Apr 2026 00:00:00 +0000</pubDate><guid>/post/%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;本文更新于 2026-04-02&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id="sql-进阶---多表查询"&gt;SQL 进阶 - 多表查询
-&lt;/h1&gt;&lt;h2 id="多表关系介绍与大厂设计规范"&gt;多表关系介绍与大厂设计规范
+&lt;/h1&gt;&lt;h2 id="多表关系"&gt;多表关系
 &lt;/h2&gt;&lt;p&gt;在真实业务中，合理的表结构设计是高并发、高性能查询的基石。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -486,17 +2074,19 @@
 &lt;h2 id="内连接-inner-join"&gt;内连接 (Inner Join)
 &lt;/h2&gt;&lt;p&gt;最基础的连接，查询的是两张表&lt;strong&gt;完全匹配&lt;/strong&gt;的交集。&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;隐式内连接&lt;/strong&gt;（传统的 SQL92 标准，可读性较差）：
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-MySQL" data-lang="MySQL"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;SELECT&lt;/span&gt; e.name, d.name 
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;FROM&lt;/span&gt; emp e, dept d 
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;WHERE&lt;/span&gt; e.dept_id &lt;span style="color:#f92672"&gt;=&lt;/span&gt; d.id &lt;span style="color:#66d9ef"&gt;AND&lt;/span&gt; e.salary &lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;5000&lt;/span&gt;;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;显式内连接&lt;/strong&gt;（SQL99 标准，强烈推荐，逻辑清晰）：
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-mysql" data-lang="mysql"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;SELECT&lt;/span&gt; e.name, d.name 
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;FROM&lt;/span&gt; emp e 
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;INNER&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;JOIN&lt;/span&gt; dept d &lt;span style="color:#66d9ef"&gt;ON&lt;/span&gt; e.dept_id &lt;span style="color:#f92672"&gt;=&lt;/span&gt; d.id 
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;WHERE&lt;/span&gt; e.salary &lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;5000&lt;/span&gt;;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;隐式内连接&lt;/strong&gt;（传统的 SQL92 标准，可读性较差）：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-MySQL" data-lang="MySQL"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;SELECT&lt;/span&gt; e.name, d.name 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;FROM&lt;/span&gt; emp e, dept d 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;WHERE&lt;/span&gt; e.dept_id &lt;span style="color:#f92672"&gt;=&lt;/span&gt; d.id &lt;span style="color:#66d9ef"&gt;AND&lt;/span&gt; e.salary &lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;5000&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;显式内连接&lt;/strong&gt;（SQL99 标准，强烈推荐，逻辑清晰）：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-mysql" data-lang="mysql"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;SELECT&lt;/span&gt; e.name, d.name 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;FROM&lt;/span&gt; emp e 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; [&lt;span style="color:#66d9ef"&gt;INNER&lt;/span&gt;] &lt;span style="color:#66d9ef"&gt;JOIN&lt;/span&gt; dept d &lt;span style="color:#66d9ef"&gt;ON&lt;/span&gt; e.dept_id &lt;span style="color:#f92672"&gt;=&lt;/span&gt; d.id &lt;span style="color:#75715e"&gt;-- INNER 可省略
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;WHERE&lt;/span&gt; e.salary &lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;5000&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;原理&lt;/strong&gt;：MySQL 会用小表作为驱动表，去大表中进行匹配（通常配合索引提高速度）。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
@@ -558,7 +2148,7 @@
 &lt;h3 id="标量子查询"&gt;标量子查询
 &lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;特征&lt;/strong&gt;：子查询只返回&lt;strong&gt;一个孤零零的值&lt;/strong&gt;。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;案例&lt;/strong&gt;：查询薪资比“张三”高的所有员工。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;案例&lt;/strong&gt;：查询薪资比“张三”高的所有员工&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-MySQL" data-lang="MySQL"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;SELECT&lt;/span&gt; &lt;span style="color:#f92672"&gt;*&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;FROM&lt;/span&gt; emp 
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;WHERE&lt;/span&gt; salary &lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;SELECT&lt;/span&gt; salary &lt;span style="color:#66d9ef"&gt;FROM&lt;/span&gt; emp &lt;span style="color:#66d9ef"&gt;WHERE&lt;/span&gt; name &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;张三&amp;#39;&lt;/span&gt;);
@@ -591,10 +2181,118 @@
 &lt;li&gt;&lt;strong&gt;案例&lt;/strong&gt;：查询入职日期在“2025-01-01”之后的员工，并关联他们的部门信息。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-MySQL" data-lang="MySQL"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#75715e"&gt;-- 将子查询的结果作为一张临时表 temp
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;SELECT&lt;/span&gt; temp.name, d.dept_name 
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;FROM&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;SELECT&lt;/span&gt; &lt;span style="color:#f92672"&gt;*&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;FROM&lt;/span&gt; emp &lt;span style="color:#66d9ef"&gt;WHERE&lt;/span&gt; entry_date &lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;2025-01-01&amp;#39;&lt;/span&gt;) temp
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;LEFT&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;JOIN&lt;/span&gt; dept d &lt;span style="color:#66d9ef"&gt;ON&lt;/span&gt; temp.dept_id &lt;span style="color:#f92672"&gt;=&lt;/span&gt; d.id;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="个人常犯的错误"&gt;个人常犯的错误
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;SELECT&lt;/span&gt; t.name, d.dept_name 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;FROM&lt;/span&gt; (
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;		&lt;span style="color:#66d9ef"&gt;SELECT&lt;/span&gt; &lt;span style="color:#f92672"&gt;*&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;FROM&lt;/span&gt; emp 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;		&lt;span style="color:#66d9ef"&gt;WHERE&lt;/span&gt; entry_date &lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;2025-01-01&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	)t
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;LEFT&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;JOIN&lt;/span&gt; dept d &lt;span style="color:#66d9ef"&gt;ON&lt;/span&gt; t.dept_id &lt;span style="color:#f92672"&gt;=&lt;/span&gt; d.id;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h1 id="外键约束"&gt;外键约束
+&lt;/h1&gt;&lt;h2 id="一对多"&gt;一对多
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;父表（Parent Table / Referenced Table）&lt;/strong&gt;：被引用的表，通常主键（Primary Key）所在的表&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;子表（Child Table / Foreign Key Table）&lt;/strong&gt;：引用父表的表，外键所在的表&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;外键列&lt;/strong&gt;：子表中存储父表主键值的列&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-MySQL" data-lang="MySQL"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;-- 父表
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;CREATE&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;TABLE&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Departments&lt;/span&gt; (
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; DeptID &lt;span style="color:#66d9ef"&gt;INT&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;PRIMARY&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;KEY&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; DeptName &lt;span style="color:#66d9ef"&gt;VARCHAR&lt;/span&gt;(&lt;span style="color:#ae81ff"&gt;50&lt;/span&gt;) &lt;span style="color:#66d9ef"&gt;NOT&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;NULL&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;-- 子表
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;CREATE&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;TABLE&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Emp&lt;/span&gt;(
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; EmpID &lt;span style="color:#66d9ef"&gt;INT&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;PRIMARY&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;KEY&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; EmpName &lt;span style="color:#66d9ef"&gt;VARCHAR&lt;/span&gt;(&lt;span style="color:#ae81ff"&gt;50&lt;/span&gt;),
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; DeptID &lt;span style="color:#66d9ef"&gt;INT&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;-- 定义外键约束
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;CONSTRAINT&lt;/span&gt; fk_dept 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;FOREIGN&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;KEY&lt;/span&gt; (DeptID) &lt;span style="color:#66d9ef"&gt;REFERENCES&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Departments&lt;/span&gt;(DeptID)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;ON&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;DELETE&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;CASCADE&lt;/span&gt; &lt;span style="color:#75715e"&gt;-- 部门删除时，员工也自动删除
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果表已经创建好了，可以使用 &lt;code&gt;ALTER TABLE&lt;/code&gt;：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-MySQL" data-lang="MySQL"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;-- 添加外键
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;ALTER&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;TABLE&lt;/span&gt; Emp &lt;span style="color:#66d9ef"&gt;ADD&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;CONSTRAINT&lt;/span&gt; fk_dept &lt;span style="color:#66d9ef"&gt;FOREIGN&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;KEY&lt;/span&gt; (DeptID) &lt;span style="color:#66d9ef"&gt;REFERENCES&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Departments&lt;/span&gt;(DeptID)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;-- 删除外键
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;ALTER&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;TABLE&lt;/span&gt; Emp &lt;span style="color:#66d9ef"&gt;DROP&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;FOREIGN&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;KEY&lt;/span&gt; fk_dept
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="一对一"&gt;一对一
+&lt;/h2&gt;&lt;p&gt;一个用户只能有一个身份证号，一个身份证号也只能对应一个用户&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-MySQL" data-lang="MySQL"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;-- 用户表（主表）
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;CREATE&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;TABLE&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Users&lt;/span&gt; (
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; user_id &lt;span style="color:#66d9ef"&gt;INT&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;PRIMARY&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;KEY&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;AUTO_INCREMENT&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; username &lt;span style="color:#66d9ef"&gt;VARCHAR&lt;/span&gt;(&lt;span style="color:#ae81ff"&gt;50&lt;/span&gt;) &lt;span style="color:#66d9ef"&gt;NOT&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;NULL&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;-- 身份证表（从表）
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;CREATE&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;TABLE&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;IDCards&lt;/span&gt; (
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; card_id &lt;span style="color:#66d9ef"&gt;INT&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;PRIMARY&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;KEY&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;AUTO_INCREMENT&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; card_number &lt;span style="color:#66d9ef"&gt;CHAR&lt;/span&gt;(&lt;span style="color:#ae81ff"&gt;18&lt;/span&gt;) &lt;span style="color:#66d9ef"&gt;NOT&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;NULL&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;UNIQUE&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; user_id &lt;span style="color:#66d9ef"&gt;INT&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;UNIQUE&lt;/span&gt;, &lt;span style="color:#75715e"&gt;-- 关键点：UNIQUE 约束确保一对一
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;CONSTRAINT&lt;/span&gt; fk_user &lt;span style="color:#66d9ef"&gt;FOREIGN&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;KEY&lt;/span&gt; (user_id) &lt;span style="color:#66d9ef"&gt;REFERENCES&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Users&lt;/span&gt;(user_id)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="多对多"&gt;多对多
+&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-MySQL" data-lang="MySQL"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;-- 学生表
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;CREATE&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;TABLE&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Students&lt;/span&gt; (
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; student_id &lt;span style="color:#66d9ef"&gt;INT&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;PRIMARY&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;KEY&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;AUTO_INCREMENT&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; name &lt;span style="color:#66d9ef"&gt;VARCHAR&lt;/span&gt;(&lt;span style="color:#ae81ff"&gt;50&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;-- 课程表
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;CREATE&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;TABLE&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Courses&lt;/span&gt; (
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; course_id &lt;span style="color:#66d9ef"&gt;INT&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;PRIMARY&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;KEY&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;AUTO_INCREMENT&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; title &lt;span style="color:#66d9ef"&gt;VARCHAR&lt;/span&gt;(&lt;span style="color:#ae81ff"&gt;50&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;-- 中间表（维护多对多关系）
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;CREATE&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;TABLE&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Student_Courses&lt;/span&gt; (
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; student_id &lt;span style="color:#66d9ef"&gt;INT&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; course_id &lt;span style="color:#66d9ef"&gt;INT&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;PRIMARY&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;KEY&lt;/span&gt; (student_id, course_id), &lt;span style="color:#75715e"&gt;-- 联合主键防止重复选课
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;CONSTRAINT&lt;/span&gt; fk_student 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 &lt;span style="color:#66d9ef"&gt;FOREIGN&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;KEY&lt;/span&gt; (student_id) &lt;span style="color:#66d9ef"&gt;REFERENCES&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Students&lt;/span&gt;(student_id),
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;CONSTRAINT&lt;/span&gt; fk_course 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	 &lt;span style="color:#66d9ef"&gt;FOREIGN&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;KEY&lt;/span&gt; (course_id) &lt;span style="color:#66d9ef"&gt;REFERENCES&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Courses&lt;/span&gt;(course_id)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;联合主键（Composite Primary Key）&lt;/strong&gt;：中间表通常建议使用 &lt;code&gt;(ID_A, ID_B)&lt;/code&gt; 作为联合主键，这样可以从物理层面防止数据重复（例如：防止同一个学生对同一门课选两次）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;冗余字段&lt;/strong&gt;：中间表不一定只能有两个 ID。它还可以存储“关系本身”的属性。例如：在 &lt;code&gt;Student_Courses&lt;/code&gt; 中增加 &lt;code&gt;score&lt;/code&gt;（成绩）或 &lt;code&gt;enroll_date&lt;/code&gt;（选课时间）字段&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;查询方式&lt;/strong&gt;：查询多对多数据通常需要 &lt;strong&gt;两次 JOIN&lt;/strong&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;查询张三选了哪些课：&lt;/em&gt; &lt;code&gt;Students&lt;/code&gt; JOIN &lt;code&gt;Student_Courses&lt;/code&gt; JOIN &lt;code&gt;Courses&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="物理外键的缺点"&gt;物理外键的缺点
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;性能瓶颈&lt;/strong&gt;：在高并发写入时，外键校验会导致频繁的行锁竞争，降低吞吐量&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;分库分表困难&lt;/strong&gt;：当数据量大到需要拆分到不同物理数据库时，跨库的物理外键是无法实现的&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;死锁风险&lt;/strong&gt;：复杂的级联更新容易导致数据库产生死锁，排查极其困难&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;测试麻烦&lt;/strong&gt;：手动构造测试数据时，必须先造父表再造子表，流程繁琐&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h1 id="个人常犯的错误"&gt;个人常犯的错误
 &lt;/h1&gt;&lt;h2 id="题目要求查询拥有员工的部门"&gt;题目要求：查询拥有员工的部门
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;
@@ -869,10 +2567,10 @@
 &lt;h2 id="b-tree"&gt;B-Tree
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;a class="link" href="09-%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84###%e5%bc%8a%e7%ab%af" &gt;二叉树缺点&lt;/a&gt;：顺序插入时，会形成一个链表，查询性能大大下降。大数据量情况下，层级较深，检索速度慢&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="JavaSE/09-%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84###%e5%bc%8a%e7%ab%af" &gt;二叉树缺点&lt;/a&gt;：顺序插入时，会形成一个链表，查询性能大大下降。大数据量情况下，层级较深，检索速度慢&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;a class="link" href="09-%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84#%e7%ba%a2%e9%bb%91%e6%a0%91" &gt;红黑树&lt;/a&gt;：大数据量情况下，层次较深，检索速度慢&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="JavaSE/09-%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84#%e7%ba%a2%e9%bb%91%e6%a0%91" &gt;红黑树&lt;/a&gt;：大数据量情况下，层次较深，检索速度慢&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;B-Tree:&lt;/p&gt;
@@ -1653,7 +3351,7 @@ B+树：数据仅在叶子节点中。适合范围扫描和大规模排序（MyS
 &lt;h1 id="简介"&gt;简介
 &lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;事务是一组 SQL 语句组成的逻辑处理单元。这组操作要么全部执行成功，要么全部失败回滚，&lt;strong&gt;不能只执行其中的一部分&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;事务是一组 SQL 语句组成的逻辑处理单元。这组操作&lt;strong&gt;要么全部执行成功，要么全部失败回滚&lt;/strong&gt;，&lt;strong&gt;不能只执行其中的一部分&lt;/strong&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;典型场景&lt;/strong&gt;：银行转账。A 账户减 100 元，B 账户加 100 元。这两个操作必须同时成功，否则钱就“凭空消失”了&lt;/p&gt;
@@ -2668,7 +4366,7 @@ B+树：数据仅在叶子节点中。适合范围扫描和大规模排序（MyS
 &lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;方言限制&lt;/strong&gt;：&lt;code&gt;LIMIT&lt;/code&gt; 是 &lt;strong&gt;MySQL&lt;/strong&gt; 的方言。如果你用的是 Oracle，需要用 &lt;code&gt;ROWNUM&lt;/code&gt;；如果是 SQL Server，需要用 &lt;code&gt;TOP&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;方言限制&lt;/strong&gt;：&lt;code&gt;LIMIT&lt;/code&gt; 是 &lt;strong&gt;MySQL&lt;/strong&gt; 的方言。如果用的是 Oracle，需要用 &lt;code&gt;ROWNUM&lt;/code&gt;；如果是 SQL Server，需要用 &lt;code&gt;TOP&lt;/code&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;执行顺序&lt;/strong&gt;：&lt;code&gt;LIMIT&lt;/code&gt; 永远是 SQL 语句中&lt;strong&gt;最后执行&lt;/strong&gt;的一个环节&lt;/p&gt;
