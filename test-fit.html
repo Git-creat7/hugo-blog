@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Fit Test</title>
+<style>#network {width:800px;height:600px;border:1px solid #ccc;}</style>
+</head>
+<body>
+<div id="network"></div>
+<script src="/lib/vis-network.min.js"></script>
+<script>
+var nodes = new vis.DataSet([
+    {id: 'a', label: 'A', x: 0, y: 0, fixed: {x: true, y: true}, shape: 'dot', size: 26, color: '#3b82f6'},
+    {id: 'b', label: 'B', x: 300, y: 0, fixed: {x: true, y: true}, shape: 'dot', size: 26, color: '#10b981'},
+    {id: 'c', label: 'C', x: 600, y: 0, fixed: {x: true, y: true}, shape: 'dot', size: 26, color: '#f59e0b'},
+    {id: 'd', label: 'D', x: 0, y: 200, fixed: {x: true, y: true}, shape: 'dot', size: 26, color: '#94a3b8'},
+    {id: 'e', label: 'E', x: 300, y: 200, fixed: {x: true, y: true}, shape: 'dot', size: 26, color: '#3b82f6'},
+    {id: 'f', label: 'F', x: 600, y: 200, fixed: {x: true, y: true}, shape: 'dot', size: 26, color: '#10b981'},
+]);
+var edges = new vis.DataSet([
+    {from: 'a', to: 'b'}, {from: 'b', to: 'c'},
+    {from: 'd', to: 'e'}, {from: 'e', to: 'f'},
+    {from: 'a', to: 'd'}, {from: 'b', to: 'e'}, {from: 'c', to: 'f'},
+]);
+var options = {
+    physics: { enabled: false },
+    autoResize: false,
+    height: '600px',
+    width: '800px'
+};
+var network = new vis.Network(document.getElementById('network'), {nodes: nodes, edges: edges}, options);
+// Test: call fit with animation - do positions change?
+var before = nodes.get().map(n => n.id + ':(' + n.x + ',' + n.y + ')');
+console.log('BEFORE fit:', before.join(' | '));
+network.fit({ animation: { duration: 500, easingFunction: 'easeInOutQuad' } });
+setTimeout(function() {
+    var after = nodes.get().map(n => n.id + ':(' + n.x + ',' + n.y + ')');
+    console.log('AFTER fit:', after.join(' | '));
+    console.log('SAME?', JSON.stringify(before) === JSON.stringify(after));
+}, 600);
+</script>
+</body>
+</html>

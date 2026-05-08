@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Fixed Position Test</title>
+<style>
+body { margin: 0; }
+#network { width: 1200px; height: 700px; border: 1px solid #ccc; }
+</style>
+</head>
+<body>
+<div id="network"></div>
+<script src="/lib/vis-network.min.js"></script>
+<script>
+var nodes = new vis.DataSet([
+    {id: 'a', label: 'Node A', x: 0, y: 0, fixed: {x: true, y: true}, shape: 'dot', size: 26, color: '#3b82f6', font: {size: 14}},
+    {id: 'b', label: 'Node B', x: 400, y: 0, fixed: {x: true, y: true}, shape: 'dot', size: 26, color: '#10b981', font: {size: 14}},
+    {id: 'c', label: 'Node C', x: 800, y: 0, fixed: {x: true, y: true}, shape: 'dot', size: 26, color: '#f59e0b', font: {size: 14}},
+    {id: 'd', label: 'Node D', x: 0, y: 300, fixed: {x: true, y: true}, shape: 'dot', size: 26, color: '#94a3b8', font: {size: 14}},
+    {id: 'e', label: 'Node E', x: 400, y: 300, fixed: {x: true, y: true}, shape: 'dot', size: 26, color: '#3b82f6', font: {size: 14}},
+    {id: 'f', label: 'Node F', x: 800, y: 300, fixed: {x: true, y: true}, shape: 'dot', size: 26, color: '#10b981', font: {size: 14}},
+]);
+var edges = new vis.DataSet([
+    {from: 'a', to: 'b', arrows: 'to'},
+    {from: 'b', to: 'c', arrows: 'to'},
+    {from: 'd', to: 'e', arrows: 'to'},
+    {from: 'e', to: 'f', arrows: 'to'},
+    {from: 'a', to: 'd', arrows: 'to'},
+    {from: 'b', to: 'e', arrows: 'to'},
+    {from: 'c', to: 'f', arrows: 'to'},
+]);
+var options = {
+    physics: { enabled: false },
+    autoResize: false,
+    height: '700px',
+    width: '1200px'
+};
+var network = new vis.Network(document.getElementById('network'), {nodes: nodes, edges: edges}, options);
+network.on('click', function(params) {
+    if (params.nodes.length > 0) {
+        document.title = 'Clicked: ' + params.nodes[0] + ' at (' + params.pointer.canvas.x.toFixed(0) + ',' + params.pointer.canvas.y.toFixed(0) + ')';
+    }
+});
+</script>
+</body>
+</html>

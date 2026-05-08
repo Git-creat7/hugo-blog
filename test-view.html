@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>View Transform Test</title>
+<style>#network{width:1200px;height:700px;border:1px solid #ccc}</style>
+</head>
+<body>
+<div id="network"></div>
+<script src="/lib/vis-network.min.js"></script>
+<script>
+var nodes = new vis.DataSet([
+    {id: 'a', label: 'Node A', x: 0, y: 0, fixed: {x: true, y: true}, shape: 'dot', size: 26, color: '#3b82f6'},
+    {id: 'b', label: 'Node B', x: 400, y: 0, fixed: {x: true, y: true}, shape: 'dot', size: 26, color: '#10b981'},
+    {id: 'c', label: 'Node C', x: 0, y: 300, fixed: {x: true, y: true}, shape: 'dot', size: 26, color: '#f59e0b'},
+]);
+var edges = new vis.DataSet([
+    {from: 'a', to: 'b', arrows: 'to'},
+    {from: 'a', to: 'c', arrows: 'to'},
+]);
+var options = { physics: { enabled: false }, autoResize: false, height: '700px', width: '1200px' };
+var network = new vis.Network(document.getElementById('network'), {nodes: nodes, edges: edges}, options);
+
+network.on('click', function(params) {
+    if (params.nodes.length > 0) {
+        var nodeId = params.nodes[0];
+        var node = nodes.get(nodeId);
+        var view = network.getViewPosition();
+        var scale = network.getScale();
+        console.log('CLICK node:', nodeId, 'at canvas pos:', params.pointer.canvas);
+        console.log('View scale:', scale, 'view offset:', JSON.stringify(view));
+        console.log('Node stored pos:', node.x, node.y);
+        // What canvas coords does this node actually render at?
+        var canvasPos = network.canvas.coordinates.canvasToDOM({x: node.x, y: node.y});
+        console.log('Node canvas coords (dom):', JSON.stringify(canvasPos));
+        document.title = 'Click: ' + nodeId;
+    }
+});
+
+// Get initial view state
+setTimeout(function() {
+    var view = network.getViewPosition();
+    var scale = network.getScale();
+    console.log('Initial view - scale:', scale, 'view:', JSON.stringify(view));
+    var bounds = network.getBoundingBox();
+    console.log('Bounding box:', JSON.stringify(bounds));
+}, 500);
+</script>
+</body>
+</html>

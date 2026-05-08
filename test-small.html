@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Small Graph Test</title>
+<style>
+#network {width:1200px;height:700px;border:1px solid #ccc;}
+</style>
+</head>
+<body>
+<div id="network"></div>
+<script src="/lib/vis-network.min.js"></script>
+<script>
+var nodes = new vis.DataSet([
+    {id: 'con_java_basic', label: 'Java基础', x: 0, y: 0, fixed: {x: true, y: true}, shape: 'dot', size: 26, color: '#3b82f6', borderWidth: 2, shadow: true, font: {size: 14, color: '#1e293b'}},
+    {id: 'con_oop', label: 'OOP', x: 280, y: 127.5, fixed: {x: true, y: true}, shape: 'dot', size: 26, color: '#3b82f6', borderWidth: 2, shadow: true, font: {size: 14, color: '#1e293b'}},
+    {id: 'con_exception', label: '异常', x: 560, y: 45, fixed: {x: true, y: true}, shape: 'dot', size: 26, color: '#3b82f6', borderWidth: 2, shadow: true, font: {size: 14, color: '#1e293b'}},
+    {id: 'con_hashmap', label: 'HashMap', x: 560, y: 100, fixed: {x: true, y: true}, shape: 'dot', size: 26, color: '#3b82f6', borderWidth: 2, shadow: true, font: {size: 14, color: '#1e293b'}},
+    {id: 'con_mysql', label: 'MySQL', x: 1120, y: 240, fixed: {x: true, y: true}, shape: 'dot', size: 26, color: '#10b981', borderWidth: 2, shadow: true, font: {size: 14, color: '#1e293b'}},
+]);
+var edges = new vis.DataSet([
+    {from: 'con_java_basic', to: 'con_oop', arrows: 'to', width: 2, color: '#475569'},
+    {from: 'con_oop', to: 'con_exception', arrows: 'to', width: 2, color: '#475569'},
+    {from: 'con_oop', to: 'con_hashmap', arrows: 'to', width: 2, color: '#475569'},
+    {from: 'con_oop', to: 'con_mysql', arrows: 'to', width: 2, color: '#475569'},
+]);
+var options = {
+    physics: { enabled: false },
+    autoResize: false,
+    height: '700px',
+    width: '1200px',
+    interaction: { hover: true }
+};
+var network = new vis.Network(document.getElementById('network'), {nodes: nodes, edges: edges}, options);
+
+network.on('click', function(params) {
+    console.log('CLICK params:', JSON.stringify(params));
+    if (params.nodes.length > 0) {
+        var node = nodes.get(params.nodes[0]);
+        console.log('Clicked node object:', JSON.stringify(node));
+        document.title = 'Clicked: ' + node.label + ' at (' + node.x + ',' + node.y + ')';
+    } else {
+        document.title = 'No node clicked, pointer: ' + JSON.stringify(params.pointer);
+    }
+});
+</script>
+</body>
+</html>
