@@ -1,4 +1,902 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Creat</title><link>/post/</link><description>Recent content in Posts on Creat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 16 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml"/><item><title>web后端实战</title><link>/post/web%E5%90%8E%E7%AB%AF%E5%AE%9E%E6%88%98/</link><pubDate>Thu, 16 Apr 2026 00:00:00 +0000</pubDate><guid>/post/web%E5%90%8E%E7%AB%AF%E5%AE%9E%E6%88%98/</guid><description>&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Creat</title><link>/post/</link><description>Recent content in Posts on Creat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 08 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml"/><item><title>PTA临时</title><link>/post/pta%E4%B8%B4%E6%97%B6/</link><pubDate>Fri, 08 May 2026 00:00:00 +0000</pubDate><guid>/post/pta%E4%B8%B4%E6%97%B6/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;本文更新于 2026-05-08&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id="顺序查找数组作形参"&gt;顺序查找（数组作形参）
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;search&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; arr[],&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; n,&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; x){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;; i &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; n; i&lt;span style="color:#f92672"&gt;++&lt;/span&gt;){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(arr[i] &lt;span style="color:#f92672"&gt;==&lt;/span&gt; x) &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; i;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; &lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;思路：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;设置循环变量 &lt;code&gt;i&lt;/code&gt;，从 &lt;code&gt;0&lt;/code&gt; 开始遍历数组。&lt;/li&gt;
+&lt;li&gt;每遍历一个元素，与目标值 &lt;code&gt;x&lt;/code&gt; 进行比较。&lt;/li&gt;
+&lt;li&gt;若相等，直接返回当前下标 &lt;code&gt;i&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;循环结束仍未找到，返回 &lt;code&gt;-1&lt;/code&gt; 表示查找失败。&lt;/li&gt;
+&lt;li&gt;时间复杂度：O(n)。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h1 id="顺序查找顺序表作形参"&gt;顺序查找（顺序表作形参）
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;searchSq&lt;/span&gt;(SqList L,ElemType x){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;; i &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; L.len; i&lt;span style="color:#f92672"&gt;++&lt;/span&gt;){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(L.data[i] &lt;span style="color:#f92672"&gt;==&lt;/span&gt; x) &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; i;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; &lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;思路：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;顺序查找的核心思路与数组版本完全相同。&lt;/li&gt;
+&lt;li&gt;区别在于数组边界由 &lt;code&gt;SqList&lt;/code&gt; 结构体的 &lt;code&gt;L.len&lt;/code&gt; 控制。&lt;/li&gt;
+&lt;li&gt;从 &lt;code&gt;0&lt;/code&gt; 到 &lt;code&gt;L.len-1&lt;/code&gt; 依次遍历 &lt;code&gt;L.data[]&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;找到则返回下标，未找到返回 &lt;code&gt;-1&lt;/code&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h1 id="有序表的插入数组作形参"&gt;有序表的插入（数组作形参）
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;insert&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; a[], &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; &lt;span style="color:#f92672"&gt;*&lt;/span&gt;n, &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; x) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#f92672"&gt;*&lt;/span&gt;n &lt;span style="color:#f92672"&gt;-&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (i &lt;span style="color:#f92672"&gt;&amp;gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt; &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; a[i] &lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; x) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; a[i &lt;span style="color:#f92672"&gt;+&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; a[i];
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; i&lt;span style="color:#f92672"&gt;--&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; a[i &lt;span style="color:#f92672"&gt;+&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; x;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; (&lt;span style="color:#f92672"&gt;*&lt;/span&gt;n)&lt;span style="color:#f92672"&gt;++&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;思路：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;初始化 &lt;code&gt;i = n - 1&lt;/code&gt;，指向当前数组的最后一个元素。&lt;/li&gt;
+&lt;li&gt;从后向前寻找插入位置，只要 &lt;code&gt;a[i] &amp;gt; x&lt;/code&gt;，说明 &lt;code&gt;x&lt;/code&gt; 应插在这些元素之前。&lt;/li&gt;
+&lt;li&gt;因此将 &lt;code&gt;a[i]&lt;/code&gt; 后移一位到 &lt;code&gt;a[i+1]&lt;/code&gt;，腾出空位。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;i&lt;/code&gt; 递减，继续向前比较。&lt;/li&gt;
+&lt;li&gt;循环结束后，&lt;code&gt;i+1&lt;/code&gt; 就是 &lt;code&gt;x&lt;/code&gt; 应该插入的位置。&lt;/li&gt;
+&lt;li&gt;将 &lt;code&gt;x&lt;/code&gt; 写入 &lt;code&gt;a[i+1]&lt;/code&gt;，数组长度 &lt;code&gt;n&lt;/code&gt; 加一。&lt;/li&gt;
+&lt;li&gt;由于数组有序，插入后仍然保持有序。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h1 id="有序表的插入顺序表作形参"&gt;有序表的插入（顺序表作形参）
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;ListInsertByOrder&lt;/span&gt;(SqList L, ElemType x){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; len &lt;span style="color:#f92672"&gt;=&lt;/span&gt; L&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;length;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(len &lt;span style="color:#f92672"&gt;==&lt;/span&gt; LISTSIZE){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;printf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;顺序表已满，无法进行插入操作！&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i &lt;span style="color:#f92672"&gt;=&lt;/span&gt; len &lt;span style="color:#f92672"&gt;-&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt;(i&lt;span style="color:#f92672"&gt;&amp;gt;=&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt; &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; L&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;elem[i] &lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; x){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; L&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;elem[i&lt;span style="color:#f92672"&gt;+&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; L&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;elem[i];
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; i&lt;span style="color:#f92672"&gt;--&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; L&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;elem[i&lt;span style="color:#f92672"&gt;+&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; x;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; L&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;length&lt;span style="color:#f92672"&gt;++&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;思路：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;步骤一&lt;/strong&gt;：检查顺序表是否已满，已满则无法插入，直接返回。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤二&lt;/strong&gt;：获取当前长度 &lt;code&gt;len&lt;/code&gt;，从 &lt;code&gt;len-1&lt;/code&gt; 位置开始向前查找插入位置。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤三&lt;/strong&gt;：将所有大于 &lt;code&gt;x&lt;/code&gt; 的元素依次后移，腾出插入位置。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤四&lt;/strong&gt;：循环结束后，在 &lt;code&gt;i+1&lt;/code&gt; 处写入 &lt;code&gt;x&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤五&lt;/strong&gt;：顺序表长度加一，插入完成。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h1 id="有序表的插入单链表作形参"&gt;有序表的插入（单链表作形参）
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;LinkList &lt;span style="color:#a6e22e"&gt;InsertList&lt;/span&gt;(LinkList L, EType X){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; LNode&lt;span style="color:#f92672"&gt;*&lt;/span&gt; x &lt;span style="color:#f92672"&gt;=&lt;/span&gt; (LNode&lt;span style="color:#f92672"&gt;*&lt;/span&gt;)&lt;span style="color:#a6e22e"&gt;malloc&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;sizeof&lt;/span&gt;(LNode));
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; x&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;data &lt;span style="color:#f92672"&gt;=&lt;/span&gt; X;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; LNode&lt;span style="color:#f92672"&gt;*&lt;/span&gt; pre &lt;span style="color:#f92672"&gt;=&lt;/span&gt; (LinkList)&lt;span style="color:#a6e22e"&gt;malloc&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;sizeof&lt;/span&gt;(LNode));
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; pre &lt;span style="color:#f92672"&gt;=&lt;/span&gt; L;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt;(pre&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; NULL &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; pre&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;data &lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; X){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; pre &lt;span style="color:#f92672"&gt;=&lt;/span&gt; pre &lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt; next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; x&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt; next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; pre&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; pre &lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt; next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; x;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; L;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;思路：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;步骤一&lt;/strong&gt;：为新值 &lt;code&gt;X&lt;/code&gt; 创建一个新节点 &lt;code&gt;x&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤二&lt;/strong&gt;：初始化前驱指针 &lt;code&gt;pre&lt;/code&gt; 指向链表头 &lt;code&gt;L&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤三&lt;/strong&gt;：向后遍历链表，找到第一个大于 &lt;code&gt;X&lt;/code&gt; 的节点的前驱 &lt;code&gt;pre&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤四&lt;/strong&gt;：将新节点接入链表：&lt;code&gt;x-&amp;gt;next = pre-&amp;gt;next&lt;/code&gt;，&lt;code&gt;pre-&amp;gt;next = x&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;由于链表有序，插入后链表仍然有序。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h1 id="合并两个有序数组数组作形参"&gt;合并两个有序数组（数组作形参）
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;merge&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt;&lt;span style="color:#f92672"&gt;*&lt;/span&gt; a, &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; m, &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt;&lt;span style="color:#f92672"&gt;*&lt;/span&gt; b, &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; n, &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt;&lt;span style="color:#f92672"&gt;*&lt;/span&gt; c){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;,j &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;, k &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt;(i&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;m &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; j&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;n){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(a[i] &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; b[j]){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; c[k&lt;span style="color:#f92672"&gt;++&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; a[i&lt;span style="color:#f92672"&gt;++&lt;/span&gt;];
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }&lt;span style="color:#66d9ef"&gt;else&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(a[i] &lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; b[j]){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; c[k&lt;span style="color:#f92672"&gt;++&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; b[j&lt;span style="color:#f92672"&gt;++&lt;/span&gt;];
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }&lt;span style="color:#66d9ef"&gt;else&lt;/span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; c[k&lt;span style="color:#f92672"&gt;++&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; a[i&lt;span style="color:#f92672"&gt;++&lt;/span&gt;];
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; c[k&lt;span style="color:#f92672"&gt;++&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; b[j&lt;span style="color:#f92672"&gt;++&lt;/span&gt;];
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt;(i&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;m) c[k&lt;span style="color:#f92672"&gt;++&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; a[i&lt;span style="color:#f92672"&gt;++&lt;/span&gt;];
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt;(j&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;n) c[k&lt;span style="color:#f92672"&gt;++&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; b[j&lt;span style="color:#f92672"&gt;++&lt;/span&gt;];
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;思路：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;步骤一&lt;/strong&gt;：设置三个指针——&lt;code&gt;i&lt;/code&gt; 指向数组 &lt;code&gt;a&lt;/code&gt;，&lt;code&gt;j&lt;/code&gt; 指向数组 &lt;code&gt;b&lt;/code&gt;，&lt;code&gt;k&lt;/code&gt; 指向结果数组 &lt;code&gt;c&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤二&lt;/strong&gt;：双指针同时遍历两数组，每次将较小的元素放入 &lt;code&gt;c&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤三&lt;/strong&gt;：若两元素相等（&lt;code&gt;==&lt;/code&gt;），则两个都放入 &lt;code&gt;c&lt;/code&gt;，允许重复值存在。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤四&lt;/strong&gt;：当其中一个数组遍历完成后，将另一个数组的剩余元素全部复制到 &lt;code&gt;c&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;此为经典的&lt;strong&gt;二路归并&lt;/strong&gt;算法，时间复杂度 O(m+n)。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h1 id="合并两个有序表顺序表作形参"&gt;合并两个有序表（顺序表作形参）
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;SqList &lt;span style="color:#a6e22e"&gt;MergeList_Sq&lt;/span&gt;(SqList La, SqList Lb){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; SqList Lc &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;InitList&lt;/span&gt;(MAXSIZE);;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;,j &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;,k &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; iLen &lt;span style="color:#f92672"&gt;=&lt;/span&gt; La&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;length,jLen &lt;span style="color:#f92672"&gt;=&lt;/span&gt; Lb&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;length;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt;(i&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;iLen &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; j&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;jLen){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(La&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;elem[i] &lt;span style="color:#f92672"&gt;&amp;lt;=&lt;/span&gt; Lb&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;elem[j]){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Lc&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;elem[k&lt;span style="color:#f92672"&gt;++&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; La&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;elem[i&lt;span style="color:#f92672"&gt;++&lt;/span&gt;];
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }&lt;span style="color:#66d9ef"&gt;else&lt;/span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Lc&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;elem[k&lt;span style="color:#f92672"&gt;++&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; Lb&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;elem[j&lt;span style="color:#f92672"&gt;++&lt;/span&gt;];
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt;(i&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;iLen) Lc&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;elem[k&lt;span style="color:#f92672"&gt;++&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; La&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;elem[i&lt;span style="color:#f92672"&gt;++&lt;/span&gt;];
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt;(j&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;jLen) Lc&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;elem[k&lt;span style="color:#f92672"&gt;++&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; Lb&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;elem[j&lt;span style="color:#f92672"&gt;++&lt;/span&gt;];
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Lc &lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt; length &lt;span style="color:#f92672"&gt;=&lt;/span&gt; iLen &lt;span style="color:#f92672"&gt;+&lt;/span&gt; jLen;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; Lc;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;思路：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;步骤一&lt;/strong&gt;：初始化一个新的顺序表 &lt;code&gt;Lc&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤二&lt;/strong&gt;：用三个指针 &lt;code&gt;i、j、k&lt;/code&gt; 分别遍历 &lt;code&gt;La&lt;/code&gt;、&lt;code&gt;Lb&lt;/code&gt;、&lt;code&gt;Lc&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤三&lt;/strong&gt;：比较两表中当前元素，较小的复制到 &lt;code&gt;Lc&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤四&lt;/strong&gt;：任一表遍历完后，将另一表的剩余元素全部接入 &lt;code&gt;Lc&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤五&lt;/strong&gt;：设置 &lt;code&gt;Lc&lt;/code&gt; 的长度为两表长度之和，返回 &lt;code&gt;Lc&lt;/code&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h1 id="线性表元素的区间删除"&gt;线性表元素的区间删除
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;List &lt;span style="color:#a6e22e"&gt;Delete&lt;/span&gt;( List L, ElementType minD, ElementType maxD ){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; j &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;; i &lt;span style="color:#f92672"&gt;&amp;lt;=&lt;/span&gt; L&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Last; i&lt;span style="color:#f92672"&gt;++&lt;/span&gt;){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ElementType ele &lt;span style="color:#f92672"&gt;=&lt;/span&gt; L&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Data[i];
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ElementType jele &lt;span style="color:#f92672"&gt;=&lt;/span&gt; L&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Data[j];
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(ele&lt;span style="color:#f92672"&gt;&amp;lt;=&lt;/span&gt;minD &lt;span style="color:#f92672"&gt;||&lt;/span&gt; ele&lt;span style="color:#f92672"&gt;&amp;gt;=&lt;/span&gt;maxD){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; L&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Data[j] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; ele;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; j&lt;span style="color:#f92672"&gt;++&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; L&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Last &lt;span style="color:#f92672"&gt;=&lt;/span&gt; j&lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; L;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;思路：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;步骤一&lt;/strong&gt;：设置双指针——&lt;code&gt;i&lt;/code&gt; 用于遍历整个顺序表，&lt;code&gt;j&lt;/code&gt; 用于标记保留下来的元素应放置的位置。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤二&lt;/strong&gt;：遍历每个元素 &lt;code&gt;ele&lt;/code&gt;，判断是否在开区间 &lt;code&gt;(minD, maxD)&lt;/code&gt; 之内。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤三&lt;/strong&gt;：若 &lt;code&gt;ele &amp;lt;= minD&lt;/code&gt; 或 &lt;code&gt;ele &amp;gt;= maxD&lt;/code&gt;（即不在区间内），则保留。将 &lt;code&gt;ele&lt;/code&gt; 写入 &lt;code&gt;L-&amp;gt;Data[j]&lt;/code&gt;，&lt;code&gt;j&lt;/code&gt; 加一。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤四&lt;/strong&gt;：若在区间内，则跳过（不写入），相当于删除。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤五&lt;/strong&gt;：遍历结束后，更新 &lt;code&gt;L-&amp;gt;Last = j-1&lt;/code&gt;，即新的最后元素下标。&lt;/li&gt;
+&lt;li&gt;此为&lt;strong&gt;原地压缩&lt;/strong&gt;算法，空间复杂度 O(1)。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h1 id="单链表遍历"&gt;单链表遍历
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Traverse&lt;/span&gt;(LinkList L){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; L &lt;span style="color:#f92672"&gt;=&lt;/span&gt; L&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt;(L &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; NULL){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;printf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;%d &amp;#34;&lt;/span&gt;,L&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;data);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; L &lt;span style="color:#f92672"&gt;=&lt;/span&gt; L&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;思路：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;步骤一&lt;/strong&gt;：由于链表可能带头结点，先将 &lt;code&gt;L&lt;/code&gt; 跳过头结点，指向第一个数据节点。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤二&lt;/strong&gt;：进入循环，只要 &lt;code&gt;L != NULL&lt;/code&gt; 就继续遍历。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤三&lt;/strong&gt;：打印当前节点的 &lt;code&gt;data&lt;/code&gt; 值。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤四&lt;/strong&gt;：将 &lt;code&gt;L&lt;/code&gt; 指向下一个节点，继续循环。&lt;/li&gt;
+&lt;li&gt;循环终止条件为 &lt;code&gt;L == NULL&lt;/code&gt;（到达链表末尾）。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h1 id="链式表的按序号查找"&gt;链式表的按序号查找
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;ElementType &lt;span style="color:#a6e22e"&gt;FindKth&lt;/span&gt;( List L, &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; K ){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; K&lt;span style="color:#f92672"&gt;--&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; index &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; List p &lt;span style="color:#f92672"&gt;=&lt;/span&gt; L;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt;(p &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; NULL){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(index &lt;span style="color:#f92672"&gt;==&lt;/span&gt; K){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Data;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; p &lt;span style="color:#f92672"&gt;=&lt;/span&gt; p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; index&lt;span style="color:#f92672"&gt;++&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; &lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;思路：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;步骤一&lt;/strong&gt;：将目标序号 &lt;code&gt;K&lt;/code&gt; 减一，因为链表下标从 0 开始计数（序号1对应下标0）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤二&lt;/strong&gt;：从链表头开始遍历，设置 &lt;code&gt;index = 0&lt;/code&gt; 记录当前下标。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤三&lt;/strong&gt;：每经过一个节点，&lt;code&gt;index++&lt;/code&gt;，当 &lt;code&gt;index == K&lt;/code&gt; 时返回该节点数据。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤四&lt;/strong&gt;：若遍历完链表仍未找到，返回 &lt;code&gt;-1&lt;/code&gt; 表示错误。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h1 id="单链表的建立头插法-逆序建立"&gt;单链表的建立（头插法-逆序建立）
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; ListNode &lt;span style="color:#f92672"&gt;*&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;createlist&lt;/span&gt;(){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; ListNode&lt;span style="color:#f92672"&gt;*&lt;/span&gt; newNode &lt;span style="color:#f92672"&gt;=&lt;/span&gt; NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; data;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt;(&lt;span style="color:#a6e22e"&gt;scanf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;%d&amp;#34;&lt;/span&gt;,&lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;data) &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; &lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(data &lt;span style="color:#f92672"&gt;==&lt;/span&gt; &lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;)&lt;span style="color:#66d9ef"&gt;break&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; ListNode&lt;span style="color:#f92672"&gt;*&lt;/span&gt; L &lt;span style="color:#f92672"&gt;=&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; (&lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; ListNode&lt;span style="color:#f92672"&gt;*&lt;/span&gt;)&lt;span style="color:#a6e22e"&gt;malloc&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;sizeof&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; ListNode));
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; L&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;data &lt;span style="color:#f92672"&gt;=&lt;/span&gt; data;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; L&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; newNode;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; newNode &lt;span style="color:#f92672"&gt;=&lt;/span&gt; L;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; newNode;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;思路：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;步骤一&lt;/strong&gt;：初始化 &lt;code&gt;newNode = NULL&lt;/code&gt;，作为当前链表的起始。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤二&lt;/strong&gt;：循环读入整数，读到 &lt;code&gt;-1&lt;/code&gt; 时结束输入。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤三&lt;/strong&gt;：每读入一个数，创建新节点 &lt;code&gt;L&lt;/code&gt;，将 &lt;code&gt;L-&amp;gt;data&lt;/code&gt; 设为读入的值。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤四&lt;/strong&gt;：将新节点插入到链表头部——&lt;code&gt;L-&amp;gt;next = newNode&lt;/code&gt;，&lt;code&gt;newNode = L&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤五&lt;/strong&gt;：先读入的数据位于链表尾部，后读入的位于链表头部，最终链表与输入顺序&lt;strong&gt;相反&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h1 id="单链表的建立尾插法-顺序建立"&gt;单链表的建立（尾插法-顺序建立）
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;LinkList &lt;span style="color:#a6e22e"&gt;Create&lt;/span&gt; (){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; LinkList L &lt;span style="color:#f92672"&gt;=&lt;/span&gt; (LinkList)&lt;span style="color:#a6e22e"&gt;malloc&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;sizeof&lt;/span&gt;(LinkList));
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; LinkList head &lt;span style="color:#f92672"&gt;=&lt;/span&gt; L;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; head&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;data &lt;span style="color:#f92672"&gt;=&lt;/span&gt; NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; L&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; data;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt;(&lt;span style="color:#a6e22e"&gt;scanf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;%d&amp;#34;&lt;/span&gt;,&lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;data) &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; &lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(data &lt;span style="color:#f92672"&gt;==&lt;/span&gt; &lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;) &lt;span style="color:#66d9ef"&gt;break&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; LinkList newNode &lt;span style="color:#f92672"&gt;=&lt;/span&gt; (LinkList)&lt;span style="color:#a6e22e"&gt;malloc&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;sizeof&lt;/span&gt;(LinkList));
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; newNode&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;data &lt;span style="color:#f92672"&gt;=&lt;/span&gt; data;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; newNode&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; L&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; newNode;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; L &lt;span style="color:#f92672"&gt;=&lt;/span&gt; newNode;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; head;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;思路：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;步骤一&lt;/strong&gt;：创建头结点 &lt;code&gt;head&lt;/code&gt;（或第一个节点），用指针 &lt;code&gt;L&lt;/code&gt; 记录当前尾节点。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤二&lt;/strong&gt;：循环读入整数，读到 &lt;code&gt;-1&lt;/code&gt; 时结束。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤三&lt;/strong&gt;：每读入一个数，创建新节点 &lt;code&gt;newNode&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤四&lt;/strong&gt;：将新节点接入链表尾部——&lt;code&gt;L-&amp;gt;next = newNode&lt;/code&gt;，然后 &lt;code&gt;L = newNode&lt;/code&gt; 更新尾指针。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤五&lt;/strong&gt;：先读入的数据位于链表头部，最终链表与输入顺序&lt;strong&gt;一致&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h1 id="单链表的按值删除"&gt;单链表的按值删除
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;DelNode&lt;/span&gt;(LinkList head, &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; deldata){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; flag &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; LinkList p &lt;span style="color:#f92672"&gt;=&lt;/span&gt; head;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt;(p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; NULL) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;data &lt;span style="color:#f92672"&gt;==&lt;/span&gt; deldata) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; flag &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; LinkList temp &lt;span style="color:#f92672"&gt;=&lt;/span&gt; p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; temp&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;free&lt;/span&gt;(temp);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } &lt;span style="color:#66d9ef"&gt;else&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; p &lt;span style="color:#f92672"&gt;=&lt;/span&gt; p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; flag;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;思路：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;步骤一&lt;/strong&gt;：设置指针 &lt;code&gt;p&lt;/code&gt; 指向待比较节点的前驱节点（初始为 &lt;code&gt;head&lt;/code&gt;）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤二&lt;/strong&gt;：遍历链表，判断 &lt;code&gt;p-&amp;gt;next-&amp;gt;data&lt;/code&gt; 是否等于目标值 &lt;code&gt;deldata&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤三&lt;/strong&gt;：若相等，说明找到了待删除节点。用临时指针 &lt;code&gt;temp&lt;/code&gt; 保存该节点，&lt;code&gt;p-&amp;gt;next = temp-&amp;gt;next&lt;/code&gt; 绕过它，然后 &lt;code&gt;free(temp)&lt;/code&gt; 释放内存。&lt;code&gt;p&lt;/code&gt; 不移动，继续检查。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤四&lt;/strong&gt;：若不相等，&lt;code&gt;p&lt;/code&gt; 后移到下一个节点，继续遍历。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤五&lt;/strong&gt;：找到并删除则 &lt;code&gt;flag = 1&lt;/code&gt;，返回删除结果。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h1 id="单链表的按值查找"&gt;单链表的按值查找
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;LinkList &lt;span style="color:#a6e22e"&gt;Locate_LinkList&lt;/span&gt;(LinkList L, datatype x){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt;(L &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; NULL &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; L&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;data &lt;span style="color:#f92672"&gt;!=&lt;/span&gt;x)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; L &lt;span style="color:#f92672"&gt;=&lt;/span&gt; L&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; L;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;思路：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;步骤一&lt;/strong&gt;：从链表头部开始逐个节点检查。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤二&lt;/strong&gt;：每经过一个节点，比较 &lt;code&gt;L-&amp;gt;data&lt;/code&gt; 与目标值 &lt;code&gt;x&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤三&lt;/strong&gt;：若相等，返回该节点指针；若遍历完仍未找到，&lt;code&gt;L == NULL&lt;/code&gt;，返回 &lt;code&gt;NULL&lt;/code&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h1 id="单链表的按位置查找"&gt;单链表的按位置查找
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;LinkList &lt;span style="color:#a6e22e"&gt;Findk&lt;/span&gt;(LinkList L, &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; k) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (k &lt;span style="color:#f92672"&gt;&amp;lt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;) &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; count &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; LinkList p &lt;span style="color:#f92672"&gt;=&lt;/span&gt; L;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (p &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; NULL &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; count &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; k) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; p &lt;span style="color:#f92672"&gt;=&lt;/span&gt; p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; count&lt;span style="color:#f92672"&gt;++&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; p;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;思路：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;步骤一&lt;/strong&gt;：先检查 &lt;code&gt;k &amp;lt;= 0&lt;/code&gt;，非法输入直接返回 &lt;code&gt;NULL&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤二&lt;/strong&gt;：从链表头部开始，设置计数器 &lt;code&gt;count = 0&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤三&lt;/strong&gt;：向后移动指针 &lt;code&gt;k&lt;/code&gt; 次，每移动一次 &lt;code&gt;count++&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤四&lt;/strong&gt;：若移动过程中到达 &lt;code&gt;NULL&lt;/code&gt;（节点数不足 &lt;code&gt;k&lt;/code&gt;），返回 &lt;code&gt;NULL&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤五&lt;/strong&gt;：若成功移动 &lt;code&gt;k&lt;/code&gt; 步，返回当前节点 &lt;code&gt;p&lt;/code&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h1 id="带头结点的链式表操作集"&gt;带头结点的链式表操作集
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;List &lt;span style="color:#a6e22e"&gt;MakeEmpty&lt;/span&gt;(){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; LNode&lt;span style="color:#f92672"&gt;*&lt;/span&gt; head &lt;span style="color:#f92672"&gt;=&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; LNode&lt;span style="color:#f92672"&gt;*&lt;/span&gt;)&lt;span style="color:#a6e22e"&gt;malloc&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;sizeof&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; LNode));
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; head&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Data&lt;span style="color:#f92672"&gt;=&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; head&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next&lt;span style="color:#f92672"&gt;=&lt;/span&gt;NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; head;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Position &lt;span style="color:#a6e22e"&gt;Find&lt;/span&gt;(List L, ElementType X ){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; LNode&lt;span style="color:#f92672"&gt;*&lt;/span&gt; p &lt;span style="color:#f92672"&gt;=&lt;/span&gt; L;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt;(p&lt;span style="color:#f92672"&gt;!=&lt;/span&gt;NULL){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Data &lt;span style="color:#f92672"&gt;==&lt;/span&gt; X){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; p;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; p&lt;span style="color:#f92672"&gt;=&lt;/span&gt;p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; ERROR;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;bool&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Insert&lt;/span&gt;( List L, ElementType X, Position P ){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; LNode&lt;span style="color:#f92672"&gt;*&lt;/span&gt; p &lt;span style="color:#f92672"&gt;=&lt;/span&gt; L;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt;(p&lt;span style="color:#f92672"&gt;!=&lt;/span&gt;NULL &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; P){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; p&lt;span style="color:#f92672"&gt;=&lt;/span&gt;p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(p &lt;span style="color:#f92672"&gt;==&lt;/span&gt; NULL) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;printf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;Wrong Position for Insertion&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;\n&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; false;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; LNode&lt;span style="color:#f92672"&gt;*&lt;/span&gt; temp &lt;span style="color:#f92672"&gt;=&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; LNode&lt;span style="color:#f92672"&gt;*&lt;/span&gt;)&lt;span style="color:#a6e22e"&gt;malloc&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;sizeof&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; LNode));
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; temp&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Data &lt;span style="color:#f92672"&gt;=&lt;/span&gt; X;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; temp&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; temp;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; true;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;bool&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Delete&lt;/span&gt;( List L, Position P ){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; LNode&lt;span style="color:#f92672"&gt;*&lt;/span&gt; p &lt;span style="color:#f92672"&gt;=&lt;/span&gt; L;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt;(p&lt;span style="color:#f92672"&gt;!=&lt;/span&gt;NULL &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; P){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; p&lt;span style="color:#f92672"&gt;=&lt;/span&gt;p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(p&lt;span style="color:#f92672"&gt;==&lt;/span&gt;NULL){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;printf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;Wrong Position for Deletion&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;\n&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; false;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; P&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;free&lt;/span&gt;(P);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; true;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;思路：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;MakeEmpty&lt;/strong&gt;：创建头结点，初始化数据为0，&lt;code&gt;Next&lt;/code&gt; 指向 &lt;code&gt;NULL&lt;/code&gt;，返回链表指针。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Find&lt;/strong&gt;：从头结点遍历，依次比较每个节点的 &lt;code&gt;Data&lt;/code&gt; 是否等于 &lt;code&gt;X&lt;/code&gt;，找到则返回该节点指针。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Insert&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;步骤一：先遍历找到 &lt;code&gt;P&lt;/code&gt; 的前驱节点 &lt;code&gt;p&lt;/code&gt;（条件 &lt;code&gt;p-&amp;gt;Next == P&lt;/code&gt;）。&lt;/li&gt;
+&lt;li&gt;步骤二：若未找到前驱（&lt;code&gt;p == NULL&lt;/code&gt;），说明 &lt;code&gt;P&lt;/code&gt; 不在链表中，报错并返回 &lt;code&gt;false&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;步骤三：创建新节点 &lt;code&gt;temp&lt;/code&gt;，将其插入到 &lt;code&gt;p&lt;/code&gt; 之后——&lt;code&gt;temp-&amp;gt;Next = p-&amp;gt;Next&lt;/code&gt;，&lt;code&gt;p-&amp;gt;Next = temp&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Delete&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;步骤一：同样先找到待删除节点 &lt;code&gt;P&lt;/code&gt; 的前驱 &lt;code&gt;p&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;步骤二：若未找到前驱，报错并返回 &lt;code&gt;false&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;步骤三：&lt;code&gt;p-&amp;gt;Next = P-&amp;gt;Next&lt;/code&gt; 绕过 &lt;code&gt;P&lt;/code&gt;，然后 &lt;code&gt;free(P)&lt;/code&gt; 释放内存。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h1 id="删除单链表偶数节点"&gt;删除单链表偶数节点
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; ListNode &lt;span style="color:#f92672"&gt;*&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;createlist&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; ListNode &lt;span style="color:#f92672"&gt;*&lt;/span&gt;head &lt;span style="color:#f92672"&gt;=&lt;/span&gt; NULL, &lt;span style="color:#f92672"&gt;*&lt;/span&gt;tail &lt;span style="color:#f92672"&gt;=&lt;/span&gt; NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; data;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (&lt;span style="color:#a6e22e"&gt;scanf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;%d&amp;#34;&lt;/span&gt;, &lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;data) &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; &lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt; &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; data &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; &lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; ListNode &lt;span style="color:#f92672"&gt;*&lt;/span&gt;newNode &lt;span style="color:#f92672"&gt;=&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; ListNode &lt;span style="color:#f92672"&gt;*&lt;/span&gt;)&lt;span style="color:#a6e22e"&gt;malloc&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;sizeof&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; ListNode));
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; newNode&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;data &lt;span style="color:#f92672"&gt;=&lt;/span&gt; data;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; newNode&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (head &lt;span style="color:#f92672"&gt;==&lt;/span&gt; NULL) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; head &lt;span style="color:#f92672"&gt;=&lt;/span&gt; newNode;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; tail &lt;span style="color:#f92672"&gt;=&lt;/span&gt; head;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } &lt;span style="color:#66d9ef"&gt;else&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; tail&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; newNode;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; tail &lt;span style="color:#f92672"&gt;=&lt;/span&gt; newNode;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; head;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; ListNode &lt;span style="color:#f92672"&gt;*&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;deleteeven&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; ListNode &lt;span style="color:#f92672"&gt;*&lt;/span&gt;head) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 步骤一：处理头部连续的偶数节点
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (head &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; NULL &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; head&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;data &lt;span style="color:#f92672"&gt;%&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;2&lt;/span&gt; &lt;span style="color:#f92672"&gt;==&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; ListNode &lt;span style="color:#f92672"&gt;*&lt;/span&gt;temp &lt;span style="color:#f92672"&gt;=&lt;/span&gt; head;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; head &lt;span style="color:#f92672"&gt;=&lt;/span&gt; head&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;free&lt;/span&gt;(temp);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 步骤二：若链表已空，直接返回
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (head &lt;span style="color:#f92672"&gt;==&lt;/span&gt; NULL) &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 步骤三：处理后续节点中的偶数
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; ListNode &lt;span style="color:#f92672"&gt;*&lt;/span&gt;p &lt;span style="color:#f92672"&gt;=&lt;/span&gt; head;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; NULL) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;data &lt;span style="color:#f92672"&gt;%&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;2&lt;/span&gt; &lt;span style="color:#f92672"&gt;==&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; ListNode &lt;span style="color:#f92672"&gt;*&lt;/span&gt;temp &lt;span style="color:#f92672"&gt;=&lt;/span&gt; p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; temp&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;free&lt;/span&gt;(temp);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } &lt;span style="color:#66d9ef"&gt;else&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; p &lt;span style="color:#f92672"&gt;=&lt;/span&gt; p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; head;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;思路：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;createlist&lt;/strong&gt;：尾插法建立链表，读到 &lt;code&gt;-1&lt;/code&gt; 结束，过程同前文&amp;quot;单链表的建立（尾插法）&amp;quot;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;deleteeven&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;步骤一&lt;/strong&gt;：处理头部连续出现的偶数节点——只要 &lt;code&gt;head&lt;/code&gt; 为偶数，就头指针后移并释放原头节点。此过程可能连续删除多个偶数。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤二&lt;/strong&gt;：若链表已删空（&lt;code&gt;head == NULL&lt;/code&gt;），直接返回 &lt;code&gt;NULL&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤三&lt;/strong&gt;：此时头节点必为奇数。用 &lt;code&gt;p&lt;/code&gt; 记录待检查节点的前驱，遍历剩余链表。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤四&lt;/strong&gt;：若 &lt;code&gt;p-&amp;gt;next&lt;/code&gt; 为偶数，则绕过它并释放；若为奇数，则 &lt;code&gt;p&lt;/code&gt; 后移继续检查。&lt;/li&gt;
+&lt;li&gt;注意：删除偶数节点后 &lt;code&gt;p&lt;/code&gt; &lt;strong&gt;不移动&lt;/strong&gt;，因为新顶替上来的 &lt;code&gt;p-&amp;gt;next&lt;/code&gt; 还需要检查。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h1 id="两个有序链表序列的合并"&gt;两个有序链表序列的合并
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;List &lt;span style="color:#a6e22e"&gt;Merge&lt;/span&gt;(List L1,List L2){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; List dummy &lt;span style="color:#f92672"&gt;=&lt;/span&gt; (List)&lt;span style="color:#a6e22e"&gt;malloc&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;sizeof&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; Node));
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; dummy&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; List list1 &lt;span style="color:#f92672"&gt;=&lt;/span&gt; L1&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; List list2 &lt;span style="color:#f92672"&gt;=&lt;/span&gt; L2&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; List curr &lt;span style="color:#f92672"&gt;=&lt;/span&gt; dummy;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt;(list1&lt;span style="color:#f92672"&gt;!=&lt;/span&gt;NULL &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; list2&lt;span style="color:#f92672"&gt;!=&lt;/span&gt;NULL){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(list1&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Data &lt;span style="color:#f92672"&gt;&amp;gt;=&lt;/span&gt; list2&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Data){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; curr&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; list2;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; curr &lt;span style="color:#f92672"&gt;=&lt;/span&gt; list2;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; list2 &lt;span style="color:#f92672"&gt;=&lt;/span&gt; list2&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }&lt;span style="color:#66d9ef"&gt;else&lt;/span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; curr&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; list1;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; curr &lt;span style="color:#f92672"&gt;=&lt;/span&gt; list1;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; list1 &lt;span style="color:#f92672"&gt;=&lt;/span&gt; list1&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; curr&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; (list1 &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; NULL) &lt;span style="color:#f92672"&gt;?&lt;/span&gt; list1 : list2;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; L1&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; L2&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; dummy;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;思路：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;步骤一&lt;/strong&gt;：创建一个虚拟头结点 &lt;code&gt;dummy&lt;/code&gt;，用它简化边界处理，&lt;code&gt;curr&lt;/code&gt; 指向结果链表当前尾节点。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤二&lt;/strong&gt;：跳过两链表的头结点，分别用 &lt;code&gt;list1&lt;/code&gt; 和 &lt;code&gt;list2&lt;/code&gt; 指向第一个数据节点。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤三&lt;/strong&gt;：同时遍历两链表，每次比较 &lt;code&gt;list1&lt;/code&gt; 和 &lt;code&gt;list2&lt;/code&gt; 的数据，较小的节点接入结果链表，并后移对应指针。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤四&lt;/strong&gt;：当任一链表遍历完成后，将另一链表的剩余部分直接接到结果链表末尾。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤五&lt;/strong&gt;：断开原链表的连接（&lt;code&gt;L1-&amp;gt;Next = NULL&lt;/code&gt;，&lt;code&gt;L2-&amp;gt;Next = NULL&lt;/code&gt;），返回 &lt;code&gt;dummy-&amp;gt;Next&lt;/code&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h1 id="递增的整数序列链表的插入"&gt;递增的整数序列链表的插入
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;List &lt;span style="color:#a6e22e"&gt;Insert&lt;/span&gt;( List L, ElementType X ){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; List p &lt;span style="color:#f92672"&gt;=&lt;/span&gt; L;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; NULL &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Data &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; X) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; p &lt;span style="color:#f92672"&gt;=&lt;/span&gt; p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; List newNode &lt;span style="color:#f92672"&gt;=&lt;/span&gt; (List)&lt;span style="color:#a6e22e"&gt;malloc&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;sizeof&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; Node));
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; newNode&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Data &lt;span style="color:#f92672"&gt;=&lt;/span&gt; X;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; newNode&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; newNode;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; L;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;思路：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;步骤一&lt;/strong&gt;：链表带头结点，用 &lt;code&gt;p&lt;/code&gt; 从头结点开始向后遍历。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤二&lt;/strong&gt;：循环条件 &lt;code&gt;p-&amp;gt;Next != NULL &amp;amp;&amp;amp; p-&amp;gt;Next-&amp;gt;Data &amp;lt; X&lt;/code&gt;，即向后移动直到 &lt;code&gt;p-&amp;gt;Next&lt;/code&gt; 是第一个 &lt;strong&gt;大于等于&lt;/strong&gt; &lt;code&gt;X&lt;/code&gt; 的节点的前驱。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤三&lt;/strong&gt;：找到位置后，创建新节点 &lt;code&gt;newNode&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤四&lt;/strong&gt;：将新节点接入——&lt;code&gt;newNode-&amp;gt;Next = p-&amp;gt;Next&lt;/code&gt;，&lt;code&gt;p-&amp;gt;Next = newNode&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;由于链表有序，插入后仍保持递增。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h1 id="单链表逆转"&gt;单链表逆转
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;List &lt;span style="color:#a6e22e"&gt;Reverse&lt;/span&gt;( List L ){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (L &lt;span style="color:#f92672"&gt;==&lt;/span&gt; NULL &lt;span style="color:#f92672"&gt;||&lt;/span&gt; L&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next &lt;span style="color:#f92672"&gt;==&lt;/span&gt; NULL) &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; L;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; Node&lt;span style="color:#f92672"&gt;*&lt;/span&gt; pre &lt;span style="color:#f92672"&gt;=&lt;/span&gt; NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; Node&lt;span style="color:#f92672"&gt;*&lt;/span&gt; curr &lt;span style="color:#f92672"&gt;=&lt;/span&gt; L;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; Node&lt;span style="color:#f92672"&gt;*&lt;/span&gt; next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt;(curr&lt;span style="color:#f92672"&gt;!=&lt;/span&gt;NULL){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; curr&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; curr&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; pre;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; pre &lt;span style="color:#f92672"&gt;=&lt;/span&gt; curr;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; curr &lt;span style="color:#f92672"&gt;=&lt;/span&gt; next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; pre;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;思路：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;步骤一&lt;/strong&gt;：处理边界情况——空链表或只有单节点，直接返回。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤二&lt;/strong&gt;：初始化三个指针：&lt;code&gt;pre = NULL&lt;/code&gt;（最终成为新头），&lt;code&gt;curr = L&lt;/code&gt;（当前处理节点），&lt;code&gt;next&lt;/code&gt; 用于暂存 &lt;code&gt;curr-&amp;gt;next&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤三&lt;/strong&gt;：进入循环，每次处理一个节点的指向反转：
+&lt;ul&gt;
+&lt;li&gt;保存 &lt;code&gt;next = curr-&amp;gt;Next&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;将 &lt;code&gt;curr-&amp;gt;Next&lt;/code&gt; 指向 &lt;code&gt;pre&lt;/code&gt;（完成反转）；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pre&lt;/code&gt; 后移到 &lt;code&gt;curr&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;curr&lt;/code&gt; 后移到 &lt;code&gt;next&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤四&lt;/strong&gt;：当 &lt;code&gt;curr == NULL&lt;/code&gt; 时循环结束，&lt;code&gt;pre&lt;/code&gt; 指向原链表最后一个节点，即新链表的头结点。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h1 id="单链表分段逆转"&gt;单链表分段逆转
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;K_Reverse&lt;/span&gt;( List list, &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; k ){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (k &lt;span style="color:#f92672"&gt;&amp;lt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt; &lt;span style="color:#f92672"&gt;||&lt;/span&gt; list &lt;span style="color:#f92672"&gt;==&lt;/span&gt; NULL &lt;span style="color:#f92672"&gt;||&lt;/span&gt; list&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;length &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; k)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Position pre &lt;span style="color:#f92672"&gt;=&lt;/span&gt; list&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;head;&lt;span style="color:#75715e"&gt;//待转部分的前驱节点
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Position start &lt;span style="color:#f92672"&gt;=&lt;/span&gt; pre&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;&lt;span style="color:#75715e"&gt;//待转部分的第一个节点
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; rest &lt;span style="color:#f92672"&gt;=&lt;/span&gt; list&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;length;&lt;span style="color:#75715e"&gt;//剩余节点数量
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt;(rest &lt;span style="color:#f92672"&gt;&amp;gt;=&lt;/span&gt; k){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;//正常反转链表
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Position prev &lt;span style="color:#f92672"&gt;=&lt;/span&gt; NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Position curr &lt;span style="color:#f92672"&gt;=&lt;/span&gt; start;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Position next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i&lt;span style="color:#f92672"&gt;=&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;i&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;k;i&lt;span style="color:#f92672"&gt;++&lt;/span&gt;){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; curr&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; curr&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; prev;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; prev &lt;span style="color:#f92672"&gt;=&lt;/span&gt; curr;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; curr &lt;span style="color:#f92672"&gt;=&lt;/span&gt; next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;//将上一段末尾 接 这一段的头prev
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; pre&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; prev;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;//将这一段末尾 接 下一段开头
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; start&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; curr;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;//移动pre
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; pre &lt;span style="color:#f92672"&gt;=&lt;/span&gt; start;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;//移动start
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; start &lt;span style="color:#f92672"&gt;=&lt;/span&gt; curr;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; rest &lt;span style="color:#f92672"&gt;-=&lt;/span&gt;k;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;思路：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;步骤一&lt;/strong&gt;：检查边界——&lt;code&gt;k &amp;lt;= 1&lt;/code&gt; 或节点数不足 &lt;code&gt;k&lt;/code&gt; 时直接返回。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤二&lt;/strong&gt;：&lt;code&gt;pre&lt;/code&gt; 指向待反转段的前驱节点，&lt;code&gt;start&lt;/code&gt; 指向待反转段的第一个节点，&lt;code&gt;rest&lt;/code&gt; 记录剩余节点数。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤三&lt;/strong&gt;：进入大循环，只要剩余节点数 &lt;code&gt;&amp;gt;= k&lt;/code&gt;，就处理一段。
+&lt;ul&gt;
+&lt;li&gt;用三指针法反转 &lt;code&gt;k&lt;/code&gt; 个节点，得到新头 &lt;code&gt;prev&lt;/code&gt;，新尾 &lt;code&gt;curr&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pre-&amp;gt;next = prev&lt;/code&gt;：将上一段末尾接上反转后的新头。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;start-&amp;gt;next = curr&lt;/code&gt;：将反转段的新尾接上下一段的原始头。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pre = start&lt;/code&gt;：前驱指针后移到反转段的原末尾（现为下一段的前驱）。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;start = curr&lt;/code&gt;：待反转段的起始指针后移。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;rest -= k&lt;/code&gt;：剩余节点数减少 &lt;code&gt;k&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤四&lt;/strong&gt;：当剩余节点不足 &lt;code&gt;k&lt;/code&gt; 时退出，完成所有段的逆转。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h1 id="求链表的倒数第m个元素"&gt;求链表的倒数第m个元素
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;ElementType &lt;span style="color:#a6e22e"&gt;Find&lt;/span&gt;( List L, &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; m ){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(L &lt;span style="color:#f92672"&gt;==&lt;/span&gt; NULL) &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; ERROR;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; List fast &lt;span style="color:#f92672"&gt;=&lt;/span&gt; L;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; List slow &lt;span style="color:#f92672"&gt;=&lt;/span&gt; L;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt;(m&lt;span style="color:#f92672"&gt;--&lt;/span&gt; &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; fast&lt;span style="color:#f92672"&gt;!=&lt;/span&gt;NULL) fast &lt;span style="color:#f92672"&gt;=&lt;/span&gt; fast&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(fast &lt;span style="color:#f92672"&gt;==&lt;/span&gt; NULL) &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; ERROR;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt;(fast&lt;span style="color:#f92672"&gt;!=&lt;/span&gt;NULL){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; fast &lt;span style="color:#f92672"&gt;=&lt;/span&gt; fast&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; slow &lt;span style="color:#f92672"&gt;=&lt;/span&gt; slow&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; slow&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Data;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;思路：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;步骤一&lt;/strong&gt;：检查链表是否为空，空则返回错误。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤二&lt;/strong&gt;：快慢指针初始化——&lt;code&gt;fast&lt;/code&gt; 和 &lt;code&gt;slow&lt;/code&gt; 都指向链表头。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤三&lt;/strong&gt;：&lt;code&gt;fast&lt;/code&gt; 先向前移动 &lt;code&gt;m&lt;/code&gt; 步。若移动过程中到达 &lt;code&gt;NULL&lt;/code&gt;，说明链表节点数不足 &lt;code&gt;m&lt;/code&gt;，返回错误。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤四&lt;/strong&gt;：&lt;code&gt;fast&lt;/code&gt; 和 &lt;code&gt;slow&lt;/code&gt; 同时向后移动，直到 &lt;code&gt;fast&lt;/code&gt; 到达链表末尾。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤五&lt;/strong&gt;：此时 &lt;code&gt;slow&lt;/code&gt; 正好指向倒数第 &lt;code&gt;m&lt;/code&gt; 个节点，返回其数据。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h1 id="学生成绩链表处理"&gt;学生成绩链表处理
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; stud_node &lt;span style="color:#f92672"&gt;*&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;createlist&lt;/span&gt;(){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; stud_node&lt;span style="color:#f92672"&gt;*&lt;/span&gt; head &lt;span style="color:#f92672"&gt;=&lt;/span&gt; NULL,&lt;span style="color:#f92672"&gt;*&lt;/span&gt;tail &lt;span style="color:#f92672"&gt;=&lt;/span&gt; NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; num,score;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;char&lt;/span&gt; name[&lt;span style="color:#ae81ff"&gt;20&lt;/span&gt;];
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt;(&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;scanf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;%d&amp;#34;&lt;/span&gt;,&lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;num);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(num &lt;span style="color:#f92672"&gt;==&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;) &lt;span style="color:#66d9ef"&gt;break&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;scanf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;%s&amp;#34;&lt;/span&gt;,name);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;scanf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;%d&amp;#34;&lt;/span&gt;,&lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;score);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;//创建学生节点
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; stud_node&lt;span style="color:#f92672"&gt;*&lt;/span&gt; stu &lt;span style="color:#f92672"&gt;=&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; (&lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; stud_node&lt;span style="color:#f92672"&gt;*&lt;/span&gt;)&lt;span style="color:#a6e22e"&gt;malloc&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;sizeof&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; stud_node));
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; stu&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;num &lt;span style="color:#f92672"&gt;=&lt;/span&gt; num;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt;(i&lt;span style="color:#f92672"&gt;=&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;; name[i]&lt;span style="color:#f92672"&gt;!=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#39;\0&amp;#39;&lt;/span&gt;; i&lt;span style="color:#f92672"&gt;++&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; stu&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;name[i] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; name[i];
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; stu&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;name[i] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;\0&amp;#39;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; stu&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;score &lt;span style="color:#f92672"&gt;=&lt;/span&gt; score;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;//尾插法
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (head &lt;span style="color:#f92672"&gt;==&lt;/span&gt; NULL) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; head &lt;span style="color:#f92672"&gt;=&lt;/span&gt; stu;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; tail &lt;span style="color:#f92672"&gt;=&lt;/span&gt; stu;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } &lt;span style="color:#66d9ef"&gt;else&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; tail&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; stu;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; tail &lt;span style="color:#f92672"&gt;=&lt;/span&gt; stu;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; head;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; stud_node &lt;span style="color:#f92672"&gt;*&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;deletelist&lt;/span&gt;( &lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; stud_node &lt;span style="color:#f92672"&gt;*&lt;/span&gt;head, &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; min_score ){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; stud_node &lt;span style="color:#f92672"&gt;*&lt;/span&gt;p, &lt;span style="color:#f92672"&gt;*&lt;/span&gt;temp;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (head &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; NULL &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; head&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;score &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; min_score) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; temp &lt;span style="color:#f92672"&gt;=&lt;/span&gt; head;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; head &lt;span style="color:#f92672"&gt;=&lt;/span&gt; head&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;free&lt;/span&gt;(temp);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(head &lt;span style="color:#f92672"&gt;==&lt;/span&gt; NULL)&lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; p &lt;span style="color:#f92672"&gt;=&lt;/span&gt; head;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt;(p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next&lt;span style="color:#f92672"&gt;!=&lt;/span&gt;NULL){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;score &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; min_score){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; temp &lt;span style="color:#f92672"&gt;=&lt;/span&gt; p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; temp&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;free&lt;/span&gt;(temp);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }&lt;span style="color:#66d9ef"&gt;else&lt;/span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; p &lt;span style="color:#f92672"&gt;=&lt;/span&gt; p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; head;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;思路：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;createlist 部分：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;步骤一&lt;/strong&gt;：循环读入学号 &lt;code&gt;num&lt;/code&gt;，若 &lt;code&gt;num == 0&lt;/code&gt; 则结束输入。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤二&lt;/strong&gt;：读入姓名 &lt;code&gt;name&lt;/code&gt; 和成绩 &lt;code&gt;score&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤三&lt;/strong&gt;：创建新学生节点，填入学号、姓名（逐字符拷贝并加终止符）、成绩。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤四&lt;/strong&gt;：尾插法接入链表——第一个节点时建立 &lt;code&gt;head&lt;/code&gt; 和 &lt;code&gt;tail&lt;/code&gt;，后续节点接在 &lt;code&gt;tail&lt;/code&gt; 后并更新 &lt;code&gt;tail&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤五&lt;/strong&gt;：返回链表头指针。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;deletelist 部分：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;步骤一&lt;/strong&gt;：处理头部连续的不及格节点——只要 &lt;code&gt;head-&amp;gt;score &amp;lt; min_score&lt;/code&gt;，就头指针后移并释放原头节点。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤二&lt;/strong&gt;：若链表已删空（&lt;code&gt;head == NULL&lt;/code&gt;），直接返回 &lt;code&gt;NULL&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤三&lt;/strong&gt;：此时头节点必符合要求。用 &lt;code&gt;p&lt;/code&gt; 从头开始向后遍历。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤四&lt;/strong&gt;：若 &lt;code&gt;p-&amp;gt;next-&amp;gt;score &amp;lt; min_score&lt;/code&gt;，绕过并释放该节点，&lt;code&gt;p&lt;/code&gt; 不移动（继续检查新顶替上来的节点）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤五&lt;/strong&gt;：若 &lt;code&gt;p-&amp;gt;next&lt;/code&gt; 符合要求，&lt;code&gt;p&lt;/code&gt; 后移继续检查。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤六&lt;/strong&gt;：返回处理后的链表头。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h1 id="7-1-一元多项式的乘法与加法运算"&gt;7-1 一元多项式的乘法与加法运算
+&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;数组映射法&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;#include&lt;/span&gt; &lt;span style="color:#75715e"&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style="color:#75715e"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; poly1[&lt;span style="color:#ae81ff"&gt;1001&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; {&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;}; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; ans_sum[&lt;span style="color:#ae81ff"&gt;1001&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; {&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;};
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; ans_mul[&lt;span style="color:#ae81ff"&gt;2001&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; {&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;};
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;print_poly&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; arr[], &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; max_expon) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; first &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 从高指数往低指数找
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i &lt;span style="color:#f92672"&gt;=&lt;/span&gt; max_expon; i &lt;span style="color:#f92672"&gt;&amp;gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;; i&lt;span style="color:#f92672"&gt;--&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (arr[i] &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (&lt;span style="color:#f92672"&gt;!&lt;/span&gt;first) &lt;span style="color:#a6e22e"&gt;printf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34; &amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;printf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;%d %d&amp;#34;&lt;/span&gt;, arr[i], i);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; first &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 如果一个项都没有，输出 0 0
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (first) &lt;span style="color:#a6e22e"&gt;printf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;0 0&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;printf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;\n&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;main&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; n1, n2, c, e;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 读入第一个多项式并存入加法结果
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;scanf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;%d&amp;#34;&lt;/span&gt;, &lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;n1);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; p1_max &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; a_c[&lt;span style="color:#ae81ff"&gt;1001&lt;/span&gt;], a_e[&lt;span style="color:#ae81ff"&gt;1001&lt;/span&gt;]; &lt;span style="color:#75715e"&gt;// 存一下第一个，方便后面做乘法
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;; i &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; n1; i&lt;span style="color:#f92672"&gt;++&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;scanf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;%d %d&amp;#34;&lt;/span&gt;, &lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;c, &lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;e);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; a_c[i] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; c; a_e[i] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; e;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ans_sum[e] &lt;span style="color:#f92672"&gt;+=&lt;/span&gt; c;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 读入第二个多项式
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;scanf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;%d&amp;#34;&lt;/span&gt;, &lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;n2);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;; i &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; n2; i&lt;span style="color:#f92672"&gt;++&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;scanf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;%d %d&amp;#34;&lt;/span&gt;, &lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;c, &lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;e);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 直接做加法合并
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ans_sum[e] &lt;span style="color:#f92672"&gt;+=&lt;/span&gt; c;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 直接做乘法累加
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; j &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;; j &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; n1; j&lt;span style="color:#f92672"&gt;++&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ans_mul[e &lt;span style="color:#f92672"&gt;+&lt;/span&gt; a_e[j]] &lt;span style="color:#f92672"&gt;+=&lt;/span&gt; c &lt;span style="color:#f92672"&gt;*&lt;/span&gt; a_c[j];
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;print_poly&lt;/span&gt;(ans_mul, &lt;span style="color:#ae81ff"&gt;2000&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;print_poly&lt;/span&gt;(ans_sum, &lt;span style="color:#ae81ff"&gt;1000&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;思路（数组映射法）：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;步骤一&lt;/strong&gt;：创建三个整型数组——&lt;code&gt;poly1[]&lt;/code&gt; 存第一个多项式，&lt;code&gt;ans_sum[]&lt;/code&gt; 存加法结果，&lt;code&gt;ans_mul[]&lt;/code&gt; 存乘法结果。数组下标对应指数，下标处的值对应系数。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤二&lt;/strong&gt;：读入第一个多项式的 &lt;code&gt;n1&lt;/code&gt; 项，将每项系数累加到 &lt;code&gt;ans_sum[指数]&lt;/code&gt; 和 &lt;code&gt;poly1[指数]&lt;/code&gt; 中（&lt;code&gt;poly1&lt;/code&gt; 备份以便后续乘法使用）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤三&lt;/strong&gt;：读入第二个多项式的 &lt;code&gt;n2&lt;/code&gt; 项，做两件事：
+&lt;ul&gt;
+&lt;li&gt;加法：直接累加到 &lt;code&gt;ans_sum[指数]&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;乘法：遍历第一个多项式的每一项，将 &lt;code&gt;c * a_c[j]&lt;/code&gt; 累加到 &lt;code&gt;ans_mul[e + a_e[j]]&lt;/code&gt;（指数相加，系数相乘）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤四&lt;/strong&gt;：按指数从高到低遍历数组，输出所有系数非零项（&lt;code&gt;ans_mul&lt;/code&gt; 先输出，&lt;code&gt;ans_sum&lt;/code&gt; 后输出）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤五&lt;/strong&gt;：若没有任何非零项，输出 &lt;code&gt;0 0&lt;/code&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;正常链表解决&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;#include&lt;/span&gt; &lt;span style="color:#75715e"&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style="color:#75715e"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;#include&lt;/span&gt; &lt;span style="color:#75715e"&gt;&amp;lt;stdlib.h&amp;gt;&lt;/span&gt;&lt;span style="color:#75715e"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;// 定义多项式节点
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; PolyNode {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; coef; &lt;span style="color:#75715e"&gt;// 系数
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; expon; &lt;span style="color:#75715e"&gt;// 指数
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; PolyNode &lt;span style="color:#f92672"&gt;*&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;};
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;typedef&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; PolyNode &lt;span style="color:#f92672"&gt;*&lt;/span&gt;Polynomial;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;// 辅助函数：将新项接到链表尾部
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Attach&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; c, &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; e, Polynomial &lt;span style="color:#f92672"&gt;*&lt;/span&gt;pRear) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Polynomial P &lt;span style="color:#f92672"&gt;=&lt;/span&gt; (Polynomial)&lt;span style="color:#a6e22e"&gt;malloc&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;sizeof&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; PolyNode));
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; P&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;coef &lt;span style="color:#f92672"&gt;=&lt;/span&gt; c;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; P&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;expon &lt;span style="color:#f92672"&gt;=&lt;/span&gt; e;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; P&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; (&lt;span style="color:#f92672"&gt;*&lt;/span&gt;pRear)&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; P;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#f92672"&gt;*&lt;/span&gt;pRear &lt;span style="color:#f92672"&gt;=&lt;/span&gt; P; &lt;span style="color:#75715e"&gt;// 更新尾指针
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;// 读入多项式
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Polynomial &lt;span style="color:#a6e22e"&gt;ReadPoly&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; N, c, e;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;scanf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;%d&amp;#34;&lt;/span&gt;, &lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;N);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Polynomial head &lt;span style="color:#f92672"&gt;=&lt;/span&gt; (Polynomial)&lt;span style="color:#a6e22e"&gt;malloc&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;sizeof&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; PolyNode));
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; head&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Polynomial rear &lt;span style="color:#f92672"&gt;=&lt;/span&gt; head;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (N&lt;span style="color:#f92672"&gt;--&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;scanf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;%d %d&amp;#34;&lt;/span&gt;, &lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;c, &lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;e);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;Attach&lt;/span&gt;(c, e, &lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;rear);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; head;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;// 两个多项式相加
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Polynomial &lt;span style="color:#a6e22e"&gt;Add&lt;/span&gt;(Polynomial P1, Polynomial P2) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Polynomial t1 &lt;span style="color:#f92672"&gt;=&lt;/span&gt; P1&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Polynomial t2 &lt;span style="color:#f92672"&gt;=&lt;/span&gt; P2&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Polynomial head &lt;span style="color:#f92672"&gt;=&lt;/span&gt; (Polynomial)&lt;span style="color:#a6e22e"&gt;malloc&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;sizeof&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; PolyNode));
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; head&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Polynomial rear &lt;span style="color:#f92672"&gt;=&lt;/span&gt; head;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (t1 &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; t2) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (t1&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;expon &lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; t2&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;expon) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;Attach&lt;/span&gt;(t1&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;coef, t1&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;expon, &lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;rear);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; t1 &lt;span style="color:#f92672"&gt;=&lt;/span&gt; t1&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } &lt;span style="color:#66d9ef"&gt;else&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (t1&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;expon &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; t2&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;expon) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;Attach&lt;/span&gt;(t2&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;coef, t2&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;expon, &lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;rear);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; t2 &lt;span style="color:#f92672"&gt;=&lt;/span&gt; t2&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; } &lt;span style="color:#66d9ef"&gt;else&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; sum &lt;span style="color:#f92672"&gt;=&lt;/span&gt; t1&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;coef &lt;span style="color:#f92672"&gt;+&lt;/span&gt; t2&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;coef;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (sum &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;) &lt;span style="color:#a6e22e"&gt;Attach&lt;/span&gt;(sum, t1&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;expon, &lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;rear);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; t1 &lt;span style="color:#f92672"&gt;=&lt;/span&gt; t1&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; t2 &lt;span style="color:#f92672"&gt;=&lt;/span&gt; t2&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (t1) { &lt;span style="color:#a6e22e"&gt;Attach&lt;/span&gt;(t1&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;coef, t1&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;expon, &lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;rear); t1 &lt;span style="color:#f92672"&gt;=&lt;/span&gt; t1&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (t2) { &lt;span style="color:#a6e22e"&gt;Attach&lt;/span&gt;(t2&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;coef, t2&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;expon, &lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;rear); t2 &lt;span style="color:#f92672"&gt;=&lt;/span&gt; t2&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; head;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;// 两个多项式相乘
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Polynomial &lt;span style="color:#a6e22e"&gt;Mult&lt;/span&gt;(Polynomial P1, Polynomial P2) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Polynomial t1 &lt;span style="color:#f92672"&gt;=&lt;/span&gt; P1&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Polynomial t2 &lt;span style="color:#f92672"&gt;=&lt;/span&gt; P2&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (&lt;span style="color:#f92672"&gt;!&lt;/span&gt;t1 &lt;span style="color:#f92672"&gt;||&lt;/span&gt; &lt;span style="color:#f92672"&gt;!&lt;/span&gt;t2) &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Polynomial head &lt;span style="color:#f92672"&gt;=&lt;/span&gt; (Polynomial)&lt;span style="color:#a6e22e"&gt;malloc&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;sizeof&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; PolyNode));
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; head&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 用 P1 的每一项去乘 P2 的每一项
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (t1) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Polynomial tempHead &lt;span style="color:#f92672"&gt;=&lt;/span&gt; (Polynomial)&lt;span style="color:#a6e22e"&gt;malloc&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;sizeof&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; PolyNode));
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; tempHead&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next &lt;span style="color:#f92672"&gt;=&lt;/span&gt; NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Polynomial tempRear &lt;span style="color:#f92672"&gt;=&lt;/span&gt; tempHead;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Polynomial p2 &lt;span style="color:#f92672"&gt;=&lt;/span&gt; t2;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (p2) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;Attach&lt;/span&gt;(t1&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;coef &lt;span style="color:#f92672"&gt;*&lt;/span&gt; p2&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;coef, t1&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;expon &lt;span style="color:#f92672"&gt;+&lt;/span&gt; p2&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;expon, &lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;tempRear);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; p2 &lt;span style="color:#f92672"&gt;=&lt;/span&gt; p2&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 将乘出来的这一行加到总结果里
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Polynomial oldRes &lt;span style="color:#f92672"&gt;=&lt;/span&gt; head;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; head &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Add&lt;/span&gt;(head, tempHead);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 释放临时链表空间（此处略，考试时可不写，但在工程中很重要）
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; t1 &lt;span style="color:#f92672"&gt;=&lt;/span&gt; t1&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; head;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;// 打印多项式
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;PrintPoly&lt;/span&gt;(Polynomial P) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (&lt;span style="color:#f92672"&gt;!&lt;/span&gt;P &lt;span style="color:#f92672"&gt;||&lt;/span&gt; &lt;span style="color:#f92672"&gt;!&lt;/span&gt;P&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;printf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;0 0&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;\n&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Polynomial t &lt;span style="color:#f92672"&gt;=&lt;/span&gt; P&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; first &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (t) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (&lt;span style="color:#f92672"&gt;!&lt;/span&gt;first) &lt;span style="color:#a6e22e"&gt;printf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34; &amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;printf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;%d %d&amp;#34;&lt;/span&gt;, t&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;coef, t&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;expon);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; first &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; t &lt;span style="color:#f92672"&gt;=&lt;/span&gt; t&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;next;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;printf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;\n&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;main&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Polynomial P1 &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;ReadPoly&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Polynomial P2 &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;ReadPoly&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Polynomial PP &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Mult&lt;/span&gt;(P1, P2);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;PrintPoly&lt;/span&gt;(PP);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Polynomial PS &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Add&lt;/span&gt;(P1, P2);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;PrintPoly&lt;/span&gt;(PS);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;思路（链表法）：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ReadPoly 部分：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;步骤一&lt;/strong&gt;：读取项数 &lt;code&gt;N&lt;/code&gt;，创建带头结点的空链表 &lt;code&gt;head&lt;/code&gt;，尾指针 &lt;code&gt;rear&lt;/code&gt; 初始指向 &lt;code&gt;head&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤二&lt;/strong&gt;：循环读取 &lt;code&gt;N&lt;/code&gt; 次系数 &lt;code&gt;c&lt;/code&gt; 和指数 &lt;code&gt;e&lt;/code&gt;，调用 &lt;code&gt;Attach(c, e, &amp;amp;rear)&lt;/code&gt; 将新节点接到链表尾部。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤三&lt;/strong&gt;：返回链表头指针 &lt;code&gt;head&lt;/code&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Add 部分：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;步骤一&lt;/strong&gt;：用 &lt;code&gt;t1&lt;/code&gt;、&lt;code&gt;t2&lt;/code&gt; 分别指向两链表的第一个数据节点（跳过头结点）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤二&lt;/strong&gt;：同时遍历两链表，按指数大小分情况处理：
+&lt;ul&gt;
+&lt;li&gt;若 &lt;code&gt;t1-&amp;gt;expon &amp;gt; t2-&amp;gt;expon&lt;/code&gt;，将 &lt;code&gt;t1&lt;/code&gt; 接入结果链表，&lt;code&gt;t1&lt;/code&gt; 后移；&lt;/li&gt;
+&lt;li&gt;若 &lt;code&gt;t1-&amp;gt;expon &amp;lt; t2-&amp;gt;expon&lt;/code&gt;，将 &lt;code&gt;t2&lt;/code&gt; 接入结果链表，&lt;code&gt;t2&lt;/code&gt; 后移；&lt;/li&gt;
+&lt;li&gt;若指数相等，系数相加后若非零则接入，&lt;code&gt;t1&lt;/code&gt;、&lt;code&gt;t2&lt;/code&gt; 同时后移。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤三&lt;/strong&gt;：当任一链表遍历完后，将另一链表的剩余节点全部接入结果链表。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤四&lt;/strong&gt;：返回结果链表的头指针。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Mult 部分：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;步骤一&lt;/strong&gt;：处理边界情况——任一多项式为空则返回 &lt;code&gt;NULL&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤二&lt;/strong&gt;：用 &lt;code&gt;t1&lt;/code&gt; 遍历第一个多项式的每一项，对每一项：
+&lt;ul&gt;
+&lt;li&gt;步骤二.1：用 &lt;code&gt;t2&lt;/code&gt; 遍历第二个多项式的每一项，调用 &lt;code&gt;Attach&lt;/code&gt; 生成 &lt;code&gt;t1-&amp;gt;coef * t2-&amp;gt;coef&lt;/code&gt;、&lt;code&gt;t1-&amp;gt;expon + t2-&amp;gt;expon&lt;/code&gt; 的节点，构成临时结果链表 &lt;code&gt;tempHead&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;步骤二.2：将 &lt;code&gt;tempHead&lt;/code&gt; 与已有的 &lt;code&gt;head&lt;/code&gt; 通过 &lt;code&gt;Add&lt;/code&gt; 函数合并，更新 &lt;code&gt;head&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤三&lt;/strong&gt;：&lt;code&gt;t1&lt;/code&gt; 后移，重复以上过程直到 &lt;code&gt;P1&lt;/code&gt; 所有项遍历完毕。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;PrintPoly 部分：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;步骤一&lt;/strong&gt;：检查链表是否为空或只有头结点，若是则输出 &lt;code&gt;0 0&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤二&lt;/strong&gt;：从第一个数据节点开始遍历，用 &lt;code&gt;first&lt;/code&gt; 标记控制空格输出格式，逐个打印系数和指数。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;步骤三&lt;/strong&gt;：遍历完毕换行。&lt;/li&gt;
+&lt;/ol&gt;</description></item><item><title>web后端实战</title><link>/post/web%E5%90%8E%E7%AB%AF%E5%AE%9E%E6%88%98/</link><pubDate>Thu, 16 Apr 2026 00:00:00 +0000</pubDate><guid>/post/web%E5%90%8E%E7%AB%AF%E5%AE%9E%E6%88%98/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;本文更新于 2026-04-16&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id="restful"&gt;Restful
