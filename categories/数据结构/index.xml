@@ -670,55 +670,227 @@
 &lt;li&gt;&lt;strong&gt;步骤六&lt;/strong&gt;：返回处理后的链表头。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;hr&gt;
-&lt;h1 id="7-1-一元多项式的乘法与加法运算"&gt;7-1 一元多项式的乘法与加法运算
-&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;数组映射法&lt;/strong&gt;&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;#include&lt;/span&gt; &lt;span style="color:#75715e"&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span style="color:#75715e"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;h1 id="前中后缀表达式"&gt;前/中/后缀表达式
+&lt;/h1&gt;&lt;p&gt;只需更换printf的位置即可&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Prefix&lt;/span&gt;(BiTree T){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(T){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;printf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;%c &amp;#34;&lt;/span&gt;,T&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;data);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;Prefix&lt;/span&gt;(T&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;lchild);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;//printf(&amp;#34;%c &amp;#34;,T-&amp;gt;data);
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;Prefix&lt;/span&gt;(T&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;rchild);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;//printf(&amp;#34;%c &amp;#34;,T-&amp;gt;data);
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; ;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="求二叉树高度"&gt;求二叉树高度
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;GetHeight&lt;/span&gt;( BiTree BT ){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(&lt;span style="color:#f92672"&gt;!&lt;/span&gt;BT) &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; l &lt;span style="color:#f92672"&gt;=&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;GetHeight&lt;/span&gt;(BT&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;lchild);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; r &lt;span style="color:#f92672"&gt;=&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;GetHeight&lt;/span&gt;(BT&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;rchild);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; (l&lt;span style="color:#f92672"&gt;&amp;gt;=&lt;/span&gt;r&lt;span style="color:#f92672"&gt;?&lt;/span&gt;l:r)&lt;span style="color:#f92672"&gt;+&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="统计二叉树叶子结点个数"&gt;统计二叉树叶子结点个数
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;LeafCount&lt;/span&gt; ( BiTree T){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(&lt;span style="color:#f92672"&gt;!&lt;/span&gt;T) &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(&lt;span style="color:#f92672"&gt;!&lt;/span&gt;T&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;lchild &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;!&lt;/span&gt;T&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;rchild) &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;LeafCount&lt;/span&gt;(T&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;lchild) &lt;span style="color:#f92672"&gt;+&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;LeafCount&lt;/span&gt;(T&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;rchild);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="先序遍历输出二叉树的叶结点"&gt;先序遍历输出二叉树的叶结点
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;PreorderPrintLeaves&lt;/span&gt;( BiTree BT ){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(BT &lt;span style="color:#f92672"&gt;==&lt;/span&gt; NULL) &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(BT&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;lchild &lt;span style="color:#f92672"&gt;==&lt;/span&gt; NULL &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; BT&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;rchild &lt;span style="color:#f92672"&gt;==&lt;/span&gt; NULL){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;printf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34; %c&amp;#34;&lt;/span&gt;,BT&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;data);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; ;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;PreorderPrintLeaves&lt;/span&gt;(BT&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;lchild);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;PreorderPrintLeaves&lt;/span&gt;(BT&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;rchild);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="二叉树的节点数"&gt;二叉树的节点数
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;count_n&lt;/span&gt;(BinTree T){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(T &lt;span style="color:#f92672"&gt;==&lt;/span&gt; NULL) &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;count_n&lt;/span&gt;(T&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Left) &lt;span style="color:#f92672"&gt;+&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;count_n&lt;/span&gt;(T&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Right) &lt;span style="color:#f92672"&gt;+&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="二叉树的建立"&gt;二叉树的建立
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;BiTree &lt;span style="color:#a6e22e"&gt;CreatBiTree&lt;/span&gt;(){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; TElemType ch;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;scanf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;%c&amp;#34;&lt;/span&gt;,&lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;ch);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(ch &lt;span style="color:#f92672"&gt;==&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;#&amp;#39;&lt;/span&gt;) &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; BiTree node &lt;span style="color:#f92672"&gt;=&lt;/span&gt; (BiTree)&lt;span style="color:#a6e22e"&gt;malloc&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;sizeof&lt;/span&gt;(BiTNode));
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; node&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;data &lt;span style="color:#f92672"&gt;=&lt;/span&gt; ch;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; node&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;lchild &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;CreatBiTree&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; node&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;rchild &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;CreatBiTree&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; node;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="二叉树的层次遍历"&gt;二叉树的层次遍历
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Levelorder&lt;/span&gt;(BiTree T) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (T &lt;span style="color:#f92672"&gt;==&lt;/span&gt; NULL) &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; BiTree queue[&lt;span style="color:#ae81ff"&gt;1001&lt;/span&gt;];
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; head&lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; rear &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; queue[rear&lt;span style="color:#f92672"&gt;++&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; T;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt;(head &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; rear){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; BiTree p &lt;span style="color:#f92672"&gt;=&lt;/span&gt; queue[head&lt;span style="color:#f92672"&gt;++&lt;/span&gt;];
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;printf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34; %c&amp;#34;&lt;/span&gt;,p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;data);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;lchild &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; NULL){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; queue[rear&lt;span style="color:#f92672"&gt;++&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;lchild;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;rchild &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; NULL){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; queue[rear&lt;span style="color:#f92672"&gt;++&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; p&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;rchild;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="二叉树的非递归遍历"&gt;二叉树的非递归遍历
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;InorderTraversal&lt;/span&gt;( BinTree BT ) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Stack s &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;CreateStack&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (BT &lt;span style="color:#f92672"&gt;||&lt;/span&gt; &lt;span style="color:#f92672"&gt;!&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;IsEmpty&lt;/span&gt;(s)) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (BT) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;Push&lt;/span&gt;(s, BT);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; BT &lt;span style="color:#f92672"&gt;=&lt;/span&gt; BT&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Left;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; BT &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Pop&lt;/span&gt;(s);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;printf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34; %c&amp;#34;&lt;/span&gt;, BT&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Data); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; BT &lt;span style="color:#f92672"&gt;=&lt;/span&gt; BT&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Right;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;PreorderTraversal&lt;/span&gt;( BinTree BT ){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Stack s &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;CreateStack&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (BT &lt;span style="color:#f92672"&gt;||&lt;/span&gt; &lt;span style="color:#f92672"&gt;!&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;IsEmpty&lt;/span&gt;(s)) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (BT) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;printf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34; %c&amp;#34;&lt;/span&gt;, BT&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Data); 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;Push&lt;/span&gt;(s, BT);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; BT &lt;span style="color:#f92672"&gt;=&lt;/span&gt; BT&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Left;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; BT &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Pop&lt;/span&gt;(s);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; BT &lt;span style="color:#f92672"&gt;=&lt;/span&gt; BT&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Right;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;PostorderTraversal&lt;/span&gt;( BinTree BT ){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Stack s &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;CreateStack&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (BT &lt;span style="color:#f92672"&gt;||&lt;/span&gt; &lt;span style="color:#f92672"&gt;!&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;IsEmpty&lt;/span&gt;(s)) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (BT) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; BT&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;flag &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;; &lt;span style="color:#75715e"&gt;//标记
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;Push&lt;/span&gt;(s, BT);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; BT &lt;span style="color:#f92672"&gt;=&lt;/span&gt; BT&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Left;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; BT &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Peek&lt;/span&gt;(s);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(BT&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;flag &lt;span style="color:#f92672"&gt;==&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;//第一次回到这个节点
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; BT&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;flag &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt; ;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; BT &lt;span style="color:#f92672"&gt;=&lt;/span&gt; BT&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt; Right;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }&lt;span style="color:#66d9ef"&gt;else&lt;/span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;//第二次回到节点
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;Pop&lt;/span&gt;(s);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;printf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34; %c&amp;#34;&lt;/span&gt;,BT&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;Data);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="哈夫曼树的构造"&gt;哈夫曼树的构造
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;HFTree &lt;span style="color:#a6e22e"&gt;MakeHFTree&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;char&lt;/span&gt; data[], &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; weight[], &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; n){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(n &lt;span style="color:#f92672"&gt;==&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;)&lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Heap&lt;span style="color:#f92672"&gt;*&lt;/span&gt; heap &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;InitHeap&lt;/span&gt;(n);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;; data[i] &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;i&lt;span style="color:#f92672"&gt;++&lt;/span&gt;){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; HFTree node &lt;span style="color:#f92672"&gt;=&lt;/span&gt; (HFTree)&lt;span style="color:#a6e22e"&gt;malloc&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;sizeof&lt;/span&gt;(HTNode));
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; node&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;data &lt;span style="color:#f92672"&gt;=&lt;/span&gt; data[i];
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; node&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;weight &lt;span style="color:#f92672"&gt;=&lt;/span&gt; weight[i];
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; node&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;lchild &lt;span style="color:#f92672"&gt;=&lt;/span&gt; NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; node&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;rchild &lt;span style="color:#f92672"&gt;=&lt;/span&gt; NULL;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;Insert&lt;/span&gt;(heap,node);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt;(heap&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;size &lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; HFTree node1 &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;DelTop&lt;/span&gt;(heap);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; HFTree node2 &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;DelTop&lt;/span&gt;(heap);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; HFTree node &lt;span style="color:#f92672"&gt;=&lt;/span&gt; (HFTree)&lt;span style="color:#a6e22e"&gt;malloc&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;sizeof&lt;/span&gt;(HTNode));
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; node&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;data &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;\0&amp;#39;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; node&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;weight &lt;span style="color:#f92672"&gt;=&lt;/span&gt; node1&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;weight &lt;span style="color:#f92672"&gt;+&lt;/span&gt; node2&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;weight;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; node&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;rchild &lt;span style="color:#f92672"&gt;=&lt;/span&gt; node1;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; node&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;lchild &lt;span style="color:#f92672"&gt;=&lt;/span&gt; node2;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;Insert&lt;/span&gt;(heap,node);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; HFTree root &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;DelTop&lt;/span&gt;(heap);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; root;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="哈夫曼编码实现"&gt;哈夫曼编码实现
+&lt;/h1&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;dfs&lt;/span&gt;(HFTree node,&lt;span style="color:#66d9ef"&gt;char&lt;/span&gt; path[],&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; depth,&lt;span style="color:#66d9ef"&gt;char&lt;/span&gt; data[],&lt;span style="color:#66d9ef"&gt;char&lt;/span&gt; codes[][&lt;span style="color:#ae81ff"&gt;1001&lt;/span&gt;]){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(node &lt;span style="color:#f92672"&gt;==&lt;/span&gt; NULL) &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(node&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;lchild &lt;span style="color:#f92672"&gt;==&lt;/span&gt; NULL &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; node&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;rchild &lt;span style="color:#f92672"&gt;==&lt;/span&gt; NULL){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; path[depth] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;\0&amp;#39;&lt;/span&gt;;&lt;span style="color:#75715e"&gt;//结束
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt;(i&lt;span style="color:#f92672"&gt;=&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;; data[i]&lt;span style="color:#f92672"&gt;!=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#39;\0&amp;#39;&lt;/span&gt;;i&lt;span style="color:#f92672"&gt;++&lt;/span&gt;){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(data[i] &lt;span style="color:#f92672"&gt;==&lt;/span&gt; node&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;data){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;break&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;strcpy&lt;/span&gt;(codes[i],path);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; ;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }&lt;span style="color:#66d9ef"&gt;else&lt;/span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; path[depth] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;0&amp;#39;&lt;/span&gt;; &lt;span style="color:#a6e22e"&gt;dfs&lt;/span&gt;(node&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;lchild,path,depth&lt;span style="color:#f92672"&gt;+&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;,data,codes);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; path[depth] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;1&amp;#39;&lt;/span&gt;; &lt;span style="color:#a6e22e"&gt;dfs&lt;/span&gt;(node&lt;span style="color:#f92672"&gt;-&amp;gt;&lt;/span&gt;rchild,path,depth&lt;span style="color:#f92672"&gt;+&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;,data,codes);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Show_HFcoding&lt;/span&gt;(HFTree root, &lt;span style="color:#66d9ef"&gt;char&lt;/span&gt; data[], &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; n){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;char&lt;/span&gt; codes[&lt;span style="color:#ae81ff"&gt;1001&lt;/span&gt;][&lt;span style="color:#ae81ff"&gt;1001&lt;/span&gt;];
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;char&lt;/span&gt; path[&lt;span style="color:#ae81ff"&gt;1001&lt;/span&gt;];
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;dfs&lt;/span&gt;(root,path,&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;,data,codes);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;i&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;n;i&lt;span style="color:#f92672"&gt;++&lt;/span&gt;) &lt;span style="color:#a6e22e"&gt;printf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;%c:%s&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;\n&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;&lt;/span&gt;,data[i],codes[i]);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id="编程题"&gt;编程题
+&lt;/h1&gt;&lt;h2 id="7-1-一元多项式的乘法与加法运算"&gt;7-1 一元多项式的乘法与加法运算
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;数组映射法&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;#include&lt;/span&gt; &lt;span style="color:#75715e"&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span style="color:#75715e"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;using namespace std;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; poly1[&lt;span style="color:#ae81ff"&gt;1001&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; {&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;}; 
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; ans_sum[&lt;span style="color:#ae81ff"&gt;1001&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; {&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;};
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; ans_mul[&lt;span style="color:#ae81ff"&gt;2001&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; {&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;};
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;print_poly&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; arr[], &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; max_expon) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; first &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 从高指数往低指数找
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i &lt;span style="color:#f92672"&gt;=&lt;/span&gt; max_expon; i &lt;span style="color:#f92672"&gt;&amp;gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;; i&lt;span style="color:#f92672"&gt;--&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;// 打印多项式
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;print_poly&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; arr[], &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; max_expon) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;bool&lt;/span&gt; first &lt;span style="color:#f92672"&gt;=&lt;/span&gt; true;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 从高次到低次输出
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i &lt;span style="color:#f92672"&gt;=&lt;/span&gt; max_expon; i &lt;span style="color:#f92672"&gt;&amp;gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;; &lt;span style="color:#f92672"&gt;--&lt;/span&gt;i) {
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (arr[i] &lt;span style="color:#f92672"&gt;!=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (&lt;span style="color:#f92672"&gt;!&lt;/span&gt;first) &lt;span style="color:#a6e22e"&gt;printf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34; &amp;#34;&lt;/span&gt;);
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;printf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;%d %d&amp;#34;&lt;/span&gt;, arr[i], i);
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; first &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (&lt;span style="color:#f92672"&gt;!&lt;/span&gt;first) cout &lt;span style="color:#f92672"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34; &amp;#34;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; cout &lt;span style="color:#f92672"&gt;&amp;lt;&amp;lt;&lt;/span&gt; arr[i] &lt;span style="color:#f92672"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34; &amp;#34;&lt;/span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;&amp;lt;&lt;/span&gt; i;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; first &lt;span style="color:#f92672"&gt;=&lt;/span&gt; false;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 如果一个项都没有，输出 0 0
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (first) &lt;span style="color:#a6e22e"&gt;printf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;0 0&amp;#34;&lt;/span&gt;);
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;printf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;\n&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 空多项式输出 0 0
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (first) cout &lt;span style="color:#f92672"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;0 0&amp;#34;&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; cout &lt;span style="color:#f92672"&gt;&amp;lt;&amp;lt;&lt;/span&gt; endl;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;main&lt;/span&gt;() {
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; n1, n2, c, e;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 读入第一个多项式并存入加法结果
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;scanf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;%d&amp;#34;&lt;/span&gt;, &lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;n1);
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; p1_max &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; a_c[&lt;span style="color:#ae81ff"&gt;1001&lt;/span&gt;], a_e[&lt;span style="color:#ae81ff"&gt;1001&lt;/span&gt;]; &lt;span style="color:#75715e"&gt;// 存一下第一个，方便后面做乘法
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;; i &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; n1; i&lt;span style="color:#f92672"&gt;++&lt;/span&gt;) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;scanf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;%d %d&amp;#34;&lt;/span&gt;, &lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;c, &lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;e);
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; a_c[i] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; c; a_e[i] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; e;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 读取第一个多项式
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; cin &lt;span style="color:#f92672"&gt;&amp;gt;&amp;gt;&lt;/span&gt; n1;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; a_c[&lt;span style="color:#ae81ff"&gt;1001&lt;/span&gt;], a_e[&lt;span style="color:#ae81ff"&gt;1001&lt;/span&gt;];
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;; i &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; n1; &lt;span style="color:#f92672"&gt;++&lt;/span&gt;i) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; cin &lt;span style="color:#f92672"&gt;&amp;gt;&amp;gt;&lt;/span&gt; c &lt;span style="color:#f92672"&gt;&amp;gt;&amp;gt;&lt;/span&gt; e;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; a_c[i] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; c;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; a_e[i] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; e;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ans_sum[e] &lt;span style="color:#f92672"&gt;+=&lt;/span&gt; c;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 读入第二个多项式
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;scanf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;%d&amp;#34;&lt;/span&gt;, &lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;n2);
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;; i &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; n2; i&lt;span style="color:#f92672"&gt;++&lt;/span&gt;) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;scanf&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#34;%d %d&amp;#34;&lt;/span&gt;, &lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;c, &lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt;e);
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 直接做加法合并
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ans_sum[e] &lt;span style="color:#f92672"&gt;+=&lt;/span&gt; c;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 直接做乘法累加
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; j &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;; j &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; n1; j&lt;span style="color:#f92672"&gt;++&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 读取第二个多项式，同时计算加法与乘法
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; cin &lt;span style="color:#f92672"&gt;&amp;gt;&amp;gt;&lt;/span&gt; n2;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;; i &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; n2; &lt;span style="color:#f92672"&gt;++&lt;/span&gt;i) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; cin &lt;span style="color:#f92672"&gt;&amp;gt;&amp;gt;&lt;/span&gt; c &lt;span style="color:#f92672"&gt;&amp;gt;&amp;gt;&lt;/span&gt; e;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ans_sum[e] &lt;span style="color:#f92672"&gt;+=&lt;/span&gt; c;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 乘法：逐项相乘累加
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; j &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;; j &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; n1; &lt;span style="color:#f92672"&gt;++&lt;/span&gt;j) {
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ans_mul[e &lt;span style="color:#f92672"&gt;+&lt;/span&gt; a_e[j]] &lt;span style="color:#f92672"&gt;+=&lt;/span&gt; c &lt;span style="color:#f92672"&gt;*&lt;/span&gt; a_c[j];
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;print_poly&lt;/span&gt;(ans_mul, &lt;span style="color:#ae81ff"&gt;2000&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// 输出：先乘法 后加法
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;print_poly&lt;/span&gt;(ans_mul, &lt;span style="color:#ae81ff"&gt;2000&lt;/span&gt;);
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;print_poly&lt;/span&gt;(ans_sum, &lt;span style="color:#ae81ff"&gt;1000&lt;/span&gt;);
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
@@ -896,7 +1068,55 @@
 &lt;li&gt;&lt;strong&gt;步骤一&lt;/strong&gt;：检查链表是否为空或只有头结点，若是则输出 &lt;code&gt;0 0&lt;/code&gt;。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;步骤二&lt;/strong&gt;：从第一个数据节点开始遍历，用 &lt;code&gt;first&lt;/code&gt; 标记控制空格输出格式，逐个打印系数和指数。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;步骤三&lt;/strong&gt;：遍历完毕换行。&lt;/li&gt;
-&lt;/ol&gt;</description></item><item><title>09-数据结构</title><link>/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link><pubDate>Tue, 03 Feb 2026 00:00:00 +0000</pubDate><guid>/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</guid><description>&lt;h1 id="栈stack"&gt;栈Stack
+&lt;/ol&gt;
+&lt;h2 id="7-2-银行业务队列简单模拟"&gt;7-2 银行业务队列简单模拟
+&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-C" data-lang="C"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;#include&lt;/span&gt;&lt;span style="color:#75715e"&gt;&amp;lt;bits/stdc++.h&amp;gt;&lt;/span&gt;&lt;span style="color:#75715e"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;using namespace std;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;main&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;void&lt;/span&gt;){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; n;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; cin &lt;span style="color:#f92672"&gt;&amp;gt;&amp;gt;&lt;/span&gt; n;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; x;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; queue&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt;a,b;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i&lt;span style="color:#f92672"&gt;=&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;i&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;n;i&lt;span style="color:#f92672"&gt;++&lt;/span&gt;){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; cin &lt;span style="color:#f92672"&gt;&amp;gt;&amp;gt;&lt;/span&gt; x;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(x&lt;span style="color:#f92672"&gt;%&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;2&lt;/span&gt; &lt;span style="color:#f92672"&gt;&amp;amp;&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;) a.&lt;span style="color:#a6e22e"&gt;push&lt;/span&gt;(x);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;else&lt;/span&gt; b.&lt;span style="color:#a6e22e"&gt;push&lt;/span&gt;(x);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(n &lt;span style="color:#f92672"&gt;==&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; cout &lt;span style="color:#f92672"&gt;&amp;lt;&amp;lt;&lt;/span&gt; x ;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }&lt;span style="color:#66d9ef"&gt;else&lt;/span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; x &lt;span style="color:#f92672"&gt;=&lt;/span&gt; a.&lt;span style="color:#a6e22e"&gt;front&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;		cout &lt;span style="color:#f92672"&gt;&amp;lt;&amp;lt;&lt;/span&gt; x;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;		a.&lt;span style="color:#a6e22e"&gt;pop&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;		x &lt;span style="color:#f92672"&gt;=&lt;/span&gt; a.&lt;span style="color:#a6e22e"&gt;front&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;		cout &lt;span style="color:#f92672"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34; &amp;#34;&lt;/span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;&amp;lt;&lt;/span&gt; x;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;		a.&lt;span style="color:#a6e22e"&gt;pop&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt;(&lt;span style="color:#f92672"&gt;!&lt;/span&gt;a.&lt;span style="color:#a6e22e"&gt;empty&lt;/span&gt;() &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style="color:#f92672"&gt;!&lt;/span&gt;b.&lt;span style="color:#a6e22e"&gt;empty&lt;/span&gt;()){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;//B
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; x &lt;span style="color:#f92672"&gt;=&lt;/span&gt; b.&lt;span style="color:#a6e22e"&gt;front&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; cout &lt;span style="color:#f92672"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34; &amp;#34;&lt;/span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;&amp;lt;&lt;/span&gt; x; b.&lt;span style="color:#a6e22e"&gt;pop&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;//A
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; x &lt;span style="color:#f92672"&gt;=&lt;/span&gt; a.&lt;span style="color:#a6e22e"&gt;front&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; cout &lt;span style="color:#f92672"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34; &amp;#34;&lt;/span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;&amp;lt;&lt;/span&gt; x; a.&lt;span style="color:#a6e22e"&gt;pop&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt;(&lt;span style="color:#f92672"&gt;!&lt;/span&gt;a.&lt;span style="color:#a6e22e"&gt;empty&lt;/span&gt;()){
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; x &lt;span style="color:#f92672"&gt;=&lt;/span&gt; a.&lt;span style="color:#a6e22e"&gt;front&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; cout &lt;span style="color:#f92672"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34; &amp;#34;&lt;/span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;&amp;lt;&lt;/span&gt; x; a.&lt;span style="color:#a6e22e"&gt;pop&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (&lt;span style="color:#f92672"&gt;!&lt;/span&gt;a.&lt;span style="color:#a6e22e"&gt;empty&lt;/span&gt;()) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;			x &lt;span style="color:#f92672"&gt;=&lt;/span&gt; a.&lt;span style="color:#a6e22e"&gt;front&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;			cout &lt;span style="color:#f92672"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34; &amp;#34;&lt;/span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;&amp;lt;&lt;/span&gt; x;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;			a.&lt;span style="color:#a6e22e"&gt;pop&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;		}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;		&lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (&lt;span style="color:#f92672"&gt;!&lt;/span&gt;b.&lt;span style="color:#a6e22e"&gt;empty&lt;/span&gt;()) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;			x &lt;span style="color:#f92672"&gt;=&lt;/span&gt; b.&lt;span style="color:#a6e22e"&gt;front&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;			cout &lt;span style="color:#f92672"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34; &amp;#34;&lt;/span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;&amp;lt;&lt;/span&gt; x;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;			b.&lt;span style="color:#a6e22e"&gt;pop&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;		} 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;</description></item><item><title>09-数据结构</title><link>/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link><pubDate>Tue, 03 Feb 2026 00:00:00 +0000</pubDate><guid>/post/09-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</guid><description>&lt;h1 id="栈stack"&gt;栈Stack
 &lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;后进先出，先进后出&lt;/strong&gt;&lt;/li&gt;
 &lt;li&gt;压栈/进栈：数据进入栈模型的过程&lt;/li&gt;
