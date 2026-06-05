@@ -1229,22 +1229,22 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;table&gt;
- &lt;thead&gt;
- &lt;tr&gt;
- &lt;th&gt;&lt;img src="/post/image/09-4.png"
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;&lt;img src="/post/image/09-4.png"
  loading="lazy"
  data-pending-gallery
  alt="500"
  &gt;&lt;/th&gt;
- &lt;th&gt;&lt;img src="/post/image/09-5.png"
+					&lt;th&gt;&lt;img src="/post/image/09-5.png"
  loading="lazy"
  data-pending-gallery
  alt="500"
  &gt;&lt;/th&gt;
- &lt;/tr&gt;
- &lt;/thead&gt;
- &lt;tbody&gt;
- &lt;/tbody&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+	&lt;/tbody&gt;
 &lt;/table&gt;
 &lt;ul&gt;
 &lt;li&gt;步骤：
@@ -1256,22 +1256,22 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;table&gt;
- &lt;thead&gt;
- &lt;tr&gt;
- &lt;th&gt;&lt;img src="/post/image/09-6.png"
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;&lt;img src="/post/image/09-6.png"
  loading="lazy"
  data-pending-gallery
  alt="500"
  &gt;&lt;/th&gt;
- &lt;th&gt;&lt;img src="/post/image/09-7.png"
+					&lt;th&gt;&lt;img src="/post/image/09-7.png"
  loading="lazy"
  data-pending-gallery
  alt="500"
  &gt;&lt;/th&gt;
- &lt;/tr&gt;
- &lt;/thead&gt;
- &lt;tbody&gt;
- &lt;/tbody&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+	&lt;/tbody&gt;
 &lt;/table&gt;
 &lt;h4 id="需要旋转的四种情况"&gt;需要旋转的四种情况
 &lt;/h4&gt;&lt;h5 id="左左ll"&gt;左左LL
