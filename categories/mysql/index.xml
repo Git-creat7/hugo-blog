@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MySQL on Creat</title><link>/categories/mysql/</link><description>Recent content in MySQL on Creat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 05 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="/categories/mysql/index.xml" rel="self" type="application/rss+xml"/><item><title>InnoDB引擎</title><link>/post/innodb%E5%BC%95%E6%93%8E/</link><pubDate>Sun, 05 Apr 2026 00:00:00 +0000</pubDate><guid>/post/innodb%E5%BC%95%E6%93%8E/</guid><description>&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MySQL on Creat</title><link>https://creat.asia/categories/mysql/</link><description>Recent content in MySQL on Creat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 05 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://creat.asia/categories/mysql/index.xml" rel="self" type="application/rss+xml"/><item><title>InnoDB引擎</title><link>https://creat.asia/post/innodb%E5%BC%95%E6%93%8E/</link><pubDate>Sun, 05 Apr 2026 00:00:00 +0000</pubDate><guid>https://creat.asia/post/innodb%E5%BC%95%E6%93%8E/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;本文更新于 2026-04-05&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;InnoDB 是 MySQL 的默认事务型引擎，也是目前最常用、最强大的存储引擎。它被设计用来处理大量的短期事务，具有高性能和高可用性。&lt;/p&gt;
@@ -544,7 +544,7 @@
  loading="lazy"
  data-pending-gallery
  
- &gt;&lt;/p&gt;</description></item><item><title>JDBC &amp; Mybatis</title><link>/post/jdbc--mybatis/</link><pubDate>Sun, 05 Apr 2026 00:00:00 +0000</pubDate><guid>/post/jdbc--mybatis/</guid><description>&lt;blockquote&gt;
+ &gt;&lt;/p&gt;</description></item><item><title>JDBC &amp; Mybatis</title><link>https://creat.asia/post/jdbc--mybatis/</link><pubDate>Sun, 05 Apr 2026 00:00:00 +0000</pubDate><guid>https://creat.asia/post/jdbc--mybatis/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;本文更新于 2026-04-05&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id="api"&gt;API
@@ -1320,7 +1320,7 @@ SQL语句中的占位符&lt;strong&gt;只能给值/参数使用&lt;/strong&gt;�
 &lt;/ul&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;建议&lt;/strong&gt;：项目中统一只用一种格式，避免逻辑混乱。&lt;/p&gt;
-&lt;/blockquote&gt;</description></item><item><title>进阶-SQL优化</title><link>/post/%E8%BF%9B%E9%98%B6-sql%E4%BC%98%E5%8C%96/</link><pubDate>Sat, 04 Apr 2026 00:00:00 +0000</pubDate><guid>/post/%E8%BF%9B%E9%98%B6-sql%E4%BC%98%E5%8C%96/</guid><description>&lt;blockquote&gt;
+&lt;/blockquote&gt;</description></item><item><title>进阶-SQL优化</title><link>https://creat.asia/post/%E8%BF%9B%E9%98%B6-sql%E4%BC%98%E5%8C%96/</link><pubDate>Sat, 04 Apr 2026 00:00:00 +0000</pubDate><guid>https://creat.asia/post/%E8%BF%9B%E9%98%B6-sql%E4%BC%98%E5%8C%96/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;本文更新于 2026-04-04&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id="插入数据"&gt;插入数据
@@ -1631,9 +1631,9 @@ SQL语句中的占位符&lt;strong&gt;只能给值/参数使用&lt;/strong&gt;�
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;UPDATE&lt;/span&gt; course &lt;span style="color:#66d9ef"&gt;SET&lt;/span&gt; name &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;SpringBoot&amp;#39;&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;WHERE&lt;/span&gt; id &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;3&lt;/span&gt;;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#75715e"&gt;-- 无索引 -&amp;gt; 表锁
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;UPDATE&lt;/span&gt; course &lt;span style="color:#66d9ef"&gt;SET&lt;/span&gt; name &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;SpringBoot&amp;#39;&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;WHERE&lt;/span&gt; name &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;JavaEE&amp;#39;&lt;/span&gt;;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;</description></item><item><title>进阶-锁</title><link>/post/%E8%BF%9B%E9%98%B6-%E9%94%81/</link><pubDate>Sat, 04 Apr 2026 00:00:00 +0000</pubDate><guid>/post/%E8%BF%9B%E9%98%B6-%E9%94%81/</guid><description>&lt;blockquote&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;</description></item><item><title>进阶-锁</title><link>https://creat.asia/post/%E8%BF%9B%E9%98%B6-%E9%94%81/</link><pubDate>Sat, 04 Apr 2026 00:00:00 +0000</pubDate><guid>https://creat.asia/post/%E8%BF%9B%E9%98%B6-%E9%94%81/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;本文更新于 2026-04-05
-&lt;img src="/post/image/%e8%bf%9b%e9%98%b6-%e9%94%81-3.png"
+&lt;img src="https://creat.asia/post/image/%e8%bf%9b%e9%98%b6-%e9%94%81-3.png"
  loading="lazy"
  data-pending-gallery
  
@@ -1744,7 +1744,7 @@ SQL语句中的占位符&lt;strong&gt;只能给值/参数使用&lt;/strong&gt;�
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;风险点&lt;/strong&gt;：给大表加字段时，如果有一个长查询在运行，MDL 写锁会排队，进而导致后续所有的查询和更新都被堵住，甚至拖垮整个数据库。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;&lt;img src="/post/image/%e8%bf%9b%e9%98%b6-%e9%94%81-2.png"
+&lt;p&gt;&lt;img src="https://creat.asia/post/image/%e8%bf%9b%e9%98%b6-%e9%94%81-2.png"
  loading="lazy"
  data-pending-gallery
  
@@ -2025,7 +2025,7 @@ InnoDB 的行锁是通过&lt;strong&gt;给索引上的索引项加锁&lt;/strong
 			&lt;/tr&gt;
 	&lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;&lt;strong&gt;核心提示&lt;/strong&gt;：间隙锁和临键锁只在 &lt;strong&gt;可重复读 (RR)&lt;/strong&gt; 或更严苛的隔离级别下生效。在 &lt;strong&gt;读已提交 (RC)&lt;/strong&gt; 级别下，间隙锁会被禁用（除非涉及外键约束或重复键检查）。&lt;/p&gt;</description></item><item><title>多表查询</title><link>/post/%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/</link><pubDate>Thu, 02 Apr 2026 00:00:00 +0000</pubDate><guid>/post/%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;核心提示&lt;/strong&gt;：间隙锁和临键锁只在 &lt;strong&gt;可重复读 (RR)&lt;/strong&gt; 或更严苛的隔离级别下生效。在 &lt;strong&gt;读已提交 (RC)&lt;/strong&gt; 级别下，间隙锁会被禁用（除非涉及外键约束或重复键检查）。&lt;/p&gt;</description></item><item><title>多表查询</title><link>https://creat.asia/post/%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/</link><pubDate>Thu, 02 Apr 2026 00:00:00 +0000</pubDate><guid>https://creat.asia/post/%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;本文更新于 2026-04-02&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id="sql-进阶---多表查询"&gt;SQL 进阶 - 多表查询
@@ -2351,7 +2351,7 @@ InnoDB 的行锁是通过&lt;strong&gt;给索引上的索引项加锁&lt;/strong
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;SELECT&lt;/span&gt; d.dept_name,&lt;span style="color:#a6e22e"&gt;COUNT&lt;/span&gt;(&lt;span style="color:#f92672"&gt;*&lt;/span&gt;) 
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;FROM&lt;/span&gt; employee e,department d 
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;	&lt;span style="color:#66d9ef"&gt;WHERE&lt;/span&gt; e.dept_id &lt;span style="color:#f92672"&gt;=&lt;/span&gt; d.dept_id &lt;span style="color:#66d9ef"&gt;GROUP&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;BY&lt;/span&gt; d.dept_name;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>进阶-存储引擎</title><link>/post/%E8%BF%9B%E9%98%B6-%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/</link><pubDate>Thu, 02 Apr 2026 00:00:00 +0000</pubDate><guid>/post/%E8%BF%9B%E9%98%B6-%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/</guid><description>&lt;blockquote&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>进阶-存储引擎</title><link>https://creat.asia/post/%E8%BF%9B%E9%98%B6-%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/</link><pubDate>Thu, 02 Apr 2026 00:00:00 +0000</pubDate><guid>https://creat.asia/post/%E8%BF%9B%E9%98%B6-%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;本文更新于 2026-04-02&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id="mysql-体系结构"&gt;MySQL 体系结构
@@ -2397,7 +2397,7 @@ InnoDB 的行锁是通过&lt;strong&gt;给索引上的索引项加锁&lt;/strong
 &lt;li&gt;&lt;strong&gt;逻辑存储结构&lt;/strong&gt;：
 &lt;ul&gt;
 &lt;li&gt;TableSpace（表空间） -&amp;gt; Segment（段） -&amp;gt; Extent（区，1MB） -&amp;gt; Page（页，16KB，磁盘操作的最小单元） -&amp;gt; Row（行）
-&lt;img src="/post/image/%e8%bf%9b%e9%98%b6-%e5%ad%98%e5%82%a8%e5%bc%95%e6%93%8e-1.png"
+&lt;img src="https://creat.asia/post/image/%e8%bf%9b%e9%98%b6-%e5%ad%98%e5%82%a8%e5%bc%95%e6%93%8e-1.png"
  loading="lazy"
  data-pending-gallery
  
@@ -2442,7 +2442,7 @@ InnoDB 的行锁是通过&lt;strong&gt;给索引上的索引项加锁&lt;/strong
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;xxx.sdi&lt;/code&gt;：只存储表结构信息。数据全部驻留在内存中，不生成物理数据文件。
 &lt;strong&gt;重点&lt;/strong&gt;
-&lt;img src="/post/image/%e8%bf%9b%e9%98%b6-%e5%ad%98%e5%82%a8%e5%bc%95%e6%93%8e-2.png"
+&lt;img src="https://creat.asia/post/image/%e8%bf%9b%e9%98%b6-%e5%ad%98%e5%82%a8%e5%bc%95%e6%93%8e-2.png"
  loading="lazy"
  data-pending-gallery
  
@@ -2485,7 +2485,7 @@ InnoDB 的行锁是通过&lt;strong&gt;给索引上的索引项加锁&lt;/strong
 &lt;li&gt;&lt;strong&gt;查询建表语句（查看当前表引擎）&lt;/strong&gt;：
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-sql" data-lang="sql"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;SHOW&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;CREATE&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;TABLE&lt;/span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;表名&lt;/span&gt;;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;/ul&gt;</description></item><item><title>进阶-索引</title><link>/post/%E8%BF%9B%E9%98%B6-%E7%B4%A2%E5%BC%95/</link><pubDate>Thu, 02 Apr 2026 00:00:00 +0000</pubDate><guid>/post/%E8%BF%9B%E9%98%B6-%E7%B4%A2%E5%BC%95/</guid><description>&lt;blockquote&gt;
+&lt;/ul&gt;</description></item><item><title>进阶-索引</title><link>https://creat.asia/post/%E8%BF%9B%E9%98%B6-%E7%B4%A2%E5%BC%95/</link><pubDate>Thu, 02 Apr 2026 00:00:00 +0000</pubDate><guid>https://creat.asia/post/%E8%BF%9B%E9%98%B6-%E7%B4%A2%E5%BC%95/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;本文更新于 2026-04-02&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id="mysql-索引概述-index"&gt;MySQL 索引概述 (Index)
@@ -2556,7 +2556,7 @@ InnoDB 的行锁是通过&lt;strong&gt;给索引上的索引项加锁&lt;/strong
 			&lt;/tr&gt;
 	&lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;&lt;img src="/post/image/%e8%bf%9b%e9%98%b6-%e7%b4%a2%e5%bc%95-1.png"
+&lt;p&gt;&lt;img src="https://creat.asia/post/image/%e8%bf%9b%e9%98%b6-%e7%b4%a2%e5%bc%95-1.png"
  loading="lazy"
  data-pending-gallery
  
@@ -2577,7 +2577,7 @@ InnoDB 的行锁是通过&lt;strong&gt;给索引上的索引项加锁&lt;/strong
  &gt;点击查看演示&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;B树是一种&lt;strong&gt;多路平衡查找树&lt;/strong&gt;。这里的“多路”是指一个节点可以有多个子节点（不像二叉树只有 2 个）&lt;/li&gt;
 &lt;li&gt;以一颗最大度数(max-degree)为5(5阶)的b-tree为例(每个节点最多存储4个key，5个指针)
-&lt;img src="/post/image/%e8%bf%9b%e9%98%b6-%e7%b4%a2%e5%bc%95-2.png"
+&lt;img src="https://creat.asia/post/image/%e8%bf%9b%e9%98%b6-%e7%b4%a2%e5%bc%95-2.png"
  loading="lazy"
  data-pending-gallery
  
@@ -2613,7 +2613,7 @@ InnoDB 的行锁是通过&lt;strong&gt;给索引上的索引项加锁&lt;/strong
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;B+Tree 将所有数据记录节点按照键值大小顺序存放在同一层的叶子节点上，而非叶子节点只存储索引（中间键）和指向下一层的指针。
-&lt;img src="/post/image/%e8%bf%9b%e9%98%b6-%e7%b4%a2%e5%bc%95-3.png"
+&lt;img src="https://creat.asia/post/image/%e8%bf%9b%e9%98%b6-%e7%b4%a2%e5%bc%95-3.png"
  loading="lazy"
  data-pending-gallery
  
@@ -2624,7 +2624,7 @@ InnoDB 的行锁是通过&lt;strong&gt;给索引上的索引项加锁&lt;/strong
 &lt;ul&gt;
 &lt;li&gt;B+Tree（B+树）是 B-Tree 的变体，也是 MySQL InnoDB 存储引擎索引的底层实现。&lt;/li&gt;
 &lt;li&gt;在原B+Tree的基础上，增加一个指向相邻叶子节点的链表指针，就形成了带有顺序指针的B+Tree，提高区间访问的性能 -&amp;gt; 利于数据库排序
-&lt;img src="/post/image/%e8%bf%9b%e9%98%b6-%e7%b4%a2%e5%bc%95-4.png"
+&lt;img src="https://creat.asia/post/image/%e8%bf%9b%e9%98%b6-%e7%b4%a2%e5%bc%95-4.png"
  loading="lazy"
  data-pending-gallery
  
@@ -2641,7 +2641,7 @@ B+树：数据仅在叶子节点中。适合范围扫描和大规模排序（MyS
 &lt;li&gt;哈希索引（Hash Index）是建立在哈希表结构上的索引。&lt;/li&gt;
 &lt;li&gt;它通过哈希算法将列值转换为哈希码（Hash Code），并将其映射到对应的桶（Bucket）中&lt;/li&gt;
 &lt;li&gt;如果两个(或多个)键值，映射到一个相同的槽位上，他们就产生了hash冲突(也称为hash碰撞)，可以通过链表来解决
-&lt;img src="/post/image/%e8%bf%9b%e9%98%b6-%e7%b4%a2%e5%bc%95-5.png"
+&lt;img src="https://creat.asia/post/image/%e8%bf%9b%e9%98%b6-%e7%b4%a2%e5%bc%95-5.png"
  loading="lazy"
  data-pending-gallery
  
@@ -2783,7 +2783,7 @@ B+树：数据仅在叶子节点中。适合范围扫描和大规模排序（MyS
 					&lt;td style="text-align: left"&gt;查找非索引字段需要执行&lt;strong&gt;回表查询&lt;/strong&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
-					&lt;td style="text-align: left"&gt;&lt;img src="/post/image/%e8%bf%9b%e9%98%b6-%e7%b4%a2%e5%bc%95-6.png"
+					&lt;td style="text-align: left"&gt;&lt;img src="https://creat.asia/post/image/%e8%bf%9b%e9%98%b6-%e7%b4%a2%e5%bc%95-6.png"
  loading="lazy"
  data-pending-gallery
  alt="聚集索引与二级索引（非聚焦索引）"
@@ -2793,7 +2793,7 @@ B+树：数据仅在叶子节点中。适合范围扫描和大规模排序（MyS
 					&lt;td&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
-					&lt;td style="text-align: left"&gt;&lt;img src="/post/image/%e8%bf%9b%e9%98%b6-%e7%b4%a2%e5%bc%95-7.png"
+					&lt;td style="text-align: left"&gt;&lt;img src="https://creat.asia/post/image/%e8%bf%9b%e9%98%b6-%e7%b4%a2%e5%bc%95-7.png"
  loading="lazy"
  data-pending-gallery
  alt="回表查询"
@@ -3108,7 +3108,7 @@ B+树：数据仅在叶子节点中。适合范围扫描和大规模排序（MyS
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;Using index condition&lt;/code&gt;：查找使用了索引，但是需要回表查询数据&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;Using where ; using index&lt;/code&gt;：查找使用了索引，但是需要的数据在索引列中能找到，所以不需要回表查询
-&lt;img src="/post/image/%e8%bf%9b%e9%98%b6-%e7%b4%a2%e5%bc%95-8.png"
+&lt;img src="https://creat.asia/post/image/%e8%bf%9b%e9%98%b6-%e7%b4%a2%e5%bc%95-8.png"
  loading="lazy"
  data-pending-gallery
  
@@ -3343,7 +3343,7 @@ B+树：数据仅在叶子节点中。适合范围扫描和大规模排序（MyS
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;解读：&lt;/strong&gt; 当优化器知道每列是否包含 NULL 值时，它可以更好地确定哪个索引最有效地用于查询。此外，索引 NULL 值在存储和计算上更复杂。&lt;/p&gt;
 &lt;/li&gt;
-&lt;/ul&gt;</description></item><item><title>事务</title><link>/post/%E4%BA%8B%E5%8A%A1/</link><pubDate>Thu, 02 Apr 2026 00:00:00 +0000</pubDate><guid>/post/%E4%BA%8B%E5%8A%A1/</guid><description>&lt;blockquote&gt;
+&lt;/ul&gt;</description></item><item><title>事务</title><link>https://creat.asia/post/%E4%BA%8B%E5%8A%A1/</link><pubDate>Thu, 02 Apr 2026 00:00:00 +0000</pubDate><guid>https://creat.asia/post/%E4%BA%8B%E5%8A%A1/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;本文更新于 2026-04-02&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id="简介"&gt;简介
@@ -3498,7 +3498,7 @@ B+树：数据仅在叶子节点中。适合范围扫描和大规模排序（MyS
 &lt;li&gt;&lt;strong&gt;持久性&lt;/strong&gt;：由 &lt;strong&gt;redo log&lt;/strong&gt;（重做日志）保证。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;隔离性&lt;/strong&gt;：由 &lt;strong&gt;锁机制&lt;/strong&gt; + &lt;strong&gt;MVCC&lt;/strong&gt;（多版本并发控制）保证。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;一致性&lt;/strong&gt;：由原子性、持久性、隔离性共同支撑，外加数据库逻辑约束。&lt;/li&gt;
-&lt;/ul&gt;</description></item><item><title>函数</title><link>/post/%E5%87%BD%E6%95%B0/</link><pubDate>Sun, 29 Mar 2026 00:00:00 +0000</pubDate><guid>/post/%E5%87%BD%E6%95%B0/</guid><description>&lt;blockquote&gt;
+&lt;/ul&gt;</description></item><item><title>函数</title><link>https://creat.asia/post/%E5%87%BD%E6%95%B0/</link><pubDate>Sun, 29 Mar 2026 00:00:00 +0000</pubDate><guid>https://creat.asia/post/%E5%87%BD%E6%95%B0/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;本文更新于 2026-03-29&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id="字符串函数"&gt;字符串函数
@@ -3616,7 +3616,7 @@ B+树：数据仅在叶子节点中。适合范围扫描和大规模排序（MyS
 					&lt;td&gt;&lt;code&gt;SELECT ABS(-5);&lt;/code&gt; → &lt;code&gt;5&lt;/code&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 	&lt;/tbody&gt;
-&lt;/table&gt;</description></item><item><title>SQL</title><link>/post/sql%E5%9F%BA%E7%A1%80/</link><pubDate>Sat, 28 Mar 2026 00:00:00 +0000</pubDate><guid>/post/sql%E5%9F%BA%E7%A1%80/</guid><description>&lt;blockquote&gt;
+&lt;/table&gt;</description></item><item><title>SQL</title><link>https://creat.asia/post/sql%E5%9F%BA%E7%A1%80/</link><pubDate>Sat, 28 Mar 2026 00:00:00 +0000</pubDate><guid>https://creat.asia/post/sql%E5%9F%BA%E7%A1%80/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;本文更新于 2026-03-28&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id="基础书写规则"&gt;基础书写规则
