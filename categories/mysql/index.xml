@@ -58,7 +58,7 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;img src="InnoDB%e5%bc%95%e6%93%8e-3.png"
+&lt;li&gt;&lt;img src="https://creat.asia/post/image/InnoDB%e5%bc%95%e6%93%8e-3.png"
  loading="lazy"
  data-pending-gallery
  
@@ -69,7 +69,7 @@
 &lt;p&gt;&lt;strong&gt;Change Buffer (写缓冲区)&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;针对&lt;strong&gt;非唯一辅助索引&lt;/strong&gt;的优化。当插入或更新辅助索引且该页不在缓冲池时，先记录在 Change Buffer 中，等未来读取该页时再进行合并。&lt;/li&gt;
-&lt;li&gt;&lt;img src="InnoDB%e5%bc%95%e6%93%8e-4.png"
+&lt;li&gt;&lt;img src="https://creat.asia/post/image/InnoDB%e5%bc%95%e6%93%8e-4.png"
  loading="lazy"
  data-pending-gallery
  
@@ -80,7 +80,7 @@
 &lt;p&gt;&lt;strong&gt;Adaptive Hash Index (自适应哈希索引)&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;InnoDB 会监控表上的索引查询，如果观察到某些索引值被频繁访问，会自动建立哈希索引以加速查询（将 B+ 树查询变为 O(1) 查找）&lt;/li&gt;
-&lt;li&gt;&lt;img src="InnoDB%e5%bc%95%e6%93%8e-5.png"
+&lt;li&gt;&lt;img src="https://creat.asia/post/image/InnoDB%e5%bc%95%e6%93%8e-5.png"
  loading="lazy"
  data-pending-gallery
  
@@ -94,7 +94,7 @@
 &lt;/ul&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;意义：&lt;/strong&gt; 即使内存里的数据还没来得及写回磁盘就断电了，重启后也能通过磁盘上的 Redo Log 把数据恢复回来。&lt;/li&gt;
-&lt;li&gt;&lt;img src="InnoDB%e5%bc%95%e6%93%8e-6.png"
+&lt;li&gt;&lt;img src="https://creat.asia/post/image/InnoDB%e5%bc%95%e6%93%8e-6.png"
  loading="lazy"
  data-pending-gallery
  
@@ -111,13 +111,13 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;System Tablespace (系统表空间)&lt;/strong&gt;：存储 InnoDB 数据字典、双写缓冲区等。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;File-Per-Table Tablespaces (独立表空间)&lt;/strong&gt;：每个表对应一个 &lt;code&gt;.ibd&lt;/code&gt; 文件，存储该表的数据和索引&lt;/li&gt;
-&lt;li&gt;&lt;img src="InnoDB%e5%bc%95%e6%93%8e-7.png"
+&lt;li&gt;&lt;img src="https://creat.asia/post/image/InnoDB%e5%bc%95%e6%93%8e-7.png"
  loading="lazy"
  data-pending-gallery
  
  &gt;&lt;/li&gt;
 &lt;li&gt;创建表空间&amp;amp;撤销表空间&amp;amp;临时表空间&lt;/li&gt;
-&lt;li&gt;&lt;img src="InnoDB%e5%bc%95%e6%93%8e-8.png"
+&lt;li&gt;&lt;img src="https://creat.asia/post/image/InnoDB%e5%bc%95%e6%93%8e-8.png"
  loading="lazy"
  data-pending-gallery
  
@@ -140,7 +140,7 @@
 &lt;p&gt;&lt;strong&gt;Undo Logs (回滚日志)&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;逻辑日志，记录事务变更前的样子。用于&lt;strong&gt;事务回滚&lt;/strong&gt;和 &lt;strong&gt;MVCC&lt;/strong&gt;（实现非阻塞读）。
-&lt;img src="InnoDB%e5%bc%95%e6%93%8e-9.png"
+&lt;img src="https://creat.asia/post/image/InnoDB%e5%bc%95%e6%93%8e-9.png"
  loading="lazy"
  data-pending-gallery
  
@@ -156,7 +156,7 @@
 &lt;li&gt;&lt;strong&gt;IO Thread&lt;/strong&gt;：主要负责 AIO（异步IO）请求的回调处理（分为 Read, Write, Log, Insert Buffer 线程）。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Purge Thread&lt;/strong&gt;：事务提交后，负责回收已经不再需要的 Undo Log 页。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Page Cleaner Thread&lt;/strong&gt;：专门负责脏页的刷新工作，减轻 Master Thread 的负担。
-&lt;img src="InnoDB%e5%bc%95%e6%93%8e-10.png"
+&lt;img src="https://creat.asia/post/image/InnoDB%e5%bc%95%e6%93%8e-10.png"
  loading="lazy"
  data-pending-gallery
  
@@ -189,7 +189,7 @@
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;Crash Recovery&lt;/strong&gt;：如果数据库宕机，虽然内存里的脏页丢了，但重启后系统会读取磁盘上的 Redo Log，把未落盘的修改“重做”一遍。
-&lt;img src="InnoDB%e5%bc%95%e6%93%8e-11.png"
+&lt;img src="https://creat.asia/post/image/InnoDB%e5%bc%95%e6%93%8e-11.png"
  loading="lazy"
  data-pending-gallery
  
@@ -212,7 +212,7 @@
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;结果&lt;/strong&gt;：如果事务执行失败或调用了 &lt;code&gt;ROLLBACK&lt;/code&gt;，系统会利用 Undo Log 中的逻辑记录将数据恢复到事务开始前的样子。
-&lt;img src="InnoDB%e5%bc%95%e6%93%8e-12.png"
+&lt;img src="https://creat.asia/post/image/InnoDB%e5%bc%95%e6%93%8e-12.png"
  loading="lazy"
  data-pending-gallery
  
@@ -338,7 +338,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;│&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;▼&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#960050;background-color:#1e0010"&gt;【&lt;/span&gt;链表结束&lt;span style="color:#960050;background-color:#1e0010"&gt;】&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src="InnoDB%e5%bc%95%e6%93%8e-13.png"
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src="https://creat.asia/post/image/InnoDB%e5%bc%95%e6%93%8e-13.png"
  loading="lazy"
  data-pending-gallery
  
@@ -385,7 +385,7 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;每次执行 SELECT 语句时&lt;/strong&gt; 都会重新生成一个新的 Read View。&lt;/li&gt;
 &lt;li&gt;&lt;em&gt;结果&lt;/em&gt;：可以看到其他事务期间提交的数据（不可重复读）。
-&lt;img src="InnoDB%e5%bc%95%e6%93%8e-14.png"
+&lt;img src="https://creat.asia/post/image/InnoDB%e5%bc%95%e6%93%8e-14.png"
  loading="lazy"
  data-pending-gallery
  
@@ -436,7 +436,7 @@
 &lt;li&gt;&lt;em&gt;结果&lt;/em&gt;：整个事务期间看到的数据始终一致（解决了不可重复读，并在很大程度上解决了幻读）。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;img src="InnoDB%e5%bc%95%e6%93%8e-16.png"
+&lt;li&gt;&lt;img src="https://creat.asia/post/image/InnoDB%e5%bc%95%e6%93%8e-16.png"
  loading="lazy"
  data-pending-gallery
  
@@ -475,7 +475,7 @@
 			&lt;/tr&gt;
 	&lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;&lt;img src="InnoDB%e5%bc%95%e6%93%8e-17.png"
+&lt;p&gt;&lt;img src="https://creat.asia/post/image/InnoDB%e5%bc%95%e6%93%8e-17.png"
  loading="lazy"
  data-pending-gallery
  
@@ -516,31 +516,31 @@
 &lt;/table&gt;
 &lt;h2 id="常用工具"&gt;常用工具
 &lt;/h2&gt;&lt;h3 id="mysql客户端工具"&gt;mysql客户端工具
-&lt;/h3&gt;&lt;p&gt;&lt;img src="InnoDB%e5%bc%95%e6%93%8e-18.png"
+&lt;/h3&gt;&lt;p&gt;&lt;img src="https://creat.asia/post/image/InnoDB%e5%bc%95%e6%93%8e-18.png"
  loading="lazy"
  data-pending-gallery
  
  &gt;&lt;/p&gt;
 &lt;h2 id="mysqlbinlog二进制日志查看工具"&gt;mysqlbinlog二进制日志查看工具
-&lt;/h2&gt;&lt;p&gt;&lt;img src="InnoDB%e5%bc%95%e6%93%8e-20.png"
+&lt;/h2&gt;&lt;p&gt;&lt;img src="https://creat.asia/post/image/InnoDB%e5%bc%95%e6%93%8e-20.png"
  loading="lazy"
  data-pending-gallery
  
  &gt;&lt;/p&gt;
 &lt;h2 id="mysqlshow查看数据库表字段的统计信息"&gt;mysqlshow查看数据库、表、字段的统计信息
-&lt;/h2&gt;&lt;p&gt;&lt;img src="InnoDB%e5%bc%95%e6%93%8e-21.png"
+&lt;/h2&gt;&lt;p&gt;&lt;img src="https://creat.asia/post/image/InnoDB%e5%bc%95%e6%93%8e-21.png"
  loading="lazy"
  data-pending-gallery
  
  &gt;&lt;/p&gt;
 &lt;h2 id="mysqldump数据备份工具"&gt;mysqldump数据备份工具
-&lt;/h2&gt;&lt;p&gt;&lt;img src="InnoDB%e5%bc%95%e6%93%8e-19.png"
+&lt;/h2&gt;&lt;p&gt;&lt;img src="https://creat.asia/post/image/InnoDB%e5%bc%95%e6%93%8e-19.png"
  loading="lazy"
  data-pending-gallery
  
  &gt;&lt;/p&gt;
 &lt;h2 id="mysqlimportsource数据导入工具"&gt;mysqlimport/source数据导入工具
-&lt;/h2&gt;&lt;p&gt;&lt;img src="InnoDB%e5%bc%95%e6%93%8e-22.png"
+&lt;/h2&gt;&lt;p&gt;&lt;img src="https://creat.asia/post/image/InnoDB%e5%bc%95%e6%93%8e-22.png"
  loading="lazy"
  data-pending-gallery
  
